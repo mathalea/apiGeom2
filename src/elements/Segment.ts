@@ -32,6 +32,7 @@ export class Segment extends Element2D {
     this.point1.subscribe(this)
     this.point2.subscribe(this)
     this.apiGeom.svg.appendChild(this.groupSvg)
+    this.draw()
     this.setColorAndThickness()
   }
 
