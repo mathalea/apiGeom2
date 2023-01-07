@@ -4,9 +4,9 @@ import { Element2D } from './Element2D'
 import { optionsPoint } from './interfaces'
 
 export class Point extends Element2D {
-  _x: number
-  _y: number
-  _style: 'x' | 'o' | ''
+  private _x: number
+  private _y: number
+  private _style: 'x' | 'o' | ''
   private _size: number
   readonly svgLine1: SVGLineElement
   readonly svgLine2: SVGLineElement
@@ -120,6 +120,10 @@ export class Point extends Element2D {
   moveTo (x: number, y: number): void {
     this.x = x
     this.y = y
+  }
+
+  distancePointer (pointerX: number, pointerY: number): number {
+    return Math.hypot(this._x - pointerX, this._y - pointerY)
   }
 
   toJSON (): object {

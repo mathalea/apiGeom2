@@ -1,17 +1,15 @@
-import { Element2D } from '../elements/Element2D'
 import { Point } from '../elements/Point'
-// import { Segment } from '../elements/Segment'
 import { ApiGeom } from '../ApiGeom'
 
-export function moveDrag (element: Element2D, apiGeom: ApiGeom, pointerX: number, pointerY: number): void {
-//   const body = document.querySelector('body')
-//   if (body !== null) body.style.cursor = 'move'
-//   if (element instanceof Segment) {
-//       element.notifyPointerDeltaMove(pointerX - apiGeom.startDragCoords.x, pointerY - apiGeom.startDragCoords.y)
-//       apiGeom.startDragCoords = { x: pointerX, y: pointerY }
-//     } else element.notifyPointerMove(pointerX, pointerY)
-    element.notifyPointerMove(pointerX, pointerY)
-  }
+export function moveDrag (element: Point, apiGeom: ApiGeom, pointerX: number, pointerY: number): void {
+  const body = document.querySelector('body')
+  if (body !== null) body.style.cursor = 'move'
+  // if (element instanceof Segment) {
+  // element.notifyPointerDeltaMove(pointerX - apiGeom.startDragCoords.x, pointerY - apiGeom.startDragCoords.y)
+  // apiGeom.startDragCoords = { x: pointerX, y: pointerY }
+  // } else
+  element.moveTo(apiGeom.sxTox(pointerX), apiGeom.syToy(pointerY))
+  // element.notifyPointerMove(pointerX, pointerY)
 }
 
 export function actionStartDrag (apiGeom: ApiGeom, pointerX: number, pointerY: number) {
@@ -47,5 +45,5 @@ export function stopDrag (apiGeom: ApiGeom) {
   apiGeom.isDraging = false
   apiGeom.setInDrag.clear()
   const body = document.querySelector('body')
-  if (body) body.style.cursor = 'default'
+  if (body != null) body.style.cursor = 'default'
 }

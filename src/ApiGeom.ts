@@ -2,6 +2,7 @@ import { Element2D } from './elements/Element2D'
 import { optionsElement2D, optionsPoint } from './elements/interfaces'
 import { Point } from './elements/Point'
 import { Segment } from './elements/Segment'
+import { getClickedElement } from './pointerActions/handlePointerAction'
 
 export class ApiGeom {
   elements: Map<string, Element2D>
@@ -10,6 +11,7 @@ export class ApiGeom {
   pixelsPerUnit: number
   isDynamic: boolean
   isDraging: boolean
+  pointInDrag: Point | undefined
   // startDragCoords: {x: number, y: number} // Pour déplacer des Line, on sauvegarde où a commencé le drag
   xMin: number
   xMax: number
@@ -105,18 +107,22 @@ export class ApiGeom {
 
   listenPointer (): void {
     // On créé des listenners et on change leur attitude suivant l'action en cours sauvegardée dans this.pointerAction
-    // this.svg.addEventListener('pointerdown', (event) => {
-    //   //handlePointerAction(this, event)
-    // })
+    this.svg.addEventListener('pointerdown', (event: PointerEvent) => {
+      const [pointerX, pointerY] = this.getPointerCoord(event)
+      const point = getClickedElement(this, pointerX, pointerY)
+      if (point !== undefined) this.pointInDrag = point
+      // handlePointerAction(this, event)
+    })
 
-    // this.svg.addEventListener('pointerup', (event) => {
-    //   if (this.pointerAction === 'drag' && this.isDraging) stopDrag(this)
-    // })
+    this.svg.addEventListener('pointerup', () => {
+      this.pointInDrag = undefined
+    })
 
-    // this.svg.addEventListener('pointermove', (event) => {
-    //   const [pointerX, pointerY] = this.getPointerCoord(event)
-    //   if (this.pointerAction === 'drag') moveDrag(this, pointerX, pointerY)
-    // })
+    this.svg.addEventListener('pointermove', (event) => {
+      if (this.pointInDrag === undefined) return
+      const [pointerX, pointerY] = this.getPointerCoord(event)
+      this.pointInDrag.moveTo(pointerX, pointerY)
+    })
   }
 
   get pointerAction (): string {
