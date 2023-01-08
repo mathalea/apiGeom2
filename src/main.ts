@@ -19,10 +19,10 @@ btnForward?.addEventListener('click', () => geo.goForward())
 
 // Création de la figure
 const A = geo.point(0, 0)
-const B = geo.point(5, 0)
-const C = geo.point(2, 6)
+const B = geo.point(5, 0, { name: 'B', style: 'o' })
+const C = geo.point(2, 6, { name: 'C', color: 'green', size: 0.3, thickness: 3 })
 const sAB = geo.segment(A, B)
-const sAC = geo.segment(A, C)
+const sAC = geo.segment(A, C, { color: 'blue', thickness: 3 })
 const sBC = geo.segment(B, C)
 
 // Sauvegarde de la figure et affichage de cette sauvegarde
