@@ -1,3 +1,4 @@
+import { defaultHistorySize } from './elements/defaultValues'
 import { Element2D } from './elements/Element2D'
 import { optionsElement2D, optionsPoint } from './elements/interfaces'
 import { Point } from './elements/Point'
@@ -7,7 +8,7 @@ import { getClickedElement } from './pointerActions/handlePointerAction'
 export class ApiGeom {
   elements: Map<string, Element2D>
   history: string[]
-  historyIndex: number
+  historyIndex: number // -1 correspond à la dernière sauvegarde
   width: number
   height: number
   pixelsPerUnit: number
@@ -30,7 +31,7 @@ export class ApiGeom {
   constructor ({ width = 600, height = 400, pixelsPerUnit = 30, xMin = -10, yMin = -6, isDynamic = true, dx = 1, dy = 1 }: { width?: number, height?: number, pixelsPerUnit?: number, xMin?: number, yMin?: number, isDynamic?: boolean, dx?: number, dy?: number } = {}) {
     this.elements = new Map()
     this.history = []
-    this.historyIndex = -1
+    this.historyIndex = -1 // dernier item de l'historique
     this.width = width
     this.height = height
     this.pixelsPerUnit = pixelsPerUnit
@@ -143,22 +144,19 @@ export class ApiGeom {
       divSave.textContent = save
     }
     this.history.push(save)
-    this.historyIndex++
-    console.log(this.historyIndex, this.history)
+    if (this.history.length > defaultHistorySize) this.history = this.history.slice(-defaultHistorySize)
   }
 
   goBack (): void {
-    if (this.historyIndex > 0) this.historyIndex--
+    if (-this.historyIndex < this.history.length) this.historyIndex--
     const previous = this.history.at(this.historyIndex)
     if (previous !== undefined) this.load(JSON.parse(previous))
-    console.log(this.historyIndex, this.history)
   }
 
   goForward (): void {
-    if (this.history.length > this.historyIndex + 1) this.historyIndex++
+    if (this.historyIndex < -1) this.historyIndex++
     const next = this.history.at(this.historyIndex)
     if (next !== undefined) this.load(JSON.parse(next))
-    console.log(this.historyIndex, this.history)
   }
 
   get latex (): string {
