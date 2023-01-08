@@ -13,9 +13,7 @@ export class ApiGeom {
   height: number
   pixelsPerUnit: number
   isDynamic: boolean
-  isDraging: boolean
   pointInDrag: Point | undefined
-  // startDragCoords: {x: number, y: number} // Pour déplacer des Line, on sauvegarde où a commencé le drag
   xMin: number
   xMax: number
   yMin: number
@@ -27,8 +25,6 @@ export class ApiGeom {
   pointerX: number | null
   pointerY: number | null
   private readonly _pointerAction: string
-  // pointerSetOptions: OptionsGraphiques & {angle?: number} & {rapport?: number}
-  // messageElement: TextByPosition | null
   constructor ({ width = 600, height = 400, pixelsPerUnit = 30, xMin = -10, yMin = -6, isDynamic = true, dx = 1, dy = 1 }: { width?: number, height?: number, pixelsPerUnit?: number, xMin?: number, yMin?: number, isDynamic?: boolean, dx?: number, dy?: number } = {}) {
     this.elements = new Map()
     this.history = []
@@ -44,7 +40,6 @@ export class ApiGeom {
     this.dy = dy
     this.isDynamic = isDynamic
     this._pointerAction = 'drag'
-    this.isDraging = false
     this.pointerX = null
     this.pointerY = null
 
