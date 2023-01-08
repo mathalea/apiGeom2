@@ -1,30 +1,63 @@
 import { defaultHistorySize } from './elements/defaultValues'
 import { Element2D } from './elements/Element2D'
-import { optionsElement2D, optionsPoint } from './elements/interfaces'
 import { Point } from './elements/Point'
 import { Segment } from './elements/Segment'
 import { getClickedElement } from './pointerActions/handlePointerAction'
 
+/**
+ * Créé un espace de travail dans lequel on peut
+ * générer des figures de géométrie statique ou dynamique
+ */
 export class ApiGeom {
+  /** La clé est par défaut api0, api1, api2... ou le nom de l'élément et la valeur est l'élément géométrique (segment, point, polygone...) */
   elements: Map<string, Element2D>
+  /** Un tableau des différentes sauvegardes automatiques utilisé pour les undo ou redo */
   history: string[]
+  /** Nombre négatif utilisé pour undo ou redo. Par défaut à -1 pour la dernière sauvegarde, -2 pour l'avant dernière... */
   historyIndex: number // -1 correspond à la dernière sauvegarde
+  /** Largeur en pixels du SVG */
   width: number
+  /** Hauteur en pixels du SVG */
   height: number
+  /** Nombre de pixels poun une unité (soit 1 cm en sortie papier) par défaut à 30 */
   pixelsPerUnit: number
+  /** Figure dynamique ou statique */
   isDynamic: boolean
+  /** Point actuellement en train d'être déplacé par la souris */
   pointInDrag: Point | undefined
+  /** Abscisse du coin en bas à gauche */
   xMin: number
+  /** Abscisse du coin en bas à droite */
   xMax: number
+  /** Ordonnée du coin en bas à gauche */
   yMin: number
+  /** Ordonnée du point en haut à droite */
   yMax: number
-  dx: number // Pour l'option snapGrid des points
-  dy: number // Pour l'option snapGrid des points
+  /** Si l'option snapGrid est active, cela détermine la distance horizontale entre deux lieux de dépot du point */
+  dx: number
+  /** Si l'option snapGrid est active, cela détermine la distance verticale entre deux lieux de dépot du point */
+  dy: number
+  /** SVG de la figure géométrique */
   svg: SVGElement
+  /** div dans lequel sera écrit la dernière sauvegarde automatique au format JSON */
   divSave: HTMLDivElement | null
+  /** Abscisse du pointeur dans le repère de la figure */
   pointerX: number | null
+  /** Ordonnée du pointeur dans le repère de la figure */
   pointerY: number | null
+  /** Action du pointeur (par défaut drag) */
   private readonly _pointerAction: string
+
+  /**
+   * @param __namedParameters width - Largeur en pixels du SVG
+   * @param __namedParameters height - Hauteur en pixels du SVG
+   * @param pixelsPerUnit - Nombres de pixels pour une unité de la figure, par défaut 30 pixels (l'unité sera le cm en sortie LaTeX)
+   * @param xMin - Abscisse du coin en bas à gauche
+   * @param yMin - Ordonnée du coin en bas à gauche
+   * @param isDynamic - Figure dynamique ou statique
+   * @param dx - Si l'option snapGrid est activée, cela correspond à la distance horizontale du quadrillage sur lequel les points peuvent être déposés
+   * @param dy - Si l'option snapGrid est activée, cela correspond à la distance verticale du quadrillage sur lequel les points peuvent être déposés
+   */
   constructor ({ width = 600, height = 400, pixelsPerUnit = 30, xMin = -10, yMin = -6, isDynamic = true, dx = 1, dy = 1 }: { width?: number, height?: number, pixelsPerUnit?: number, xMin?: number, yMin?: number, isDynamic?: boolean, dx?: number, dy?: number } = {}) {
     this.elements = new Map()
     this.history = []
@@ -58,47 +91,27 @@ export class ApiGeom {
     if (this.isDynamic) this.listenPointer()
   }
 
-  /**
-       * abscisse de nos coordonnées => abscisse du SVG
-       * @param x number
-       * @returns number
-       */
+  /** Abscisse dans nos coordonnées converti en abscisse du SVG */
   xToSx (x: number): number {
     return x * this.pixelsPerUnit
   }
 
-  /**
-       * ordonnée de nos coordonnées => ordonnée du SVG
-       * @param y number
-       * @returns number
-       */
+  /** Abscisse dans nos coordonnées converti en abscisse du SVG */
   yToSy (y: number): number {
     return -y * this.pixelsPerUnit
   }
 
-  /**
-       * abscisse du SVG => abscisse de nos coordonnées
-       * @param x number
-       * @returns number
-       */
+  /** Abscisse du SVG converti dans nos coordonnées */
   sxTox (x: number): number {
     return x / this.pixelsPerUnit
   }
 
-  /**
-       * ordonnée du SVG => ordonnée de nos coordonnées
-       * @param y number
-       * @returns number
-       */
+  /** Abscisse du SVG converti dans nos coordonnées */
   syToy (y: number): number {
     return -y * this.pixelsPerUnit
   }
 
-  /**
-       * Récupère les coordonnées du pointeur dans le repère de la apiGeom
-       * @param event
-       * @returns
-       */
+  /** Récupère les coordonnées du pointeur dans le repère de la apiGeom */
   getPointerCoord (event: PointerEvent): [number, number] {
     event.preventDefault()
     const rect = this.svg.getBoundingClientRect()
@@ -107,6 +120,7 @@ export class ApiGeom {
     return [pointerX, pointerY]
   }
 
+  /** Démarre les listenners sur la figure lorsqu'elle est dynamique */
   listenPointer (): void {
     // On créé des listenners et on change leur attitude suivant l'action en cours sauvegardée dans this.pointerAction
     this.svg.addEventListener('pointerdown', (event: PointerEvent) => {
@@ -134,6 +148,7 @@ export class ApiGeom {
     return this._pointerAction
   }
 
+  /** Sauvegarde la figure, met à jour l'historique et l'inscrit dans le div this.divSave */
   refreshSave (): void {
     const save = this.json
     if (this.divSave !== null) {
@@ -143,18 +158,21 @@ export class ApiGeom {
     if (this.history.length > defaultHistorySize) this.history = this.history.slice(-defaultHistorySize)
   }
 
+  /** Charge la figure stockée dans l'avant-dernière étape de l'historique */
   goBack (): void {
     if (-this.historyIndex < this.history.length) this.historyIndex--
     const previous = this.history.at(this.historyIndex)
     if (previous !== undefined) this.load(JSON.parse(previous))
   }
 
+  /** Reharge la figure stockée un rang plus haut dans l'historique   */
   goForward (): void {
     if (this.historyIndex < -1) this.historyIndex++
     const next = this.history.at(this.historyIndex)
     if (next !== undefined) this.load(JSON.parse(next))
   }
 
+  /** Génère le code LaTeX de la figure */
   get latex (): string {
     let latex = '\\begin{tikzpicture}'
     latex += `\n\t\\clip(${this.xMin}, ${this.yMin}) rectangle (${this.xMax}, ${this.yMax});`
@@ -168,11 +186,13 @@ export class ApiGeom {
     return latex
   }
 
+  /** Génère le code JSON de la figure qui permettra de la recharger */
   get json (): string {
     // Le JSON est personnalisé avec la méthode toJSON() des éléments
     return JSON.stringify(Object.fromEntries(this.elements), null, 2)
   }
 
+  /** Efface la figure actuelle et charge une nouvelle figure à partir du code généré par this.json  */
   load (json: object): Element2D[] {
     this.elements.clear()
     this.svg.innerHTML = ''
@@ -191,11 +211,13 @@ export class ApiGeom {
     return elements
   }
 
-  point (x: number, y: number, options?: optionsPoint): Point {
-    return new Point(this, x, y, options)
+  /** Crée un point de coordonnées (x, y) */
+  point (x: number, y: number, { name, color, thickness, style, size }: { name?: string, color?: string, thickness?: number, style?: 'x' | 'o' | '', size?: number } = {}): Point {
+    return new Point(this, x, y, { name, color, thickness, style, size })
   }
 
-  segment (point1: string | Point, point2: string | Point, options?: optionsElement2D): Segment {
-    return new Segment(this, point1, point2, options)
+  /** Trace un segment qui a pour extrémités deux points (donnés par leur nom ou par la variable qui pointe vers ces points) */
+  segment (point1: string | Point, point2: string | Point, { name, color, thickness }: { name?: string, color?: string, thickness?: number } = {}): Segment {
+    return new Segment(this, point1, point2, { name, color, thickness })
   }
 }

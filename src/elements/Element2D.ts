@@ -2,13 +2,20 @@ import { ApiGeom } from '../ApiGeom'
 import { optionsElement2D } from './interfaces'
 
 export class Element2D {
+  /** Espace de travail dans lequel l'élément sera représenté */
   apiGeom: ApiGeom
-  type: string
+  /** Type d'objet mathématique */
+  type: '' | 'Point' | 'Segment'
+  /** Nom de l'objet, qui servira pour les constructions et pour le label */
   name: string
+  /** Groupe SVG dans lequel sera déssiné l'élément */
   groupSvg: SVGElement
+  /** Couleur de l'élément au format HTML */
   protected _color: string
+  /** Épaisseur du tracé de l'élément */
   protected _thickness: number
-  observers: Element2D[] // Liste des enfants à prévenir à chaque fois que l'on ai modifié
+  /** Liste des enfants à notifier à chaque fois que l'élément est déplacé */
+  observers: Element2D[]
   constructor (apiGeom: ApiGeom, options?: optionsElement2D) {
     this.apiGeom = apiGeom
     if (options === undefined || options?.name === undefined) {
@@ -27,24 +34,31 @@ export class Element2D {
     this.observers = []
   }
 
-  // S'abonner aux modifications des éléments parents
+  /** S'abonner aux modifications des éléments parents
+  * Par exemple le segment s'abonnera aux modifications de ses deux extrémités
+  */
   subscribe (element: Element2D): void {
     this.observers.push(element)
   }
 
+  /**
+   * Annuler l'abonnement
+   */
   unsubscribe (element: Element2D): void {
     this.observers = this.observers.filter(observer => observer !== element)
   }
 
-  // Prévenir les enfants qu'ils doivent se mettre à jour
+  /** Prévenir les enfants qu'ils doivent se mettre à jour */
   notify (): void {
     for (const element of this.observers) {
       element.draw()
     }
   }
 
+  /** Créé ou met à jour le groupe SVG de l'élément */
   draw (): void {}
 
+  /** Personnalise la sortie JSON de l'élément pour la sauvegarde */
   toJSON (): object {
     return {
       type: this.type,
@@ -54,14 +68,17 @@ export class Element2D {
     }
   }
 
+  /** Génère le code LaTeX de l'élément */
   latex (): string {
     return ''
   }
 
+  /** Couleur au format HTML */
   get color (): string {
     return this._color
   }
 
+  /** Change la couleur des tracés de l'élément */
   set color (color: string) {
     this._color = color
     if (this.groupSvg.children.length > 0) {
@@ -73,10 +90,12 @@ export class Element2D {
     }
   }
 
+  /** Épaisseur des tracés */
   get thickness (): number {
     return this._thickness
   }
 
+  /** Change l'épaisseur des tracés */
   set thickness (thickness: number) {
     this._thickness = thickness
     if (this.groupSvg.children.length > 0) {
@@ -88,6 +107,7 @@ export class Element2D {
     }
   }
 
+  /** Modifie la couleur et l'épaisseur de l'élément */
   setColorAndThickness (): void {
     this.color = this._color
     this.thickness = this._thickness

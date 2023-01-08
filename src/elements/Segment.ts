@@ -4,11 +4,16 @@ import { optionsElement2D } from './interfaces'
 import { Point } from './Point'
 
 export class Segment extends Element2D {
+  /** Nom de la première extrémité */
   namePoint1: string
+  /** Nom de la deuxième extrémité */
   namePoint2: string
+  /** Pointeur vers la première extrémité */
   point1: Point
+  /** Pointeur vers la deuxième extrémité */
   point2: Point
-  style?: string
+  /** Détermine s'il faut afficher les deux extrémités, que celle de gauche ou que celle de droite */
+  style?: '' | '|-|' | '|-' | '|-'
   constructor (apiGeom: ApiGeom, point1: string | Point, point2: string | Point, options?: optionsElement2D) {
     super(apiGeom, options)
     this.type = 'Segment'

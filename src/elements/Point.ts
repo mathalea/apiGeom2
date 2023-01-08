@@ -6,10 +6,15 @@ import { optionsPoint } from './interfaces'
 export class Point extends Element2D {
   private _x: number
   private _y: number
+  /** Croix, rond ou rien */
   private _style: 'x' | 'o' | ''
+  /** Taille du point, correspond à ce qui est ajouté dans les 4 directions pour faire la croix ou au rayon du rond */
   private _size: number
+  /** Elément SVG pour le premier trait de la croix */
   readonly svgLine1: SVGLineElement
+  /** Elément SVG pour le deuxième trait de la croix */
   readonly svgLine2: SVGLineElement
+  /** Elément SVG pour rond */
   readonly svgCircle: SVGCircleElement
   constructor (apiGeom: ApiGeom, x: number, y: number, options?: optionsPoint) {
     super(apiGeom, options)
@@ -117,11 +122,13 @@ export class Point extends Element2D {
     this.draw()
   }
 
+  /** Déplace le point */
   moveTo (x: number, y: number): void {
     this.x = x
     this.y = y
   }
 
+  /** Distance entre un point et le pointeur de la souris exprimée dans les unités du repère */
   distancePointer (pointerX: number, pointerY: number): number {
     return Math.hypot(this._x - pointerX, this._y - pointerY)
   }
