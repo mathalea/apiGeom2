@@ -23,6 +23,7 @@ export class ApiGeom {
   dx: number // Pour l'option snapGrid des points
   dy: number // Pour l'option snapGrid des points
   svg: SVGElement
+  divSave: HTMLDivElement | null
   pointerX: number | null
   pointerY: number | null
   private readonly _pointerAction: string
@@ -48,6 +49,7 @@ export class ApiGeom {
     this.pointerY = null
 
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+    this.divSave = null
     this.svg.style.width = `${this.width}px`
     this.svg.style.height = `${this.height}px`
     this.svg.setAttribute('viewBox', `${this.xToSx(this.xMin)} ${this.yToSy(this.yMax)} ${this.width} ${this.height}`)
@@ -138,10 +140,9 @@ export class ApiGeom {
   }
 
   refreshSave (): void {
-    const divSave = document.querySelector('#save')
     const save = this.json
-    if (divSave !== null) {
-      divSave.textContent = save
+    if (this.divSave !== null) {
+      this.divSave.textContent = save
     }
     this.history.push(save)
     if (this.history.length > defaultHistorySize) this.history = this.history.slice(-defaultHistorySize)
