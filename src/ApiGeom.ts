@@ -6,6 +6,8 @@ import { getClickedElement } from './pointerActions/handlePointerAction'
 
 export class ApiGeom {
   elements: Map<string, Element2D>
+  history: string[]
+  historyIndex: number
   width: number
   height: number
   pixelsPerUnit: number
@@ -27,6 +29,8 @@ export class ApiGeom {
   // messageElement: TextByPosition | null
   constructor ({ width = 600, height = 400, pixelsPerUnit = 30, xMin = -10, yMin = -6, isDynamic = true, dx = 1, dy = 1 }: { width?: number, height?: number, pixelsPerUnit?: number, xMin?: number, yMin?: number, isDynamic?: boolean, dx?: number, dy?: number } = {}) {
     this.elements = new Map()
+    this.history = []
+    this.historyIndex = -1
     this.width = width
     this.height = height
     this.pixelsPerUnit = pixelsPerUnit
@@ -115,7 +119,10 @@ export class ApiGeom {
     })
 
     this.svg.addEventListener('pointerup', () => {
-      this.pointInDrag = undefined
+      if (this.pointInDrag !== undefined) {
+        this.pointInDrag = undefined
+        this.refreshSave()
+      }
     })
 
     this.svg.addEventListener('pointermove', (event) => {
@@ -129,57 +136,30 @@ export class ApiGeom {
     return this._pointerAction
   }
 
-  // set pointerAction (action) {
-  //   this._pointerAction = action
-  //   this.clearSelectedElements()
-  //   initMessageAction(this, action)
-  //   if (action === 'pointByCoords') newPointByCoords(this) // Cette action ne doit pas attendre un clic sur la apiGeom
-  //   else if (action === 'save') {
-  //     console.log(this.set)
-  //     for (const e of [...this.setMeasures, ...this.set]) {
-  //       e.save()
-  //     }
-  //     const saveTxt = JSON.stringify(this.save)
-  //     updateClipboard(saveTxt)
-  //     function updateClipboard (newClip: string) {
-  //       navigator.clipboard.writeText(newClip).then(function () {
-  //         alert('Figure sauvegardée dans le presse-papier')
-  //       }, function () {
-  //         alert(saveTxt)
-  //       })
-  //     }
-  //   } else if (action === 'latex') alert(this.latex)
-  //   this.updateStyleCursor()
-  // }
+  refreshSave (): void {
+    const divSave = document.querySelector('#save')
+    const save = this.json
+    if (divSave !== null) {
+      divSave.textContent = save
+    }
+    this.history.push(save)
+    this.historyIndex++
+    console.log(this.historyIndex, this.history)
+  }
 
-  // updateStyleCursor () {
-  //   const action = this.pointerAction
-  //   for (const e of this.set) {
-  //     if (action === 'drag' && e instanceof Cross && e.draggable) e.g.style.cursor = 'move'
-  //     else if (action === 'drag' && e instanceof Cross && !e.draggable) e.g.style.cursor = 'default'
-  //     else if (action === 'drag' && e instanceof Line && e.A.draggable && e.B.draggable) e.g.style.cursor = 'move'
-  //     // ToFix Si un polygone est par-dessus le segment alors le pointeur ne change pas pour le drag de segment
-  //     else e.g.style.cursor = 'pointer'
-  //   }
-  // }
+  goBack (): void {
+    if (this.historyIndex > 0) this.historyIndex--
+    const previous = this.history.at(this.historyIndex)
+    if (previous !== undefined) this.load(JSON.parse(previous))
+    console.log(this.historyIndex, this.history)
+  }
 
-  // clearSelectedElements () {
-  //   for (const e of this.selectedElements) {
-  //     e.unSelect()
-  //   }
-  // }
-
-  // displayMessage (text: string, { dx = 1, dy = 1 }: {dx?: number, dy?: number} = {}) {
-  //   if (this.messageElement) {
-  //     this.messageElement.text = text
-  //     this.messageElement.x = this.xMin + dx
-  //     this.messageElement.y = this.yMax - dy
-  //   } else {
-  //     const message = new TextByPosition(this, this.xMin + dx, this.yMax - dy, text, { anchor: 'start', draggable: false, color: 'gray' })
-  //     this.messageElement = message
-  //     this.set.delete(this.messageElement) // Pour l'exclure de la sortie LaTeX et du drag
-  //   }
-  // }
+  goForward (): void {
+    if (this.history.length > this.historyIndex + 1) this.historyIndex++
+    const next = this.history.at(this.historyIndex)
+    if (next !== undefined) this.load(JSON.parse(next))
+    console.log(this.historyIndex, this.history)
+  }
 
   get latex (): string {
     let latex = '\\begin{tikzpicture}'
@@ -196,10 +176,12 @@ export class ApiGeom {
 
   get json (): string {
     // Le JSON est personnalisé avec la méthode toJSON() des éléments
-    return JSON.stringify(Object.fromEntries(this.elements), null, 1)
+    return JSON.stringify(Object.fromEntries(this.elements), null, 2)
   }
 
   load (json: object): Element2D[] {
+    this.elements.clear()
+    this.svg.innerHTML = ''
     const elements = []
     for (const options of Object.values(json)) {
       if (options.type === 'Point') {
@@ -209,6 +191,9 @@ export class ApiGeom {
         elements.push(new Segment(this, options.namePoint1, options.namePoint2, options))
       }
     }
+    // Pour la navigation dans l'historique on ne sauvegarde que le premier chargement
+    // les autres chargements proviennent de goBack() ou de goForward()
+    if (this.history.length === 0) this.history.push(this.json)
     return elements
   }
 
