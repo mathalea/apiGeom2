@@ -1,42 +1,12 @@
 import { ApiGeom } from '../../ApiGeom'
-import { Element2D } from '../Element2D'
 import { optionsElement2D } from '../interfaces'
 import { Point } from '../Points/Point'
+import { Segment } from './Segment'
 
-export class Line extends Element2D {
-  /** id de la première extrémité */
-  idPoint1: string
-  /** id de la deuxième extrémité */
-  idPoint2: string
-  /** Pointeur vers la première extrémité */
-  point1: Point
-  /** Pointeur vers la deuxième extrémité */
-  point2: Point
+export class Line extends Segment {
   constructor (apiGeom: ApiGeom, point1: string | Point, point2: string | Point, options?: optionsElement2D) {
-    super(apiGeom, options)
+    super(apiGeom, point1, point2, options)
     this.type = 'Line'
-    if (typeof point1 === 'string') {
-      this.idPoint1 = point1
-      if (this.apiGeom.elements.has(this.idPoint1)) this.point1 = this.apiGeom.elements.get(this.idPoint1) as Point
-      else throw new Error(`Point '${this.idPoint1}' does not exist`)
-    } else {
-      this.point1 = point1
-      this.idPoint1 = point1.id
-    }
-    if (typeof point2 === 'string') {
-      this.idPoint2 = point2
-      if (this.apiGeom.elements.has(this.idPoint2)) this.point2 = this.apiGeom.elements.get(this.idPoint2) as Point
-      else throw new Error(`Point '${this.idPoint2}' does not exist`)
-    } else {
-      this.point2 = point2
-      this.idPoint2 = point2.id
-    }
-    this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'line')
-    this.point1.subscribe(this)
-    this.point2.subscribe(this)
-    this.apiGeom.svg.appendChild(this.groupSvg)
-    this.draw()
-    this.setColorAndThickness()
   }
 
   draw (): void {
@@ -45,14 +15,6 @@ export class Line extends Element2D {
     this.groupSvg.setAttribute('y1', `${this.apiGeom.yToSy(y1Svg)}`)
     this.groupSvg.setAttribute('x2', `${this.apiGeom.xToSx(x2Svg)}`)
     this.groupSvg.setAttribute('y2', `${this.apiGeom.yToSy(y2Svg)}`)
-  }
-
-  toJSON (): object {
-    return {
-      idPoint1: this.idPoint1,
-      idPoint2: this.idPoint2,
-      ...super.toJSON()
-    }
   }
 }
 

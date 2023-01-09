@@ -87,11 +87,15 @@ export class ApiGeom {
     this.svg.setAttribute('viewBox', `${this.xToSx(this.xMin)} ${this.yToSy(this.yMax)} ${this.width} ${this.height}`)
     // Pour éviter le scroll quand on manipule la apiGeom sur un écran tactile
     this.svg.style.touchAction = 'none'
+    this.clearHtml()
+  }
+
+  clearHtml (): void {
+    this.svg.innerHTML = ''
     const style = document.createElementNS('http://www.w3.org/2000/svg', 'style')
     this.svg.appendChild(style)
     style.type = 'text/css'
     style.innerHTML = '.onlyOver:hover { opacity: 1; }'
-
     if (this.isDynamic) this.listenPointer()
   }
 
@@ -210,7 +214,7 @@ export class ApiGeom {
   }
 
   /** Efface la figure actuelle et charge une nouvelle figure à partir du code généré par this.json  */
-  loadJson (json: object): Element2D[] {
-    return loadJson(this, json)
+  loadJson (json: object, eraseHistory?: boolean): Element2D[] {
+    return loadJson(this, json, eraseHistory)
   }
 }

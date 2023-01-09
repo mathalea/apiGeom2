@@ -1,14 +1,22 @@
 import { ApiGeom } from '../ApiGeom'
 import { Element2D } from '../elements/Element2D'
+import { Circle } from '../elements/Lines/Circle'
 import { Line } from '../elements/Lines/Line'
+import { Ray } from '../elements/Lines/Ray'
 import { Segment } from '../elements/Lines/Segment'
 import { Point } from '../elements/Points/Point'
 import { TextByPoint } from '../elements/Text/TextByPoint'
 import { TextByPosition } from '../elements/Text/TextByPosition'
 
-export function loadJson (apiGeom: ApiGeom, json: object): Element2D[] {
+export function loadJson (apiGeom: ApiGeom, json: object, eraseHistory = false): Element2D[] {
+  if (eraseHistory) {
+    apiGeom.history = []
+    apiGeom.historyIndex = -1
+  }
   apiGeom.elements.clear()
-  apiGeom.svg.innerHTML = ''
+  if (apiGeom.div !== null) apiGeom.div.innerHTML = ''
+  apiGeom.clearHtml()
+  apiGeom.div?.appendChild(apiGeom.svg)
   const elements = []
   for (const options of Object.values(json)) {
     if (options.type === 'Point') {
@@ -19,6 +27,12 @@ export function loadJson (apiGeom: ApiGeom, json: object): Element2D[] {
     }
     if (options.type === 'Line') {
       elements.push(new Line(apiGeom, options.idPoint1, options.idPoint2, options))
+    }
+    if (options.type === 'Ray') {
+      elements.push(new Ray(apiGeom, options.idPoint1, options.idPoint2, options))
+    }
+    if (options.type === 'Circle') {
+      elements.push(new Circle(apiGeom, options.idCenter, options.radius, options))
     }
     if (options.type === 'TextByPosition') {
       elements.push(new TextByPosition(apiGeom, options.x, options.y, options.text, options))
