@@ -5,6 +5,7 @@ import { Line } from '../elements/Lines/Line'
 import { Ray } from '../elements/Lines/Ray'
 import { Segment } from '../elements/Lines/Segment'
 import { Point } from '../elements/Points/Point'
+import { DisplayDistance } from '../elements/Text/DisplayDistance'
 import { TextByPoint } from '../elements/Text/TextByPoint'
 import { TextByPosition } from '../elements/Text/TextByPosition'
 
@@ -39,6 +40,9 @@ export function loadJson (apiGeom: ApiGeom, json: object, eraseHistory = false):
     }
     if (options.type === 'TextByPoint') {
       elements.push(new TextByPoint(apiGeom, options.point, options.text, options))
+    }
+    if (options.type === 'DisplayDistance') {
+      elements.push(new DisplayDistance(apiGeom, options.x, options.y, options.point1, options.point2, options))
     }
   }
   // Pour la navigation dans l'historique on ne sauvegarde que le premier chargement

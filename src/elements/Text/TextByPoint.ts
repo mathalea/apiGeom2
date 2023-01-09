@@ -25,11 +25,11 @@ export class TextByPoint extends TextByPosition {
       this.point = point
       this.idPoint = point.id
     }
-    this.draw()
+    this.update()
     this.point.subscribe(this)
   }
 
-  draw (): void {
+  update (): void {
     if (this.point !== undefined) this.moveTo(this.point?.x + this.dx, this.point.y + this.dy)
   }
 

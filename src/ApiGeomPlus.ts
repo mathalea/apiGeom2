@@ -49,8 +49,8 @@ export class ApiGeomPlus extends ApiGeom {
   }
 
   /** Trace le cercle à partir de son centre et de son rayon */
-  circle (center: string | Point, radius: number, { id, color, fillColor, thickness }: { id?: string, color?: string, fillColor?: string | 'none', thickness?: number } = {}): Circle {
-    return new Circle(this, center, radius, { id, color, fillColor, thickness })
+  circle (center: string | Point, radius: number, { id, color, fillColor, fillOpacity, thickness }: { id?: string, color?: string, fillColor?: string | 'none', fillOpacity?: number, thickness?: number } = {}): Circle {
+    return new Circle(this, center, radius, { id, color, fillColor, fillOpacity, thickness })
   }
 
   /** Créé un texte aux coordonnées (x, y) avec rendu LaTeX par défaut */

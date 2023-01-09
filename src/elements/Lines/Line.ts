@@ -9,7 +9,7 @@ export class Line extends Segment {
     this.type = 'Line'
   }
 
-  draw (): void {
+  update (): void {
     const [x1Svg, y1Svg, x2Svg, y2Svg] = getCoordsOut(this.point1, this.point2)
     this.groupSvg.setAttribute('x1', `${this.apiGeom.xToSx(x1Svg)}`)
     this.groupSvg.setAttribute('y1', `${this.apiGeom.yToSy(y1Svg)}`)

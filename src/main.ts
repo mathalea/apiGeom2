@@ -1,4 +1,5 @@
 import { ApiGeomPlus } from './ApiGeomPlus'
+import { DisplayDistance } from './elements/Text/DisplayDistance'
 
 // Créé un espace de travail pour une figure géométrique
 const geo = new ApiGeomPlus()
@@ -35,7 +36,7 @@ btnLoad?.addEventListener('click', () => {
 
 // Création de la figure
 const A = geo.point(3, 0)
-const c2 = geo.circle(A, 4, { fillColor: 'blue ' })
+const c2 = geo.circle(A, 4, { fillColor: 'blue ', fillOpacity: 0.2 })
 const B = geo.point(6, 0, { name: 'B', style: 'o' })
 const C = geo.point(4, 6, { name: 'C', color: 'green', size: 0.3, thickness: 3 })
 const c = geo.circle(B, 3, { color: 'red', thickness: 4 })
@@ -44,6 +45,7 @@ B.name = 'B_1'
 const sAB = geo.line(A, B, { color: 'blue' })
 const sAC = geo.ray(A, C)
 const sBC = geo.segment(B, C)
+const dis = new DisplayDistance(geo, 0, -2, A, B)
 
 sAB.thickness = 3
 
@@ -52,4 +54,4 @@ geo.refreshSave()
 
 // Pour éviter les alertes unused vars...
 const doNothing = (a: object): object => { return a }
-doNothing({ sAB, sAC, sBC, c, c2 })
+doNothing({ sAB, sAC, sBC, c, c2, dis })

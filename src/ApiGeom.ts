@@ -4,6 +4,7 @@ import { Point } from './elements/Points/Point'
 import { getClickedElement } from './pointerActions/handlePointerAction'
 import { loadJson } from './actions/loadJson'
 import 'katex/dist/katex.min.css'
+import { DynamicNumber } from './dynamicNumbers/DynamicNumber'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -11,7 +12,7 @@ import 'katex/dist/katex.min.css'
  */
 export class ApiGeom {
   /** La clé est par défaut api0, api1, api2... ou le nom de l'élément et la valeur est l'élément géométrique (segment, point, polygone...) */
-  elements: Map<string, Element2D>
+  elements: Map<string, (Element2D | DynamicNumber)>
   /** Un tableau des différentes sauvegardes automatiques utilisé pour les undo ou redo */
   history: string[]
   /** Nombre négatif utilisé pour undo ou redo. Par défaut à -1 pour la dernière sauvegarde, -2 pour l'avant dernière... */

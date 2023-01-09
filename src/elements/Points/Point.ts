@@ -36,12 +36,12 @@ export class Point extends Element2D {
     this.apiGeom.svg.appendChild(this.groupSvg)
     this._x = x
     this._y = y
-    this.draw()
+    this.update()
     this.setColorAndThickness()
     if (options?.name !== undefined) this.name = options.name
   }
 
-  draw (): void {
+  update (): void {
     this.notify()
     if (this._style === 'x') {
       const x1Svg = this.apiGeom.xToSx(this._x - this._size)
@@ -86,7 +86,7 @@ export class Point extends Element2D {
 
   set style (style) {
     this._style = style
-    this.draw()
+    this.update()
   }
 
   get size (): number {
@@ -95,7 +95,7 @@ export class Point extends Element2D {
 
   set size (size) {
     this._size = size
-    this.draw()
+    this.update()
   }
 
   get color (): string {
@@ -116,7 +116,7 @@ export class Point extends Element2D {
 
   set x (x) {
     this._x = x
-    this.draw()
+    this.update()
   }
 
   get y (): number {
@@ -125,7 +125,7 @@ export class Point extends Element2D {
 
   set y (y) {
     this._y = y
-    this.draw()
+    this.update()
   }
 
   get name (): string | undefined {

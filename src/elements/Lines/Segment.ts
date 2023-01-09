@@ -37,11 +37,11 @@ export class Segment extends Element2D {
     this.point1.subscribe(this)
     this.point2.subscribe(this)
     this.apiGeom.svg.appendChild(this.groupSvg)
-    this.draw()
+    this.update()
     this.setColorAndThickness()
   }
 
-  draw (): void {
+  update (): void {
     const x1Svg = this.apiGeom.xToSx(this.point1.x)
     const x2Svg = this.apiGeom.xToSx(this.point2.x)
     const y1Svg = this.apiGeom.yToSy(this.point1.y)

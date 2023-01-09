@@ -1,11 +1,12 @@
 import { ApiGeom } from '../ApiGeom'
+import { DynamicNumber } from '../dynamicNumbers/DynamicNumber'
 import { optionsElement2D } from './interfaces'
 
 export class Element2D {
   /** Espace de travail dans lequel l'élément sera représenté */
   apiGeom: ApiGeom
   /** Type d'objet mathématique */
-  type!: '' | 'Point' | 'Segment' | 'TextByPosition' | 'TextByPoint' | 'Line' | 'Ray' | 'Circle'
+  type!: '' | 'Point' | 'Segment' | 'TextByPosition' | 'TextByPoint' | 'Line' | 'Ray' | 'Circle' | 'DisplayDistance'
   /** Identifiant de l'objet qui servira de clé dans le Map de tous les éléments */
   readonly id: string
   /** Groupe SVG dans lequel sera déssiné l'élément */
@@ -15,7 +16,7 @@ export class Element2D {
   /** Épaisseur du tracé de l'élément */
   protected _thickness: number
   /** Liste des enfants à notifier à chaque fois que l'élément est déplacé */
-  observers: Element2D[]
+  observers: Array<Element2D | DynamicNumber>
   /** Permet de ne pas sauvegarder des objets secondaires qui seront reconstruits (label d'un point, codage d'une figure...) */
   private readonly hasToBeSaved: boolean
   constructor (apiGeom: ApiGeom, options?: optionsElement2D) {
@@ -39,7 +40,7 @@ export class Element2D {
   /** S'abonner aux modifications des éléments parents
   * Par exemple le segment s'abonnera aux modifications de ses deux extrémités
   */
-  subscribe (element: Element2D): void {
+  subscribe (element: Element2D | DynamicNumber): void {
     this.observers.push(element)
   }
 
@@ -53,12 +54,12 @@ export class Element2D {
   /** Prévenir les enfants qu'ils doivent se mettre à jour */
   notify (): void {
     for (const element of this.observers) {
-      element.draw()
+      element.update()
     }
   }
 
   /** Créé ou met à jour le groupe SVG de l'élément */
-  draw (): void {}
+  update (): void {}
 
   /** Personnalise la sortie JSON de l'élément pour la sauvegarde */
   toJSON (): object {

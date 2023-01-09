@@ -9,7 +9,7 @@ export class Ray extends Segment {
     this.type = 'Ray'
   }
 
-  draw (): void {
+  update (): void {
     const [x1Svg, y1Svg, x2Svg, y2Svg] = getRayCoordsOut(this.point1, this.point2)
     this.groupSvg.setAttribute('x1', `${this.apiGeom.xToSx(x1Svg)}`)
     this.groupSvg.setAttribute('y1', `${this.apiGeom.yToSy(y1Svg)}`)

@@ -3,6 +3,7 @@ export interface optionsElement2D {
   name?: string
   color?: string
   fillColor?: string | 'none'
+  fillOpacity?: number
   thickness?: number
   hasToBeSaved?: boolean
 }

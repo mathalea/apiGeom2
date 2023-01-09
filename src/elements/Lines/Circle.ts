@@ -10,6 +10,8 @@ export class Circle extends Element2D {
   private _radius: number
   /** Couleur de remplissage du cercle */
   private _fillColor: string | 'none'
+  /** Opacité de remplissage entre 0 et 1 */
+  private _fillOpacity?: number
   /** Pointeur vers la première extrémité */
   center: Point
   constructor (apiGeom: ApiGeom, center: string | Point, radius: number, options?: optionsElement2D) {
@@ -26,10 +28,11 @@ export class Circle extends Element2D {
     }
     if (options?.fillColor !== undefined) this._fillColor = options.fillColor
     else this._fillColor = 'none'
+    if (options?.fillOpacity !== undefined) this._fillOpacity = options.fillOpacity
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
     this.center.subscribe(this)
     this.apiGeom.svg.appendChild(this.groupSvg)
-    this.draw()
+    this.update()
     this.setColorAndThickness()
   }
 
@@ -39,7 +42,7 @@ export class Circle extends Element2D {
 
   set radius (radius: number) {
     this._radius = radius
-    this.draw()
+    this.update()
   }
 
   /** Couleur au format HTML */
@@ -64,14 +67,26 @@ export class Circle extends Element2D {
     this.groupSvg.setAttribute('fill', this._fillColor)
   }
 
+  /** Couleur de remplissage au format HTML */
+  get fillOpacity (): number | undefined {
+    return this._fillOpacity
+  }
+
+  /** Change la couleur des tracés de l'élément */
+  set fillOpacity (opacity: number | undefined) {
+    this._fillOpacity = opacity
+    if (opacity !== undefined) this.groupSvg.setAttribute('fill-opacity', opacity.toString())
+  }
+
   /** Modifie la couleur et l'épaisseur de l'élément */
   setColorAndThickness (): void {
     this.color = this._color
     this.fillColor = this._fillColor
+    if (this._fillOpacity !== undefined) this.fillOpacity = this._fillOpacity
     this.thickness = this._thickness
   }
 
-  draw (): void {
+  update (): void {
     const xSvg = this.apiGeom.xToSx(this.center.x)
     const ySvg = this.apiGeom.yToSy(this.center.y)
     const rSvg = this.apiGeom.pixelsPerUnit * this._radius
@@ -85,6 +100,7 @@ export class Circle extends Element2D {
       idCenter: this.idCenter,
       radius: this._radius,
       fillColor: this.fillColor,
+      fillOpacity: this.fillOpacity,
       ...super.toJSON()
     }
   }

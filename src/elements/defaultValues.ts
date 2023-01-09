@@ -6,3 +6,6 @@ export const defaultDistanceClick = 15
 
 // Taille de l'historique pour la navigation avec le bouton précédent
 export const defaultHistorySize = 5
+
+// Nombre de chiffres après la virgule dans les affichages
+export const displayDigits = 2
