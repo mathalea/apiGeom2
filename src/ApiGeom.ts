@@ -1,6 +1,6 @@
 import { defaultHistorySize } from './elements/defaultValues'
 import { Element2D } from './elements/Element2D'
-import { Point } from './elements/Point/Point'
+import { Point } from './elements/Points/Point'
 import { getClickedElement } from './pointerActions/handlePointerAction'
 import { loadJson } from './actions/loadJson'
 import 'katex/dist/katex.min.css'

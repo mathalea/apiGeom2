@@ -1,12 +1,12 @@
 import { ApiGeom } from '../../ApiGeom'
 import { Element2D } from '../Element2D'
 import { optionsElement2D } from '../interfaces'
-import { Point } from '../Point/Point'
+import { Point } from '../Points/Point'
 
 export class Segment extends Element2D {
-  /** Nom de la première extrémité */
+  /** id de la première extrémité */
   idPoint1: string
-  /** Nom de la deuxième extrémité */
+  /** id de la deuxième extrémité */
   idPoint2: string
   /** Pointeur vers la première extrémité */
   point1: Point

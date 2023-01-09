@@ -1,8 +1,9 @@
 import { ApiGeom } from './ApiGeom'
-import { Point } from './elements/Point/Point'
-import { Segment } from './elements/Line/Segment'
+import { Point } from './elements/Points/Point'
+import { Segment } from './elements/Lines/Segment'
 import { TextByPoint } from './elements/Text/TextByPoint'
 import { TextByPosition } from './elements/Text/TextByPosition'
+import { Line } from './elements/Lines/Line'
 
 /**
  * Créé un espace de travail avec les méthodes pour y créer les objets géométriques.
@@ -33,6 +34,11 @@ export class ApiGeomPlus extends ApiGeom {
   /** Trace un segment qui a pour extrémités deux points (donnés par leur nom ou par la variable qui pointe vers ces points) */
   segment (point1: string | Point, point2: string | Point, { id, color, thickness }: { id?: string, color?: string, thickness?: number } = {}): Segment {
     return new Segment(this, point1, point2, { id, color, thickness })
+  }
+
+  /** Trace un segment qui a pour extrémités deux points (donnés par leur nom ou par la variable qui pointe vers ces points) */
+  line (point1: string | Point, point2: string | Point, { id, color, thickness }: { id?: string, color?: string, thickness?: number } = {}): Segment {
+    return new Line(this, point1, point2, { id, color, thickness })
   }
 
   /** Créé un texte aux coordonnées (x, y) avec rendu LaTeX par défaut */

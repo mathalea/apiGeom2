@@ -1,4 +1,5 @@
 import { ApiGeomPlus } from './ApiGeomPlus'
+import { Line } from './elements/Lines/Line'
 
 // Créé un espace de travail pour une figure géométrique
 const geo = new ApiGeomPlus()
@@ -23,9 +24,12 @@ const B = geo.point(6, 0, { name: 'B', style: 'o' })
 const C = geo.point(4, 6, { name: 'C', color: 'green', size: 0.3, thickness: 3 })
 A.name = 'A'
 B.name = 'B_1'
-const sAB = geo.segment(A, B)
+const sAB = new Line(geo, A, B)
 const sAC = geo.segment(A, C)
 const sBC = geo.segment(B, C)
+
+sAB.color = 'green'
+sAB.thickness = 3
 
 // Sauvegarde de la figure et affichage de cette sauvegarde
 geo.refreshSave()

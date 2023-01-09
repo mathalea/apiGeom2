@@ -1,5 +1,5 @@
 import { ApiGeom } from '../../ApiGeom'
-import { Point } from '../Point/Point'
+import { Point } from '../Points/Point'
 import { TextByPosition } from './TextByPosition'
 
 /**

@@ -1,7 +1,8 @@
 import { ApiGeom } from '../ApiGeom'
 import { Element2D } from '../elements/Element2D'
-import { Segment } from '../elements/Line/Segment'
-import { Point } from '../elements/Point/Point'
+import { Line } from '../elements/Lines/Line'
+import { Segment } from '../elements/Lines/Segment'
+import { Point } from '../elements/Points/Point'
 import { TextByPoint } from '../elements/Text/TextByPoint'
 import { TextByPosition } from '../elements/Text/TextByPosition'
 
@@ -15,6 +16,9 @@ export function loadJson (apiGeom: ApiGeom, json: object): Element2D[] {
     }
     if (options.type === 'Segment') {
       elements.push(new Segment(apiGeom, options.idPoint1, options.idPoint2, options))
+    }
+    if (options.type === 'Line') {
+      elements.push(new Line(apiGeom, options.idPoint1, options.idPoint2, options))
     }
     if (options.type === 'TextByPosition') {
       elements.push(new TextByPosition(apiGeom, options.x, options.y, options.text, options))
