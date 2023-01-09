@@ -5,7 +5,7 @@ export class Element2D {
   /** Espace de travail dans lequel l'élément sera représenté */
   apiGeom: ApiGeom
   /** Type d'objet mathématique */
-  type: '' | 'Point' | 'Segment'
+  type!: '' | 'Point' | 'Segment' | 'TextByPosition' | 'TextByPoint'
   /** Nom de l'objet, qui servira pour les constructions et pour le label */
   name: string
   /** Groupe SVG dans lequel sera déssiné l'élément */
@@ -29,7 +29,6 @@ export class Element2D {
     this.apiGeom.elements.set(this.name, this)
     this._color = options?.color ?? 'black'
     this._thickness = options?.thickness ?? 1
-    this.type = ''
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'g')
     this.observers = []
   }

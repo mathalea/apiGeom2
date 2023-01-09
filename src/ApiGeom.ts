@@ -3,6 +3,9 @@ import { Element2D } from './elements/Element2D'
 import { Point } from './elements/Point'
 import { Segment } from './elements/Segment'
 import { getClickedElement } from './pointerActions/handlePointerAction'
+import 'katex/dist/katex.min.css'
+import { TextByPosition } from './elements/TextByPosition'
+import { TextByPoint } from './elements/TextByPoint'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -37,6 +40,8 @@ export class ApiGeom {
   dx: number
   /** Si l'option snapGrid est active, cela détermine la distance verticale entre deux lieux de dépot du point */
   dy: number
+  /** div dans lequel sera inséré le SVG et les div avec le texte mathématiques */
+  _div: HTMLDivElement | null
   /** SVG de la figure géométrique */
   svg: SVGElement
   /** div dans lequel sera écrit la dernière sauvegarde automatique au format JSON */
@@ -77,6 +82,7 @@ export class ApiGeom {
     this.pointerY = null
 
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+    this._div = null
     this.divSave = null
     this.svg.style.width = `${this.width}px`
     this.svg.style.height = `${this.height}px`
@@ -192,6 +198,19 @@ export class ApiGeom {
     return JSON.stringify(Object.fromEntries(this.elements), null, 2)
   }
 
+  get div (): HTMLDivElement | null {
+    return this._div
+  }
+
+  set div (div: HTMLDivElement | null) {
+    this._div = div
+    if (div !== null) {
+      div.innerHTML = ''
+      div.style.position = 'relative'
+      div.appendChild(this.svg)
+    }
+  }
+
   /** Efface la figure actuelle et charge une nouvelle figure à partir du code généré par this.json  */
   load (json: object): Element2D[] {
     this.elements.clear()
@@ -203,6 +222,12 @@ export class ApiGeom {
       }
       if (options.type === 'Segment') {
         elements.push(new Segment(this, options.namePoint1, options.namePoint2, options))
+      }
+      if (options.type === 'TextByPosition') {
+        elements.push(new TextByPosition(this, options.x, options.y, options.text, options))
+      }
+      if (options.type === 'TextByPoint') {
+        elements.push(new TextByPoint(this, options.point, options.text, options))
       }
     }
     // Pour la navigation dans l'historique on ne sauvegarde que le premier chargement
@@ -219,5 +244,15 @@ export class ApiGeom {
   /** Trace un segment qui a pour extrémités deux points (donnés par leur nom ou par la variable qui pointe vers ces points) */
   segment (point1: string | Point, point2: string | Point, { name, color, thickness }: { name?: string, color?: string, thickness?: number } = {}): Segment {
     return new Segment(this, point1, point2, { name, color, thickness })
+  }
+
+  /** Créé un texte aux coordonnées (x, y) avec rendu LaTeX par défaut */
+  textByPosition (x: number, y: number, text: string, { isLatex = true, color = 'black' }: { isLatex?: boolean, color?: string } = {}): TextByPosition {
+    return new TextByPosition(this, x, y, text, { isLatex, color })
+  }
+
+  /** Créé un texte aux coordonnées (x, y) avec rendu LaTeX par défaut */
+  textByPoint (point: string | Point, text: string, { isLatex = true, color = 'black', dx, dy }: { isLatex?: boolean, color?: string, dx?: number, dy?: number } = {}): TextByPosition {
+    return new TextByPoint(this, point, text, { isLatex, color, dx, dy })
   }
 }
