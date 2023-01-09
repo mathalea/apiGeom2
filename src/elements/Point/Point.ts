@@ -1,7 +1,7 @@
-import { ApiGeom } from '../ApiGeom'
-import { defaultSize } from './defaultValues'
-import { Element2D } from './Element2D'
-import { optionsPoint } from './interfaces'
+import { ApiGeom } from '../../ApiGeom'
+import { defaultSize } from '../defaultValues'
+import { Element2D } from '../Element2D'
+import { optionsPoint } from '../interfaces'
 
 export class Point extends Element2D {
   private _x: number

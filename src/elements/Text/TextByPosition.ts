@@ -1,5 +1,5 @@
-import { ApiGeom } from '../ApiGeom'
-import { Element2D } from './Element2D'
+import { ApiGeom } from '../../ApiGeom'
+import { Element2D } from '../Element2D'
 import katex from 'katex'
 
 /**

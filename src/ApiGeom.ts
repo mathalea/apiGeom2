@@ -1,11 +1,9 @@
 import { defaultHistorySize } from './elements/defaultValues'
 import { Element2D } from './elements/Element2D'
-import { Point } from './elements/Point'
-import { Segment } from './elements/Segment'
+import { Point } from './elements/Point/Point'
 import { getClickedElement } from './pointerActions/handlePointerAction'
+import { loadJson } from './actions/loadJson'
 import 'katex/dist/katex.min.css'
-import { TextByPosition } from './elements/TextByPosition'
-import { TextByPoint } from './elements/TextByPoint'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -165,17 +163,17 @@ export class ApiGeom {
   }
 
   /** Charge la figure stockée dans l'avant-dernière étape de l'historique */
-  goBack (): void {
+  historyGoBack (): void {
     if (-this.historyIndex < this.history.length) this.historyIndex--
     const previous = this.history.at(this.historyIndex)
-    if (previous !== undefined) this.load(JSON.parse(previous))
+    if (previous !== undefined) this.loadJson(JSON.parse(previous))
   }
 
   /** Reharge la figure stockée un rang plus haut dans l'historique   */
-  goForward (): void {
+  historyGoForward (): void {
     if (this.historyIndex < -1) this.historyIndex++
     const next = this.history.at(this.historyIndex)
-    if (next !== undefined) this.load(JSON.parse(next))
+    if (next !== undefined) this.loadJson(JSON.parse(next))
   }
 
   /** Génère le code LaTeX de la figure */
@@ -212,47 +210,7 @@ export class ApiGeom {
   }
 
   /** Efface la figure actuelle et charge une nouvelle figure à partir du code généré par this.json  */
-  load (json: object): Element2D[] {
-    this.elements.clear()
-    this.svg.innerHTML = ''
-    const elements = []
-    for (const options of Object.values(json)) {
-      if (options.type === 'Point') {
-        elements.push(new Point(this, options.x, options.y, options))
-      }
-      if (options.type === 'Segment') {
-        elements.push(new Segment(this, options.namePoint1, options.namePoint2, options))
-      }
-      if (options.type === 'TextByPosition') {
-        elements.push(new TextByPosition(this, options.x, options.y, options.text, options))
-      }
-      if (options.type === 'TextByPoint') {
-        elements.push(new TextByPoint(this, options.point, options.text, options))
-      }
-    }
-    // Pour la navigation dans l'historique on ne sauvegarde que le premier chargement
-    // les autres chargements proviennent de goBack() ou de goForward()
-    if (this.history.length === 0) this.history.push(this.json)
-    return elements
-  }
-
-  /** Crée un point de coordonnées (x, y) */
-  point (x: number, y: number, { name, color, thickness, style, size }: { name?: string, color?: string, thickness?: number, style?: 'x' | 'o' | '', size?: number } = {}): Point {
-    return new Point(this, x, y, { name, color, thickness, style, size })
-  }
-
-  /** Trace un segment qui a pour extrémités deux points (donnés par leur nom ou par la variable qui pointe vers ces points) */
-  segment (point1: string | Point, point2: string | Point, { name, color, thickness }: { name?: string, color?: string, thickness?: number } = {}): Segment {
-    return new Segment(this, point1, point2, { name, color, thickness })
-  }
-
-  /** Créé un texte aux coordonnées (x, y) avec rendu LaTeX par défaut */
-  textByPosition (x: number, y: number, text: string, { isLatex = true, color = 'black' }: { isLatex?: boolean, color?: string } = {}): TextByPosition {
-    return new TextByPosition(this, x, y, text, { isLatex, color })
-  }
-
-  /** Créé un texte aux coordonnées (x, y) avec rendu LaTeX par défaut */
-  textByPoint (point: string | Point, text: string, { isLatex = true, color = 'black', dx, dy }: { isLatex?: boolean, color?: string, dx?: number, dy?: number } = {}): TextByPosition {
-    return new TextByPoint(this, point, text, { isLatex, color, dx, dy })
+  loadJson (json: object): Element2D[] {
+    return loadJson(this, json)
   }
 }

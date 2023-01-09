@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
-import { ApiGeom } from '../src/ApiGeom'
+import { ApiGeomPlus } from '../src/ApiGeomPlus'
 
-const geo = new ApiGeom()
+const geo = new ApiGeomPlus()
 const A = geo.point(0, 0)
 A.name = 'A'
 geo.refreshSave()
@@ -15,28 +15,28 @@ A.moveTo(4, 4)
 geo.refreshSave()
 
 test('Point - Segment - Couleur', () => {
-  geo.goBack() // 3
-  geo.goBack() // 2
-  geo.goBack() // 1
-  geo.goForward() // 2
+  geo.historyGoBack() // 3
+  geo.historyGoBack() // 2
+  geo.historyGoBack() // 1
+  geo.historyGoForward() // 2
   let newA = geo.elements.get('A')
   expect(newA.x).toBe(2)
-  geo.goBack() // 1
-  geo.goBack() // 0
-  geo.goBack() // 0
-  geo.goBack() // 0
-  geo.goBack() // 0
-  geo.goBack() // 0
-  geo.goForward() // 1
+  geo.historyGoBack() // 1
+  geo.historyGoBack() // 0
+  geo.historyGoBack() // 0
+  geo.historyGoBack() // 0
+  geo.historyGoBack() // 0
+  geo.historyGoBack() // 0
+  geo.historyGoForward() // 1
   newA = geo.elements.get('A')
   expect(newA.x).toBe(1)
-  geo.goForward() // 2
-  geo.goForward() // 3
-  geo.goForward() // 4
-  geo.goForward() // 4
-  geo.goForward() // 4
-  geo.goForward() // 4
-  geo.goBack() // 3
+  geo.historyGoForward() // 2
+  geo.historyGoForward() // 3
+  geo.historyGoForward() // 4
+  geo.historyGoForward() // 4
+  geo.historyGoForward() // 4
+  geo.historyGoForward() // 4
+  geo.historyGoBack() // 3
   newA = geo.elements.get('A')
   expect(newA.x).toBe(3)
 })

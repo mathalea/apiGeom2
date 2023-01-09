@@ -1,7 +1,7 @@
-import { ApiGeom } from './ApiGeom'
+import { ApiGeomPlus } from './ApiGeomPlus'
 
 // Créé un espace de travail pour une figure géométrique
-const geo = new ApiGeom()
+const geo = new ApiGeomPlus()
 
 // On affiche le svg dans un div
 const div = document.querySelector('#app') as HTMLDivElement
@@ -13,9 +13,9 @@ geo.divSave = divSave
 
 // Gestion des boutons de navigation
 const btnBack = document.querySelector('#btnBack')
-btnBack?.addEventListener('click', () => geo.goBack())
+btnBack?.addEventListener('click', () => geo.historyGoBack())
 const btnForward = document.querySelector('#btnForward')
-btnForward?.addEventListener('click', () => geo.goForward())
+btnForward?.addEventListener('click', () => geo.historyGoForward())
 
 // Création de la figure
 const A = geo.point(3, 0)

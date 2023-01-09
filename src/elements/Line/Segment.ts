@@ -1,7 +1,7 @@
-import { ApiGeom } from '../ApiGeom'
-import { Element2D } from './Element2D'
-import { optionsElement2D } from './interfaces'
-import { Point } from './Point'
+import { ApiGeom } from '../../ApiGeom'
+import { Element2D } from '../Element2D'
+import { optionsElement2D } from '../interfaces'
+import { Point } from '../Point/Point'
 
 export class Segment extends Element2D {
   /** Nom de la première extrémité */
