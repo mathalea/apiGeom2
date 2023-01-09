@@ -6,8 +6,8 @@ export class Element2D {
   apiGeom: ApiGeom
   /** Type d'objet mathématique */
   type!: '' | 'Point' | 'Segment' | 'TextByPosition' | 'TextByPoint'
-  /** Nom de l'objet, qui servira pour les constructions et pour le label */
-  name: string
+  /** Identifiant de l'objet qui servira de clé dans le Map de tous les éléments */
+  readonly id: string
   /** Groupe SVG dans lequel sera déssiné l'élément */
   groupSvg: SVGElement
   /** Couleur de l'élément au format HTML */
@@ -16,17 +16,20 @@ export class Element2D {
   protected _thickness: number
   /** Liste des enfants à notifier à chaque fois que l'élément est déplacé */
   observers: Element2D[]
+  /** Permet de ne pas sauvegarder des objets secondaires qui seront reconstruits (label d'un point, codage d'une figure...) */
+  private readonly hasToBeSaved: boolean
   constructor (apiGeom: ApiGeom, options?: optionsElement2D) {
     this.apiGeom = apiGeom
-    if (options === undefined || options?.name === undefined) {
-      this.name = 'api' + (this.apiGeom.elements.size + 1).toString()
-    } else if (this.apiGeom.elements.has(options?.name)) {
-      console.log(`The name ${options.name} is already used !`)
-      this.name = options.name + '__' + self.crypto.randomUUID()
+    if (options === undefined || options?.id === undefined) {
+      this.id = 'api' + (this.apiGeom.elements.size + 1).toString()
+    } else if (this.apiGeom.elements.has(options?.id)) {
+      console.log(`The id ${options.id} is already used !`)
+      this.id = options.id + '__' + self.crypto.randomUUID()
     } else {
-      this.name = options.name
+      this.id = options.id
     }
-    this.apiGeom.elements.set(this.name, this)
+    this.hasToBeSaved = (options?.hasToBeSaved) ?? true
+    if (this.hasToBeSaved) this.apiGeom.elements.set(this.id, this)
     this._color = options?.color ?? 'black'
     this._thickness = options?.thickness ?? 1
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'g')
@@ -61,7 +64,7 @@ export class Element2D {
   toJSON (): object {
     return {
       type: this.type,
-      name: this.name,
+      id: this.id,
       color: this.color,
       thickness: this.thickness
     }

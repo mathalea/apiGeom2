@@ -2,10 +2,13 @@ import { ApiGeom } from '../../ApiGeom'
 import { defaultSize } from '../defaultValues'
 import { Element2D } from '../Element2D'
 import { optionsPoint } from '../interfaces'
+import { TextByPoint } from '../Text/TextByPoint'
 
 export class Point extends Element2D {
   private _x: number
   private _y: number
+  /** Nom que l'on affiche à côté du point */
+  private _name?: string | undefined
   /** Croix, rond ou rien */
   private _style: 'x' | 'o' | ''
   /** Taille du point, correspond à ce qui est ajouté dans les 4 directions pour faire la croix ou au rayon du rond */
@@ -16,6 +19,8 @@ export class Point extends Element2D {
   readonly svgLine2: SVGLineElement
   /** Elément SVG pour rond */
   readonly svgCircle: SVGCircleElement
+  /** Affichage du nom du point */
+  label?: TextByPoint
   constructor (apiGeom: ApiGeom, x: number, y: number, options?: optionsPoint) {
     super(apiGeom, options)
     this.type = 'Point'
@@ -33,6 +38,7 @@ export class Point extends Element2D {
     this._y = y
     this.draw()
     this.setColorAndThickness()
+    if (options?.name !== undefined) this.name = options.name
   }
 
   draw (): void {
@@ -122,6 +128,15 @@ export class Point extends Element2D {
     this.draw()
   }
 
+  get name (): string | undefined {
+    return this._name
+  }
+
+  set name (name: string | undefined) {
+    this._name = name
+    if (name !== undefined) this.label = new TextByPoint(this.apiGeom, this, name, { hasToBeSaved: false })
+  }
+
   /** Déplace le point */
   moveTo (x: number, y: number): void {
     this.x = x
@@ -137,6 +152,8 @@ export class Point extends Element2D {
     return {
       x: this.x,
       y: this.y,
+      test: 4,
+      name: this.name,
       style: this.style,
       size: this.size,
       ...super.toJSON()

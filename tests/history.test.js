@@ -3,7 +3,6 @@ import { ApiGeomPlus } from '../src/ApiGeomPlus'
 
 const geo = new ApiGeomPlus()
 const A = geo.point(0, 0)
-A.name = 'A'
 geo.refreshSave()
 A.moveTo(1, 1)
 geo.refreshSave()
@@ -19,7 +18,7 @@ test('Point - Segment - Couleur', () => {
   geo.historyGoBack() // 2
   geo.historyGoBack() // 1
   geo.historyGoForward() // 2
-  let newA = geo.elements.get('A')
+  let newA = geo.elements.get(A.id)
   expect(newA.x).toBe(2)
   geo.historyGoBack() // 1
   geo.historyGoBack() // 0
@@ -28,7 +27,7 @@ test('Point - Segment - Couleur', () => {
   geo.historyGoBack() // 0
   geo.historyGoBack() // 0
   geo.historyGoForward() // 1
-  newA = geo.elements.get('A')
+  newA = geo.elements.get(A.id)
   expect(newA.x).toBe(1)
   geo.historyGoForward() // 2
   geo.historyGoForward() // 3
@@ -37,6 +36,6 @@ test('Point - Segment - Couleur', () => {
   geo.historyGoForward() // 4
   geo.historyGoForward() // 4
   geo.historyGoBack() // 3
-  newA = geo.elements.get('A')
+  newA = geo.elements.get(A.id)
   expect(newA.x).toBe(3)
 })

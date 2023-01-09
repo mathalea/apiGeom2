@@ -15,8 +15,8 @@ export class TextByPosition extends Element2D {
   /** Le texte est mis dans un div qui s'affichera par dessus le SVG */
   div: HTMLDivElement
 
-  constructor (apiGeom: ApiGeom, x: number, y: number, text: string, { isLatex = true, color = 'black' }: { isLatex?: boolean, color?: string } = {}) {
-    super(apiGeom)
+  constructor (apiGeom: ApiGeom, x: number, y: number, text: string, { isLatex = true, color = 'black', hasToBeSaved }: { isLatex?: boolean, color?: string, hasToBeSaved?: boolean } = {}) {
+    super(apiGeom, { hasToBeSaved })
     this.type = 'TextByPosition'
     this.div = document.createElement('div')
     this.div.style.position = 'absolute'
@@ -69,7 +69,7 @@ export class TextByPosition extends Element2D {
       y: this.y,
       text: this.text,
       type: this.type,
-      name: this.name,
+      name: this.id,
       color: this.color
     }
   }

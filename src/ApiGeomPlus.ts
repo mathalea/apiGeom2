@@ -26,13 +26,13 @@ import { TextByPosition } from './elements/Text/TextByPosition'
  */
 export class ApiGeomPlus extends ApiGeom {
   /** Crée un point de coordonnées (x, y) */
-  point (x: number, y: number, { name, color, thickness, style, size }: { name?: string, color?: string, thickness?: number, style?: 'x' | 'o' | '', size?: number } = {}): Point {
-    return new Point(this, x, y, { name, color, thickness, style, size })
+  point (x: number, y: number, { name, id, color, thickness, style, size }: { name?: string, id?: string, color?: string, thickness?: number, style?: 'x' | 'o' | '', size?: number } = {}): Point {
+    return new Point(this, x, y, { name, id, color, thickness, style, size })
   }
 
   /** Trace un segment qui a pour extrémités deux points (donnés par leur nom ou par la variable qui pointe vers ces points) */
-  segment (point1: string | Point, point2: string | Point, { name, color, thickness }: { name?: string, color?: string, thickness?: number } = {}): Segment {
-    return new Segment(this, point1, point2, { name, color, thickness })
+  segment (point1: string | Point, point2: string | Point, { id, color, thickness }: { id?: string, color?: string, thickness?: number } = {}): Segment {
+    return new Segment(this, point1, point2, { id, color, thickness })
   }
 
   /** Créé un texte aux coordonnées (x, y) avec rendu LaTeX par défaut */

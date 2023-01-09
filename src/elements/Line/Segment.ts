@@ -5,9 +5,9 @@ import { Point } from '../Point/Point'
 
 export class Segment extends Element2D {
   /** Nom de la première extrémité */
-  namePoint1: string
+  idPoint1: string
   /** Nom de la deuxième extrémité */
-  namePoint2: string
+  idPoint2: string
   /** Pointeur vers la première extrémité */
   point1: Point
   /** Pointeur vers la deuxième extrémité */
@@ -18,20 +18,20 @@ export class Segment extends Element2D {
     super(apiGeom, options)
     this.type = 'Segment'
     if (typeof point1 === 'string') {
-      this.namePoint1 = point1
-      if (this.apiGeom.elements.has(this.namePoint1)) this.point1 = this.apiGeom.elements.get(this.namePoint1) as Point
-      else throw new Error(`Point '${this.namePoint1}' does not exist`)
+      this.idPoint1 = point1
+      if (this.apiGeom.elements.has(this.idPoint1)) this.point1 = this.apiGeom.elements.get(this.idPoint1) as Point
+      else throw new Error(`Point '${this.idPoint1}' does not exist`)
     } else {
       this.point1 = point1
-      this.namePoint1 = point1.name
+      this.idPoint1 = point1.id
     }
     if (typeof point2 === 'string') {
-      this.namePoint2 = point2
-      if (this.apiGeom.elements.has(this.namePoint2)) this.point2 = this.apiGeom.elements.get(this.namePoint2) as Point
-      else throw new Error(`Point '${this.namePoint2}' does not exist`)
+      this.idPoint2 = point2
+      if (this.apiGeom.elements.has(this.idPoint2)) this.point2 = this.apiGeom.elements.get(this.idPoint2) as Point
+      else throw new Error(`Point '${this.idPoint2}' does not exist`)
     } else {
       this.point2 = point2
-      this.namePoint2 = point2.name
+      this.idPoint2 = point2.id
     }
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'line')
     this.point1.subscribe(this)
@@ -54,8 +54,8 @@ export class Segment extends Element2D {
 
   toJSON (): object {
     return {
-      namePoint1: this.namePoint1,
-      namePoint2: this.namePoint2,
+      idPoint1: this.idPoint1,
+      idPoint2: this.idPoint2,
       ...super.toJSON()
     }
   }

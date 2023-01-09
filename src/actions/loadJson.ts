@@ -14,7 +14,7 @@ export function loadJson (apiGeom: ApiGeom, json: object): Element2D[] {
       elements.push(new Point(apiGeom, options.x, options.y, options))
     }
     if (options.type === 'Segment') {
-      elements.push(new Segment(apiGeom, options.namePoint1, options.namePoint2, options))
+      elements.push(new Segment(apiGeom, options.idPoint1, options.idPoint2, options))
     }
     if (options.type === 'TextByPosition') {
       elements.push(new TextByPosition(apiGeom, options.x, options.y, options.text, options))
