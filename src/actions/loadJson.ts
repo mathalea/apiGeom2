@@ -1,8 +1,10 @@
 import { ApiGeom } from '../ApiGeom'
 import { Distance } from '../dynamicNumbers/Distance'
+import { DynamicNumber } from '../dynamicNumbers/DynamicNumber'
 import { Element2D } from '../elements/Element2D'
 import { Circle } from '../elements/Lines/Circle'
 import { CircleCenterDynamicRadius } from '../elements/Lines/CircleCenterDyamicRadius'
+import { CircleCenterPoint } from '../elements/Lines/CircleCenterPoint'
 import { Line } from '../elements/Lines/Line'
 import { Ray } from '../elements/Lines/Ray'
 import { Segment } from '../elements/Lines/Segment'
@@ -11,7 +13,7 @@ import { DisplayDistance } from '../elements/Text/DisplayDistance'
 import { TextByPoint } from '../elements/Text/TextByPoint'
 import { TextByPosition } from '../elements/Text/TextByPosition'
 
-export function loadJson (apiGeom: ApiGeom, json: object, eraseHistory = false): Element2D[] {
+export function loadJson (apiGeom: ApiGeom, json: object, eraseHistory = false): Array<Element2D | DynamicNumber> {
   if (eraseHistory) {
     apiGeom.history = []
     apiGeom.historyIndex = -1
@@ -36,6 +38,9 @@ export function loadJson (apiGeom: ApiGeom, json: object, eraseHistory = false):
     }
     if (options.type === 'Circle') {
       elements.push(new Circle(apiGeom, options.idCenter, options.radius, options))
+    }
+    if (options.type === 'CircleCenterPoint') {
+      elements.push(new CircleCenterPoint(apiGeom, options.idCenter, options.idPoint, options))
     }
     if (options.type === 'CircleDynamicRadius') {
       elements.push(new CircleCenterDynamicRadius(apiGeom, options.idCenter, options.idRadius, options))

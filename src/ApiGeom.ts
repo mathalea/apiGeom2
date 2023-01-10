@@ -117,7 +117,7 @@ export class ApiGeom {
 
   /** Abscisse du SVG converti dans nos coordonnées */
   syToy (y: number): number {
-    return -y * this.pixelsPerUnit
+    return -y / this.pixelsPerUnit
   }
 
   /** Récupère les coordonnées du pointeur dans le repère de la apiGeom */
@@ -215,7 +215,7 @@ export class ApiGeom {
   }
 
   /** Efface la figure actuelle et charge une nouvelle figure à partir du code généré par this.json  */
-  loadJson (json: object, eraseHistory?: boolean): Element2D[] {
+  loadJson (json: object, eraseHistory?: boolean): Array<Element2D | DynamicNumber> {
     return loadJson(this, json, eraseHistory)
   }
 }

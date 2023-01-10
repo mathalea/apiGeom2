@@ -14,3 +14,9 @@ export interface optionsPoint extends optionsElement2D {
   | '' // Point invisible
   size?: number
 }
+
+export type typeElement2D = '' |
+'Point' |
+'Segment' | 'Line' | 'Ray' |
+'Circle' | 'CircleDynamicRadius' | 'CircleCenterPoint' |
+'TextByPosition' | 'TextByPoint' | 'DisplayDistance'

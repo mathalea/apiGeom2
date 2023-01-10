@@ -1,7 +1,4 @@
 import { ApiGeomPlus } from './ApiGeomPlus'
-import { Distance } from './dynamicNumbers/Distance'
-import { CircleCenterDynamicRadius } from './elements/Lines/CircleCenterDyamicRadius'
-import { DisplayDistance } from './elements/Text/DisplayDistance'
 
 // Créé un espace de travail pour une figure géométrique
 const geo = new ApiGeomPlus()
@@ -37,25 +34,16 @@ btnLoad?.addEventListener('click', () => {
 })
 
 // Création de la figure
-const A = geo.point(3, 0)
-const c2 = geo.circle(A, 4, { fillColor: 'blue ', fillOpacity: 0.2 })
-const B = geo.point(6, 0, { name: 'B', style: 'o' })
-const C = geo.point(4, 6, { name: 'C', color: 'green', size: 0.3, thickness: 3 })
-const c = geo.circle(B, 3, { color: 'red', thickness: 4 })
-A.name = 'A'
-B.name = 'B_1'
-const sAB = geo.line(A, B, { color: 'blue' })
-const sAC = geo.ray(A, C)
-const sBC = geo.segment(B, C)
-const dis = new DisplayDistance(geo, 0, -2, A, B)
-const distance = new Distance(geo, A, B)
-const cD = new CircleCenterDynamicRadius(geo, C, distance)
-
-sAB.thickness = 3
+const A = geo.point(0, 0)
+const B = geo.point(5, 0)
+const c = geo.circleCenterPoint(A, B)
+A.moveTo(1, 1)
+B.moveTo(8, 1)
+console.log(c.groupSvg)
 
 // Sauvegarde de la figure et affichage de cette sauvegarde
 geo.refreshSave()
 
 // Pour éviter les alertes unused vars...
 const doNothing = (a: object): object => { return a }
-doNothing({ sAB, sAC, sBC, c, c2, dis, cD })
+doNothing({ A, B, c })

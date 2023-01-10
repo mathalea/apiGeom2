@@ -1,12 +1,12 @@
 import { ApiGeom } from '../ApiGeom'
 import { DynamicNumber } from '../dynamicNumbers/DynamicNumber'
-import { optionsElement2D } from './interfaces'
+import { optionsElement2D, typeElement2D } from './interfaces'
 
 export class Element2D {
   /** Espace de travail dans lequel l'élément sera représenté */
   apiGeom: ApiGeom
   /** Type d'objet mathématique */
-  type!: '' | 'Point' | 'Segment' | 'TextByPosition' | 'TextByPoint' | 'Line' | 'Ray' | 'Circle' | 'CircleDynamicRadius' | 'DisplayDistance'
+  type!: typeElement2D
   /** Identifiant de l'objet qui servira de clé dans le Map de tous les éléments */
   readonly id: string
   /** Groupe SVG dans lequel sera déssiné l'élément */

@@ -6,6 +6,9 @@ import { TextByPosition } from './elements/Text/TextByPosition'
 import { Line } from './elements/Lines/Line'
 import { Ray } from './elements/Lines/Ray'
 import { Circle } from './elements/Lines/Circle'
+import { CircleCenterPoint } from './elements/Lines/CircleCenterPoint'
+import { CircleCenterDynamicRadius } from './elements/Lines/CircleCenterDyamicRadius'
+import { DynamicNumber } from './dynamicNumbers/DynamicNumber'
 
 /**
  * Créé un espace de travail avec les méthodes pour y créer les objets géométriques.
@@ -51,6 +54,16 @@ export class ApiGeomPlus extends ApiGeom {
   /** Trace le cercle à partir de son centre et de son rayon */
   circle (center: string | Point, radius: number, { id, color, fillColor, fillOpacity, thickness }: { id?: string, color?: string, fillColor?: string | 'none', fillOpacity?: number, thickness?: number } = {}): Circle {
     return new Circle(this, center, radius, { id, color, fillColor, fillOpacity, thickness })
+  }
+
+  /** Trace le cercle à partir de son centre et de son rayon */
+  circleCenterPoint (center: string | Point, point: string | Point, { id, color, fillColor, fillOpacity, thickness }: { id?: string, color?: string, fillColor?: string | 'none', fillOpacity?: number, thickness?: number } = {}): CircleCenterPoint {
+    return new CircleCenterPoint(this, center, point, { id, color, fillColor, fillOpacity, thickness })
+  }
+
+  /** Trace le cercle à partir de son centre et de son rayon */
+  circleCenterDistance (center: string | Point, distance: string | DynamicNumber, { id, color, fillColor, fillOpacity, thickness }: { id?: string, color?: string, fillColor?: string | 'none', fillOpacity?: number, thickness?: number } = {}): CircleCenterDynamicRadius {
+    return new CircleCenterDynamicRadius(this, center, distance, { id, color, fillColor, fillOpacity, thickness })
   }
 
   /** Créé un texte aux coordonnées (x, y) avec rendu LaTeX par défaut */
