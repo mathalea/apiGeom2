@@ -15,6 +15,13 @@ import { DisplayDistance } from '../elements/Text/DisplayDistance'
 import { TextByPoint } from '../elements/Text/TextByPoint'
 import { TextByPosition } from '../elements/Text/TextByPosition'
 
+/**
+ * Analyse l'objet de la sauvegarde et si le type est pris en charge alors on créé l'élément
+ * @param apiGeom - Espace de travail
+ * @param json - Objet
+ * @param eraseHistory - Faut-il repartir d'un historique vide ? Oui pour un chargement, non pour l'utilisation de undo et redo
+ * @returns - Tableau avec tous les éléments créés
+ */
 export function loadJson (apiGeom: ApiGeom, json: object, eraseHistory = false): Array<Element2D | DynamicNumber> {
   if (eraseHistory) {
     apiGeom.history = []

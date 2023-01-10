@@ -3,6 +3,11 @@ import { Element2D } from '../Element2D'
 import { optionsElement2D } from '../interfaces'
 import { Point } from '../Points/Point'
 
+/**
+ * Trace un segment qui a pour extrémités deux points donnés
+ * Si un point a des coordonnées non définies alors le segment est effacé momentannément
+ * C'est la classe parent de celles qui permettent de tracer une droite ou une demi-droite
+ */
 export class Segment extends Element2D {
   /** id de la première extrémité */
   idPoint1: string

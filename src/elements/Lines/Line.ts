@@ -3,6 +3,9 @@ import { optionsElement2D } from '../interfaces'
 import { Point } from '../Points/Point'
 import { Segment } from './Segment'
 
+/**
+ * Trace une droite
+ */
 export class Line extends Segment {
   constructor (apiGeom: ApiGeom, point1: string | Point, point2: string | Point, options?: optionsElement2D) {
     super(apiGeom, point1, point2, options)

@@ -3,6 +3,9 @@ import { Circle } from '../lines/Circle'
 import { Line } from '../lines/Line'
 import { Point } from '../points/Point'
 
+/**
+ * Classe de méthodes statiques pour des calculs sur les coordonnées
+ */
 export class Coords {
   x: number | undefined
   y: number | undefined
@@ -21,6 +24,7 @@ export class Coords {
       const x1 = O2.x
       const y0 = O1.y
       const y1 = O2.y
+      if (x0 === undefined || x1 === undefined || y0 === undefined || y1 === undefined) return new Coords()
       const dx = x1 - x0
       const dy = y1 - y0
       const d = Math.sqrt(dy * dy + dx * dx)

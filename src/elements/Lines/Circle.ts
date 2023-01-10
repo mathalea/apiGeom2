@@ -3,6 +3,9 @@ import { Element2D } from '../Element2D'
 import { optionsElement2D } from '../interfaces'
 import { Point } from '../Points/Point'
 
+/**
+ * Trace un cercle dont on connait le centre et le rayon
+ */
 export class Circle extends Element2D {
   /** id de la première extrémité */
   idCenter: string

@@ -4,6 +4,10 @@ import { optionsElement2D } from '../interfaces'
 import { Point } from '../Points/Point'
 import { CircleCenterDynamicRadius } from './CircleCenterDyamicRadius'
 
+/**
+ * Trace un cercle défini par un centre et une distance dynamique
+ * Cela servira au report de longueur ou pour tracer un cercle dont le rayon est géré par un curseur
+ */
 export class CircleCenterPoint extends CircleCenterDynamicRadius {
   point: string | Point
   idPoint: string

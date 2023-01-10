@@ -48,10 +48,10 @@ const O = geo.pointIntersectionLL(AB, CD, { size: 0.1, color: 'orange', name: 'O
 const c = geo.circle(O, 3)
 const OA = geo.ray(E, O)
 const M = new Middle(geo, O, E, { name: 'M' })
-const display = new DisplayDistance(geo, -3, -3, A, O)
+const display = new DisplayDistance(geo, -6, -3, A, O)
 // Sauvegarde de la figure et affichage de cette sauvegarde
 geo.refreshSave()
 
 // Pour éviter les alertes unused vars...
 const doNothing = (a: object): object => { return a }
-doNothing({ A, B, AB, CD, O, c, OA, M })
+doNothing({ A, B, AB, CD, O, c, OA, M, display })

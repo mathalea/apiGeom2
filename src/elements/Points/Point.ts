@@ -4,6 +4,9 @@ import { Element2D } from '../Element2D'
 import { optionsPoint } from '../interfaces'
 import { TextByPoint } from '../Text/TextByPoint'
 
+/**
+ * Trace un point et ajoute un éventuel label à partir de la propriété name
+ */
 export class Point extends Element2D {
   protected _x?: number
   protected _y?: number
@@ -154,8 +157,8 @@ export class Point extends Element2D {
   }
 
   /** Distance entre un point et le pointeur de la souris exprimée dans les unités du repère */
-  distancePointer (pointerX: number, pointerY: number): number | undefined {
-    if (this._x === undefined || this._y === undefined) return undefined
+  distancePointer (pointerX: number, pointerY: number): number {
+    if (this._x === undefined || this._y === undefined) return Infinity
     return Math.hypot(this._x - pointerX, this._y - pointerY)
   }
 

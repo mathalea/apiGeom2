@@ -4,7 +4,7 @@ import { Point } from '../Points/Point'
 import { TextByPosition } from './TextByPosition'
 
 /**
- * Créé un texte qui suivra la position d'un point
+ * Affiche en temps réel la distance entre deux points
  */
 export class DisplayDistance extends TextByPosition {
   idPoint1: string

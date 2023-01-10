@@ -6,7 +6,8 @@ import { Segment } from '../Lines/Segment'
 import { Point } from './Point'
 
 /**
- * Créé un point à l'intersection de deux droites
+ * Créé un point à l'intersection de deux droites (demi-droites ou segments)
+ * Masque le point et ses descendances s'il n'y a pas d'intersection
  */
 export class PointIntersectionLL extends Point {
   /** id de la première droite */

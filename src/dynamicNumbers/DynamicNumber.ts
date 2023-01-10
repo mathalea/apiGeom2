@@ -1,6 +1,9 @@
 import { ApiGeom } from '../ApiGeom'
 import { Element2D } from '../elements/Element2D'
 
+/**
+ * Pour les valeurs numériques variables qui seront les « parents » de constructions
+ */
 export abstract class DynamicNumber {
   apiGeom: ApiGeom
   readonly id: string

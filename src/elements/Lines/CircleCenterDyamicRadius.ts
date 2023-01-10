@@ -38,7 +38,7 @@ export class CircleCenterDynamicRadius extends Circle {
   }
 
   update (): void {
-    if (this.radiusDynamic?.value === undefined) return
+    if (this.radiusDynamic?.value === undefined || this.center.x === undefined || this.center.y === undefined) return
     const xSvg = this.apiGeom.xToSx(this.center.x)
     const ySvg = this.apiGeom.yToSy(this.center.y)
     const rSvg = this.apiGeom.pixelsPerUnit * this.radiusDynamic?.value

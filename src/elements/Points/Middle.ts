@@ -2,6 +2,9 @@ import { ApiGeom } from '../../ApiGeom'
 import { optionsPoint } from '../interfaces'
 import { Point } from './Point'
 
+/**
+ * Trace le milieu défini par deux points
+ */
 export class Middle extends Point {
   /** Première extrémité */
   point1: Point
