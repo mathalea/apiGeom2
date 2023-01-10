@@ -52,11 +52,11 @@ export class DisplayDistance extends TextByPosition {
 
   toJSON (): object {
     return {
+      type: this.type,
       point1: this.idPoint1,
       point2: this.idPoint2,
       x: this.x,
       y: this.y,
-      type: this.type,
       id: this.id,
       color: this.color
     }

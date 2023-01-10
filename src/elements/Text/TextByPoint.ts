@@ -30,14 +30,14 @@ export class TextByPoint extends TextByPosition {
   }
 
   update (): void {
-    if (this.point !== undefined) this.moveTo(this.point?.x + this.dx, this.point.y + this.dy)
+    if (this.point?.x !== undefined && this.point?.y !== undefined) this.moveTo(this.point?.x + this.dx, this.point.y + this.dy)
   }
 
   toJSON (): object {
     return {
+      type: this.type,
       point: this.idPoint,
       text: this.text,
-      type: this.type,
       id: this.id,
       color: this.color
     }

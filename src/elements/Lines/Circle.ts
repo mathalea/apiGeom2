@@ -104,6 +104,7 @@ export class Circle extends Element2D {
 
   toJSON (): object {
     return {
+      type: this.type,
       idCenter: this.idCenter,
       radius: this._radius,
       fillColor: this.fillColor,

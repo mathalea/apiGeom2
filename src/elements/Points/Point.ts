@@ -47,8 +47,12 @@ export class Point extends Element2D {
       this.svgCircle.remove()
       this.svgLine1.remove()
       this.svgLine2.remove()
+      this.label?.hide()
       return
     }
+    if (this.label === undefined || this.label.x > this.apiGeom.xMax || this.label.y > this.apiGeom.yMax || this.label.x < this.apiGeom.xMin || this.label.y < this.apiGeom.yMin) {
+      this.label?.hide()
+    } else this.label?.show()
     if (this._style === 'x') {
       const x1Svg = this.apiGeom.xToSx(this._x - this._size)
       const x2Svg = this.apiGeom.xToSx(this._x + this._size)
@@ -157,6 +161,7 @@ export class Point extends Element2D {
 
   toJSON (): object {
     return {
+      type: this.type,
       x: this.x,
       y: this.y,
       name: this.name,

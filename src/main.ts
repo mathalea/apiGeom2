@@ -1,4 +1,5 @@
 import { ApiGeomPlus } from './ApiGeomPlus'
+import { Middle } from './elements/Points/Middle'
 
 // Créé un espace de travail pour une figure géométrique
 const geo = new ApiGeomPlus()
@@ -42,12 +43,13 @@ const E = geo.point(-2, -5, { name: 'E' })
 
 const AB = geo.ray(A, B, { isDashed: true })
 const CD = geo.ray(C, D, { thickness: 2, color: 'blue' })
-const O = geo.pointIntersectionLL(AB, CD, { size: 0.1, color: 'orange', style: 'o' })
+const O = geo.pointIntersectionLL(AB, CD, { size: 0.1, color: 'orange' })
 const c = geo.circle(O, 3)
 const OA = geo.ray(E, O)
+const M = new Middle(geo, O, E, { name: 'M' })
 // Sauvegarde de la figure et affichage de cette sauvegarde
 geo.refreshSave()
 
 // Pour éviter les alertes unused vars...
 const doNothing = (a: object): object => { return a }
-doNothing({ A, B, AB, CD, O, c, OA })
+doNothing({ A, B, AB, CD, O, c, OA, M })

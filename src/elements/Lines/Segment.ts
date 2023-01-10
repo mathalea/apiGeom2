@@ -78,6 +78,7 @@ export class Segment extends Element2D {
 
   toJSON (): object {
     return {
+      type: this.type,
       idPoint1: this.idPoint1,
       idPoint2: this.idPoint2,
       ...super.toJSON()

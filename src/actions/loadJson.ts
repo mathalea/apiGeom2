@@ -8,6 +8,7 @@ import { CircleCenterPoint } from '../elements/Lines/CircleCenterPoint'
 import { Line } from '../elements/Lines/Line'
 import { Ray } from '../elements/Lines/Ray'
 import { Segment } from '../elements/Lines/Segment'
+import { Middle } from '../elements/Points/Middle'
 import { Point } from '../elements/Points/Point'
 import { PointIntersectionLL } from '../elements/Points/PointIntersectionLL'
 import { DisplayDistance } from '../elements/Text/DisplayDistance'
@@ -27,6 +28,9 @@ export function loadJson (apiGeom: ApiGeom, json: object, eraseHistory = false):
   for (const options of Object.values(json)) {
     if (options.type === 'Point') {
       elements.push(new Point(apiGeom, options.x, options.y, options))
+    }
+    if (options.type === 'Middle') {
+      elements.push(new Middle(apiGeom, options.idPoint1, options.idPoint2, options))
     }
     if (options.type === 'PointIntersectionLL') {
       elements.push(new PointIntersectionLL(apiGeom, options.idLine1, options.idLine2, options))

@@ -17,7 +17,7 @@ export interface optionsPoint extends optionsElement2D {
 }
 
 export type typeElement2D = '' |
-'Point' | 'PointIntersectionLL' |
+'Point' | 'PointIntersectionLL' | 'Middle' |
 'Segment' | 'Line' | 'Ray' |
 'Circle' | 'CircleDynamicRadius' | 'CircleCenterPoint' |
 'TextByPosition' | 'TextByPoint' | 'DisplayDistance'

@@ -63,12 +63,20 @@ export class TextByPosition extends Element2D {
     this.y = y
   }
 
+  hide (): void {
+    this.div.remove()
+  }
+
+  show (): void {
+    this.apiGeom.div?.appendChild(this.div)
+  }
+
   toJSON (): object {
     return {
+      type: this.type,
       x: this.x,
       y: this.y,
       text: this.text,
-      type: this.type,
       name: this.id,
       color: this.color
     }
