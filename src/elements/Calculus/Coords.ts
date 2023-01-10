@@ -73,12 +73,10 @@ export class Coords {
       } else { // d n'est pas horizontale donc ...
         x = (-dc - db * y) / da
       }
-      // return new Coords(x, y)
-      console.log(x, y)
-      return ({ x, y })
+      return new Coords(x, y)
     } catch (error) {
       console.log(error)
-      return new Coords(NaN, NaN)
+      return new Coords()
     }
   }
 

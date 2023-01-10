@@ -48,7 +48,7 @@ export class PointIntersectionLL extends Point {
         this._x = coords.x
         this._y = coords.y
         super.update()
-      } else console.log('à cacher')
+      }
     } catch (error) {
       console.log('Erreur dans PointIntersectionLL.update()', error)
     }
