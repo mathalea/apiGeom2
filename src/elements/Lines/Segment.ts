@@ -38,7 +38,7 @@ export class Segment extends Element2D {
     this.point2.subscribe(this)
     this.apiGeom.svg.appendChild(this.groupSvg)
     this.update()
-    this.setColorAndThickness()
+    this.setColorThicknessAndDashed()
   }
 
   update (): void {

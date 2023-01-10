@@ -37,7 +37,7 @@ export class Point extends Element2D {
     this._x = x
     this._y = y
     this.update()
-    this.setColorAndThickness()
+    this.setColorThicknessAndDashed()
     if (options?.name !== undefined) this.name = options.name
   }
 

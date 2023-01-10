@@ -36,14 +36,15 @@ btnLoad?.addEventListener('click', () => {
 // Création de la figure
 const A = geo.point(0, 0)
 const B = geo.point(5, 0)
-const c = geo.circleCenterPoint(A, B)
-A.moveTo(1, 1)
-B.moveTo(8, 1)
-console.log(c.groupSvg)
+const C = geo.point(3, 7)
+const c = geo.circleCenterPoint(A, B, { isDashed: true })
+const AB = geo.segment(A, B, { isDashed: true })
+const AC = geo.ray(A, C, { isDashed: true })
+const BC = geo.line(B, C, { isDashed: true })
 
 // Sauvegarde de la figure et affichage de cette sauvegarde
 geo.refreshSave()
 
 // Pour éviter les alertes unused vars...
 const doNothing = (a: object): object => { return a }
-doNothing({ A, B, c })
+doNothing({ A, B, c, AB, AC, BC })

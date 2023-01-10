@@ -29,11 +29,12 @@ export class Circle extends Element2D {
     if (options?.fillColor !== undefined) this._fillColor = options.fillColor
     else this._fillColor = 'none'
     if (options?.fillOpacity !== undefined) this._fillOpacity = options.fillOpacity
+    if (options?.isDashed !== undefined) this._isDashed = options.isDashed
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
     this.center.subscribe(this)
     this.apiGeom.svg.appendChild(this.groupSvg)
     this.update()
-    this.setColorAndThickness()
+    this.setColorThicknessAndDashed()
   }
 
   get radius (): number {
@@ -79,11 +80,12 @@ export class Circle extends Element2D {
   }
 
   /** Modifie la couleur et l'épaisseur de l'élément */
-  setColorAndThickness (): void {
+  setColorThicknessAndDashed (): void {
     this.color = this._color
     this.fillColor = this._fillColor
     if (this._fillOpacity !== undefined) this.fillOpacity = this._fillOpacity
-    this.thickness = this._thickness
+    if (this._isDashed !== undefined) this.isDashed = this._isDashed
+    this.isDashed = this._isDashed
   }
 
   update (): void {

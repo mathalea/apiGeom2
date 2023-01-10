@@ -5,6 +5,7 @@ export interface optionsElement2D {
   fillColor?: string | 'none'
   fillOpacity?: number
   thickness?: number
+  isDashed?: boolean
   hasToBeSaved?: boolean
 }
 

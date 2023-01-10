@@ -15,6 +15,8 @@ export class Element2D {
   protected _color: string
   /** Épaisseur du tracé de l'élément */
   protected _thickness: number
+  /** Tracé en pointillés ? */
+  protected _isDashed: boolean
   /** Liste des enfants à notifier à chaque fois que l'élément est déplacé */
   observers: Array<Element2D | DynamicNumber>
   /** Permet de ne pas sauvegarder des objets secondaires qui seront reconstruits (label d'un point, codage d'une figure...) */
@@ -33,6 +35,7 @@ export class Element2D {
     if (this.hasToBeSaved) this.apiGeom.elements.set(this.id, this)
     this._color = options?.color ?? 'black'
     this._thickness = options?.thickness ?? 1
+    this._isDashed = options?.isDashed ?? false
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'g')
     this.observers = []
   }
@@ -67,7 +70,8 @@ export class Element2D {
       type: this.type,
       id: this.id,
       color: this.color,
-      thickness: this.thickness
+      thickness: this.thickness,
+      isDashed: this.isDashed
     }
   }
 
@@ -110,9 +114,24 @@ export class Element2D {
     }
   }
 
+  /** Pointillés */
+  get isDashed (): boolean {
+    return this._isDashed
+  }
+
+  set isDashed (isDashed) {
+    if (isDashed) {
+      this.groupSvg.setAttribute('stroke-dasharray', '4 3')
+    } else {
+      this.groupSvg.removeAttribute('stroke-dasharray')
+    }
+    this._isDashed = isDashed
+  }
+
   /** Modifie la couleur et l'épaisseur de l'élément */
-  setColorAndThickness (): void {
+  setColorThicknessAndDashed (): void {
     this.color = this._color
     this.thickness = this._thickness
+    this.isDashed = this._isDashed
   }
 }
