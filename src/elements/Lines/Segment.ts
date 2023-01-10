@@ -57,7 +57,8 @@ export class Segment extends Element2D {
   }
 
   update (): void {
-    if (this.point1.x === undefined || this.point1.y === undefined || this.point2.x === undefined || this.point2.y === undefined) {
+    if (this.point1.x === undefined || this.point1.y === undefined || this.point2.x === undefined || this.point2.y === undefined ||
+      Number.isNaN(this.point1.x) || Number.isNaN(this.point1.y) || Number.isNaN(this.point2.x) || Number.isNaN(this.point2.y)) {
       this.groupSvg.removeAttribute('x1')
       this.groupSvg.removeAttribute('x2')
       this.groupSvg.removeAttribute('y1')

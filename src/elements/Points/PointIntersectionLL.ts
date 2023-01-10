@@ -51,6 +51,7 @@ export class PointIntersectionLL extends Point {
     } catch (error) {
       console.log('Erreur dans PointIntersectionLL.update()', error)
     }
+    this.notify()
   }
 
   toJSON (): object {

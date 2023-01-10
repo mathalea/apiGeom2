@@ -11,16 +11,24 @@ export class Line extends Segment {
 
   update (): void {
     const [x1Svg, y1Svg, x2Svg, y2Svg] = getCoordsOut(this.point1, this.point2)
-    this.groupSvg.setAttribute('x1', `${this.apiGeom.xToSx(x1Svg)}`)
-    this.groupSvg.setAttribute('y1', `${this.apiGeom.yToSy(y1Svg)}`)
-    this.groupSvg.setAttribute('x2', `${this.apiGeom.xToSx(x2Svg)}`)
-    this.groupSvg.setAttribute('y2', `${this.apiGeom.yToSy(y2Svg)}`)
+    if (Number.isNaN(x1Svg) || Number.isNaN(x2Svg) || Number.isNaN(y1Svg) || Number.isNaN(y1Svg)) {
+      this.groupSvg.removeAttribute('x1')
+      this.groupSvg.removeAttribute('x2')
+      this.groupSvg.removeAttribute('y1')
+      this.groupSvg.removeAttribute('y2')
+    } else {
+      this.groupSvg.setAttribute('x1', `${this.apiGeom.xToSx(x1Svg)}`)
+      this.groupSvg.setAttribute('y1', `${this.apiGeom.yToSy(y1Svg)}`)
+      this.groupSvg.setAttribute('x2', `${this.apiGeom.xToSx(x2Svg)}`)
+      this.groupSvg.setAttribute('y2', `${this.apiGeom.yToSy(y2Svg)}`)
+    }
     this.notify()
   }
 }
 
 function getCoordsOut (A: Point, B: Point): [number, number, number, number] {
-  if (A.x === undefined || A.y === undefined || B.x === undefined || B.y === undefined) return [NaN, NaN, NaN, NaN]
+  if (A.x === undefined || A.y === undefined || B.x === undefined || B.y === undefined ||
+    Number.isNaN(A.x) || Number.isNaN(A.y) || Number.isNaN(B.x) || Number.isNaN(B.y)) return [NaN, NaN, NaN, NaN]
   try {
     const apiGeom = A.apiGeom
     let pente = Infinity

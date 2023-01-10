@@ -89,12 +89,16 @@ export class Circle extends Element2D {
   }
 
   update (): void {
-    const xSvg = this.apiGeom.xToSx(this.center.x)
-    const ySvg = this.apiGeom.yToSy(this.center.y)
-    const rSvg = this.apiGeom.pixelsPerUnit * this._radius
-    this.groupSvg.setAttribute('cx', `${xSvg}`)
-    this.groupSvg.setAttribute('cy', `${ySvg}`)
-    this.groupSvg.setAttribute('r', `${rSvg}`)
+    if (this.center.x === undefined || this.center.y === undefined || Number.isNaN(this.center.x) || Number.isNaN(this.center.y)) {
+      this.groupSvg.removeAttribute('r')
+    } else {
+      const xSvg = this.apiGeom.xToSx(this.center.x)
+      const ySvg = this.apiGeom.yToSy(this.center.y)
+      const rSvg = this.apiGeom.pixelsPerUnit * this._radius
+      this.groupSvg.setAttribute('cx', `${xSvg}`)
+      this.groupSvg.setAttribute('cy', `${ySvg}`)
+      this.groupSvg.setAttribute('r', `${rSvg}`)
+    }
     this.notify()
   }
 
