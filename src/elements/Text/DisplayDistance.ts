@@ -40,14 +40,20 @@ export class DisplayDistance extends TextByPosition {
   }
 
   update (): void {
-    let text = ''
-    if (this.point1.name !== undefined && this.point2.name !== undefined && this.point1.name.length > 0 && this.point2.name.length > 0) {
-      text = `${this.point1.name + this.point2.name}`
+    if (Number.isNaN(this.distance.value)) {
+      this.text = ''
+    } else {
+      let text = ''
+      if (this.point1.name !== undefined && this.point2.name !== undefined && this.point1.name.length > 0 && this.point2.name.length > 0) {
+        text = `${this.point1.name + this.point2.name}`
+      }
+      if (this.distance.value.toString().includes('.')) text += ' \\approx '
+      else {
+        text += ' = '
+      }
+      text += Intl.NumberFormat('fr-FR', { maximumFractionDigits: 2, minimumFractionDigits: 0 }).format(this.distance.value)
+      this.text = text
     }
-    if (this.distance.value.toString().includes('.')) text += ' \\approx '
-    else text += ' = '
-    text += Intl.NumberFormat('fr-FR', { maximumFractionDigits: 2, minimumFractionDigits: 0 }).format(this.distance.value)
-    this.text = text
   }
 
   toJSON (): object {
