@@ -9,6 +9,7 @@ import { Circle } from './elements/Lines/Circle'
 import { CircleCenterPoint } from './elements/Lines/CircleCenterPoint'
 import { CircleCenterDynamicRadius } from './elements/Lines/CircleCenterDyamicRadius'
 import { DynamicNumber } from './dynamicNumbers/DynamicNumber'
+import { PointIntersectionLL } from './elements/Points/PointIntersectionLL'
 
 /**
  * Créé un espace de travail avec les méthodes pour y créer les objets géométriques.
@@ -34,6 +35,11 @@ export class ApiGeomPlus extends ApiGeom {
   /** Crée un point de coordonnées (x, y) */
   point (x: number, y: number, { name, id, color, thickness, style, size }: { name?: string, id?: string, color?: string, thickness?: number, style?: 'x' | 'o' | '', size?: number } = {}): Point {
     return new Point(this, x, y, { name, id, color, thickness, style, size })
+  }
+
+  /** Crée un point à l'intersection de deux droites */
+  pointIntersectionLL (line1: string | Line, line2: string | Line, { name, id, color, thickness, style, size }: { name?: string, id?: string, color?: string, thickness?: number, style?: 'x' | 'o' | '', size?: number } = {}): PointIntersectionLL {
+    return new PointIntersectionLL(this, line1, line2, { name, id, color, thickness, style, size })
   }
 
   /** Trace un segment qui a pour extrémités deux points (donnés par leur nom ou par la variable qui pointe vers ces points) */

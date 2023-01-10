@@ -15,6 +15,7 @@ export class Ray extends Segment {
     this.groupSvg.setAttribute('y1', `${this.apiGeom.yToSy(y1Svg)}`)
     this.groupSvg.setAttribute('x2', `${this.apiGeom.xToSx(x2Svg)}`)
     this.groupSvg.setAttribute('y2', `${this.apiGeom.yToSy(y2Svg)}`)
+    this.notify()
   }
 }
 function getRayCoordsOut (A: Point, B: Point): [number, number, number, number] {

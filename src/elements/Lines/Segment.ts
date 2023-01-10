@@ -41,6 +41,20 @@ export class Segment extends Element2D {
     this.setColorThicknessAndDashed()
   }
 
+  /** Renvoie [a, b, c] tels que ax +y + c = 0 est l'équation de la droite passant par point1 et point2 */
+  get equation (): [number, number, number] {
+    try {
+      const a = this.point1.y - this.point2.y
+      const b = this.point2.x - this.point1.x
+      const c = (this.point1.x - this.point2.x) * this.point1.y + (this.point2.y - this.point1.y) * this.point1.x
+      return [a, b, c]
+    } catch (error) {
+      console.log('Erreur dans Line.equation()', error)
+      // this.exist = false
+      return [NaN, NaN, NaN]
+    }
+  }
+
   update (): void {
     const x1Svg = this.apiGeom.xToSx(this.point1.x)
     const x2Svg = this.apiGeom.xToSx(this.point2.x)
@@ -50,6 +64,7 @@ export class Segment extends Element2D {
     this.groupSvg.setAttribute('y1', `${y1Svg}`)
     this.groupSvg.setAttribute('x2', `${x2Svg}`)
     this.groupSvg.setAttribute('y2', `${y2Svg}`)
+    this.notify()
   }
 
   toJSON (): object {

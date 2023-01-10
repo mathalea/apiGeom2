@@ -95,6 +95,7 @@ export class Circle extends Element2D {
     this.groupSvg.setAttribute('cx', `${xSvg}`)
     this.groupSvg.setAttribute('cy', `${ySvg}`)
     this.groupSvg.setAttribute('r', `${rSvg}`)
+    this.notify()
   }
 
   toJSON (): object {

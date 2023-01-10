@@ -5,8 +5,8 @@ import { optionsPoint } from '../interfaces'
 import { TextByPoint } from '../Text/TextByPoint'
 
 export class Point extends Element2D {
-  private _x: number
-  private _y: number
+  protected _x: number
+  protected _y: number
   /** Nom que l'on affiche à côté du point */
   private _name?: string | undefined
   /** Croix, rond ou rien */
@@ -152,7 +152,6 @@ export class Point extends Element2D {
     return {
       x: this.x,
       y: this.y,
-      test: 4,
       name: this.name,
       style: this.style,
       size: this.size,

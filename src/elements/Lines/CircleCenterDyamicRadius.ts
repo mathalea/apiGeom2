@@ -45,6 +45,7 @@ export class CircleCenterDynamicRadius extends Circle {
     this.groupSvg.setAttribute('cx', `${xSvg}`)
     this.groupSvg.setAttribute('cy', `${ySvg}`)
     this.groupSvg.setAttribute('r', `${rSvg}`)
+    this.notify()
   }
 
   toJSON (): object {
