@@ -5,8 +5,8 @@ import { optionsPoint } from '../interfaces'
 import { TextByPoint } from '../Text/TextByPoint'
 
 export class Point extends Element2D {
-  protected _x: number
-  protected _y: number
+  protected _x?: number
+  protected _y?: number
   /** Nom que l'on affiche à côté du point */
   private _name?: string | undefined
   /** Croix, rond ou rien */
@@ -43,6 +43,12 @@ export class Point extends Element2D {
 
   update (): void {
     this.notify()
+    if (this._x === undefined || this._y === undefined || Number.isNaN(this._x) || Number.isNaN(this._y)) {
+      this.svgCircle.remove()
+      this.svgLine1.remove()
+      this.svgLine2.remove()
+      return
+    }
     if (this._style === 'x') {
       const x1Svg = this.apiGeom.xToSx(this._x - this._size)
       const x2Svg = this.apiGeom.xToSx(this._x + this._size)

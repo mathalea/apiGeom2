@@ -34,17 +34,16 @@ btnLoad?.addEventListener('click', () => {
 })
 
 // Création de la figure
-const A = geo.point(0, 1, { name: 'A' })
+const A = geo.point(5, 1, { name: 'A' })
 const B = geo.point(5, 1, { name: 'B' })
 const C = geo.point(1, 0, { name: 'C' })
 const D = geo.point(7, 3, { name: 'D' })
-const AB = geo.line(A, B, { isDashed: true })
-const CD = geo.line(C, D, { thickness: 2, color: 'blue' })
+const AB = geo.ray(A, B, { isDashed: true })
+const CD = geo.ray(C, D, { thickness: 2, color: 'blue' })
 const O = geo.pointIntersectionLL(AB, CD, { size: 0.1, color: 'orange', style: 'o' })
 B.moveTo(7, 1)
 // Sauvegarde de la figure et affichage de cette sauvegarde
 geo.refreshSave()
-console.log(A, B, C, D, AB, CD, O)
 
 // Pour éviter les alertes unused vars...
 const doNothing = (a: object): object => { return a }

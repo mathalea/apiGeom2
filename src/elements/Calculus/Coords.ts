@@ -62,7 +62,8 @@ export class Coords {
     try {
       const [da, db, dc] = line1.equation
       const [fa, fb, fc] = line2.equation
-      let x: number, y: number
+      let x: number | undefined
+      let y: number | undefined
       if (fa * db - fb * da === 0) {
         return { x: undefined, y: undefined }
       } else {
@@ -72,6 +73,54 @@ export class Coords {
         x = (-fc - fb * y) / fa
       } else { // d n'est pas horizontale donc ...
         x = (-dc - db * y) / da
+      }
+      // On teste le cas du segment ou de la demi-droite
+      let isIntersectionExisting = true
+      if (line1.type === 'Segment' && (x < Math.min(line1.point1.x, line1.point2.x) || x > Math.max(line1.point1.x, line1.point2.x) || y < Math.min(line1.point1.y, line1.point2.y) || y > Math.max(line1.point1.y, line1.point2.y))) {
+        isIntersectionExisting = false
+      }
+      if (line2.type === 'Segment' && (x < Math.min(line2.point1.x, line2.point2.x) || x > Math.max(line2.point1.x, line2.point2.x) || y < Math.min(line2.point1.y, line2.point2.y) || y > Math.max(line2.point1.y, line2.point2.y))) {
+        isIntersectionExisting = false
+      }
+      if (line1.type === 'Ray') {
+        // Direction gauche droite
+        if (line1.point1.x < line1.point2.x && x < line1.point1.x) {
+          isIntersectionExisting = false
+        }
+        // Direction droite gauche
+        if (line1.point1.x > line1.point2.x && x > line1.point1.x) {
+          isIntersectionExisting = false
+        }
+        // Direction bas haut
+        if (line1.point1.y < line1.point2.y && y < line1.point1.y) {
+          isIntersectionExisting = false
+        }
+        // Direction haut bas
+        if (line1.point1.y > line1.point2.y && y > line1.point1.y) {
+          isIntersectionExisting = false
+        }
+      }
+      if (line2.type === 'Ray') {
+        // Direction gauche droite
+        if (line2.point1.x < line2.point2.x && x < line2.point1.x) {
+          isIntersectionExisting = false
+        }
+        // Direction droite gauche
+        if (line2.point1.x > line2.point2.x && x > line2.point1.x) {
+          isIntersectionExisting = false
+        }
+        // Direction bas haut
+        if (line2.point1.y < line2.point2.y && y < line2.point1.y) {
+          isIntersectionExisting = false
+        }
+        // Direction haut bas
+        if (line2.point1.y > line2.point2.y && y > line2.point1.y) {
+          isIntersectionExisting = false
+        }
+      }
+      if (!isIntersectionExisting) {
+        x = NaN
+        y = NaN
       }
       return new Coords(x, y)
     } catch (error) {

@@ -2,6 +2,7 @@ import { ApiGeom } from '../../ApiGeom'
 import { Coords } from '../Calculus/Coords'
 import { optionsPoint } from '../interfaces'
 import { Line } from '../Lines/Line'
+import { Segment } from '../Lines/Segment'
 import { Point } from './Point'
 
 /**
@@ -13,10 +14,10 @@ export class PointIntersectionLL extends Point {
   /** id de la deuxième droite */
   idLine2: string
   /** Première droite */
-  line1: Line
+  line1: Segment
   /** Deuxième droite */
-  line2: Line
-  constructor (apiGeom: ApiGeom, line1: string | Line, line2: string | Line, options?: optionsPoint) {
+  line2: Segment
+  constructor (apiGeom: ApiGeom, line1: string | Segment, line2: string | Segment, options?: optionsPoint) {
     super(apiGeom, 1000, 1000, options)
     this.type = 'PointIntersectionLL'
     if (typeof line1 === 'string') {
@@ -44,11 +45,9 @@ export class PointIntersectionLL extends Point {
     if (this.line1 === undefined || this.line2 === undefined) return
     try {
       const coords = Coords.intersectionLLCoord(this.line1, this.line2)
-      if (typeof coords.x === 'number' && typeof coords.y === 'number') {
-        this._x = coords.x
-        this._y = coords.y
-        super.update()
-      }
+      this._x = coords.x
+      this._y = coords.y
+      super.update()
     } catch (error) {
       console.log('Erreur dans PointIntersectionLL.update()', error)
     }
