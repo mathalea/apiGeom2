@@ -1,6 +1,8 @@
 import { ApiGeom } from '../ApiGeom'
+import { Distance } from '../dynamicNumbers/Distance'
 import { Element2D } from '../elements/Element2D'
 import { Circle } from '../elements/Lines/Circle'
+import { CircleCenterDynamicRadius } from '../elements/Lines/CircleCenterDyamicRadius'
 import { Line } from '../elements/Lines/Line'
 import { Ray } from '../elements/Lines/Ray'
 import { Segment } from '../elements/Lines/Segment'
@@ -34,6 +36,12 @@ export function loadJson (apiGeom: ApiGeom, json: object, eraseHistory = false):
     }
     if (options.type === 'Circle') {
       elements.push(new Circle(apiGeom, options.idCenter, options.radius, options))
+    }
+    if (options.type === 'CircleDynamicRadius') {
+      elements.push(new CircleCenterDynamicRadius(apiGeom, options.idCenter, options.idRadius, options))
+    }
+    if (options.type === 'Distance') {
+      elements.push(new Distance(apiGeom, options.idPoint1, options.idPoint2, options))
     }
     if (options.type === 'TextByPosition') {
       elements.push(new TextByPosition(apiGeom, options.x, options.y, options.text, options))

@@ -48,6 +48,7 @@ export class Distance extends DynamicNumber {
   toJSON (): object {
     return {
       type: this.type,
+      id: this.id,
       idPoint1: this.idPoint1,
       idPoint2: this.idPoint2
     }

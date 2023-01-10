@@ -6,7 +6,7 @@ export class Element2D {
   /** Espace de travail dans lequel l'élément sera représenté */
   apiGeom: ApiGeom
   /** Type d'objet mathématique */
-  type!: '' | 'Point' | 'Segment' | 'TextByPosition' | 'TextByPoint' | 'Line' | 'Ray' | 'Circle' | 'DisplayDistance'
+  type!: '' | 'Point' | 'Segment' | 'TextByPosition' | 'TextByPoint' | 'Line' | 'Ray' | 'Circle' | 'CircleDynamicRadius' | 'DisplayDistance'
   /** Identifiant de l'objet qui servira de clé dans le Map de tous les éléments */
   readonly id: string
   /** Groupe SVG dans lequel sera déssiné l'élément */

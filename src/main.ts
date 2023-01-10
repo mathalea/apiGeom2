@@ -1,4 +1,6 @@
 import { ApiGeomPlus } from './ApiGeomPlus'
+import { Distance } from './dynamicNumbers/Distance'
+import { CircleCenterDynamicRadius } from './elements/Lines/CircleCenterDyamicRadius'
 import { DisplayDistance } from './elements/Text/DisplayDistance'
 
 // Créé un espace de travail pour une figure géométrique
@@ -31,7 +33,7 @@ btnLoad?.addEventListener('click', () => {
     .then(
       (clipText) => (geo.loadJson(JSON.parse(clipText), true))
     )
-    .catch(() => console.log('Erreur avec le chargement'))
+    .catch((error) => console.log('Erreur avec le chargement', error))
 })
 
 // Création de la figure
@@ -46,6 +48,8 @@ const sAB = geo.line(A, B, { color: 'blue' })
 const sAC = geo.ray(A, C)
 const sBC = geo.segment(B, C)
 const dis = new DisplayDistance(geo, 0, -2, A, B)
+const distance = new Distance(geo, A, B)
+const cD = new CircleCenterDynamicRadius(geo, C, distance)
 
 sAB.thickness = 3
 
@@ -54,4 +58,4 @@ geo.refreshSave()
 
 // Pour éviter les alertes unused vars...
 const doNothing = (a: object): object => { return a }
-doNothing({ sAB, sAC, sBC, c, c2, dis })
+doNothing({ sAB, sAC, sBC, c, c2, dis, cD })
