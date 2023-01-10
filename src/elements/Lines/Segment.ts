@@ -43,6 +43,7 @@ export class Segment extends Element2D {
 
   /** Renvoie [a, b, c] tels que ax +y + c = 0 est l'équation de la droite passant par point1 et point2 */
   get equation (): [number, number, number] {
+    if (this.point1.x === undefined || this.point1.y === undefined || this.point2.x === undefined || this.point2.y === undefined) return [NaN, NaN, NaN]
     try {
       const a = this.point1.y - this.point2.y
       const b = this.point2.x - this.point1.x
@@ -56,14 +57,21 @@ export class Segment extends Element2D {
   }
 
   update (): void {
-    const x1Svg = this.apiGeom.xToSx(this.point1.x)
-    const x2Svg = this.apiGeom.xToSx(this.point2.x)
-    const y1Svg = this.apiGeom.yToSy(this.point1.y)
-    const y2Svg = this.apiGeom.yToSy(this.point2.y)
-    this.groupSvg.setAttribute('x1', `${x1Svg}`)
-    this.groupSvg.setAttribute('y1', `${y1Svg}`)
-    this.groupSvg.setAttribute('x2', `${x2Svg}`)
-    this.groupSvg.setAttribute('y2', `${y2Svg}`)
+    if (this.point1.x === undefined || this.point1.y === undefined || this.point2.x === undefined || this.point2.y === undefined) {
+      this.groupSvg.removeAttribute('x1')
+      this.groupSvg.removeAttribute('x2')
+      this.groupSvg.removeAttribute('y1')
+      this.groupSvg.removeAttribute('y2')
+    } else {
+      const x1Svg = this.apiGeom.xToSx(this.point1.x)
+      const x2Svg = this.apiGeom.xToSx(this.point2.x)
+      const y1Svg = this.apiGeom.yToSy(this.point1.y)
+      const y2Svg = this.apiGeom.yToSy(this.point2.y)
+      this.groupSvg.setAttribute('x1', `${x1Svg}`)
+      this.groupSvg.setAttribute('y1', `${y1Svg}`)
+      this.groupSvg.setAttribute('x2', `${x2Svg}`)
+      this.groupSvg.setAttribute('y2', `${y2Svg}`)
+    }
     this.notify()
   }
 

@@ -47,4 +47,4 @@ geo.refreshSave()
 
 // Pour éviter les alertes unused vars...
 const doNothing = (a: object): object => { return a }
-doNothing({ A, B, AB, CD })
+doNothing({ A, B, AB, CD, O })

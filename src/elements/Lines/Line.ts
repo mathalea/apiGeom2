@@ -20,6 +20,7 @@ export class Line extends Segment {
 }
 
 function getCoordsOut (A: Point, B: Point): [number, number, number, number] {
+  if (A.x === undefined || A.y === undefined || B.x === undefined || B.y === undefined) return [NaN, NaN, NaN, NaN]
   try {
     const apiGeom = A.apiGeom
     let pente = Infinity

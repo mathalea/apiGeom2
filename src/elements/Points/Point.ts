@@ -116,7 +116,7 @@ export class Point extends Element2D {
     this.svgCircle.setAttribute('stroke', color)
   }
 
-  get x (): number {
+  get x (): number | undefined {
     return this._x
   }
 
@@ -125,7 +125,7 @@ export class Point extends Element2D {
     this.update()
   }
 
-  get y (): number {
+  get y (): number | undefined {
     return this._y
   }
 
@@ -150,7 +150,8 @@ export class Point extends Element2D {
   }
 
   /** Distance entre un point et le pointeur de la souris exprimée dans les unités du repère */
-  distancePointer (pointerX: number, pointerY: number): number {
+  distancePointer (pointerX: number, pointerY: number): number | undefined {
+    if (this._x === undefined || this._y === undefined) return undefined
     return Math.hypot(this._x - pointerX, this._y - pointerY)
   }
 
