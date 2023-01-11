@@ -1,6 +1,6 @@
 import { ApiGeom } from '../ApiGeom'
 import { defaultDistanceClick } from '../elements/defaultValues'
-import { Point } from '../elements/Points/Point'
+import { Point } from '../elements/points/Point'
 
 export function getClickedElement (apiGeom: ApiGeom, pointerX: number, pointerY: number, distanceInPixels = defaultDistanceClick): Point | undefined {
   const possibleElements = []

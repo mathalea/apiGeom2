@@ -2,7 +2,7 @@ import { ApiGeom } from '../../ApiGeom'
 import { defaultSize } from '../defaultValues'
 import { Element2D } from '../Element2D'
 import { optionsPoint } from '../interfaces'
-import { TextByPoint } from '../Text/TextByPoint'
+import { TextByPoint } from '../text/TextByPoint'
 
 /**
  * Trace un point et ajoute un éventuel label à partir de la propriété name

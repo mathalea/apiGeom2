@@ -1,7 +1,7 @@
 import { ApiGeom } from '../../ApiGeom'
 import { Element2D } from '../Element2D'
 import { optionsElement2D } from '../interfaces'
-import { Point } from '../Points/Point'
+import { Point } from '../points/Point'
 
 /**
  * Trace un cercle dont on connait le centre et le rayon

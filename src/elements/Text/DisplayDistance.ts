@@ -1,6 +1,6 @@
 import { ApiGeom } from '../../ApiGeom'
 import { Distance } from '../../dynamicNumbers/Distance'
-import { Point } from '../Points/Point'
+import { Point } from '../points/Point'
 import { TextByPosition } from './TextByPosition'
 
 /**

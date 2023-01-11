@@ -1,7 +1,7 @@
 import { ApiGeom } from '../../ApiGeom'
 import { Distance } from '../../dynamicNumbers/Distance'
 import { optionsElement2D } from '../interfaces'
-import { Point } from '../Points/Point'
+import { Point } from '../points/Point'
 import { CircleCenterDynamicRadius } from './CircleCenterDyamicRadius'
 
 /**

@@ -1,6 +1,6 @@
 import { ApiGeomPlus } from './ApiGeomPlus'
-import { Middle } from './elements/Points/Middle'
-import { DisplayDistance } from './elements/Text/DisplayDistance'
+import { Middle } from './elements/points/Middle'
+import { DisplayDistance } from './elements/text/DisplayDistance'
 
 // Créé un espace de travail pour une figure géométrique
 const geo = new ApiGeomPlus()

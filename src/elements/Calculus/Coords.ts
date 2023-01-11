@@ -1,4 +1,4 @@
-import { Segment } from './../lines/Segment'
+import { Segment } from '../lines/Segment'
 import { Circle } from '../lines/Circle'
 import { Line } from '../lines/Line'
 import { Point } from '../points/Point'

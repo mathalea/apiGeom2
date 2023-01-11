@@ -1,5 +1,5 @@
 import { ApiGeom } from '../ApiGeom'
-import { Point } from '../elements/Points/Point'
+import { Point } from '../elements/points/Point'
 import { DynamicNumber } from './DynamicNumber'
 
 export class Distance extends DynamicNumber {

@@ -1,6 +1,6 @@
 import { ApiGeom } from '../../ApiGeom'
 import { optionsElement2D } from '../interfaces'
-import { Point } from '../Points/Point'
+import { Point } from '../points/Point'
 import { Segment } from './Segment'
 
 /**
