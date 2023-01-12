@@ -1,7 +1,7 @@
-import ApiGeom from '../../ApiGeom'
-import { DynamicNumber } from '../../dynamicNumbers/DynamicNumber'
+import Figure from '../../Figure'
+import DynamicNumber from '../../dynamicNumbers/DynamicNumber'
 import { optionsCircleCenterDynamicRadius } from '../interfaces'
-import { Point } from '../points/Point'
+import Point from '../points/Point'
 import Circle from './Circle'
 
 class CircleCenterDynamicRadius extends Circle {
@@ -13,8 +13,8 @@ class CircleCenterDynamicRadius extends Circle {
   readonly radiusDynamic: DynamicNumber
   /** id du rayon du cercle */
   readonly idRadius: string
-  constructor (apiGeom: ApiGeom, { center, radius, ...options }: optionsCircleCenterDynamicRadius) {
-    super(apiGeom, { center, radius: radius.value, ...options })
+  constructor (figure: Figure, { center, radius, ...options }: optionsCircleCenterDynamicRadius) {
+    super(figure, { center, radius: radius.value, ...options })
     this.type = 'CircleDynamicRadius'
     this.center = center
     this.idCenter = center.id
@@ -27,9 +27,9 @@ class CircleCenterDynamicRadius extends Circle {
 
   update (): void {
     if (this.radiusDynamic?.value === undefined || this.center.x === undefined || this.center.y === undefined) return
-    const xSvg = this.apiGeom.xToSx(this.center.x)
-    const ySvg = this.apiGeom.yToSy(this.center.y)
-    const rSvg = this.apiGeom.pixelsPerUnit * this.radiusDynamic?.value
+    const xSvg = this.figure.xToSx(this.center.x)
+    const ySvg = this.figure.yToSy(this.center.y)
+    const rSvg = this.figure.pixelsPerUnit * this.radiusDynamic?.value
     this.groupSvg.setAttribute('cx', `${xSvg}`)
     this.groupSvg.setAttribute('cy', `${ySvg}`)
     this.groupSvg.setAttribute('r', `${rSvg}`)

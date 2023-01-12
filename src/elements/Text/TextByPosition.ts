@@ -1,5 +1,5 @@
-import ApiGeom from '../../ApiGeom'
-import { Element2D } from '../Element2D'
+import Figure from '../../Figure'
+import Element2D from '../Element2D'
 import katex from 'katex'
 import { optionsText } from '../interfaces'
 
@@ -16,8 +16,8 @@ class TextByPosition extends Element2D {
   /** Le texte est mis dans un div qui s'affichera par dessus le SVG */
   div: HTMLDivElement
 
-  constructor (apiGeom: ApiGeom, { x, y, text, isLatex = true, color = 'black', hasToBeSaved = true }: optionsText) {
-    super(apiGeom, { hasToBeSaved })
+  constructor (figure: Figure, { x, y, text, isLatex = true, color = 'black', hasToBeSaved = true }: optionsText) {
+    super(figure, { hasToBeSaved })
     this.type = 'TextByPosition'
     this.div = document.createElement('div')
     this.div.style.position = 'absolute'
@@ -26,7 +26,7 @@ class TextByPosition extends Element2D {
     this._y = y
     this.isLatex = isLatex
     this.text = text
-    this.apiGeom.div?.appendChild(this.div)
+    this.figure.div?.appendChild(this.div)
     if (color !== 'black') this.div.style.color = color
   }
 
@@ -45,7 +45,7 @@ class TextByPosition extends Element2D {
   }
 
   set x (x: number) {
-    this.div.style.left = this.apiGeom.xToSx(x - this.apiGeom.xMin).toString() + 'px'
+    this.div.style.left = this.figure.xToSx(x - this.figure.xMin).toString() + 'px'
     this._x = x
   }
 
@@ -54,7 +54,7 @@ class TextByPosition extends Element2D {
   }
 
   set y (y: number) {
-    this.div.style.bottom = this.apiGeom.yToSy(-y + this.apiGeom.yMin).toString() + 'px'
+    this.div.style.bottom = this.figure.yToSy(-y + this.figure.yMin).toString() + 'px'
     this._y = y
   }
 
@@ -69,7 +69,7 @@ class TextByPosition extends Element2D {
   }
 
   show (): void {
-    this.apiGeom.div?.appendChild(this.div)
+    this.figure.div?.appendChild(this.div)
   }
 
   toJSON (): object {

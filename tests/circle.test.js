@@ -1,8 +1,8 @@
 import { expect, test } from 'vitest'
-import { ApiGeomPlus } from '../src/ApiGeomPlus'
-import { Distance } from '../src/dynamicNumbers/Distance'
+import { FigurePlus } from '../src/FigurePlus'
+import Distance from '../src/dynamicNumbers/Distance'
 
-const geo = new ApiGeomPlus()
+const geo = new FigurePlus()
 const A = geo.point(0, 0)
 const B = geo.point(5, 0)
 const O = geo.point(-4, -7)

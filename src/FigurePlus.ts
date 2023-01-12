@@ -1,38 +1,38 @@
-import ApiGeom from './ApiGeom'
-import { Point } from './elements/points/Point'
-import { Segment } from './elements/lines/Segment'
-import { TextByPoint } from './elements/text/TextByPoint'
-import { TextByPosition } from './elements/text/TextByPosition'
-import { Line } from './elements/lines/Line'
-import { Ray } from './elements/lines/Ray'
-import { Circle } from './elements/lines/Circle'
-import { CircleCenterPoint } from './elements/lines/CircleCenterPoint'
-import { CircleCenterDynamicRadius } from './elements/lines/CircleCenterDyamicRadius'
-import { DynamicNumber } from './dynamicNumbers/DynamicNumber'
-import { PointIntersectionLL } from './elements/points/PointIntersectionLL'
-import { Middle } from './elements/points/Middle'
+import Figure from './Figure'
+import Point from './elements/points/Point'
+import Segment from './elements/lines/Segment'
+import TextByPoint from './elements/text/TextByPoint'
+import TextByPosition from './elements/text/TextByPosition'
+import Line from './elements/lines/Line'
+import Ray from './elements/lines/Ray'
+import Circle from './elements/lines/Circle'
+import CircleCenterPoint from './elements/lines/CircleCenterPoint'
+import CircleCenterDynamicRadius from './elements/lines/CircleCenterDyamicRadius'
+import DynamicNumber from './dynamicNumbers/DynamicNumber'
+import PointIntersectionLL from './elements/points/PointIntersectionLL'
+import Middle from './elements/points/Middle'
 
 /**
  * Créé un espace de travail avec les méthodes pour y créer les objets géométriques.
  *
- * ApiGeomPlus est ApiGeom avec des méthodes supplémentaires qui ne sont
+ * FigurePlus est Figure avec des méthodes supplémentaires qui ne sont
  * que des raccourcis pratiques pour l'utilisateur
  *
  * Au lieu de faire :
  *
  *  ```js
- *  const geo = new ApiGeom()
+ *  const geo = new Figure()
  *  const A = new Point(geo, 3, 5)
  *  ```
  *
  *  On peut faire :
  *
  *  ```js
- *  const geo = new ApiGeomPlus()
+ *  const geo = new FigurePlus()
  *  const A = geo.point(3, 5)
  *  ```
  */
-export class ApiGeomPlus extends ApiGeom {
+export class FigurePlus extends Figure {
   /** Crée un point de coordonnées (x, y) */
   point (x: number, y: number, { name, id, color, thickness, shape, size }: { name?: string, id?: string, color?: string, thickness?: number, shape?: 'x' | 'o' | '', size?: number } = {}): Point {
     return new Point(this, { x, y, name, id, color, thickness, shape, size })

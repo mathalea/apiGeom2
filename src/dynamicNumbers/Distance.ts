@@ -1,8 +1,8 @@
-import ApiGeom from '../ApiGeom'
-import { Point } from '../elements/points/Point'
-import { DynamicNumber } from './DynamicNumber'
+import Figure from '../Figure'
+import Point from '../elements/points/Point'
+import DynamicNumber from './DynamicNumber'
 
-export class Distance extends DynamicNumber {
+class Distance extends DynamicNumber {
   /** id du premier point */
   idPoint1: string
   /** id du deuxième point */
@@ -11,8 +11,8 @@ export class Distance extends DynamicNumber {
   point1: Point
   /** Pointeur vers la deuxième extrémité */
   point2: Point
-  constructor (apiGeom: ApiGeom, point1: Point, point2: Point, hasToBeSaved = true) {
-    super(apiGeom, hasToBeSaved)
+  constructor (figure: Figure, point1: Point, point2: Point, hasToBeSaved = true) {
+    super(figure, hasToBeSaved)
     this.type = 'Distance'
     this.point1 = point1
     this.idPoint1 = point1.id
@@ -42,3 +42,5 @@ export class Distance extends DynamicNumber {
     }
   }
 }
+
+export default Distance

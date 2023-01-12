@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import ApiGeom from '../src/ApiGeom'
+import Figure from '../src/Figure'
 
 /**
  * On charge une figure avec intersection de deux droites "parent" de segment, milieu et cercle
@@ -143,7 +143,7 @@ const save = {
   }
 }
 
-const geo = new ApiGeom()
+const geo = new Figure()
 geo.loadJson(save)
 
 test('Chargement', () => {

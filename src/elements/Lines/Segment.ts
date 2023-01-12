@@ -1,5 +1,5 @@
-import ApiGeom from '../../ApiGeom'
-import { Element2D } from '../Element2D'
+import Figure from '../../Figure'
+import Element2D from '../Element2D'
 import { optionsLine } from '../interfaces'
 import Point from '../points/Point'
 
@@ -19,8 +19,8 @@ class Segment extends Element2D {
   point2: Point
   /** Détermine s'il faut afficher les deux extrémités, que celle de gauche ou que celle de droite */
   style?: '' | '|-|' | '|-' | '|-'
-  constructor (apiGeom: ApiGeom, { point1, point2, ...options }: optionsLine) {
-    super(apiGeom, options)
+  constructor (figure: Figure, { point1, point2, ...options }: optionsLine) {
+    super(figure, options)
     this.type = 'Segment'
     this.point1 = point1
     this.idPoint1 = point1.id
@@ -29,7 +29,7 @@ class Segment extends Element2D {
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'line')
     this.point1.subscribe(this)
     this.point2.subscribe(this)
-    this.apiGeom.svg.appendChild(this.groupSvg)
+    this.figure.svg.appendChild(this.groupSvg)
     this.update()
     this.setColorThicknessAndDashed()
   }
@@ -57,10 +57,10 @@ class Segment extends Element2D {
       this.groupSvg.removeAttribute('y1')
       this.groupSvg.removeAttribute('y2')
     } else {
-      const x1Svg = this.apiGeom.xToSx(this.point1.x)
-      const x2Svg = this.apiGeom.xToSx(this.point2.x)
-      const y1Svg = this.apiGeom.yToSy(this.point1.y)
-      const y2Svg = this.apiGeom.yToSy(this.point2.y)
+      const x1Svg = this.figure.xToSx(this.point1.x)
+      const x2Svg = this.figure.xToSx(this.point2.x)
+      const y1Svg = this.figure.yToSy(this.point1.y)
+      const y2Svg = this.figure.yToSy(this.point2.y)
       this.groupSvg.setAttribute('x1', `${x1Svg}`)
       this.groupSvg.setAttribute('y1', `${y1Svg}`)
       this.groupSvg.setAttribute('x2', `${x2Svg}`)

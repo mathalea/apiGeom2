@@ -1,7 +1,7 @@
-import ApiGeom from '../../ApiGeom'
-import { Distance } from '../../dynamicNumbers/Distance'
+import Figure from '../../Figure'
+import Distance from '../../dynamicNumbers/Distance'
 import { optionsCircleCenterPoint } from '../interfaces'
-import { Point } from '../points/Point'
+import Point from '../points/Point'
 import CircleCenterDynamicRadius from './CircleCenterDyamicRadius'
 
 /**
@@ -11,9 +11,9 @@ import CircleCenterDynamicRadius from './CircleCenterDyamicRadius'
 class CircleCenterPoint extends CircleCenterDynamicRadius {
   point: string | Point
   idPoint: string
-  constructor (apiGeom: ApiGeom, { center, point, ...options }: optionsCircleCenterPoint) {
-    const radius = new Distance(apiGeom, center, point, false)
-    super(apiGeom, { center, radius, ...options })
+  constructor (figure: Figure, { center, point, ...options }: optionsCircleCenterPoint) {
+    const radius = new Distance(figure, center, point, false)
+    super(figure, { center, radius, ...options })
     this.type = 'CircleCenterPoint'
     this.point = point
     this.idPoint = point.id

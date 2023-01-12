@@ -1,4 +1,4 @@
-import ApiGeom from '../../ApiGeom'
+import Figure from '../../Figure'
 import { optionsRestrictedText } from '../interfaces'
 import Point from '../points/Point'
 import TextByPosition from './TextByPosition'
@@ -13,8 +13,8 @@ export class TextByPoint extends TextByPosition {
   dx: number
   /** Décalage vertical par rapport au point */
   dy: number
-  constructor (apiGeom: ApiGeom, { point, text, isLatex = true, dx = 0, dy = 0, color = 'back', hasToBeSaved }: optionsRestrictedText) {
-    super(apiGeom, { x: point.x + dx, y: point.y + dy, text, isLatex, color, hasToBeSaved })
+  constructor (figure: Figure, { point, text, isLatex = true, dx = 0, dy = 0, color = 'back', hasToBeSaved }: optionsRestrictedText) {
+    super(figure, { x: point.x + dx, y: point.y + dy, text, isLatex, color, hasToBeSaved })
     this.type = 'TextByPoint'
     this.dx = dx
     this.dy = dy

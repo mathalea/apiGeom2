@@ -1,5 +1,5 @@
-import ApiGeom from '../../ApiGeom'
-import { Distance } from '../../dynamicNumbers/Distance'
+import Figure from '../../Figure'
+import Distance from '../../dynamicNumbers/Distance'
 import Point from '../points/Point'
 import TextByPosition from './TextByPosition'
 
@@ -12,8 +12,8 @@ class DisplayDistance extends TextByPosition {
   idPoint2: string
   point2: Point
   distance: Distance
-  constructor (apiGeom: ApiGeom, x: number, y: number, point1: Point, point2: Point, { isLatex = true, color = 'black', hasToBeSaved }: { isLatex?: boolean, color?: string, dx?: number, dy?: number, hasToBeSaved?: boolean } = {}) {
-    super(apiGeom, { x: NaN, y: NaN, text: '', isLatex, color, hasToBeSaved })
+  constructor (figure: Figure, x: number, y: number, point1: Point, point2: Point, { isLatex = true, color = 'black', hasToBeSaved }: { isLatex?: boolean, color?: string, dx?: number, dy?: number, hasToBeSaved?: boolean } = {}) {
+    super(figure, { x: NaN, y: NaN, text: '', isLatex, color, hasToBeSaved })
     this.type = 'DisplayDistance'
     this.x = x
     this.y = y
@@ -21,7 +21,7 @@ class DisplayDistance extends TextByPosition {
     this.idPoint1 = point1.id
     this.point2 = point2
     this.idPoint2 = point2.id
-    this.distance = new Distance(apiGeom, point1, point2, hasToBeSaved = false)
+    this.distance = new Distance(figure, point1, point2, hasToBeSaved = false)
     this.update()
     this.point1.subscribe(this)
     this.point2.subscribe(this)

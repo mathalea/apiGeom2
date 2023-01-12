@@ -1,4 +1,4 @@
-import ApiGeom from '../../ApiGeom'
+import Figure from '../../Figure'
 import { optionsMiddle } from '../interfaces'
 import Point from './Point'
 
@@ -14,9 +14,9 @@ class Middle extends Point {
   point2: Point
   /** id de la deuxième extrémité */
   idPoint2: string
-  constructor (apiGeom: ApiGeom, { point1, point2, ...options }: optionsMiddle) {
+  constructor (figure: Figure, { point1, point2, ...options }: optionsMiddle) {
     const [xM, yM] = coordsMiddle(point1, point2)
-    super(apiGeom, { x: xM, y: yM, ...options })
+    super(figure, { x: xM, y: yM, ...options })
     this.type = 'Middle'
     this.point1 = point1
     this.idPoint1 = point1.id

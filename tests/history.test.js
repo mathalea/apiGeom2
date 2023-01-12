@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
-import { ApiGeomPlus } from '../src/ApiGeomPlus'
+import { FigurePlus } from '../src/FigurePlus'
 
-const geo = new ApiGeomPlus()
+const geo = new FigurePlus()
 const A = geo.point(0, 0)
 geo.refreshSave()
 A.moveTo(1, 1)

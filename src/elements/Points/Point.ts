@@ -1,8 +1,8 @@
-import ApiGeom from '../../ApiGeom'
+import Figure from '../../Figure'
 import { defaultSize } from '../defaultValues'
-import { Element2D } from '../Element2D'
+import Element2D from '../Element2D'
 import { optionsPoint } from '../interfaces'
-import { TextByPoint } from '../text/TextByPoint'
+import TextByPoint from '../text/TextByPoint'
 
 /**
  * Trace un point et ajoute un éventuel label à partir de la propriété name
@@ -24,8 +24,8 @@ class Point extends Element2D {
   readonly svgCircle: SVGCircleElement
   /** Affichage du nom du point */
   label?: TextByPoint
-  constructor (apiGeom: ApiGeom, { x, y, ...options }: optionsPoint) {
-    super(apiGeom, options)
+  constructor (figure: Figure, { x, y, ...options }: optionsPoint) {
+    super(figure, options)
     this.type = 'Point'
     this._shape = options?.shape ?? 'x'
     this._size = options?.size ?? defaultSize
@@ -36,7 +36,7 @@ class Point extends Element2D {
     this.svgCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
     // Le groupe parent de la représentation du point
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-    this.apiGeom.svg.appendChild(this.groupSvg)
+    this.figure.svg.appendChild(this.groupSvg)
     this._x = x
     this._y = y
     this.update()
@@ -53,18 +53,18 @@ class Point extends Element2D {
       this.label?.hide()
       return
     }
-    if (this.label === undefined || this.label.x > this.apiGeom.xMax || this.label.y > this.apiGeom.yMax || this.label.x < this.apiGeom.xMin || this.label.y < this.apiGeom.yMin) {
+    if (this.label === undefined || this.label.x > this.figure.xMax || this.label.y > this.figure.yMax || this.label.x < this.figure.xMin || this.label.y < this.figure.yMin) {
       this.label?.hide()
     } else this.label?.show()
     if (this._shape === 'x') {
-      const x1Svg = this.apiGeom.xToSx(this._x - this._size)
-      const x2Svg = this.apiGeom.xToSx(this._x + this._size)
-      const x3Svg = this.apiGeom.xToSx(this._x + this._size)
-      const x4Svg = this.apiGeom.xToSx(this._x - this._size)
-      const y1Svg = this.apiGeom.yToSy(this._y - this._size)
-      const y2Svg = this.apiGeom.yToSy(this._y + this._size)
-      const y3Svg = this.apiGeom.yToSy(this._y - this._size)
-      const y4Svg = this.apiGeom.yToSy(this._y + this._size)
+      const x1Svg = this.figure.xToSx(this._x - this._size)
+      const x2Svg = this.figure.xToSx(this._x + this._size)
+      const x3Svg = this.figure.xToSx(this._x + this._size)
+      const x4Svg = this.figure.xToSx(this._x - this._size)
+      const y1Svg = this.figure.yToSy(this._y - this._size)
+      const y2Svg = this.figure.yToSy(this._y + this._size)
+      const y3Svg = this.figure.yToSy(this._y - this._size)
+      const y4Svg = this.figure.yToSy(this._y + this._size)
       this.svgLine1.setAttribute('x1', `${x1Svg}`)
       this.svgLine1.setAttribute('y1', `${y1Svg}`)
       this.svgLine1.setAttribute('x2', `${x2Svg}`)
@@ -77,9 +77,9 @@ class Point extends Element2D {
       this.groupSvg.appendChild(this.svgLine1)
       this.groupSvg.appendChild(this.svgLine2)
     } else if (this._shape === 'o') {
-      const xSvg = this.apiGeom.xToSx(this._x)
-      const ySvg = this.apiGeom.yToSy(this._y)
-      const rSvg = this.apiGeom.pixelsPerUnit * this._size
+      const xSvg = this.figure.xToSx(this._x)
+      const ySvg = this.figure.yToSy(this._y)
+      const rSvg = this.figure.pixelsPerUnit * this._size
       this.svgCircle.setAttribute('cx', `${xSvg}`)
       this.svgCircle.setAttribute('cy', `${ySvg}`)
       this.svgCircle.setAttribute('r', `${rSvg}`)
@@ -147,7 +147,7 @@ class Point extends Element2D {
 
   set name (name: string | undefined) {
     this._name = name
-    if (name !== undefined) this.label = new TextByPoint(this.apiGeom, { point: this, text: name, hasToBeSaved: false })
+    if (name !== undefined) this.label = new TextByPoint(this.figure, { point: this, text: name, hasToBeSaved: false })
   }
 
   /** Déplace le point */

@@ -1,14 +1,14 @@
-import ApiGeom from '../../ApiGeom'
+import Figure from '../../Figure'
 import { optionsLine } from '../interfaces'
-import { Point } from '../points/Point'
-import { Segment } from './Segment'
+import Point from '../points/Point'
+import Segment from './Segment'
 
 /**
  * Trace une demi-droite d'origine point1 et qui passe par point 2
  */
 class Ray extends Segment {
-  constructor (apiGeom: ApiGeom, { point1, point2, ...options }: optionsLine) {
-    super(apiGeom, { point1, point2, ...options })
+  constructor (figure: Figure, { point1, point2, ...options }: optionsLine) {
+    super(figure, { point1, point2, ...options })
     this.type = 'Ray'
   }
 
@@ -20,10 +20,10 @@ class Ray extends Segment {
       this.groupSvg.removeAttribute('y1')
       this.groupSvg.removeAttribute('y2')
     } else {
-      this.groupSvg.setAttribute('x1', `${this.apiGeom.xToSx(x1Svg)}`)
-      this.groupSvg.setAttribute('y1', `${this.apiGeom.yToSy(y1Svg)}`)
-      this.groupSvg.setAttribute('x2', `${this.apiGeom.xToSx(x2Svg)}`)
-      this.groupSvg.setAttribute('y2', `${this.apiGeom.yToSy(y2Svg)}`)
+      this.groupSvg.setAttribute('x1', `${this.figure.xToSx(x1Svg)}`)
+      this.groupSvg.setAttribute('y1', `${this.figure.yToSy(y1Svg)}`)
+      this.groupSvg.setAttribute('x2', `${this.figure.xToSx(x2Svg)}`)
+      this.groupSvg.setAttribute('y2', `${this.figure.yToSy(y2Svg)}`)
     }
     this.notify()
   }
@@ -32,7 +32,7 @@ function getRayCoordsOut (A: Point, B: Point): [number, number, number, number] 
   if (A.x === undefined || A.y === undefined || B.x === undefined || B.y === undefined ||
     Number.isNaN(A.x) || Number.isNaN(A.y) || Number.isNaN(B.x) || Number.isNaN(B.y)) return [NaN, NaN, NaN, NaN]
   try {
-    const parentFigure = A.apiGeom
+    const parentFigure = A.figure
     let pente = Infinity
     if (B.x !== A.x) {
       pente = (B.y - A.y) / (B.x - A.x)

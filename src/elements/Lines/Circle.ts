@@ -1,7 +1,7 @@
-import ApiGeom from '../../ApiGeom'
-import { Element2D } from '../Element2D'
+import Figure from '../../Figure'
+import Element2D from '../Element2D'
 import { optionsCircle } from '../interfaces'
-import { Point } from '../points/Point'
+import Point from '../points/Point'
 
 /**
  * Trace un cercle dont on connait le centre et le rayon
@@ -17,8 +17,8 @@ class Circle extends Element2D {
   private _fillOpacity?: number
   /** Pointeur vers la première extrémité */
   center: Point
-  constructor (apiGeom: ApiGeom, { center, radius, ...options }: optionsCircle) {
-    super(apiGeom, options)
+  constructor (figure: Figure, { center, radius, ...options }: optionsCircle) {
+    super(figure, options)
     this.type = 'Circle'
     this._radius = radius
     this.center = center
@@ -29,7 +29,7 @@ class Circle extends Element2D {
     if (options?.isDashed !== undefined) this._isDashed = options.isDashed
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
     this.center.subscribe(this)
-    this.apiGeom.svg.appendChild(this.groupSvg)
+    this.figure.svg.appendChild(this.groupSvg)
     this.update()
     this.setColorThicknessAndDashed()
   }
@@ -89,9 +89,9 @@ class Circle extends Element2D {
     if (this.center.x === undefined || this.center.y === undefined || Number.isNaN(this.center.x) || Number.isNaN(this.center.y)) {
       this.groupSvg.removeAttribute('r')
     } else {
-      const xSvg = this.apiGeom.xToSx(this.center.x)
-      const ySvg = this.apiGeom.yToSy(this.center.y)
-      const rSvg = this.apiGeom.pixelsPerUnit * this._radius
+      const xSvg = this.figure.xToSx(this.center.x)
+      const ySvg = this.figure.yToSy(this.center.y)
+      const rSvg = this.figure.pixelsPerUnit * this._radius
       this.groupSvg.setAttribute('cx', `${xSvg}`)
       this.groupSvg.setAttribute('cy', `${ySvg}`)
       this.groupSvg.setAttribute('r', `${rSvg}`)

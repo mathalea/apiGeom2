@@ -1,16 +1,16 @@
 import { defaultHistorySize } from './elements/defaultValues'
-import { Element2D } from './elements/Element2D'
+import Element2D from './elements/Element2D'
 import Point from './elements/points/Point'
 import { getClickedElement } from './pointerActions/handlePointerAction'
 import { loadJson } from './actions/loadJson'
 import 'katex/dist/katex.min.css'
-import { DynamicNumber } from './dynamicNumbers/DynamicNumber'
+import DynamicNumber from './dynamicNumbers/DynamicNumber'
 
 /**
  * Créé un espace de travail dans lequel on peut
  * générer des figures de géométrie statique ou dynamique
  */
-class ApiGeom {
+class Figure {
   /** La clé est par défaut api0, api1, api2... ou le nom de l'élément et la valeur est l'élément géométrique (segment, point, polygone...) */
   elements: Map<string, (Element2D | DynamicNumber)>
   /** Un tableau des différentes sauvegardes automatiques utilisé pour les undo ou redo */
@@ -86,7 +86,7 @@ class ApiGeom {
     this.svg.style.width = `${this.width}px`
     this.svg.style.height = `${this.height}px`
     this.svg.setAttribute('viewBox', `${this.xToSx(this.xMin)} ${this.yToSy(this.yMax)} ${this.width} ${this.height}`)
-    // Pour éviter le scroll quand on manipule la apiGeom sur un écran tactile
+    // Pour éviter le scroll quand on manipule la figure sur un écran tactile
     this.svg.style.touchAction = 'none'
     this.clearHtml()
   }
@@ -120,7 +120,7 @@ class ApiGeom {
     return -y / this.pixelsPerUnit
   }
 
-  /** Récupère les coordonnées du pointeur dans le repère de la apiGeom */
+  /** Récupère les coordonnées du pointeur dans le repère de la figure */
   getPointerCoord (event: PointerEvent): [number, number] {
     event.preventDefault()
     const rect = this.svg.getBoundingClientRect()
@@ -220,4 +220,4 @@ class ApiGeom {
   }
 }
 
-export default ApiGeom
+export default Figure

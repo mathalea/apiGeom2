@@ -1,24 +1,24 @@
-import ApiGeom from '../ApiGeom'
-import { Element2D } from '../elements/Element2D'
+import Figure from '../Figure'
+import Element2D from '../elements/Element2D'
 
 /**
  * Pour les valeurs numériques variables qui seront les « parents » de constructions
  */
-export abstract class DynamicNumber {
-  apiGeom: ApiGeom
+abstract class DynamicNumber {
+  figure: Figure
   readonly id: string
   private _value: number
   observers: Array<Element2D | DynamicNumber>
   type: string
   hasToBeSaved: boolean
-  constructor (apiGeom: ApiGeom, hasToBeSaved = true) {
-    this.apiGeom = apiGeom
-    this.id = 'api' + (this.apiGeom.elements.size + 1).toString()
+  constructor (figure: Figure, hasToBeSaved = true) {
+    this.figure = figure
+    this.id = 'api' + (this.figure.elements.size + 1).toString()
     this.observers = []
     this._value = 0
     this.type = ''
     this.hasToBeSaved = hasToBeSaved
-    if (this.hasToBeSaved) this.apiGeom.elements.set(this.id, this)
+    if (this.hasToBeSaved) this.figure.elements.set(this.id, this)
   }
 
   set value (x: number) {
@@ -52,3 +52,5 @@ export abstract class DynamicNumber {
     }
   }
 }
+
+export default DynamicNumber

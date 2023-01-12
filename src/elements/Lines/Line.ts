@@ -1,14 +1,14 @@
-import ApiGeom from '../../ApiGeom'
+import Figure from '../../Figure'
 import { optionsLine } from '../interfaces'
-import { Point } from '../points/Point'
-import { Segment } from './Segment'
+import Point from '../points/Point'
+import Segment from './Segment'
 
 /**
  * Trace une droite
  */
 class Line extends Segment {
-  constructor (apiGeom: ApiGeom, { point1, point2, ...options }: optionsLine) {
-    super(apiGeom, { point1, point2, ...options })
+  constructor (figure: Figure, { point1, point2, ...options }: optionsLine) {
+    super(figure, { point1, point2, ...options })
     this.type = 'Line'
   }
 
@@ -20,10 +20,10 @@ class Line extends Segment {
       this.groupSvg.removeAttribute('y1')
       this.groupSvg.removeAttribute('y2')
     } else {
-      this.groupSvg.setAttribute('x1', `${this.apiGeom.xToSx(x1Svg)}`)
-      this.groupSvg.setAttribute('y1', `${this.apiGeom.yToSy(y1Svg)}`)
-      this.groupSvg.setAttribute('x2', `${this.apiGeom.xToSx(x2Svg)}`)
-      this.groupSvg.setAttribute('y2', `${this.apiGeom.yToSy(y2Svg)}`)
+      this.groupSvg.setAttribute('x1', `${this.figure.xToSx(x1Svg)}`)
+      this.groupSvg.setAttribute('y1', `${this.figure.yToSy(y1Svg)}`)
+      this.groupSvg.setAttribute('x2', `${this.figure.xToSx(x2Svg)}`)
+      this.groupSvg.setAttribute('y2', `${this.figure.yToSy(y2Svg)}`)
     }
     this.notify()
   }
@@ -33,20 +33,20 @@ function getCoordsOut (A: Point, B: Point): [number, number, number, number] {
   if (A.x === undefined || A.y === undefined || B.x === undefined || B.y === undefined ||
     Number.isNaN(A.x) || Number.isNaN(A.y) || Number.isNaN(B.x) || Number.isNaN(B.y)) return [NaN, NaN, NaN, NaN]
   try {
-    const apiGeom = A.apiGeom
+    const figure = A.figure
     let pente = Infinity
     if (B.x !== A.x) {
       pente = (B.y - A.y) / (B.x - A.x)
     }
-    if (pente === Infinity) return [A.x, apiGeom.yMax, A.x, apiGeom.yMin]
-    if (Math.abs(pente) < 10 ** -4) return [apiGeom.xMin, A.y, apiGeom.xMax, A.y]
+    if (pente === Infinity) return [A.x, figure.yMax, A.x, figure.yMin]
+    if (Math.abs(pente) < 10 ** -4) return [figure.xMin, A.y, figure.xMax, A.y]
     let xOutLeft: number, yOutLeft: number
     let n = 0
     while (true) {
       xOutLeft = A.x + n
       yOutLeft = A.y + n * pente
       n++
-      if (xOutLeft > apiGeom.xMax + 1 || yOutLeft > apiGeom.yMax + 1 || yOutLeft < apiGeom.yMin - 1) break
+      if (xOutLeft > figure.xMax + 1 || yOutLeft > figure.yMax + 1 || yOutLeft < figure.yMin - 1) break
     }
     let xOutRight: number, yOutRight: number
     n = 0
@@ -54,7 +54,7 @@ function getCoordsOut (A: Point, B: Point): [number, number, number, number] {
       xOutRight = A.x + n
       yOutRight = A.y + n * pente
       n--
-      if (xOutRight < apiGeom.xMin - 1 || yOutRight > apiGeom.yMax + 1 || yOutRight < apiGeom.yMin - 1) break
+      if (xOutRight < figure.xMin - 1 || yOutRight > figure.yMax + 1 || yOutRight < figure.yMin - 1) break
     }
     return [xOutLeft, yOutLeft, xOutRight, yOutRight]
   } catch (error) {

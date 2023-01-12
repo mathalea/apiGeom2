@@ -1,8 +1,8 @@
-import { ApiGeomPlus } from './ApiGeomPlus'
-import { DisplayDistance } from './elements/text/DisplayDistance'
+import { FigurePlus } from './FigurePlus'
+import DisplayDistance from './elements/text/DisplayDistance'
 
 // Créé un espace de travail pour une figure géométrique
-const geo = new ApiGeomPlus()
+const geo = new FigurePlus()
 
 // On affiche le svg dans un div
 const div = document.querySelector('#app') as HTMLDivElement

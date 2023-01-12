@@ -1,10 +1,10 @@
-import ApiGeom from '../ApiGeom'
-import { DynamicNumber } from '../dynamicNumbers/DynamicNumber'
+import Figure from '../Figure'
+import DynamicNumber from '../dynamicNumbers/DynamicNumber'
 import { optionsElement2D, typeElement2D } from './interfaces'
 
-export class Element2D {
+class Element2D {
   /** Espace de travail dans lequel l'élément sera représenté */
-  apiGeom: ApiGeom
+  figure: Figure
   /** Type d'objet mathématique */
   type!: typeElement2D
   /** Identifiant de l'objet qui servira de clé dans le Map de tous les éléments */
@@ -21,15 +21,15 @@ export class Element2D {
   observers: Array<Element2D | DynamicNumber>
   /** Permet de ne pas sauvegarder des objets secondaires qui seront reconstruits (label d'un point, codage d'une figure...) */
   private readonly hasToBeSaved: boolean
-  constructor (apiGeom: ApiGeom, options?: optionsElement2D) {
-    this.apiGeom = apiGeom
-    if (options === undefined || options?.id === undefined || this.apiGeom.elements.has(options?.id)) {
-      this.id = 'api' + (this.apiGeom.elements.size + 1).toString()
+  constructor (figure: Figure, options?: optionsElement2D) {
+    this.figure = figure
+    if (options === undefined || options?.id === undefined || this.figure.elements.has(options?.id)) {
+      this.id = 'api' + (this.figure.elements.size + 1).toString()
     } else {
       this.id = options.id
     }
     this.hasToBeSaved = (options?.hasToBeSaved) ?? true
-    if (this.hasToBeSaved) this.apiGeom.elements.set(this.id, this)
+    if (this.hasToBeSaved) this.figure.elements.set(this.id, this)
     this._color = options?.color ?? 'black'
     this._thickness = options?.thickness ?? 1
     this._isDashed = options?.isDashed ?? false
@@ -132,3 +132,5 @@ export class Element2D {
     this.isDashed = this._isDashed
   }
 }
+
+export default Element2D

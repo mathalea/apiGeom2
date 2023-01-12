@@ -1,12 +1,12 @@
-# apiGeom2 - Moteur de géométrie dynamique
+# figure2 - Moteur de géométrie dynamique
 
 ## Utilisation
 
 ```js
-import ApiGeom from './ApiGeom'
+import Figure from './Figure'
 
 // Créé un espace de travail pour une figure géométrique
-const geo = new ApiGeom()
+const geo = new Figure()
 
 // On affiche le svg dans un div
 const div = document.querySelector('#app')
