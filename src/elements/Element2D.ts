@@ -23,11 +23,8 @@ export class Element2D {
   private readonly hasToBeSaved: boolean
   constructor (apiGeom: ApiGeom, options?: optionsElement2D) {
     this.apiGeom = apiGeom
-    if (options === undefined || options?.id === undefined) {
+    if (options === undefined || options?.id === undefined || this.apiGeom.elements.has(options?.id)) {
       this.id = 'api' + (this.apiGeom.elements.size + 1).toString()
-    } else if (this.apiGeom.elements.has(options?.id)) {
-      console.log(`The id ${options.id} is already used !`)
-      this.id = options.id + '__' + self.crypto.randomUUID()
     } else {
       this.id = options.id
     }

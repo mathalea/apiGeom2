@@ -66,8 +66,8 @@ export class Coords {
     try {
       const [da, db, dc] = line1.equation
       const [fa, fb, fc] = line2.equation
-      let x: number | undefined
-      let y: number | undefined
+      let x: number
+      let y: number
       if (fa * db - fb * da === 0) {
         return { x: NaN, y: NaN }
       } else {
@@ -129,7 +129,7 @@ export class Coords {
       return new Coords(x, y)
     } catch (error) {
       console.log(error)
-      return new Coords()
+      return new Coords(NaN, NaN)
     }
   }
 
