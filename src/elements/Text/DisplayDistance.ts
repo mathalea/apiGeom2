@@ -32,8 +32,8 @@ class DisplayDistance extends TextByPosition {
       this.text = ''
     } else {
       let text = ''
-      if (this.point1.name !== undefined && this.point2.name !== undefined && this.point1.name.length > 0 && this.point2.name.length > 0) {
-        text = `${this.point1.name + this.point2.name}`
+      if (this.point1.label !== undefined && this.point2.label !== undefined && this.point1.label.length > 0 && this.point2.label.length > 0) {
+        text = `${this.point1.label + this.point2.label}`
       }
       if (this.distance.value.toString().includes('.')) text += ' \\approx '
       else {

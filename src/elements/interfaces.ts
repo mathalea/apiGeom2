@@ -1,10 +1,10 @@
-import { DynamicNumber } from '../dynamicNumbers/DynamicNumber'
+import DynamicNumber from '../dynamicNumbers/DynamicNumber'
 import Line from './lines/Line'
 import Point from './points/Point'
 
 export interface optionsElement2D {
   id?: string
-  name?: string
+  label?: string
   color?: string
   fillColor?: string | 'none'
   fillOpacity?: number

@@ -35,18 +35,18 @@ btnLoad?.addEventListener('click', () => {
 })
 
 // Création de la figure
-const A = geo.point(-2, 1, { name: 'A' })
-const B = geo.point(5, 1.3, { name: 'B' })
-const C = geo.point(1, 0, { name: 'C' })
-const D = geo.point(7, 3, { name: 'D' })
-const E = geo.point(-2, -5, { name: 'E' })
+const A = geo.point(-2, 1, { label: 'A' })
+const B = geo.point(5, 1.3, { label: 'B' })
+const C = geo.point(1, 0, { label: 'C' })
+const D = geo.point(7, 3, { label: 'D' })
+const E = geo.point(-2, -5, { label: 'E' })
 
 const AB = geo.ray(A, B, { isDashed: true })
 const CD = geo.line(C, D, { thickness: 2, color: 'blue' })
-const O = geo.pointIntersectionLL(AB, CD, { size: 0.1, color: 'orange', name: 'O' })
+const O = geo.pointIntersectionLL(AB, CD, { size: 0.1, color: 'orange', label: 'O' })
 const c = geo.circle(O, 3)
 const OA = geo.ray(E, O)
-const M = geo.middle(O, E, { name: 'M' })
+const M = geo.middle(O, E, { label: 'M' })
 const display = new DisplayDistance(geo, -6, -3, A, O)
 // Sauvegarde de la figure et affichage de cette sauvegarde
 geo.refreshSave()

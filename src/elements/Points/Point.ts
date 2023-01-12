@@ -5,13 +5,13 @@ import { optionsPoint } from '../interfaces'
 import TextByPoint from '../text/TextByPoint'
 
 /**
- * Trace un point et ajoute un éventuel label à partir de la propriété name
+ * Trace un point et ajoute un éventuel label à partir de la propriété label
  */
 class Point extends Element2D {
   protected _x: number
   protected _y: number
   /** Nom que l'on affiche à côté du point */
-  private _name?: string | undefined
+  private _label?: string
   /** Croix, rond ou rien */
   private _shape: 'x' | 'o' | ''
   /** Taille du point, correspond à ce qui est ajouté dans les 4 directions pour faire la croix ou au rayon du rond */
@@ -23,7 +23,7 @@ class Point extends Element2D {
   /** Elément SVG pour rond */
   readonly svgCircle: SVGCircleElement
   /** Affichage du nom du point */
-  label?: TextByPoint
+  elementTextLabel?: TextByPoint
   constructor (figure: Figure, { x, y, ...options }: optionsPoint) {
     super(figure, options)
     this.type = 'Point'
@@ -41,7 +41,7 @@ class Point extends Element2D {
     this._y = y
     this.update()
     this.setColorThicknessAndDashed()
-    if (options?.name !== undefined) this.name = options.name
+    if (options?.label !== undefined) this.label = options.label
   }
 
   update (): void {
@@ -50,12 +50,12 @@ class Point extends Element2D {
       this.svgCircle.remove()
       this.svgLine1.remove()
       this.svgLine2.remove()
-      this.label?.hide()
+      this.elementTextLabel?.hide()
       return
     }
-    if (this.label === undefined || this.label.x > this.figure.xMax || this.label.y > this.figure.yMax || this.label.x < this.figure.xMin || this.label.y < this.figure.yMin) {
-      this.label?.hide()
-    } else this.label?.show()
+    if (this.elementTextLabel === undefined || this.elementTextLabel.x > this.figure.xMax || this.elementTextLabel.y > this.figure.yMax || this.elementTextLabel.x < this.figure.xMin || this.elementTextLabel.y < this.figure.yMin) {
+      this.elementTextLabel?.hide()
+    } else this.elementTextLabel?.show()
     if (this._shape === 'x') {
       const x1Svg = this.figure.xToSx(this._x - this._size)
       const x2Svg = this.figure.xToSx(this._x + this._size)
@@ -141,13 +141,13 @@ class Point extends Element2D {
     this.update()
   }
 
-  get name (): string | undefined {
-    return this._name
+  get label (): string | undefined {
+    return this._label
   }
 
-  set name (name: string | undefined) {
-    this._name = name
-    if (name !== undefined) this.label = new TextByPoint(this.figure, { point: this, text: name, hasToBeSaved: false })
+  set label (label: string | undefined) {
+    this._label = label
+    if (label !== undefined) this.elementTextLabel = new TextByPoint(this.figure, { point: this, text: label, hasToBeSaved: false })
   }
 
   /** Déplace le point */
@@ -167,7 +167,7 @@ class Point extends Element2D {
       type: this.type,
       x: this.x,
       y: this.y,
-      name: this.name,
+      label: this.label,
       shape: this.shape,
       size: this.size,
       ...super.toJSON()

@@ -34,18 +34,18 @@ import Middle from './elements/points/Middle'
  */
 export class FigurePlus extends Figure {
   /** Crée un point de coordonnées (x, y) */
-  point (x: number, y: number, { name, id, color, thickness, shape, size }: { name?: string, id?: string, color?: string, thickness?: number, shape?: 'x' | 'o' | '', size?: number } = {}): Point {
-    return new Point(this, { x, y, name, id, color, thickness, shape, size })
+  point (x: number, y: number, { label, id, color, thickness, shape, size }: { label?: string, id?: string, color?: string, thickness?: number, shape?: 'x' | 'o' | '', size?: number } = {}): Point {
+    return new Point(this, { x, y, label, id, color, thickness, shape, size })
   }
 
   /** Crée un point de coordonnées (x, y) */
-  middle (point1: Point, point2: Point, { name, id, color, thickness, shape, size }: { name?: string, id?: string, color?: string, thickness?: number, shape?: 'x' | 'o' | '', size?: number } = {}): Middle {
-    return new Middle(this, { point1, point2, name, id, color, thickness, shape, size })
+  middle (point1: Point, point2: Point, { label, id, color, thickness, shape, size }: { label?: string, id?: string, color?: string, thickness?: number, shape?: 'x' | 'o' | '', size?: number } = {}): Middle {
+    return new Middle(this, { point1, point2, label, id, color, thickness, shape, size })
   }
 
   /** Crée un point à l'intersection de deux droites */
-  pointIntersectionLL (line1: Line, line2: Line, { name, id, color, thickness, shape, size }: { name?: string, id?: string, color?: string, thickness?: number, shape?: 'x' | 'o' | '', size?: number } = {}): PointIntersectionLL {
-    return new PointIntersectionLL(this, { line1, line2, name, id, color, thickness, shape, size })
+  pointIntersectionLL (line1: Line, line2: Line, { label, id, color, thickness, shape, size }: { label?: string, id?: string, color?: string, thickness?: number, shape?: 'x' | 'o' | '', size?: number } = {}): PointIntersectionLL {
+    return new PointIntersectionLL(this, { line1, line2, label, id, color, thickness, shape, size })
   }
 
   /** Trace un segment qui a pour extrémités deux points (donnés par leur nom ou par la variable qui pointe vers ces points) */
