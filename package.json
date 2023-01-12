@@ -1,7 +1,23 @@
 {
   "name": "apigeom",
+  "description": "Géométrie dynamique",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "keywords": [
+    "geometry",
+    "dynamic",
+    "svg",
+    "tikz"
+  ],
+  "author": "Rémi Angot <contact@coopmaths.fr>",
+  "contributors": [
+    "Jean-Claude Lhote"
+  ],
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/mathalea/apiGeom2/issues"
+  },
+  "homepage": "https://github.com/mathalea/apiGeom2",
   "type": "module",
   "scripts": {
     "start": "vite",
