@@ -1,5 +1,4 @@
 import { FigurePlus } from './FigurePlus'
-import DisplayDistance from './elements/text/DisplayDistance'
 
 // Créé un espace de travail pour une figure géométrique
 const geo = new FigurePlus()
@@ -35,22 +34,9 @@ btnLoad?.addEventListener('click', () => {
 })
 
 // Création de la figure
-const A = geo.point(-2, 1, { label: 'A' })
-const B = geo.point(5, 1.3, { label: 'B' })
-const C = geo.point(1, 0, { label: 'C' })
-const D = geo.point(7, 3, { label: 'D' })
-const E = geo.point(-2, -5, { label: 'E' })
-
-const AB = geo.ray(A, B, { isDashed: true })
-const CD = geo.line(C, D, { thickness: 2, color: 'blue' })
-const O = geo.pointIntersectionLL(AB, CD, { size: 0.1, color: 'orange', label: 'O' })
-const c = geo.circle(O, 3)
-const OA = geo.ray(E, O)
-const M = geo.middle(O, E, { label: 'M' })
-const display = new DisplayDistance(geo, -6, -3, A, O)
+const A = geo.create('Point', { x: 1, y: 1, color: 'blue' })
+const B = geo.create('Point', { x: 7, y: 2, color: 'blue' })
+geo.create('Segment', { point1: A, point2: B, color: 'green' })
+geo.create('Circle', { center: B, radius: 3 })
 // Sauvegarde de la figure et affichage de cette sauvegarde
 geo.refreshSave()
-
-// Pour éviter les alertes unused vars...
-const doNothing = (a: object): object => { return a }
-doNothing({ A, B, AB, CD, O, c, OA, M, display })

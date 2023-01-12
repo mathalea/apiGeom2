@@ -5,6 +5,7 @@ import { getClickedElement } from './pointerActions/handlePointerAction'
 import { loadJson } from './actions/loadJson'
 import 'katex/dist/katex.min.css'
 import DynamicNumber from './dynamicNumbers/DynamicNumber'
+import classes from './elements/classes'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -89,6 +90,10 @@ class Figure {
     // Pour éviter le scroll quand on manipule la figure sur un écran tactile
     this.svg.style.touchAction = 'none'
     this.clearHtml()
+  }
+
+  create (type: string, options: object): void {
+    return new classes[type](this, options)
   }
 
   clearHtml (): void {
