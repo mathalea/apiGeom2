@@ -43,7 +43,7 @@ const D = geo.point(7, 3, { name: 'D' })
 const E = geo.point(-2, -5, { name: 'E' })
 
 const AB = geo.ray(A, B, { isDashed: true })
-const CD = geo.ray(C, D, { thickness: 2, color: 'blue' })
+const CD = geo.line(C, D, { thickness: 2, color: 'blue' })
 const O = geo.pointIntersectionLL(AB, CD, { size: 0.1, color: 'orange', name: 'O' })
 const c = geo.circle(O, 3)
 const OA = geo.ray(E, O)

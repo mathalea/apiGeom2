@@ -7,8 +7,8 @@ import { Point } from '../points/Point'
  * Classe de méthodes statiques pour des calculs sur les coordonnées
  */
 export class Coords {
-  x: number | undefined
-  y: number | undefined
+  x: number
+  y: number
   constructor (x: number = 0, y: number = 0) {
     this.x = x
     this.y = y
@@ -69,7 +69,7 @@ export class Coords {
       let x: number | undefined
       let y: number | undefined
       if (fa * db - fb * da === 0) {
-        return { x: undefined, y: undefined }
+        return { x: NaN, y: NaN }
       } else {
         y = (fc * da - dc * fa) / (fa * db - fb * da)
       }

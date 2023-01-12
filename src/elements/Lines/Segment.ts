@@ -19,25 +19,13 @@ export class Segment extends Element2D {
   point2: Point
   /** Détermine s'il faut afficher les deux extrémités, que celle de gauche ou que celle de droite */
   style?: '' | '|-|' | '|-' | '|-'
-  constructor (apiGeom: ApiGeom, point1: string | Point, point2: string | Point, options?: optionsElement2D) {
+  constructor (apiGeom: ApiGeom, point1: Point, point2: Point, options?: optionsElement2D) {
     super(apiGeom, options)
     this.type = 'Segment'
-    if (typeof point1 === 'string') {
-      this.idPoint1 = point1
-      if (this.apiGeom.elements.has(this.idPoint1)) this.point1 = this.apiGeom.elements.get(this.idPoint1) as Point
-      else throw new Error(`Point '${this.idPoint1}' does not exist`)
-    } else {
-      this.point1 = point1
-      this.idPoint1 = point1.id
-    }
-    if (typeof point2 === 'string') {
-      this.idPoint2 = point2
-      if (this.apiGeom.elements.has(this.idPoint2)) this.point2 = this.apiGeom.elements.get(this.idPoint2) as Point
-      else throw new Error(`Point '${this.idPoint2}' does not exist`)
-    } else {
-      this.point2 = point2
-      this.idPoint2 = point2.id
-    }
+    this.point1 = point1
+    this.idPoint1 = point1.id
+    this.point2 = point2
+    this.idPoint2 = point2.id
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'line')
     this.point1.subscribe(this)
     this.point2.subscribe(this)

@@ -17,18 +17,12 @@ export class Circle extends Element2D {
   private _fillOpacity?: number
   /** Pointeur vers la première extrémité */
   center: Point
-  constructor (apiGeom: ApiGeom, center: string | Point, radius: number, options?: optionsElement2D) {
+  constructor (apiGeom: ApiGeom, center: Point, radius: number, options?: optionsElement2D) {
     super(apiGeom, options)
     this.type = 'Circle'
     this._radius = radius
-    if (typeof center === 'string') {
-      this.idCenter = center
-      if (this.apiGeom.elements.has(this.idCenter)) this.center = this.apiGeom.elements.get(this.idCenter) as Point
-      else throw new Error(`Point '${this.idCenter}' does not exist`)
-    } else {
-      this.center = center
-      this.idCenter = center.id
-    }
+    this.center = center
+    this.idCenter = center.id
     if (options?.fillColor !== undefined) this._fillColor = options.fillColor
     else this._fillColor = 'none'
     if (options?.fillOpacity !== undefined) this._fillOpacity = options.fillOpacity

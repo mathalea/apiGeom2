@@ -13,25 +13,13 @@ export class CircleCenterDynamicRadius extends Circle {
   readonly radiusDynamic: DynamicNumber
   /** id du rayon du cercle */
   readonly idRadius: string
-  constructor (apiGeom: ApiGeom, center: string | Point, radius: string | DynamicNumber, options?: optionsElement2D) {
+  constructor (apiGeom: ApiGeom, center: Point, radius: DynamicNumber, options?: optionsElement2D) {
     super(apiGeom, center, 1, options)
     this.type = 'CircleDynamicRadius'
-    if (typeof center === 'string') {
-      this.idCenter = center
-      if (this.apiGeom.elements.has(this.idCenter)) this.center = this.apiGeom.elements.get(this.idCenter) as Point
-      else throw new Error(`Point '${this.idCenter}' does not exist`)
-    } else {
-      this.center = center
-      this.idCenter = center.id
-    }
-    if (typeof radius === 'string') {
-      this.idRadius = radius
-      if (this.apiGeom.elements.has(this.idRadius)) this.radiusDynamic = this.apiGeom.elements.get(this.idRadius) as DynamicNumber
-      else throw new Error(`Point '${this.idRadius}' does not exist`)
-    } else {
-      this.radiusDynamic = radius
-      this.idRadius = radius.id
-    }
+    this.center = center
+    this.idCenter = center.id
+    this.radiusDynamic = radius
+    this.idRadius = radius.id
     this.radiusDynamic.subscribe(this)
     this.update()
     this.setColorThicknessAndDashed()

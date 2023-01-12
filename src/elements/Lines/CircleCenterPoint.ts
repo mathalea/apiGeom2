@@ -11,18 +11,12 @@ import { CircleCenterDynamicRadius } from './CircleCenterDyamicRadius'
 export class CircleCenterPoint extends CircleCenterDynamicRadius {
   point: string | Point
   idPoint: string
-  constructor (apiGeom: ApiGeom, center: string | Point, point: string | Point, options?: optionsElement2D) {
+  constructor (apiGeom: ApiGeom, center: Point, point: Point, options?: optionsElement2D) {
     const radius = new Distance(apiGeom, center, point, false)
     super(apiGeom, center, radius, options)
     this.type = 'CircleCenterPoint'
-    if (typeof point === 'string') {
-      this.idPoint = point
-      if (this.apiGeom.elements.has(this.idPoint)) this.point = this.apiGeom.elements.get(this.idPoint) as Point
-      else throw new Error(`Point '${this.idPoint}' does not exist`)
-    } else {
-      this.point = point
-      this.idPoint = point.id
-    }
+    this.point = point
+    this.idPoint = point.id
     this.point.subscribe(this)
   }
 

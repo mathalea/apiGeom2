@@ -8,8 +8,8 @@ import { TextByPoint } from '../text/TextByPoint'
  * Trace un point et ajoute un éventuel label à partir de la propriété name
  */
 export class Point extends Element2D {
-  protected _x?: number
-  protected _y?: number
+  protected _x: number
+  protected _y: number
   /** Nom que l'on affiche à côté du point */
   private _name?: string | undefined
   /** Croix, rond ou rien */
@@ -46,7 +46,7 @@ export class Point extends Element2D {
 
   update (): void {
     this.notify()
-    if (this._x === undefined || this._y === undefined || Number.isNaN(this._x) || Number.isNaN(this._y)) {
+    if (Number.isNaN(this._x) || Number.isNaN(this._y)) {
       this.svgCircle.remove()
       this.svgLine1.remove()
       this.svgLine2.remove()
@@ -123,7 +123,7 @@ export class Point extends Element2D {
     this.svgCircle.setAttribute('stroke', color)
   }
 
-  get x (): number | undefined {
+  get x (): number {
     return this._x
   }
 
@@ -132,7 +132,7 @@ export class Point extends Element2D {
     this.update()
   }
 
-  get y (): number | undefined {
+  get y (): number {
     return this._y
   }
 

@@ -14,25 +14,14 @@ export class Middle extends Point {
   point2: Point
   /** id de la deuxième extrémité */
   idPoint2: string
-  constructor (apiGeom: ApiGeom, point1: string | Point, point2: string | Point, options?: optionsPoint) {
-    super(apiGeom, 1000, 1000, options)
+  constructor (apiGeom: ApiGeom, point1: Point, point2: Point, options?: optionsPoint) {
+    const [xM, yM] = coordsMiddle(point1, point2)
+    super(apiGeom, xM, yM, options)
     this.type = 'Middle'
-    if (typeof point1 === 'string') {
-      this.idPoint1 = point1
-      if (this.apiGeom.elements.has(this.idPoint1)) this.point1 = this.apiGeom.elements.get(this.idPoint1) as Point
-      else throw new Error(`Point '${this.idPoint1}' does not exist`)
-    } else {
-      this.point1 = point1
-      this.idPoint1 = point1.id
-    }
-    if (typeof point2 === 'string') {
-      this.idPoint2 = point2
-      if (this.apiGeom.elements.has(this.idPoint2)) this.point2 = this.apiGeom.elements.get(this.idPoint2) as Point
-      else throw new Error(`Point '${this.idPoint2}' does not exist`)
-    } else {
-      this.point2 = point2
-      this.idPoint2 = point2.id
-    }
+    this.point1 = point1
+    this.idPoint1 = point1.id
+    this.point2 = point2
+    this.idPoint2 = point2.id
     this.point1.subscribe(this)
     this.point2.subscribe(this)
     this.update()
@@ -59,4 +48,9 @@ export class Middle extends Point {
       ...super.toJSON()
     }
   }
+}
+
+function coordsMiddle (point1: Point, point2: Point): [number, number] {
+  if (Number.isNaN(point1.x) || Number.isNaN(point1.y) || Number.isNaN(point2.x) || Number.isNaN(point2.y)) return [NaN, NaN]
+  return [(point1.x + point2.x) / 2, (point1.y + point2.y) / 2]
 }

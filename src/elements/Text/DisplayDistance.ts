@@ -12,27 +12,15 @@ export class DisplayDistance extends TextByPosition {
   idPoint2: string
   point2: Point
   distance: Distance
-  constructor (apiGeom: ApiGeom, x: number, y: number, point1: Point | string, point2: Point | string, { isLatex = true, color = 'black', hasToBeSaved }: { isLatex?: boolean, color?: string, dx?: number, dy?: number, hasToBeSaved?: boolean } = {}) {
+  constructor (apiGeom: ApiGeom, x: number, y: number, point1: Point, point2: Point, { isLatex = true, color = 'black', hasToBeSaved }: { isLatex?: boolean, color?: string, dx?: number, dy?: number, hasToBeSaved?: boolean } = {}) {
     super(apiGeom, 0, 0, '', { isLatex, color, hasToBeSaved })
     this.type = 'DisplayDistance'
     this.x = x
     this.y = y
-    if (typeof point1 === 'string') {
-      this.idPoint1 = point1
-      if (this.apiGeom.elements.has(this.idPoint1)) this.point1 = this.apiGeom.elements.get(this.idPoint1) as Point
-      else throw new Error(`Point '${this.idPoint1}' does not exist`)
-    } else {
-      this.point1 = point1
-      this.idPoint1 = point1.id
-    }
-    if (typeof point2 === 'string') {
-      this.idPoint2 = point2
-      if (this.apiGeom.elements.has(this.idPoint2)) this.point2 = this.apiGeom.elements.get(this.idPoint2) as Point
-      else throw new Error(`Point '${this.idPoint2}' does not exist`)
-    } else {
-      this.point2 = point2
-      this.idPoint2 = point2.id
-    }
+    this.point1 = point1
+    this.idPoint1 = point1.id
+    this.point2 = point2
+    this.idPoint2 = point2.id
     this.distance = new Distance(apiGeom, point1, point2, hasToBeSaved = false)
     this.update()
     this.point1.subscribe(this)
@@ -59,8 +47,8 @@ export class DisplayDistance extends TextByPosition {
   toJSON (): object {
     return {
       type: this.type,
-      point1: this.idPoint1,
-      point2: this.idPoint2,
+      idPoint1: this.idPoint1,
+      idPoint2: this.idPoint2,
       x: this.x,
       y: this.y,
       id: this.id,

@@ -1,7 +1,6 @@
 import { ApiGeom } from '../../ApiGeom'
 import { Coords } from '../calculus/Coords'
 import { optionsPoint } from '../interfaces'
-import { Line } from '../lines/Line'
 import { Segment } from '../lines/Segment'
 import { Point } from './Point'
 
@@ -18,25 +17,13 @@ export class PointIntersectionLL extends Point {
   line1: Segment
   /** Deuxième droite */
   line2: Segment
-  constructor (apiGeom: ApiGeom, line1: string | Segment, line2: string | Segment, options?: optionsPoint) {
+  constructor (apiGeom: ApiGeom, line1: Segment, line2: Segment, options?: optionsPoint) {
     super(apiGeom, NaN, NaN, options)
     this.type = 'PointIntersectionLL'
-    if (typeof line1 === 'string') {
-      this.idLine1 = line1
-      if (this.apiGeom.elements.has(this.idLine1)) this.line1 = this.apiGeom.elements.get(this.idLine1) as Line
-      else throw new Error(`Line '${this.idLine1}' does not exist`)
-    } else {
-      this.line1 = line1
-      this.idLine1 = line1.id
-    }
-    if (typeof line2 === 'string') {
-      this.idLine2 = line2
-      if (this.apiGeom.elements.has(this.idLine2)) this.line2 = this.apiGeom.elements.get(this.idLine2) as Line
-      else throw new Error(`Line '${this.idLine2}' does not exist`)
-    } else {
-      this.line2 = line2
-      this.idLine2 = line2.id
-    }
+    this.line1 = line1
+    this.idLine1 = line1.id
+    this.line2 = line2
+    this.idLine2 = line2.id
     this.line1.subscribe(this)
     this.line2.subscribe(this)
     this.update()
