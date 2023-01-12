@@ -1,4 +1,4 @@
-import { ApiGeom } from '../ApiGeom'
+import ApiGeom from '../ApiGeom'
 import { Point } from '../elements/points/Point'
 import { DynamicNumber } from './DynamicNumber'
 

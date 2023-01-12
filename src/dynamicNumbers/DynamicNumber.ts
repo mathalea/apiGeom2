@@ -1,4 +1,4 @@
-import { ApiGeom } from '../ApiGeom'
+import ApiGeom from '../ApiGeom'
 import { Element2D } from '../elements/Element2D'
 
 /**

@@ -1,4 +1,4 @@
-import { ApiGeom } from '../../ApiGeom'
+import ApiGeom from '../../ApiGeom'
 import { defaultSize } from '../defaultValues'
 import { Element2D } from '../Element2D'
 import { optionsPoint } from '../interfaces'
@@ -7,7 +7,7 @@ import { TextByPoint } from '../text/TextByPoint'
 /**
  * Trace un point et ajoute un éventuel label à partir de la propriété name
  */
-export class Point extends Element2D {
+class Point extends Element2D {
   protected _x: number
   protected _y: number
   /** Nom que l'on affiche à côté du point */
@@ -174,3 +174,5 @@ export class Point extends Element2D {
     }
   }
 }
+
+export default Point

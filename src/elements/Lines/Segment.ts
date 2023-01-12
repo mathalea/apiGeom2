@@ -1,14 +1,14 @@
-import { ApiGeom } from '../../ApiGeom'
+import ApiGeom from '../../ApiGeom'
 import { Element2D } from '../Element2D'
 import { optionsLine } from '../interfaces'
-import { Point } from '../points/Point'
+import Point from '../points/Point'
 
 /**
  * Trace un segment qui a pour extrémités deux points donnés
  * Si un point a des coordonnées non définies alors le segment est effacé momentannément
  * C'est la classe parent de celles qui permettent de tracer une droite ou une demi-droite
  */
-export class Segment extends Element2D {
+class Segment extends Element2D {
   /** id de la première extrémité */
   idPoint1: string
   /** id de la deuxième extrémité */
@@ -78,3 +78,5 @@ export class Segment extends Element2D {
     }
   }
 }
+
+export default Segment

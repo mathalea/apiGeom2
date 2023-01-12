@@ -1,4 +1,4 @@
-import { ApiGeom } from '../../ApiGeom'
+import ApiGeom from '../../ApiGeom'
 import { Element2D } from '../Element2D'
 import katex from 'katex'
 import { optionsText } from '../interfaces'
@@ -7,7 +7,7 @@ import { optionsText } from '../interfaces'
  * Créé un div contenant un texte qui est mis au dessus du svg
  * par défaut KaTeX s'occupe du rendu du div
  */
-export class TextByPosition extends Element2D {
+class TextByPosition extends Element2D {
   private _x: number
   private _y: number
   /** Détermine s'il faut utiliser KaTeX pour le rendu du texte */
@@ -83,3 +83,5 @@ export class TextByPosition extends Element2D {
     }
   }
 }
+
+export default TextByPosition

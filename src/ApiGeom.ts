@@ -1,6 +1,6 @@
 import { defaultHistorySize } from './elements/defaultValues'
 import { Element2D } from './elements/Element2D'
-import { Point } from './elements/points/Point'
+import Point from './elements/points/Point'
 import { getClickedElement } from './pointerActions/handlePointerAction'
 import { loadJson } from './actions/loadJson'
 import 'katex/dist/katex.min.css'
@@ -10,7 +10,7 @@ import { DynamicNumber } from './dynamicNumbers/DynamicNumber'
  * Créé un espace de travail dans lequel on peut
  * générer des figures de géométrie statique ou dynamique
  */
-export class ApiGeom {
+class ApiGeom {
   /** La clé est par défaut api0, api1, api2... ou le nom de l'élément et la valeur est l'élément géométrique (segment, point, polygone...) */
   elements: Map<string, (Element2D | DynamicNumber)>
   /** Un tableau des différentes sauvegardes automatiques utilisé pour les undo ou redo */
@@ -219,3 +219,5 @@ export class ApiGeom {
     return loadJson(this, json, eraseHistory)
   }
 }
+
+export default ApiGeom

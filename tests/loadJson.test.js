@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { ApiGeom } from '../src/ApiGeom'
+import ApiGeom from '../src/ApiGeom'
 
 /**
  * On charge une figure avec intersection de deux droites "parent" de segment, milieu et cercle

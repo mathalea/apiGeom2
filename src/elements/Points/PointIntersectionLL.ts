@@ -1,8 +1,8 @@
-import { ApiGeom } from '../../ApiGeom'
+import ApiGeom from '../../ApiGeom'
 import { intersectionLLCoord } from '../calculus/Coords'
 import { optionsIntersectionLL } from '../interfaces'
-import { Segment } from '../lines/Segment'
-import { Point } from './Point'
+import Segment from '../lines/Segment'
+import Point from './Point'
 
 /**
  * Créé un point à l'intersection de deux droites (demi-droites ou segments)
@@ -51,3 +51,5 @@ export class PointIntersectionLL extends Point {
     }
   }
 }
+
+export default PointIntersectionLL

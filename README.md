@@ -3,7 +3,7 @@
 ## Utilisation
 
 ```js
-import { ApiGeom } from './ApiGeom'
+import ApiGeom from './ApiGeom'
 
 // Créé un espace de travail pour une figure géométrique
 const geo = new ApiGeom()

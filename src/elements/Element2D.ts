@@ -1,4 +1,4 @@
-import { ApiGeom } from '../ApiGeom'
+import ApiGeom from '../ApiGeom'
 import { DynamicNumber } from '../dynamicNumbers/DynamicNumber'
 import { optionsElement2D, typeElement2D } from './interfaces'
 

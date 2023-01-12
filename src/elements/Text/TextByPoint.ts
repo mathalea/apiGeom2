@@ -1,7 +1,7 @@
-import { ApiGeom } from '../../ApiGeom'
+import ApiGeom from '../../ApiGeom'
 import { optionsRestrictedText } from '../interfaces'
-import { Point } from '../points/Point'
-import { TextByPosition } from './TextByPosition'
+import Point from '../points/Point'
+import TextByPosition from './TextByPosition'
 
 /**
  * Créé un texte qui suivra la position d'un point
@@ -38,3 +38,5 @@ export class TextByPoint extends TextByPosition {
     }
   }
 }
+
+export default TextByPoint

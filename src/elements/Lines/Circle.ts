@@ -1,4 +1,4 @@
-import { ApiGeom } from '../../ApiGeom'
+import ApiGeom from '../../ApiGeom'
 import { Element2D } from '../Element2D'
 import { optionsCircle } from '../interfaces'
 import { Point } from '../points/Point'
@@ -6,7 +6,7 @@ import { Point } from '../points/Point'
 /**
  * Trace un cercle dont on connait le centre et le rayon
  */
-export class Circle extends Element2D {
+class Circle extends Element2D {
   /** id de la première extrémité */
   idCenter: string
   /** Rayon du cercle */
@@ -110,3 +110,5 @@ export class Circle extends Element2D {
     }
   }
 }
+
+export default Circle

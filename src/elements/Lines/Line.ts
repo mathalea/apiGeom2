@@ -1,4 +1,4 @@
-import { ApiGeom } from '../../ApiGeom'
+import ApiGeom from '../../ApiGeom'
 import { optionsLine } from '../interfaces'
 import { Point } from '../points/Point'
 import { Segment } from './Segment'
@@ -6,7 +6,7 @@ import { Segment } from './Segment'
 /**
  * Trace une droite
  */
-export class Line extends Segment {
+class Line extends Segment {
   constructor (apiGeom: ApiGeom, { point1, point2, ...options }: optionsLine) {
     super(apiGeom, { point1, point2, ...options })
     this.type = 'Line'
@@ -62,3 +62,5 @@ function getCoordsOut (A: Point, B: Point): [number, number, number, number] {
     return [NaN, NaN, NaN, NaN]
   }
 }
+
+export default Line

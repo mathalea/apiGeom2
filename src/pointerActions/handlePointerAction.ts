@@ -1,4 +1,4 @@
-import { ApiGeom } from '../ApiGeom'
+import ApiGeom from '../ApiGeom'
 import { defaultDistanceClick } from '../elements/defaultValues'
 import { Point } from '../elements/points/Point'
 

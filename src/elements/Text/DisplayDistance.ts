@@ -1,12 +1,12 @@
-import { ApiGeom } from '../../ApiGeom'
+import ApiGeom from '../../ApiGeom'
 import { Distance } from '../../dynamicNumbers/Distance'
-import { Point } from '../points/Point'
-import { TextByPosition } from './TextByPosition'
+import Point from '../points/Point'
+import TextByPosition from './TextByPosition'
 
 /**
  * Affiche en temps réel la distance entre deux points
  */
-export class DisplayDistance extends TextByPosition {
+class DisplayDistance extends TextByPosition {
   idPoint1: string
   point1: Point
   idPoint2: string
@@ -56,3 +56,5 @@ export class DisplayDistance extends TextByPosition {
     }
   }
 }
+
+export default DisplayDistance

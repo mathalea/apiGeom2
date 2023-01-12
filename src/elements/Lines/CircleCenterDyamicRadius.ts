@@ -1,10 +1,10 @@
-import { ApiGeom } from '../../ApiGeom'
+import ApiGeom from '../../ApiGeom'
 import { DynamicNumber } from '../../dynamicNumbers/DynamicNumber'
 import { optionsCircleCenterDynamicRadius } from '../interfaces'
 import { Point } from '../points/Point'
-import { Circle } from './Circle'
+import Circle from './Circle'
 
-export class CircleCenterDynamicRadius extends Circle {
+class CircleCenterDynamicRadius extends Circle {
   /** id de la première extrémité */
   idCenter: string
   /** Centre du cercle */
@@ -50,3 +50,5 @@ export class CircleCenterDynamicRadius extends Circle {
     }
   }
 }
+
+export default CircleCenterDynamicRadius

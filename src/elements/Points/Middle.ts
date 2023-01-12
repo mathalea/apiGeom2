@@ -1,11 +1,11 @@
-import { ApiGeom } from '../../ApiGeom'
+import ApiGeom from '../../ApiGeom'
 import { optionsMiddle } from '../interfaces'
-import { Point } from './Point'
+import Point from './Point'
 
 /**
  * Trace le milieu défini par deux points
  */
-export class Middle extends Point {
+class Middle extends Point {
   /** Première extrémité */
   point1: Point
   /** id de la première extrémité */
@@ -54,3 +54,5 @@ function coordsMiddle (point1: Point, point2: Point): [number, number] {
   if (Number.isNaN(point1.x) || Number.isNaN(point1.y) || Number.isNaN(point2.x) || Number.isNaN(point2.y)) return [NaN, NaN]
   return [(point1.x + point2.x) / 2, (point1.y + point2.y) / 2]
 }
+
+export default Middle
