@@ -13,7 +13,7 @@ export class DisplayDistance extends TextByPosition {
   point2: Point
   distance: Distance
   constructor (apiGeom: ApiGeom, x: number, y: number, point1: Point, point2: Point, { isLatex = true, color = 'black', hasToBeSaved }: { isLatex?: boolean, color?: string, dx?: number, dy?: number, hasToBeSaved?: boolean } = {}) {
-    super(apiGeom, 0, 0, '', { isLatex, color, hasToBeSaved })
+    super(apiGeom, { x: NaN, y: NaN, text: '', isLatex, color, hasToBeSaved })
     this.type = 'DisplayDistance'
     this.x = x
     this.y = y

@@ -3,7 +3,7 @@ import { ApiGeomPlus } from '../src/ApiGeomPlus'
 
 const geo = new ApiGeomPlus()
 const A = geo.point(4, 5)
-const B = geo.point(8, -12, { style: 'o' })
+const B = geo.point(8, -12, { shape: 'o' })
 const C = geo.point(9, 6, { id: 'C' })
 const sAB = geo.segment(A, B, { color: 'blue' })
 const sAH = geo.segment(A, C)

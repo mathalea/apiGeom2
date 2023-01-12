@@ -1,6 +1,6 @@
 import { ApiGeom } from '../../ApiGeom'
 import { Element2D } from '../Element2D'
-import { optionsElement2D } from '../interfaces'
+import { optionsCircle } from '../interfaces'
 import { Point } from '../points/Point'
 
 /**
@@ -17,7 +17,7 @@ export class Circle extends Element2D {
   private _fillOpacity?: number
   /** Pointeur vers la première extrémité */
   center: Point
-  constructor (apiGeom: ApiGeom, center: Point, radius: number, options?: optionsElement2D) {
+  constructor (apiGeom: ApiGeom, { center, radius, ...options }: optionsCircle) {
     super(apiGeom, options)
     this.type = 'Circle'
     this._radius = radius

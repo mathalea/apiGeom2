@@ -17,7 +17,6 @@ test('Point intersection entre deux droites', () => {
   B.moveTo(7, -10)
   C.moveTo(0, 0)
   D.moveTo(1000, 0)
-  console.log(O.x)
   expect(O.x).toBe(7)
   expect(O.y).equal(0) // O.y = -0 ce qui n'est pas 0...
 })

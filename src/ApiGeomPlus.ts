@@ -34,57 +34,57 @@ import { Middle } from './elements/points/Middle'
  */
 export class ApiGeomPlus extends ApiGeom {
   /** Crée un point de coordonnées (x, y) */
-  point (x: number, y: number, { name, id, color, thickness, style, size }: { name?: string, id?: string, color?: string, thickness?: number, style?: 'x' | 'o' | '', size?: number } = {}): Point {
-    return new Point(this, x, y, { name, id, color, thickness, style, size })
+  point (x: number, y: number, { name, id, color, thickness, shape, size }: { name?: string, id?: string, color?: string, thickness?: number, shape?: 'x' | 'o' | '', size?: number } = {}): Point {
+    return new Point(this, { x, y, name, id, color, thickness, shape, size })
   }
 
   /** Crée un point de coordonnées (x, y) */
-  middle (point1: string | Point, point2: string | Point, { name, id, color, thickness, style, size }: { name?: string, id?: string, color?: string, thickness?: number, style?: 'x' | 'o' | '', size?: number } = {}): Middle {
-    return new Middle(this, point1, point2, { name, id, color, thickness, style, size })
+  middle (point1: Point, point2: Point, { name, id, color, thickness, shape, size }: { name?: string, id?: string, color?: string, thickness?: number, shape?: 'x' | 'o' | '', size?: number } = {}): Middle {
+    return new Middle(this, { point1, point2, name, id, color, thickness, shape, size })
   }
 
   /** Crée un point à l'intersection de deux droites */
-  pointIntersectionLL (line1: string | Line, line2: string | Line, { name, id, color, thickness, style, size }: { name?: string, id?: string, color?: string, thickness?: number, style?: 'x' | 'o' | '', size?: number } = {}): PointIntersectionLL {
-    return new PointIntersectionLL(this, line1, line2, { name, id, color, thickness, style, size })
+  pointIntersectionLL (line1: Line, line2: Line, { name, id, color, thickness, shape, size }: { name?: string, id?: string, color?: string, thickness?: number, shape?: 'x' | 'o' | '', size?: number } = {}): PointIntersectionLL {
+    return new PointIntersectionLL(this, { line1, line2, name, id, color, thickness, shape, size })
   }
 
   /** Trace un segment qui a pour extrémités deux points (donnés par leur nom ou par la variable qui pointe vers ces points) */
-  segment (point1: string | Point, point2: string | Point, { id, color, thickness, isDashed }: { id?: string, color?: string, thickness?: number, isDashed?: boolean } = {}): Segment {
-    return new Segment(this, point1, point2, { id, color, thickness, isDashed })
+  segment (point1: Point, point2: Point, { id, color, thickness, isDashed }: { id?: string, color?: string, thickness?: number, isDashed?: boolean } = {}): Segment {
+    return new Segment(this, { point1, point2, id, color, thickness, isDashed })
   }
 
   /** Trace la droite qui passe par les deux points (donnés par leur nom ou par la variable qui pointe vers ces points) */
-  line (point1: string | Point, point2: string | Point, { id, color, thickness, isDashed }: { id?: string, color?: string, thickness?: number, isDashed?: boolean } = {}): Line {
-    return new Line(this, point1, point2, { id, color, thickness, isDashed })
+  line (point1: Point, point2: Point, { id, color, thickness, isDashed }: { id?: string, color?: string, thickness?: number, isDashed?: boolean } = {}): Line {
+    return new Line(this, { point1, point2, id, color, thickness, isDashed })
   }
 
   /** Trace la demi-droite d'origine le premier point et qui passe par le deuxième (donnés par leur nom ou par la variable qui pointe vers ces points) */
-  ray (point1: string | Point, point2: string | Point, { id, color, thickness, isDashed }: { id?: string, color?: string, thickness?: number, isDashed?: boolean } = {}): Ray {
-    return new Ray(this, point1, point2, { id, color, thickness, isDashed })
+  ray (point1: Point, point2: Point, { id, color, thickness, isDashed }: { id?: string, color?: string, thickness?: number, isDashed?: boolean } = {}): Ray {
+    return new Ray(this, { point1, point2, id, color, thickness, isDashed })
   }
 
   /** Trace le cercle à partir de son centre et de son rayon */
-  circle (center: string | Point, radius: number, { id, color, fillColor, fillOpacity, thickness, isDashed }: { id?: string, color?: string, fillColor?: string | 'none', fillOpacity?: number, thickness?: number, isDashed?: boolean } = {}): Circle {
-    return new Circle(this, center, radius, { id, color, fillColor, fillOpacity, thickness, isDashed })
+  circle (center: Point, radius: number, { id, color, fillColor, fillOpacity, thickness, isDashed }: { id?: string, color?: string, fillColor?: 'none', fillOpacity?: number, thickness?: number, isDashed?: boolean } = {}): Circle {
+    return new Circle(this, { center, radius, id, color, fillColor, fillOpacity, thickness, isDashed })
   }
 
   /** Trace le cercle à partir de son centre et de son rayon */
-  circleCenterPoint (center: string | Point, point: string | Point, { id, color, fillColor, fillOpacity, thickness, isDashed }: { id?: string, color?: string, fillColor?: string | 'none', fillOpacity?: number, thickness?: number, isDashed?: boolean } = {}): CircleCenterPoint {
-    return new CircleCenterPoint(this, center, point, { id, color, fillColor, fillOpacity, thickness, isDashed })
+  circleCenterPoint (center: Point, point: Point, { id, color, fillColor, fillOpacity, thickness, isDashed }: { id?: string, color?: string, fillColor?: 'none', fillOpacity?: number, thickness?: number, isDashed?: boolean } = {}): CircleCenterPoint {
+    return new CircleCenterPoint(this, { center, point, id, color, fillColor, fillOpacity, thickness, isDashed })
   }
 
   /** Trace le cercle à partir de son centre et de son rayon */
-  circleCenterDistance (center: string | Point, distance: string | DynamicNumber, { id, color, fillColor, fillOpacity, thickness, isDashed }: { id?: string, color?: string, fillColor?: string | 'none', fillOpacity?: number, thickness?: number, isDashed?: boolean } = {}): CircleCenterDynamicRadius {
-    return new CircleCenterDynamicRadius(this, center, distance, { id, color, fillColor, fillOpacity, thickness, isDashed })
+  circleCenterDistance (center: Point, radius: DynamicNumber, { id, color, fillColor, fillOpacity, thickness, isDashed }: { id?: string, color?: string, fillColor?: 'none', fillOpacity?: number, thickness?: number, isDashed?: boolean } = {}): CircleCenterDynamicRadius {
+    return new CircleCenterDynamicRadius(this, { center, radius, id, color, fillColor, fillOpacity, thickness, isDashed })
   }
 
   /** Créé un texte aux coordonnées (x, y) avec rendu LaTeX par défaut */
   textByPosition (x: number, y: number, text: string, { isLatex = true, color = 'black' }: { isLatex?: boolean, color?: string } = {}): TextByPosition {
-    return new TextByPosition(this, x, y, text, { isLatex, color })
+    return new TextByPosition(this, { x, y, text, isLatex, color })
   }
 
   /** Créé un texte aux coordonnées (x, y) avec rendu LaTeX par défaut */
-  textByPoint (point: string | Point, text: string, { isLatex = true, color = 'black', dx, dy }: { isLatex?: boolean, color?: string, dx?: number, dy?: number } = {}): TextByPosition {
-    return new TextByPoint(this, point, text, { isLatex, color, dx, dy })
+  textByPoint (point: Point, text: string, { isLatex = true, color = 'black', dx, dy }: { isLatex?: boolean, color?: string, dx?: number, dy?: number } = {}): TextByPosition {
+    return new TextByPoint(this, { point, text, isLatex, color, dx, dy })
   }
 }

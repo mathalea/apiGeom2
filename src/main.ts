@@ -1,5 +1,4 @@
 import { ApiGeomPlus } from './ApiGeomPlus'
-import { Middle } from './elements/points/Middle'
 import { DisplayDistance } from './elements/text/DisplayDistance'
 
 // Créé un espace de travail pour une figure géométrique
@@ -47,7 +46,7 @@ const CD = geo.line(C, D, { thickness: 2, color: 'blue' })
 const O = geo.pointIntersectionLL(AB, CD, { size: 0.1, color: 'orange', name: 'O' })
 const c = geo.circle(O, 3)
 const OA = geo.ray(E, O)
-const M = new Middle(geo, O, E, { name: 'M' })
+const M = geo.middle(O, E, { name: 'M' })
 const display = new DisplayDistance(geo, -6, -3, A, O)
 // Sauvegarde de la figure et affichage de cette sauvegarde
 geo.refreshSave()

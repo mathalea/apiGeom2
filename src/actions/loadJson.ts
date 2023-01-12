@@ -34,46 +34,46 @@ export function loadJson (apiGeom: ApiGeom, json: object, eraseHistory = false):
   const elements = []
   for (const options of Object.values(json)) {
     if (options.type === 'Point') {
-      elements.push(new Point(apiGeom, options.x, options.y, options))
+      elements.push(new Point(apiGeom, { x: options.x, y: options.y, ...options }))
     }
     if (options.type === 'Middle') {
       const point1 = apiGeom.elements.get(options.idPoint1) as Point
       const point2 = apiGeom.elements.get(options.idPoint2) as Point
-      elements.push(new Middle(apiGeom, point1, point2, options))
+      elements.push(new Middle(apiGeom, { point1, point2, ...options }))
     }
     if (options.type === 'PointIntersectionLL') {
       const line1 = apiGeom.elements.get(options.idLine1) as Line
       const line2 = apiGeom.elements.get(options.idLine2) as Line
-      elements.push(new PointIntersectionLL(apiGeom, line1, line2, options))
+      elements.push(new PointIntersectionLL(apiGeom, { line1, line2, ...options }))
     }
     if (options.type === 'Segment') {
       const point1 = apiGeom.elements.get(options.idPoint1) as Point
       const point2 = apiGeom.elements.get(options.idPoint2) as Point
-      elements.push(new Segment(apiGeom, point1, point2, options))
+      elements.push(new Segment(apiGeom, { point1, point2, ...options }))
     }
     if (options.type === 'Line') {
       const point1 = apiGeom.elements.get(options.idPoint1) as Point
       const point2 = apiGeom.elements.get(options.idPoint2) as Point
-      elements.push(new Line(apiGeom, point1, point2, options))
+      elements.push(new Line(apiGeom, { point1, point2, ...options }))
     }
     if (options.type === 'Ray') {
       const point1 = apiGeom.elements.get(options.idPoint1) as Point
       const point2 = apiGeom.elements.get(options.idPoint2) as Point
-      elements.push(new Ray(apiGeom, point1, point2, options))
+      elements.push(new Ray(apiGeom, { point1, point2, ...options }))
     }
     if (options.type === 'Circle') {
       const center = apiGeom.elements.get(options.idCenter) as Point
-      elements.push(new Circle(apiGeom, center, options.radius, options))
+      elements.push(new Circle(apiGeom, { center, radius: options.radius, ...options }))
     }
     if (options.type === 'CircleCenterPoint') {
       const center = apiGeom.elements.get(options.idCenter) as Point
       const point = apiGeom.elements.get(options.idPoint1) as Point
-      elements.push(new CircleCenterPoint(apiGeom, center, point, options))
+      elements.push(new CircleCenterPoint(apiGeom, { center, point, ...options }))
     }
     if (options.type === 'CircleDynamicRadius') {
       const center = apiGeom.elements.get(options.idCenter) as Point
       const radius = apiGeom.elements.get(options.idRadius) as Distance
-      elements.push(new CircleCenterDynamicRadius(apiGeom, center, radius, options))
+      elements.push(new CircleCenterDynamicRadius(apiGeom, { center, radius, ...options }))
     }
     if (options.type === 'Distance') {
       const point1 = apiGeom.elements.get(options.idPoint1) as Point
@@ -81,11 +81,11 @@ export function loadJson (apiGeom: ApiGeom, json: object, eraseHistory = false):
       elements.push(new Distance(apiGeom, point1, point2, options))
     }
     if (options.type === 'TextByPosition') {
-      elements.push(new TextByPosition(apiGeom, options.x, options.y, options.text, options))
+      elements.push(new TextByPosition(apiGeom, { x: options.x, y: options.y, text: options.text, ...options }))
     }
     if (options.type === 'TextByPoint') {
       const point = apiGeom.elements.get(options.idPoint) as Point
-      elements.push(new TextByPoint(apiGeom, point, options.text, options))
+      elements.push(new TextByPoint(apiGeom, { point, text: options.text, ...options }))
     }
     if (options.type === 'DisplayDistance') {
       const point1 = apiGeom.elements.get(options.idPoint1) as Point

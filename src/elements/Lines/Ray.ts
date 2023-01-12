@@ -1,5 +1,5 @@
 import { ApiGeom } from '../../ApiGeom'
-import { optionsElement2D } from '../interfaces'
+import { optionsLine } from '../interfaces'
 import { Point } from '../points/Point'
 import { Segment } from './Segment'
 
@@ -7,8 +7,8 @@ import { Segment } from './Segment'
  * Trace une demi-droite d'origine point1 et qui passe par point 2
  */
 export class Ray extends Segment {
-  constructor (apiGeom: ApiGeom, point1: Point, point2: Point, options?: optionsElement2D) {
-    super(apiGeom, point1, point2, options)
+  constructor (apiGeom: ApiGeom, { point1, point2, ...options }: optionsLine) {
+    super(apiGeom, { point1, point2, ...options })
     this.type = 'Ray'
   }
 

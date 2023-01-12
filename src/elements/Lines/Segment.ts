@@ -1,6 +1,6 @@
 import { ApiGeom } from '../../ApiGeom'
 import { Element2D } from '../Element2D'
-import { optionsElement2D } from '../interfaces'
+import { optionsLine } from '../interfaces'
 import { Point } from '../points/Point'
 
 /**
@@ -19,7 +19,7 @@ export class Segment extends Element2D {
   point2: Point
   /** Détermine s'il faut afficher les deux extrémités, que celle de gauche ou que celle de droite */
   style?: '' | '|-|' | '|-' | '|-'
-  constructor (apiGeom: ApiGeom, point1: Point, point2: Point, options?: optionsElement2D) {
+  constructor (apiGeom: ApiGeom, { point1, point2, ...options }: optionsLine) {
     super(apiGeom, options)
     this.type = 'Segment'
     this.point1 = point1

@@ -12,7 +12,7 @@ const save = {
     x: -2,
     y: 1,
     name: 'A',
-    style: 'x',
+    shape: 'x',
     size: 0.1,
     id: 'api1',
     color: 'black',
@@ -24,7 +24,7 @@ const save = {
     x: 5,
     y: 1.3,
     name: 'B',
-    style: 'x',
+    shape: 'x',
     size: 0.1,
     id: 'api2',
     color: 'black',
@@ -36,7 +36,7 @@ const save = {
     x: 1,
     y: 0,
     name: 'C',
-    style: 'x',
+    shape: 'x',
     size: 0.1,
     id: 'api3',
     color: 'black',
@@ -48,7 +48,7 @@ const save = {
     x: 7,
     y: 3,
     name: 'D',
-    style: 'x',
+    shape: 'x',
     size: 0.1,
     id: 'api4',
     color: 'black',
@@ -60,7 +60,7 @@ const save = {
     x: -2,
     y: -5,
     name: 'E',
-    style: 'x',
+    shape: 'x',
     size: 0.1,
     id: 'api5',
     color: 'black',
@@ -92,7 +92,7 @@ const save = {
     x: 3.4687499999999947,
     y: 1.2343749999999998,
     name: 'O',
-    style: 'x',
+    shape: 'x',
     size: 0.1,
     id: 'api8',
     color: 'orange',
@@ -125,7 +125,7 @@ const save = {
     x: 0.7343749999999973,
     y: -1.8828125,
     name: 'M',
-    style: 'x',
+    shape: 'x',
     size: 0.1,
     id: 'api11',
     color: 'black',
@@ -145,7 +145,6 @@ const save = {
 
 const geo = new ApiGeom()
 geo.loadJson(save)
-console.log(geo.json)
 
 test('Chargement', () => {
   expect(save).toEqual(JSON.parse(geo.json))

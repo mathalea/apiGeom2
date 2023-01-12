@@ -13,7 +13,7 @@ export class Point extends Element2D {
   /** Nom que l'on affiche à côté du point */
   private _name?: string | undefined
   /** Croix, rond ou rien */
-  private _style: 'x' | 'o' | ''
+  private _shape: 'x' | 'o' | ''
   /** Taille du point, correspond à ce qui est ajouté dans les 4 directions pour faire la croix ou au rayon du rond */
   private _size: number
   /** Elément SVG pour le premier trait de la croix */
@@ -24,10 +24,10 @@ export class Point extends Element2D {
   readonly svgCircle: SVGCircleElement
   /** Affichage du nom du point */
   label?: TextByPoint
-  constructor (apiGeom: ApiGeom, x: number, y: number, options?: optionsPoint) {
+  constructor (apiGeom: ApiGeom, { x, y, ...options }: optionsPoint) {
     super(apiGeom, options)
     this.type = 'Point'
-    this._style = options?.style ?? 'x'
+    this._shape = options?.shape ?? 'x'
     this._size = options?.size ?? defaultSize
     // Les deux traits qui forment la croix du point
     this.svgLine1 = document.createElementNS('http://www.w3.org/2000/svg', 'line')
@@ -56,7 +56,7 @@ export class Point extends Element2D {
     if (this.label === undefined || this.label.x > this.apiGeom.xMax || this.label.y > this.apiGeom.yMax || this.label.x < this.apiGeom.xMin || this.label.y < this.apiGeom.yMin) {
       this.label?.hide()
     } else this.label?.show()
-    if (this._style === 'x') {
+    if (this._shape === 'x') {
       const x1Svg = this.apiGeom.xToSx(this._x - this._size)
       const x2Svg = this.apiGeom.xToSx(this._x + this._size)
       const x3Svg = this.apiGeom.xToSx(this._x + this._size)
@@ -76,7 +76,7 @@ export class Point extends Element2D {
       this.svgCircle.remove()
       this.groupSvg.appendChild(this.svgLine1)
       this.groupSvg.appendChild(this.svgLine2)
-    } else if (this._style === 'o') {
+    } else if (this._shape === 'o') {
       const xSvg = this.apiGeom.xToSx(this._x)
       const ySvg = this.apiGeom.yToSy(this._y)
       const rSvg = this.apiGeom.pixelsPerUnit * this._size
@@ -93,12 +93,12 @@ export class Point extends Element2D {
     }
   }
 
-  get style (): 'x' | 'o' | '' {
-    return this._style
+  get shape (): 'x' | 'o' | '' {
+    return this._shape
   }
 
-  set style (style) {
-    this._style = style
+  set shape (shape) {
+    this._shape = shape
     this.update()
   }
 
@@ -147,7 +147,7 @@ export class Point extends Element2D {
 
   set name (name: string | undefined) {
     this._name = name
-    if (name !== undefined) this.label = new TextByPoint(this.apiGeom, this, name, { hasToBeSaved: false })
+    if (name !== undefined) this.label = new TextByPoint(this.apiGeom, { point: this, text: name, hasToBeSaved: false })
   }
 
   /** Déplace le point */
@@ -168,7 +168,7 @@ export class Point extends Element2D {
       x: this.x,
       y: this.y,
       name: this.name,
-      style: this.style,
+      shape: this.shape,
       size: this.size,
       ...super.toJSON()
     }

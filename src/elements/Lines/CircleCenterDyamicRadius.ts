@@ -1,6 +1,6 @@
 import { ApiGeom } from '../../ApiGeom'
 import { DynamicNumber } from '../../dynamicNumbers/DynamicNumber'
-import { optionsElement2D } from '../interfaces'
+import { optionsCircleCenterDynamicRadius } from '../interfaces'
 import { Point } from '../points/Point'
 import { Circle } from './Circle'
 
@@ -13,8 +13,8 @@ export class CircleCenterDynamicRadius extends Circle {
   readonly radiusDynamic: DynamicNumber
   /** id du rayon du cercle */
   readonly idRadius: string
-  constructor (apiGeom: ApiGeom, center: Point, radius: DynamicNumber, options?: optionsElement2D) {
-    super(apiGeom, center, 1, options)
+  constructor (apiGeom: ApiGeom, { center, radius, ...options }: optionsCircleCenterDynamicRadius) {
+    super(apiGeom, { center, radius: radius.value, ...options })
     this.type = 'CircleDynamicRadius'
     this.center = center
     this.idCenter = center.id

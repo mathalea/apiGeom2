@@ -1,6 +1,6 @@
 import { ApiGeom } from '../../ApiGeom'
 import { Coords } from '../calculus/Coords'
-import { optionsPoint } from '../interfaces'
+import { optionsIntersectionLL } from '../interfaces'
 import { Segment } from '../lines/Segment'
 import { Point } from './Point'
 
@@ -17,8 +17,8 @@ export class PointIntersectionLL extends Point {
   line1: Segment
   /** Deuxième droite */
   line2: Segment
-  constructor (apiGeom: ApiGeom, line1: Segment, line2: Segment, options?: optionsPoint) {
-    super(apiGeom, NaN, NaN, options)
+  constructor (apiGeom: ApiGeom, { line1, line2, ...options }: optionsIntersectionLL) {
+    super(apiGeom, { x: NaN, y: NaN, ...options })
     this.type = 'PointIntersectionLL'
     this.line1 = line1
     this.idLine1 = line1.id

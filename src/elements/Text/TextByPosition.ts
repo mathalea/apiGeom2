@@ -1,28 +1,29 @@
 import { ApiGeom } from '../../ApiGeom'
 import { Element2D } from '../Element2D'
 import katex from 'katex'
+import { optionsText } from '../interfaces'
 
 /**
  * Créé un div contenant un texte qui est mis au dessus du svg
  * par défaut KaTeX s'occupe du rendu du div
  */
 export class TextByPosition extends Element2D {
-  private _x!: number
-  private _y!: number
+  private _x: number
+  private _y: number
   /** Détermine s'il faut utiliser KaTeX pour le rendu du texte */
   readonly isLatex: boolean
   private _text!: string
   /** Le texte est mis dans un div qui s'affichera par dessus le SVG */
   div: HTMLDivElement
 
-  constructor (apiGeom: ApiGeom, x: number, y: number, text: string, { isLatex = true, color = 'black', hasToBeSaved }: { isLatex?: boolean, color?: string, hasToBeSaved?: boolean } = {}) {
+  constructor (apiGeom: ApiGeom, { x, y, text, isLatex = true, color = 'black', hasToBeSaved = true }: optionsText) {
     super(apiGeom, { hasToBeSaved })
     this.type = 'TextByPosition'
     this.div = document.createElement('div')
     this.div.style.position = 'absolute'
     this.div.style.pointerEvents = 'none'
-    this.x = x
-    this.y = y
+    this._x = x
+    this._y = y
     this.isLatex = isLatex
     this.text = text
     this.apiGeom.div?.appendChild(this.div)
