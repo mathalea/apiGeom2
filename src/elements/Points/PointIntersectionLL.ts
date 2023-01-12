@@ -1,5 +1,5 @@
 import { ApiGeom } from '../../ApiGeom'
-import { Coords } from '../calculus/Coords'
+import { intersectionLLCoord } from '../calculus/Coords'
 import { optionsIntersectionLL } from '../interfaces'
 import { Segment } from '../lines/Segment'
 import { Point } from './Point'
@@ -32,7 +32,7 @@ export class PointIntersectionLL extends Point {
   update (): void {
     if (this.line1 === undefined || this.line2 === undefined) return
     try {
-      const coords = Coords.intersectionLLCoord(this.line1, this.line2)
+      const coords = intersectionLLCoord(this.line1, this.line2)
       this._x = coords.x
       this._y = coords.y
       super.update()
