@@ -34,10 +34,10 @@ btnLoad?.addEventListener('click', () => {
 })
 
 // Création de la figure
-const A = geo.create('Point', { x: 0, y: 0, shape: 'o' })
-const B = geo.create('Point', { x: 7, y: 2, color: 'blue' })
+const A = geo.create('Point', { x: 0, y: 0, shape: 'o', label: 'A_1' })
+const B = geo.create('Point', { x: 7, y: 2, color: 'blue', label: '\\mathcal{B}' })
 geo.create('Line', { point1: A, point2: B })
 geo.create('Middle', { point1: A, point2: B })
-geo.create('TextByPosition', { text: '\\dfrac{3\\pi}{4}', x: -1, y: -1 })
+geo.create('TextByPosition', { text: '\\dfrac{3\\pi}{4}', x: -5, y: -1 })
 // Sauvegarde de la figure et affichage de cette sauvegarde
 geo.refreshSave()

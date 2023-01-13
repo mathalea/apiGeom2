@@ -97,6 +97,7 @@ class Figure {
     this.svg.style.width = `${this.width}px`
     this.svg.style.height = `${this.height}px`
     this.svg.setAttribute('viewBox', `${this.xToSx(this.xMin)} ${this.yToSy(this.yMax)} ${this.width} ${this.height}`)
+    this.svg.style.border = 'solid'
     // Pour éviter le scroll quand on manipule la figure sur un écran tactile
     this.svg.style.touchAction = 'none'
     this.clearHtml()

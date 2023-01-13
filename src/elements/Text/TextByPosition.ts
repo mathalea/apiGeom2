@@ -8,8 +8,8 @@ import { optionsText } from '../interfaces'
  * par défaut KaTeX s'occupe du rendu du div
  */
 class TextByPosition extends Element2D {
-  private _x: number
-  private _y: number
+  private _x!: number
+  private _y!: number
   /** Détermine s'il faut utiliser KaTeX pour le rendu du texte */
   readonly isLatex: boolean
   private _text!: string
@@ -22,8 +22,8 @@ class TextByPosition extends Element2D {
     this.div = document.createElement('div')
     this.div.style.position = 'absolute'
     this.div.style.pointerEvents = 'none'
-    this._x = x
-    this._y = y
+    this.x = x
+    this.y = y
     this.isLatex = isLatex
     this.text = text
     this.figure.div?.appendChild(this.div)
