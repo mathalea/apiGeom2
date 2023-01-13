@@ -1,7 +1,7 @@
 import Figure from '../../Figure'
 import Element2D from '../Element2D'
 import { OptionsCircle } from '../interfaces'
-import Point from '../points/Point'
+import Point from '../_points/Point'
 
 /**
  * Trace un cercle dont on connait le centre et le rayon

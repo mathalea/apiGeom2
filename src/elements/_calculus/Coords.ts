@@ -1,7 +1,7 @@
-import Segment from '../lines/Segment'
-import Circle from '../lines/Circle'
-import Line from '../lines/Line'
-import Point from '../points/Point'
+import Segment from '../_lines/Segment'
+import Circle from '../_lines/Circle'
+import Line from '../_lines/Line'
+import Point from '../_points/Point'
 
 /**
  * Classe de méthodes statiques pour des calculs sur les coordonnées

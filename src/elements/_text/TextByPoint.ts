@@ -1,6 +1,6 @@
 import Figure from '../../Figure'
 import { OptionsRestrictedText } from '../interfaces'
-import Point from '../points/Point'
+import Point from '../_points/Point'
 import TextByPosition from './TextByPosition'
 
 /**
