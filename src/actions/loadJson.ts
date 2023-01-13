@@ -2,6 +2,7 @@ import Figure from '../Figure'
 import Distance from '../dynamicNumbers/Distance'
 import Line from '../elements/lines/Line'
 import Point from '../elements/points/Point'
+import DynamicNumber from '../dynamicNumbers/DynamicNumber'
 
 /**
  * Analyse l'objet de la sauvegarde et si le type est pris en charge alors on créé l'élément
@@ -62,11 +63,11 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const radius = figure.elements.get(options.idRadius) as Distance
       figure.create('CircleCenterDynamicRadius', { center, radius, ...options })
     }
-    // if (options.type === 'Distance') {
-    //   const point1 = figure.elements.get(options.idPoint1) as Point
-    //   const point2 = figure.elements.get(options.idPoint2) as Point
-    //   figure.create('Distance', { point1, point2, options })
-    // }
+    if (options.type === 'Distance') {
+      const point1 = figure.elements.get(options.idPoint1) as Point
+      const point2 = figure.elements.get(options.idPoint2) as Point
+      figure.create('Distance', { point1, point2, ...options })
+    }
     if (options.type === 'TextByPosition') {
       figure.create('TextByPosition', { x: options.x, y: options.y, text: options.text, ...options })
     }
@@ -74,11 +75,10 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const point = figure.elements.get(options.idPoint) as Point
       figure.create('TextByPoint', { point, text: options.text, ...options })
     }
-    // if (options.type === 'DisplayDistance') {
-    //   const point1 = figure.elements.get(options.idPoint1) as Point
-    //   const point2 = figure.elements.get(options.idPoint2) as Point
-    //   figure.create('DisplayDistance options.x, options.y, point1, point2, options))
-    // }
+    if (options.type === 'TextDynamicByPosition') {
+      const dynamicNumber = figure.elements.get(options.idDynamicNumber) as DynamicNumber
+      figure.create('TextDynamicByPosition', { dynamicNumber, ...options })
+    }
   }
   // Pour la navigation dans l'historique on ne sauvegarde que le premier chargement
   // les autres chargements proviennent de goBack() ou de goForward()

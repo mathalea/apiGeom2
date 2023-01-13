@@ -16,6 +16,8 @@ import TextByPosition from './elements/text/TextByPosition'
 import { getClickedElement } from './pointerActions/handlePointerAction'
 import { loadJson } from './actions/loadJson'
 import 'katex/dist/katex.min.css'
+import TextDynamicByPosition from './elements/text/TextDynamicByPosition'
+import Distance from './dynamicNumbers/Distance'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -249,7 +251,6 @@ class Figure {
     return loadJson(this, json, eraseHistory)
   }
 }
-
 const classes = {
   Point,
   PointIntersectionLL,
@@ -261,7 +262,9 @@ const classes = {
   CircleCenterPoint,
   CircleCenterDynamicRadius,
   TextByPoint,
-  TextByPosition
+  TextByPosition,
+  TextDynamicByPosition,
+  Distance
 }
 
 export default Figure

@@ -12,7 +12,7 @@ class CircleCenterPoint extends CircleCenterDynamicRadius {
   point: string | Point
   idPoint: string
   constructor (figure: Figure, { center, point, ...options }: OptionsCircleCenterPoint) {
-    const radius = new Distance(figure, center, point, false)
+    const radius = new Distance(figure, { point1: center, point2: point, hasToBeSaved: false })
     super(figure, { center, radius, ...options })
     this.type = 'CircleCenterPoint'
     this.point = point

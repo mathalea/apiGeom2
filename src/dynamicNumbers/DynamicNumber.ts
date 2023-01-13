@@ -1,5 +1,7 @@
 import Figure from '../Figure'
 import Element2D from '../elements/Element2D'
+import TextDynamicByPosition from '../elements/text/TextDynamicByPosition'
+import { OptionsDynamicNumber } from '../elements/interfaces'
 
 /**
  * Pour les valeurs numériques variables qui seront les « parents » de constructions
@@ -11,15 +13,21 @@ abstract class DynamicNumber {
   observers: Array<Element2D | DynamicNumber>
   type: string
   hasToBeSaved: boolean
-  constructor (figure: Figure, hasToBeSaved = true) {
+  textBefore: string
+  textAfter: string
+  constructor (figure: Figure, { hasToBeSaved = true, textBefore = '', textAfter = '' }: OptionsDynamicNumber) {
     this.figure = figure
     this.id = 'api' + (this.figure.elements.size + 1).toString()
     this.observers = []
-    this._value = 0
+    this._value = NaN
     this.type = ''
+    this.textBefore = textBefore
+    this.textAfter = textAfter
     this.hasToBeSaved = hasToBeSaved
     if (this.hasToBeSaved) this.figure.elements.set(this.id, this)
   }
+
+  draw (): void {}
 
   set value (x: number) {
     this._value = x
@@ -27,6 +35,10 @@ abstract class DynamicNumber {
 
   get value (): number {
     return this._value
+  }
+
+  get string (): string {
+    return this.textBefore + this.value.toString() + this.textAfter
   }
 
   abstract update (): void
@@ -50,6 +62,10 @@ abstract class DynamicNumber {
     for (const element of this.observers) {
       element.update()
     }
+  }
+
+  display ({ x, y, textBefore = '', textAfter = '', isLatex, color, minimumFractionDigits, maximumFractionDigits }: { x: number, y: number, textBefore?: string, textAfter?: string, isLatex?: boolean, color?: string, minimumFractionDigits?: number, maximumFractionDigits?: number }): TextDynamicByPosition {
+    return this.figure.create('TextDynamicByPosition', { x, y, dynamicNumber: this, color, isLatex, textBefore, textAfter, minimumFractionDigits, maximumFractionDigits })
   }
 }
 

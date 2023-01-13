@@ -64,6 +64,25 @@ export interface OptionsText extends OptionsElement2D {
   isLatex?: boolean
 }
 
+export interface OptionsDynamicNumber extends OptionsElement2D {
+  hasToBeSaved: boolean
+  textBefore?: string
+  textAfter?: string
+}
+
+export interface OptionsDynamicText extends OptionsElement2D {
+  x: number
+  y: number
+  dx?: number
+  dy?: number
+  dynamicNumber: DynamicNumber
+  textBefore: string
+  textAfter: string
+  isLatex?: boolean
+  minimumFractionDigits?: number
+  maximumFractionDigits?: number
+}
+
 export interface OptionsRestrictedText extends OptionsElement2D {
   point: Point
   dx?: number
@@ -76,4 +95,4 @@ export type typeElement2D = '' |
 'Point' | 'PointIntersectionLL' | 'Middle' |
 'Segment' | 'Line' | 'Ray' |
 'Circle' | 'CircleDynamicRadius' | 'CircleCenterPoint' |
-'TextByPosition' | 'TextByPoint' | 'DisplayDistance'
+'TextByPosition' | 'TextByPoint' | 'DisplayDistance' | 'TextDynamicByPosition'

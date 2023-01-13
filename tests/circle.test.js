@@ -1,13 +1,13 @@
 import { expect, test } from 'vitest'
 import Figure from '../src/Figure'
-import Distance from '../src/dynamicNumbers/Distance'
 
 const geo = new Figure()
 const A = geo.create('Point', { x: 0, y: 0 })
 const B = geo.create('Point', { x: 5, y: 0 })
 const O = geo.create('Point', { x: -4, y: -7 })
 const c1 = geo.create('CircleCenterPoint', { center: A, point: B })
-const dAB = new Distance(geo, A, B)
+console.log(A, B, A.id, B.id)
+const dAB = geo.create('Distance', { point1: A, point2: B })
 const c2 = geo.create('CircleCenterDynamicRadius', { center: O, radius: dAB })
 A.moveTo(1, 1)
 B.moveTo(8, 1)

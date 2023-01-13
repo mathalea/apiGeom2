@@ -37,6 +37,8 @@ btnLoad?.addEventListener('click', () => {
 const A = geo.create('Point', { x: 0, y: 0, shape: 'o', label: 'A_1' })
 const B = geo.create('Point', { x: 7, y: 2, color: 'blue', label: '\\mathcal{B}' })
 const C = geo.create('Point', { x: 3, y: 6, label: 'C' })
+const AB = geo.create('Distance', { point1: A, point2: B })
+AB.display({ x: -3, y: -3, textBefore: 'AB~\\approx~', textAfter: '~\\text{cm}', maximumFractionDigits: 1 })
 geo.create('Ray', { point1: A, point2: B })
 geo.create('Segment', { point1: B, point2: C })
 geo.create('Line', { point1: A, point2: C })
