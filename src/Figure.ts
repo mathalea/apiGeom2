@@ -6,6 +6,8 @@ import { loadJson } from './actions/loadJson'
 import 'katex/dist/katex.min.css'
 import DynamicNumber from './dynamicNumbers/DynamicNumber'
 import classes from './elements/classes'
+import { optionsElement2D, optionsLine, optionsPoint } from './elements/interfaces'
+import Line from './elements/lines/Line'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -92,7 +94,9 @@ class Figure {
     this.clearHtml()
   }
 
-  create (type: string, options: object): void {
+  create (type: 'Point', option: { x: number, y: number, shape?: 'x' | 'o' | '', size?: number }): Point
+  create (type: 'Line', option: { point1: Point, point2: Point, id?: string, color?: string, thickness?: number, isDashed?: boolean, hasToBeSaved?: boolean }): Line
+  create (type: 'Point' | 'Line', options: optionsPoint & optionsLine): Element2D {
     return new classes[type](this, options)
   }
 
