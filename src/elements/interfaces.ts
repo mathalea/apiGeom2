@@ -18,8 +18,9 @@ export interface OptionsPoint extends OptionsElement2D {
   y: number
   shape?: 'x' | 'o' | ''
   size?: number
+  label?: string
   labelDx?: number
-  labelDy: number
+  labelDy?: number
 }
 
 export interface OptionsMiddle extends OptionsElement2D {
