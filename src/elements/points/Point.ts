@@ -24,11 +24,17 @@ class Point extends Element2D {
   private svgCircle!: SVGCircleElement
   /** Affichage du nom du point */
   elementTextLabel?: TextByPoint
+  /** Décalage vertical pour le nom du point */
+  labelDx: number
+  /** Décalage horizontal pour le nom du point */
+  labelDy: number
   constructor (figure: Figure, { x, y, ...options }: OptionsPoint) {
     super(figure, options)
     this.type = 'Point'
     this._shape = options?.shape ?? 'x'
     this._size = options?.size ?? defaultSize
+    this.labelDx = options.labelDx ?? 0.2
+    this.labelDy = options.labelDy ?? 0.2
     this._x = x
     this._y = y
     if (options?.label !== undefined) this._label = options.label
@@ -151,7 +157,7 @@ class Point extends Element2D {
 
   set label (label: string | undefined) {
     this._label = label
-    if (label !== undefined) this.elementTextLabel = this.figure.create('TextByPoint', { point: this, text: label, hasToBeSaved: false })
+    if (label !== undefined) this.elementTextLabel = this.figure.create('TextByPoint', { point: this, text: label, hasToBeSaved: false, dx: this.labelDx, dy: this.labelDy })
   }
 
   /** Déplace le point */
