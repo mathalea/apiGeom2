@@ -1,13 +1,21 @@
 import { defaultHistorySize } from './elements/defaultValues'
 import Element2D from './elements/Element2D'
+import DynamicNumber from './dynamicNumbers/DynamicNumber'
 import Point from './elements/points/Point'
+import PointIntersectionLL from './elements/points/PointIntersectionLL'
+import Middle from './elements/points/Middle'
+import Line from './elements/lines/Line'
+import Segment from './elements/lines/Segment'
+import Ray from './elements/lines/Ray'
+import Circle from './elements/lines/Circle'
+import CircleCenterPoint from './elements/lines/CircleCenterPoint'
+import CircleCenterDynamicRadius from './elements/lines/CircleCenterDyamicRadius'
+import TextByPoint from './elements/text/TextByPoint'
+import TextByPosition from './elements/text/TextByPosition'
+
 import { getClickedElement } from './pointerActions/handlePointerAction'
 import { loadJson } from './actions/loadJson'
 import 'katex/dist/katex.min.css'
-import DynamicNumber from './dynamicNumbers/DynamicNumber'
-import classes from './elements/classes'
-import { optionsElement2D, optionsLine, optionsPoint } from './elements/interfaces'
-import Line from './elements/lines/Line'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -94,10 +102,13 @@ class Figure {
     this.clearHtml()
   }
 
-  create (type: 'Point', option: { x: number, y: number, shape?: 'x' | 'o' | '', size?: number }): Point
-  create (type: 'Line', option: { point1: Point, point2: Point, id?: string, color?: string, thickness?: number, isDashed?: boolean, hasToBeSaved?: boolean }): Line
-  create (type: 'Point' | 'Line', options: optionsPoint & optionsLine): Element2D {
-    return new classes[type](this, options)
+  create<T extends keyof typeof classes>(
+    typeStr: T,
+    // Les constructeurs sont de type [this, options], donc on récupère le type des deuxièmes arguments des constructeurs
+    options: ConstructorParameters<typeof classes[T]>[1]
+  ): InstanceType<typeof classes[T]> {
+    // @ts-expect-error Typage très complexe
+    return new classes[typeStr](this, { ...options })
   }
 
   clearHtml (): void {
@@ -227,6 +238,20 @@ class Figure {
   loadJson (json: object, eraseHistory?: boolean): Array<Element2D | DynamicNumber> {
     return loadJson(this, json, eraseHistory)
   }
+}
+
+const classes = {
+  Point,
+  PointIntersectionLL,
+  Middle,
+  Line,
+  Segment,
+  Ray,
+  Circle,
+  CircleCenterPoint,
+  CircleCenterDynamicRadius,
+  TextByPoint,
+  TextByPosition
 }
 
 export default Figure
