@@ -159,16 +159,22 @@ class Figure {
     this.svg.addEventListener('pointerdown', (event: PointerEvent) => {
       const [pointerX, pointerY] = this.getPointerCoord(event)
       const point = getClickedElement(this, pointerX, pointerY)
-      if (point !== undefined) this.pointInDrag = point
+      if (point !== undefined) {
+        this.pointInDrag = point
+        if (this.div !== null) this.div.style.cursor = 'move'
+      }
       // handlePointerAction(this, event)
     })
 
-    this.svg.addEventListener('pointerup', () => {
+    const stopDrag = (): void => {
       if (this.pointInDrag !== undefined) {
         this.pointInDrag = undefined
+        if (this.div !== null) this.div.style.cursor = 'auto'
         this.refreshSave()
       }
-    })
+    }
+    this.svg.addEventListener('pointerup', stopDrag)
+    this.svg.addEventListener('pointerleave', stopDrag)
 
     this.svg.addEventListener('pointermove', (event) => {
       if (this.pointInDrag === undefined) return

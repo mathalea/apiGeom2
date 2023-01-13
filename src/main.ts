@@ -1,7 +1,7 @@
-import { FigurePlus } from './FigurePlus'
+import Figure from './Figure'
 
 // Créé un espace de travail pour une figure géométrique
-const geo = new FigurePlus()
+const geo = new Figure()
 
 // On affiche le svg dans un div
 const div = document.querySelector('#app') as HTMLDivElement
