@@ -2,7 +2,7 @@ import Figure from '../../Figure'
 import { defaultSize } from '../defaultValues'
 import Element2D from '../Element2D'
 import { OptionsPoint } from '../interfaces'
-import TextByPoint from '../_text/TextByPoint'
+import TextByPoint from '../text/TextByPoint'
 
 /**
  * Trace un point et ajoute un éventuel label à partir de la propriété label

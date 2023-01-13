@@ -1,7 +1,7 @@
 import Figure from '../../Figure'
 import DynamicNumber from '../../dynamicNumbers/DynamicNumber'
 import { OptionsCircleCenterDynamicRadius } from '../interfaces'
-import Point from '../_points/Point'
+import Point from '../points/Point'
 import Circle from './Circle'
 
 class CircleCenterDynamicRadius extends Circle {

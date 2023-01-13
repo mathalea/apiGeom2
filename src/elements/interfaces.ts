@@ -1,6 +1,6 @@
 import DynamicNumber from '../dynamicNumbers/DynamicNumber'
-import Line from './_lines/Line'
-import Point from './_points/Point'
+import Line from './lines/Line'
+import Point from './points/Point'
 
 export interface OptionsElement2D {
   id?: string

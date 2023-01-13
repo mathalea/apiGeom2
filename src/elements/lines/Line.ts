@@ -1,6 +1,6 @@
 import Figure from '../../Figure'
 import { OptionsLine } from '../interfaces'
-import Point from '../_points/Point'
+import Point from '../points/Point'
 import Segment from './Segment'
 
 /**

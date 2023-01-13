@@ -1,7 +1,7 @@
 import Figure from '../Figure'
 import Distance from '../dynamicNumbers/Distance'
-import Line from '../elements/_lines/Line'
-import Point from '../elements/_points/Point'
+import Line from '../elements/lines/Line'
+import Point from '../elements/points/Point'
 
 /**
  * Analyse l'objet de la sauvegarde et si le type est pris en charge alors on créé l'élément

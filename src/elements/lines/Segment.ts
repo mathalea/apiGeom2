@@ -1,7 +1,7 @@
 import Figure from '../../Figure'
 import Element2D from '../Element2D'
 import { OptionsLine } from '../interfaces'
-import Point from '../_points/Point'
+import Point from '../points/Point'
 
 /**
  * Trace un segment qui a pour extrémités deux points donnés
