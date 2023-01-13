@@ -1,6 +1,6 @@
 import Figure from '../../Figure'
 import { intersectionLLCoord } from '../calculus/Coords'
-import { optionsIntersectionLL } from '../interfaces'
+import { OptionsIntersectionLL } from '../interfaces'
 import Segment from '../lines/Segment'
 import Point from './Point'
 
@@ -17,7 +17,7 @@ export class PointIntersectionLL extends Point {
   line1: Segment
   /** Deuxième droite */
   line2: Segment
-  constructor (figure: Figure, { line1, line2, ...options }: optionsIntersectionLL) {
+  constructor (figure: Figure, { line1, line2, ...options }: OptionsIntersectionLL) {
     super(figure, { x: NaN, y: NaN, ...options })
     this.type = 'PointIntersectionLL'
     this.line1 = line1
@@ -26,7 +26,6 @@ export class PointIntersectionLL extends Point {
     this.idLine2 = line2.id
     this.line1.subscribe(this)
     this.line2.subscribe(this)
-    this.update()
   }
 
   update (): void {

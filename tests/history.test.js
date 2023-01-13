@@ -1,8 +1,8 @@
 import { expect, test } from 'vitest'
-import { FigurePlus } from '../src/FigurePlus'
+import Figure from '../src/Figure'
 
-const geo = new FigurePlus()
-const A = geo.point(0, 0)
+const geo = new Figure()
+const A = geo.create('Point', { x: 0, y: 0 })
 geo.refreshSave()
 A.moveTo(1, 1)
 geo.refreshSave()

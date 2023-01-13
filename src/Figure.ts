@@ -105,11 +105,14 @@ class Figure {
 
   create<T extends keyof typeof classes>(
     typeStr: T,
-    // Les constructeurs sont de type [this, options], donc on récupère le type des deuxièmes arguments des constructeurs
+    // Les constructeurs sont de type [figure, options], donc on récupère le type des deuxièmes arguments des constructeurs
     options: ConstructorParameters<typeof classes[T]>[1]
   ): InstanceType<typeof classes[T]> {
     // @ts-expect-error Typage très complexe
-    return new classes[typeStr](this, { ...options })
+    const element = new classes[typeStr](this, { ...options })
+    element.draw()
+    // @ts-expect-error Typage très complexe
+    return element
   }
 
   clearHtml (): void {
@@ -236,7 +239,7 @@ class Figure {
   }
 
   /** Efface la figure actuelle et charge une nouvelle figure à partir du code généré par this.json  */
-  loadJson (json: object, eraseHistory?: boolean): Array<Element2D | DynamicNumber> {
+  loadJson (json: object, eraseHistory?: boolean): void {
     return loadJson(this, json, eraseHistory)
   }
 }

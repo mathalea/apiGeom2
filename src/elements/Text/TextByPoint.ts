@@ -1,5 +1,5 @@
 import Figure from '../../Figure'
-import { optionsRestrictedText } from '../interfaces'
+import { OptionsRestrictedText } from '../interfaces'
 import Point from '../points/Point'
 import TextByPosition from './TextByPosition'
 
@@ -13,19 +13,19 @@ export class TextByPoint extends TextByPosition {
   dx: number
   /** Décalage vertical par rapport au point */
   dy: number
-  constructor (figure: Figure, { point, text, isLatex = true, dx = 0, dy = 0, color = 'back', hasToBeSaved }: optionsRestrictedText) {
+  constructor (figure: Figure, { point, text, isLatex = true, dx = 0, dy = 0, color = 'back', hasToBeSaved }: OptionsRestrictedText) {
     super(figure, { x: point.x + dx, y: point.y + dy, text, isLatex, color, hasToBeSaved })
     this.type = 'TextByPoint'
     this.dx = dx
     this.dy = dy
     this.point = point
     this.idPoint = point.id
-    this.update()
     this.point.subscribe(this)
   }
 
   update (): void {
     if (this.point?.x !== undefined && this.point?.y !== undefined) this.moveTo(this.point?.x + this.dx, this.point.y + this.dy)
+    this.notify()
   }
 
   toJSON (): object {

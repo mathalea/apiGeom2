@@ -1,14 +1,14 @@
 import { expect, test } from 'vitest'
-import { FigurePlus } from '../src/FigurePlus'
+import Figure from '../src/Figure'
 import Distance from '../src/dynamicNumbers/Distance'
 
-const geo = new FigurePlus()
-const A = geo.point(0, 0)
-const B = geo.point(5, 0)
-const O = geo.point(-4, -7)
-const c1 = geo.circleCenterPoint(A, B)
+const geo = new Figure()
+const A = geo.create('Point', { x: 0, y: 0 })
+const B = geo.create('Point', { x: 5, y: 0 })
+const O = geo.create('Point', { x: -4, y: -7 })
+const c1 = geo.create('CircleCenterPoint', { center: A, point: B })
 const dAB = new Distance(geo, A, B)
-const c2 = geo.circleCenterDistance(O, dAB)
+const c2 = geo.create('CircleCenterDynamicRadius', { center: O, radius: dAB })
 A.moveTo(1, 1)
 B.moveTo(8, 1)
 const r1 = c1.groupSvg.getAttribute('r') / geo.pixelsPerUnit

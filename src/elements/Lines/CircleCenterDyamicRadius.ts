@@ -1,6 +1,6 @@
 import Figure from '../../Figure'
 import DynamicNumber from '../../dynamicNumbers/DynamicNumber'
-import { optionsCircleCenterDynamicRadius } from '../interfaces'
+import { OptionsCircleCenterDynamicRadius } from '../interfaces'
 import Point from '../points/Point'
 import Circle from './Circle'
 
@@ -13,7 +13,7 @@ class CircleCenterDynamicRadius extends Circle {
   readonly radiusDynamic: DynamicNumber
   /** id du rayon du cercle */
   readonly idRadius: string
-  constructor (figure: Figure, { center, radius, ...options }: optionsCircleCenterDynamicRadius) {
+  constructor (figure: Figure, { center, radius, ...options }: OptionsCircleCenterDynamicRadius) {
     super(figure, { center, radius: radius.value, ...options })
     this.type = 'CircleDynamicRadius'
     this.center = center

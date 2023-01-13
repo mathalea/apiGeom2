@@ -1,12 +1,12 @@
 import { expect, test } from 'vitest'
-import { FigurePlus } from '../src/FigurePlus'
+import Figure from '../src/Figure'
 
-const geo = new FigurePlus()
-const A = geo.point(4, 5)
-const B = geo.point(8, -12, { shape: 'o' })
-const C = geo.point(9, 6, { id: 'C' })
-const sAB = geo.segment(A, B, { color: 'blue' })
-const sAH = geo.segment(A, C)
+const geo = new Figure()
+const A = geo.create('Point', { x: 4, y: 5 })
+const B = geo.create('Point', { x: 8, y: -12, shape: 'o' })
+const C = geo.create('Point', { x: 9, y: 6, id: 'C' })
+const sAB = geo.create('Segment', { point1: A, point2: B, color: 'blue' })
+const sAH = geo.create('Segment', { point1: A, point2: geo.elements.get('C') })
 sAH.thickness = 3
 
 test('Point - Segment - Couleur', () => {

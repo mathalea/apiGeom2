@@ -36,8 +36,15 @@ btnLoad?.addEventListener('click', () => {
 // Création de la figure
 const A = geo.create('Point', { x: 0, y: 0, shape: 'o', label: 'A_1' })
 const B = geo.create('Point', { x: 7, y: 2, color: 'blue', label: '\\mathcal{B}' })
-geo.create('Line', { point1: A, point2: B })
-geo.create('Middle', { point1: A, point2: B })
-geo.create('TextByPosition', { text: '\\dfrac{3\\pi}{4}', x: -5, y: -1 })
-// Sauvegarde de la figure et affichage de cette sauvegarde
+const C = geo.create('Point', { x: 3, y: 6, label: 'C' })
+geo.create('Ray', { point1: A, point2: B })
+geo.create('Segment', { point1: B, point2: C })
+geo.create('Line', { point1: A, point2: C })
+const O1 = geo.create('Middle', { point1: A, point2: B, label: 'O_1' })
+const O2 = geo.create('Middle', { point1: A, point2: C, label: 'O_2' })
+const O3 = geo.create('Middle', { point1: C, point2: B, label: 'O_3' })
+geo.create('Segment', { point1: C, point2: O1 })
+geo.create('Segment', { point1: B, point2: O2 })
+geo.create('Segment', { point1: A, point2: O3 })
+
 geo.refreshSave()

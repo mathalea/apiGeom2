@@ -1,14 +1,14 @@
 import { expect, test } from 'vitest'
-import { FigurePlus } from '../src/FigurePlus'
+import Figure from '../src/Figure'
 
-const geo = new FigurePlus()
-const A = geo.point(0, 0)
-const B = geo.point(5, 0)
-const C = geo.point(4, 10)
-const D = geo.point(4, -10)
-const AB = geo.line(A, B)
-const CD = geo.line(C, D)
-const O = geo.pointIntersectionLL(AB, CD)
+const geo = new Figure()
+const A = geo.create('Point', { x: 0, y: 0 })
+const B = geo.create('Point', { x: 5, y: 0 })
+const C = geo.create('Point', { x: 4, y: 10 })
+const D = geo.create('Point', { x: 4, y: -10 })
+const AB = geo.create('Line', { point1: A, point2: B })
+const CD = geo.create('Line', { point1: C, point2: D })
+const O = geo.create('PointIntersectionLL', { line1: AB, line2: CD })
 
 test('Point intersection entre deux droites', () => {
   expect(O.x).toBe(4)

@@ -1,7 +1,7 @@
 import Figure from '../../Figure'
 import Element2D from '../Element2D'
 import katex from 'katex'
-import { optionsText } from '../interfaces'
+import { OptionsText } from '../interfaces'
 
 /**
  * Créé un div contenant un texte qui est mis au dessus du svg
@@ -10,24 +10,32 @@ import { optionsText } from '../interfaces'
 class TextByPosition extends Element2D {
   private _x!: number
   private _y!: number
+  _color: string
   /** Détermine s'il faut utiliser KaTeX pour le rendu du texte */
   readonly isLatex: boolean
   private _text!: string
   /** Le texte est mis dans un div qui s'affichera par dessus le SVG */
-  div: HTMLDivElement
+  div!: HTMLDivElement
 
-  constructor (figure: Figure, { x, y, text, isLatex = true, color = 'black', hasToBeSaved = true }: optionsText) {
+  constructor (figure: Figure, { x, y, text, isLatex = true, color = 'black', hasToBeSaved = true }: OptionsText) {
     super(figure, { hasToBeSaved })
     this.type = 'TextByPosition'
+    this._x = x
+    this._y = y
+    this.isLatex = isLatex
+    this._text = text
+    this._color = color
+  }
+
+  draw (): void {
     this.div = document.createElement('div')
     this.div.style.position = 'absolute'
     this.div.style.pointerEvents = 'none'
-    this.x = x
-    this.y = y
-    this.isLatex = isLatex
-    this.text = text
     this.figure.div?.appendChild(this.div)
-    if (color !== 'black') this.div.style.color = color
+    if (this.color !== 'black') this.div.style.color = this.color
+    this.text = this._text
+    this.x = this._x
+    this.y = this._y
   }
 
   get text (): string {

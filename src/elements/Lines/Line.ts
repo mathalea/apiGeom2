@@ -1,5 +1,5 @@
 import Figure from '../../Figure'
-import { optionsLine } from '../interfaces'
+import { OptionsLine } from '../interfaces'
 import Point from '../points/Point'
 import Segment from './Segment'
 
@@ -7,7 +7,7 @@ import Segment from './Segment'
  * Trace une droite
  */
 class Line extends Segment {
-  constructor (figure: Figure, { point1, point2, ...options }: optionsLine) {
+  constructor (figure: Figure, { point1, point2, ...options }: OptionsLine) {
     super(figure, { point1, point2, ...options })
     this.type = 'Line'
   }

@@ -1,6 +1,6 @@
 import Figure from '../../Figure'
 import Element2D from '../Element2D'
-import { optionsCircle } from '../interfaces'
+import { OptionsCircle } from '../interfaces'
 import Point from '../points/Point'
 
 /**
@@ -17,7 +17,7 @@ class Circle extends Element2D {
   private _fillOpacity?: number
   /** Pointeur vers la première extrémité */
   center: Point
-  constructor (figure: Figure, { center, radius, ...options }: optionsCircle) {
+  constructor (figure: Figure, { center, radius, ...options }: OptionsCircle) {
     super(figure, options)
     this.type = 'Circle'
     this._radius = radius
@@ -27,11 +27,14 @@ class Circle extends Element2D {
     else this._fillColor = 'none'
     if (options?.fillOpacity !== undefined) this._fillOpacity = options.fillOpacity
     if (options?.isDashed !== undefined) this._isDashed = options.isDashed
+  }
+
+  draw (): void {
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
     this.center.subscribe(this)
     this.figure.svg.appendChild(this.groupSvg)
-    this.update()
     this.setColorThicknessAndDashed()
+    this.update()
   }
 
   get radius (): number {

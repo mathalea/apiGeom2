@@ -131,16 +131,16 @@ const save = {
     color: 'black',
     thickness: 1,
     isDashed: false
-  },
-  api12: {
-    type: 'DisplayDistance',
-    idPoint1: 'api1',
-    idPoint2: 'api8',
-    x: -6,
-    y: -3,
-    id: 'api12',
-    color: 'black'
   }
+  // api12: {
+  //   type: 'DisplayDistance',
+  //   idPoint1: 'api1',
+  //   idPoint2: 'api8',
+  //   x: -6,
+  //   y: -3,
+  //   id: 'api12',
+  //   color: 'black'
+  // }
 }
 
 const geo = new Figure()

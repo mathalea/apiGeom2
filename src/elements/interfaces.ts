@@ -2,7 +2,7 @@ import DynamicNumber from '../dynamicNumbers/DynamicNumber'
 import Line from './lines/Line'
 import Point from './points/Point'
 
-export interface optionsElement2D {
+export interface OptionsElement2D {
   id?: string
   label?: string
   color?: string
@@ -13,14 +13,14 @@ export interface optionsElement2D {
   hasToBeSaved?: boolean
 }
 
-export interface optionsPoint extends optionsElement2D {
+export interface OptionsPoint extends OptionsElement2D {
   x: number
   y: number
   shape?: 'x' | 'o' | ''
   size?: number
 }
 
-export interface optionsMiddle extends optionsElement2D {
+export interface OptionsMiddle extends OptionsElement2D {
   point1: Point
   point2: Point
   shape?: 'x' | 'o' | ''
@@ -28,34 +28,34 @@ export interface optionsMiddle extends optionsElement2D {
   hasToBeSaved?: boolean
 }
 
-export interface optionsIntersectionLL extends optionsElement2D {
+export interface OptionsIntersectionLL extends OptionsElement2D {
   line1: Line
   line2: Line
   shape?: 'x' | 'o' | ''
   size?: number
 }
 
-export interface optionsCircle extends optionsElement2D {
+export interface OptionsCircle extends OptionsElement2D {
   center: Point
   radius: number
 }
 
-export interface optionsCircleCenterDynamicRadius extends optionsElement2D {
+export interface OptionsCircleCenterDynamicRadius extends OptionsElement2D {
   center: Point
   radius: DynamicNumber
 }
 
-export interface optionsCircleCenterPoint extends optionsElement2D {
+export interface OptionsCircleCenterPoint extends OptionsElement2D {
   center: Point
   point: Point
 }
 
-export interface optionsLine extends optionsElement2D {
+export interface OptionsLine extends OptionsElement2D {
   point1: Point
   point2: Point
 }
 
-export interface optionsText extends optionsElement2D {
+export interface OptionsText extends OptionsElement2D {
   x: number
   y: number
   dx?: number
@@ -64,7 +64,7 @@ export interface optionsText extends optionsElement2D {
   isLatex?: boolean
 }
 
-export interface optionsRestrictedText extends optionsElement2D {
+export interface OptionsRestrictedText extends OptionsElement2D {
   point: Point
   dx?: number
   dy?: number

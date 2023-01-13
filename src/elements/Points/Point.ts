@@ -1,7 +1,7 @@
 import Figure from '../../Figure'
 import { defaultSize } from '../defaultValues'
 import Element2D from '../Element2D'
-import { optionsPoint } from '../interfaces'
+import { OptionsPoint } from '../interfaces'
 import TextByPoint from '../text/TextByPoint'
 
 /**
@@ -17,18 +17,24 @@ class Point extends Element2D {
   /** Taille du point, correspond à ce qui est ajouté dans les 4 directions pour faire la croix ou au rayon du rond */
   private _size: number
   /** Elément SVG pour le premier trait de la croix */
-  readonly svgLine1: SVGLineElement
+  private svgLine1!: SVGLineElement
   /** Elément SVG pour le deuxième trait de la croix */
-  readonly svgLine2: SVGLineElement
+  private svgLine2!: SVGLineElement
   /** Elément SVG pour rond */
-  readonly svgCircle: SVGCircleElement
+  private svgCircle!: SVGCircleElement
   /** Affichage du nom du point */
   elementTextLabel?: TextByPoint
-  constructor (figure: Figure, { x, y, ...options }: optionsPoint) {
+  constructor (figure: Figure, { x, y, ...options }: OptionsPoint) {
     super(figure, options)
     this.type = 'Point'
     this._shape = options?.shape ?? 'x'
     this._size = options?.size ?? defaultSize
+    this._x = x
+    this._y = y
+    if (options?.label !== undefined) this._label = options.label
+  }
+
+  draw (): void {
     // Les deux traits qui forment la croix du point
     this.svgLine1 = document.createElementNS('http://www.w3.org/2000/svg', 'line')
     this.svgLine2 = document.createElementNS('http://www.w3.org/2000/svg', 'line')
@@ -37,11 +43,9 @@ class Point extends Element2D {
     // Le groupe parent de la représentation du point
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'g')
     this.figure.svg.appendChild(this.groupSvg)
-    this._x = x
-    this._y = y
-    this.update()
     this.setColorThicknessAndDashed()
-    if (options?.label !== undefined) this.label = options.label
+    this.label = this._label
+    this.update()
   }
 
   update (): void {
@@ -147,7 +151,7 @@ class Point extends Element2D {
 
   set label (label: string | undefined) {
     this._label = label
-    if (label !== undefined) this.elementTextLabel = new TextByPoint(this.figure, { point: this, text: label, hasToBeSaved: false })
+    if (label !== undefined) this.elementTextLabel = this.figure.create('TextByPoint', { point: this, text: label, hasToBeSaved: false })
   }
 
   /** Déplace le point */

@@ -1,5 +1,5 @@
 import Figure from '../../Figure'
-import { optionsMiddle } from '../interfaces'
+import { OptionsMiddle } from '../interfaces'
 import Point from './Point'
 
 /**
@@ -14,7 +14,7 @@ class Middle extends Point {
   point2: Point
   /** id de la deuxième extrémité */
   idPoint2: string
-  constructor (figure: Figure, { point1, point2, ...options }: optionsMiddle) {
+  constructor (figure: Figure, { point1, point2, ...options }: OptionsMiddle) {
     const [xM, yM] = coordsMiddle(point1, point2)
     super(figure, { x: xM, y: yM, ...options })
     this.type = 'Middle'
@@ -24,7 +24,6 @@ class Middle extends Point {
     this.idPoint2 = point2.id
     this.point1.subscribe(this)
     this.point2.subscribe(this)
-    this.update()
   }
 
   update (): void {

@@ -1,6 +1,6 @@
 import Figure from '../../Figure'
 import Element2D from '../Element2D'
-import { optionsLine } from '../interfaces'
+import { OptionsLine } from '../interfaces'
 import Point from '../points/Point'
 
 /**
@@ -19,34 +19,22 @@ class Segment extends Element2D {
   point2: Point
   /** Détermine s'il faut afficher les deux extrémités, que celle de gauche ou que celle de droite */
   style?: '' | '|-|' | '|-' | '|-'
-  constructor (figure: Figure, { point1, point2, ...options }: optionsLine) {
+  constructor (figure: Figure, { point1, point2, ...options }: OptionsLine) {
     super(figure, options)
     this.type = 'Segment'
     this.point1 = point1
     this.idPoint1 = point1.id
     this.point2 = point2
     this.idPoint2 = point2.id
-    this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'line')
     this.point1.subscribe(this)
     this.point2.subscribe(this)
-    this.figure.svg.appendChild(this.groupSvg)
-    this.update()
-    this.setColorThicknessAndDashed()
   }
 
-  /** Renvoie [a, b, c] tels que ax +y + c = 0 est l'équation de la droite passant par point1 et point2 */
-  get equation (): [number, number, number] {
-    if (this.point1.x === undefined || this.point1.y === undefined || this.point2.x === undefined || this.point2.y === undefined) return [NaN, NaN, NaN]
-    try {
-      const a = this.point1.y - this.point2.y
-      const b = this.point2.x - this.point1.x
-      const c = (this.point1.x - this.point2.x) * this.point1.y + (this.point2.y - this.point1.y) * this.point1.x
-      return [a, b, c]
-    } catch (error) {
-      console.log('Erreur dans Line.equation()', error)
-      // this.exist = false
-      return [NaN, NaN, NaN]
-    }
+  draw (): void {
+    this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+    this.figure.svg.appendChild(this.groupSvg)
+    this.setColorThicknessAndDashed()
+    this.update()
   }
 
   update (): void {
@@ -67,6 +55,21 @@ class Segment extends Element2D {
       this.groupSvg.setAttribute('y2', `${y2Svg}`)
     }
     this.notify()
+  }
+
+  /** Renvoie [a, b, c] tels que ax +y + c = 0 est l'équation de la droite passant par point1 et point2 */
+  get equation (): [number, number, number] {
+    if (this.point1.x === undefined || this.point1.y === undefined || this.point2.x === undefined || this.point2.y === undefined) return [NaN, NaN, NaN]
+    try {
+      const a = this.point1.y - this.point2.y
+      const b = this.point2.x - this.point1.x
+      const c = (this.point1.x - this.point2.x) * this.point1.y + (this.point2.y - this.point1.y) * this.point1.x
+      return [a, b, c]
+    } catch (error) {
+      console.log('Erreur dans Line.equation()', error)
+      // this.exist = false
+      return [NaN, NaN, NaN]
+    }
   }
 
   toJSON (): object {

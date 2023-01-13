@@ -1,6 +1,6 @@
 import Figure from '../Figure'
 import DynamicNumber from '../dynamicNumbers/DynamicNumber'
-import { optionsElement2D, typeElement2D } from './interfaces'
+import { OptionsElement2D, typeElement2D } from './interfaces'
 
 class Element2D {
   /** Espace de travail dans lequel l'élément sera représenté */
@@ -21,7 +21,7 @@ class Element2D {
   observers: Array<Element2D | DynamicNumber>
   /** Permet de ne pas sauvegarder des objets secondaires qui seront reconstruits (label d'un point, codage d'une figure...) */
   private readonly hasToBeSaved: boolean
-  constructor (figure: Figure, options?: optionsElement2D) {
+  constructor (figure: Figure, options?: OptionsElement2D) {
     this.figure = figure
     if (options === undefined || options?.id === undefined || this.figure.elements.has(options?.id)) {
       this.id = 'api' + (this.figure.elements.size + 1).toString()
