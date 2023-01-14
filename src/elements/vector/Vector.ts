@@ -9,7 +9,7 @@ class Vector extends Element2D {
   /** Origine pour la représentation du vecteur */
   readonly origin?: Point
   /** Extrémité de la représentation du vecteur */
-  protected end?: Point
+  end?: Point
   /** Représentation du vecteur */
   representation?: Segment
   constructor (figure: Figure, { x, y, origin, color, thickness, isDashed, hasToBeSaved }: { x: number, y: number, origin?: Point, color?: string, thickness?: number, isDashed?: boolean, hasToBeSaved?: boolean }) {

@@ -36,23 +36,8 @@ btnLoad?.addEventListener('click', () => {
 // Création de la figure
 const A = geo.create('Point', { x: 0, y: 0, shape: 'o', label: 'A_1', labelDx: -0.6, labelDy: 0.3 })
 const B = geo.create('Point', { x: 7, y: 2, color: 'blue', label: '\\mathcal{B}' })
-const C = geo.create('Point', { x: 3, y: 6, label: 'C' })
-const AB = geo.create('Distance', { point1: A, point2: B })
-AB.display({ x: -3, y: -3, textBefore: 'AB~\\approx~', textAfter: '~\\text{cm}', maximumFractionDigits: 1 })
-geo.create('Ray', { point1: A, point2: B })
-geo.create('Segment', { point1: B, point2: C })
-geo.create('Line', { point1: A, point2: C })
-const O1 = geo.create('Middle', { point1: A, point2: B, label: 'O_1' })
-const O2 = geo.create('Middle', { point1: A, point2: C, label: 'O_2' })
-const O3 = geo.create('Middle', { point1: C, point2: B, label: 'O_3' })
-geo.create('Segment', { point1: C, point2: O1 })
-geo.create('Segment', { point1: B, point2: O2 })
-geo.create('Segment', { point1: A, point2: O3 })
-
-const O = geo.create('Point', { x: -4, y: 0, shape: '' })
-geo.create('Vector', { x: 1, y: 3, origin: O, isDashed: true, color: 'blue' })
-const v = geo.create('VectorByPoints', { point1: A, point2: C, origin: O })
-v.color = 'green'
-v.thickness = 2
+const AB = geo.create('Line', { point1: A, point2: B })
+const C = geo.create('Point', { x: 3, y: 5 })
+geo.create('LineParallel', { line: AB, point: C, color: 'blue', thickness: 2 })
 
 geo.refreshSave()

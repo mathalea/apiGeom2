@@ -20,6 +20,7 @@ import TextDynamicByPosition from './elements/text/TextDynamicByPosition'
 import Distance from './dynamicNumbers/Distance'
 import Vector from './elements/vector/Vector'
 import VectorByPoints from './elements/vector/VectorByPoints'
+import LineParallel from './elements/lines/LineParallel'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -259,6 +260,7 @@ const classes = {
   PointIntersectionLL,
   Middle,
   Line,
+  LineParallel,
   Segment,
   Ray,
   Circle,

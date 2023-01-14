@@ -1,4 +1,5 @@
 import Figure from '../../Figure'
+import { OptionsVectorByPoints } from '../interfaces'
 import Point from '../points/Point'
 import Vector from './Vector'
 
@@ -7,10 +8,10 @@ class VectorByPoints extends Vector {
   point1: Point
   /** Deuxième point pour définir le vecteur */
   point2: Point
-  constructor (figure: Figure, { point1, point2, origin }: { point1: Point, point2: Point, origin?: Point }) {
+  constructor (figure: Figure, { point1, point2, origin, ...options }: OptionsVectorByPoints) {
     const x = point2.x - point1.x
     const y = point2.y - point1.y
-    super(figure, { x, y, origin })
+    super(figure, { x, y, origin, ...options })
     this.type = 'VectorByPoints'
     this.point1 = point1
     this.point2 = point2
