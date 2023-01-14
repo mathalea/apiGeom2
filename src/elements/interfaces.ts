@@ -59,6 +59,10 @@ export interface OptionsCircleCenterPoint extends OptionsElement2D {
   point: Point
 }
 
+export interface OptionsPolyline extends OptionsElement2D {
+  points: Point[]
+}
+
 export interface OptionsLine extends OptionsElement2D {
   point1: Point
   point2: Point
@@ -129,6 +133,7 @@ export interface OptionsVectorPerpendicular extends OptionsElement2D {
 export type typeElement2D = '' |
 'Point' | 'PointIntersectionLL' | 'Middle' |
 'Segment' | 'Line' | 'Ray' | 'LineParallel' | 'LinePerpendicular' |
+'Polyline' | 'Polygon' |
 'Circle' | 'CircleDynamicRadius' | 'CircleCenterPoint' |
 'TextByPosition' | 'TextByPoint' | 'DisplayDistance' | 'TextDynamicByPosition' |
 'Vector' | 'VectorByPoints' | 'VectorPerpendicular'

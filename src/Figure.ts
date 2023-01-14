@@ -23,6 +23,7 @@ import VectorByPoints from './elements/vector/VectorByPoints'
 import LineParallel from './elements/lines/LineParallel'
 import LinePerpendicular from './elements/lines/LinePerpendicular'
 import VectorPerpendicular from './elements/vector/VectorPerpendicular'
+import Polyline from './elements/lines/Polyline'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -256,6 +257,7 @@ class Figure {
     return loadJson(this, json, eraseHistory)
   }
 }
+
 const classes = {
   Point,
   PointIntersectionLL,
@@ -265,6 +267,7 @@ const classes = {
   LinePerpendicular,
   Segment,
   Ray,
+  Polyline,
   Circle,
   CircleCenterPoint,
   CircleCenterDynamicRadius,

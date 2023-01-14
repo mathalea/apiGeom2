@@ -14,7 +14,7 @@ class Segment extends Element2D {
   /** Deuxième extrémité du segment */
   point2: Point
   /** Détermine s'il faut afficher les deux extrémités, que celle de gauche ou que celle de droite */
-  style?: '' | '|-|' | '|-' | '|-'
+  shape?: '' | '|-|' | '|-' | '|-'
   constructor (figure: Figure, { point1, point2, ...options }: OptionsLine) {
     super(figure, options)
     this.type = 'Segment'

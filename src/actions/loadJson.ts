@@ -104,6 +104,13 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const point = figure.elements.get(options.idPoint)
       figure.create('LinePerpendicular', { line, point, ...options })
     }
+    if (options.type === 'Polyline') {
+      const points = []
+      for (const idPoint of options.idPoints) {
+        points.push(figure.elements.get(idPoint))
+      }
+      figure.create('Polyline', { points, ...options })
+    }
   }
   // Pour la navigation dans l'historique on ne sauvegarde que le premier chargement
   // les autres chargements proviennent de goBack() ou de goForward()
