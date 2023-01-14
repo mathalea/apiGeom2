@@ -9,13 +9,9 @@ import Point from '../points/Point'
  * C'est la classe parent de celles qui permettent de tracer une droite ou une demi-droite
  */
 class Segment extends Element2D {
-  /** id de la première extrémité */
-  idPoint1: string
-  /** id de la deuxième extrémité */
-  idPoint2: string
-  /** Pointeur vers la première extrémité */
+  /** Première extrémité du segment */
   point1: Point
-  /** Pointeur vers la deuxième extrémité */
+  /** Deuxième extrémité du segment */
   point2: Point
   /** Détermine s'il faut afficher les deux extrémités, que celle de gauche ou que celle de droite */
   style?: '' | '|-|' | '|-' | '|-'
@@ -23,9 +19,7 @@ class Segment extends Element2D {
     super(figure, options)
     this.type = 'Segment'
     this.point1 = point1
-    this.idPoint1 = point1.id
     this.point2 = point2
-    this.idPoint2 = point2.id
     this.point1.subscribe(this)
     this.point2.subscribe(this)
   }
@@ -38,6 +32,7 @@ class Segment extends Element2D {
   }
 
   update (): void {
+    this.notify()
     if (this.point1.x === undefined || this.point1.y === undefined || this.point2.x === undefined || this.point2.y === undefined ||
       Number.isNaN(this.point1.x) || Number.isNaN(this.point1.y) || Number.isNaN(this.point2.x) || Number.isNaN(this.point2.y)) {
       this.groupSvg.removeAttribute('x1')
@@ -54,7 +49,6 @@ class Segment extends Element2D {
       this.groupSvg.setAttribute('x2', `${x2Svg}`)
       this.groupSvg.setAttribute('y2', `${y2Svg}`)
     }
-    this.notify()
   }
 
   /** Renvoie [a, b, c] tels que ax +y + c = 0 est l'équation de la droite passant par point1 et point2 */
@@ -75,8 +69,8 @@ class Segment extends Element2D {
   toJSON (): object {
     return {
       type: this.type,
-      idPoint1: this.idPoint1,
-      idPoint2: this.idPoint2,
+      idPoint1: this.point1.id,
+      idPoint2: this.point2.id,
       ...super.toJSON()
     }
   }

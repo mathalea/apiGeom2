@@ -7,8 +7,8 @@ import TextByPosition from './TextByPosition'
  * Créé un texte qui suivra la position d'un point
  */
 export class TextByPoint extends TextByPosition {
-  point: Point | undefined
-  idPoint: string
+  /** Point sur lequel apparaitra le texte */
+  point: Point
   /** Décalage vertical par rapport au point */
   dx: number
   /** Décalage vertical par rapport au point */
@@ -19,7 +19,6 @@ export class TextByPoint extends TextByPosition {
     this.dx = dx
     this.dy = dy
     this.point = point
-    this.idPoint = point.id
     this.point.subscribe(this)
   }
 
@@ -31,7 +30,7 @@ export class TextByPoint extends TextByPosition {
   toJSON (): object {
     return {
       type: this.type,
-      point: this.idPoint,
+      point: this.point.id,
       text: this.text,
       id: this.id,
       color: this.color

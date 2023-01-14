@@ -5,21 +5,15 @@ import Point from '../points/Point'
 import Circle from './Circle'
 
 class CircleCenterDynamicRadius extends Circle {
-  /** id de la première extrémité */
-  idCenter: string
   /** Centre du cercle */
   center: Point
   /** Rayon du cercle */
   readonly radiusDynamic: DynamicNumber
-  /** id du rayon du cercle */
-  readonly idRadius: string
   constructor (figure: Figure, { center, radius, ...options }: OptionsCircleCenterDynamicRadius) {
     super(figure, { center, radius: radius.value, ...options })
     this.type = 'CircleDynamicRadius'
     this.center = center
-    this.idCenter = center.id
     this.radiusDynamic = radius
-    this.idRadius = radius.id
     this.radiusDynamic.subscribe(this)
     this.update()
     this.setColorThicknessAndDashed()
@@ -40,8 +34,8 @@ class CircleCenterDynamicRadius extends Circle {
     return {
       type: this.type,
       id: this.id,
-      idCenter: this.idCenter,
-      idRadius: this.idRadius,
+      idCenter: this.center.id,
+      idRadius: this.radiusDynamic.id,
       color: this.color,
       thickness: this.thickness,
       fillColor: this.fillColor,

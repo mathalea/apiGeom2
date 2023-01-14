@@ -7,8 +7,6 @@ import Point from '../points/Point'
  * Trace un cercle dont on connait le centre et le rayon
  */
 class Circle extends Element2D {
-  /** id de la première extrémité */
-  idCenter: string
   /** Rayon du cercle */
   private _radius: number
   /** Couleur de remplissage du cercle */
@@ -22,7 +20,6 @@ class Circle extends Element2D {
     this.type = 'Circle'
     this._radius = radius
     this.center = center
-    this.idCenter = center.id
     if (options?.fillColor !== undefined) this._fillColor = options.fillColor
     else this._fillColor = 'none'
     if (options?.fillOpacity !== undefined) this._fillOpacity = options.fillOpacity
@@ -105,7 +102,7 @@ class Circle extends Element2D {
   toJSON (): object {
     return {
       type: this.type,
-      idCenter: this.idCenter,
+      idCenter: this.center.id,
       radius: this._radius,
       fillColor: this.fillColor,
       fillOpacity: this.fillOpacity,

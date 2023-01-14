@@ -9,10 +9,6 @@ import Point from './Point'
  * Masque le point et ses descendances s'il n'y a pas d'intersection
  */
 export class PointIntersectionLL extends Point {
-  /** id de la première droite */
-  idLine1: string
-  /** id de la deuxième droite */
-  idLine2: string
   /** Première droite */
   line1: Segment
   /** Deuxième droite */
@@ -21,9 +17,7 @@ export class PointIntersectionLL extends Point {
     super(figure, { x: NaN, y: NaN, ...options })
     this.type = 'PointIntersectionLL'
     this.line1 = line1
-    this.idLine1 = line1.id
     this.line2 = line2
-    this.idLine2 = line2.id
     this.line1.subscribe(this)
     this.line2.subscribe(this)
   }
@@ -44,8 +38,8 @@ export class PointIntersectionLL extends Point {
   toJSON (): object {
     return {
       type: this.type,
-      idLine1: this.idLine1,
-      idLine2: this.idLine2,
+      idLine1: this.line1.id,
+      idLine2: this.line2.id,
       ...super.toJSON()
     }
   }

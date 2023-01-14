@@ -8,20 +8,14 @@ import Point from './Point'
 class Middle extends Point {
   /** Première extrémité */
   point1: Point
-  /** id de la première extrémité */
-  idPoint1: string
   /** Deuxième extrémité */
   point2: Point
-  /** id de la deuxième extrémité */
-  idPoint2: string
   constructor (figure: Figure, { point1, point2, ...options }: OptionsMiddle) {
     const [xM, yM] = coordsMiddle(point1, point2)
     super(figure, { x: xM, y: yM, ...options })
     this.type = 'Middle'
     this.point1 = point1
-    this.idPoint1 = point1.id
     this.point2 = point2
-    this.idPoint2 = point2.id
     this.point1.subscribe(this)
     this.point2.subscribe(this)
   }
@@ -42,8 +36,8 @@ class Middle extends Point {
   toJSON (): object {
     return {
       type: this.type,
-      idPoint1: this.idPoint1,
-      idPoint2: this.idPoint2,
+      idPoint1: this.point1.id,
+      idPoint2: this.point2.id,
       ...super.toJSON()
     }
   }
