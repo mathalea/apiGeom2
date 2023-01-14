@@ -21,6 +21,8 @@ import Distance from './dynamicNumbers/Distance'
 import Vector from './elements/vector/Vector'
 import VectorByPoints from './elements/vector/VectorByPoints'
 import LineParallel from './elements/lines/LineParallel'
+import LinePerpendicular from './elements/lines/LinePerpendicular'
+import VectorPerpendicular from './elements/vector/VectorPerpendicular'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -254,13 +256,13 @@ class Figure {
     return loadJson(this, json, eraseHistory)
   }
 }
-
 const classes = {
   Point,
   PointIntersectionLL,
   Middle,
   Line,
   LineParallel,
+  LinePerpendicular,
   Segment,
   Ray,
   Circle,
@@ -271,7 +273,8 @@ const classes = {
   TextDynamicByPosition,
   Distance,
   Vector,
-  VectorByPoints
+  VectorByPoints,
+  VectorPerpendicular
 }
 
 export default Figure

@@ -2,6 +2,11 @@ import DynamicNumber from '../dynamicNumbers/DynamicNumber'
 import Line from './lines/Line'
 import Point from './points/Point'
 
+export interface Binome {
+  x: number
+  y: number
+}
+
 export interface OptionsElement2D {
   id?: string
   label?: string
@@ -64,6 +69,11 @@ export interface OptionsLineParallel extends OptionsElement2D {
   point: Point
 }
 
+export interface OptionsLinePerpendicular extends OptionsElement2D {
+  line: Line
+  point: Point
+}
+
 export interface OptionsText extends OptionsElement2D {
   x: number
   y: number
@@ -111,9 +121,14 @@ export interface OptionsVectorByPoints extends OptionsElement2D {
   origin?: Point
 }
 
+export interface OptionsVectorPerpendicular extends OptionsElement2D {
+  origin: Point
+  line: Line
+}
+
 export type typeElement2D = '' |
 'Point' | 'PointIntersectionLL' | 'Middle' |
-'Segment' | 'Line' | 'Ray' | 'LineParallel' |
+'Segment' | 'Line' | 'Ray' | 'LineParallel' | 'LinePerpendicular' |
 'Circle' | 'CircleDynamicRadius' | 'CircleCenterPoint' |
 'TextByPosition' | 'TextByPoint' | 'DisplayDistance' | 'TextDynamicByPosition' |
-'Vector' | 'VectorByPoints'
+'Vector' | 'VectorByPoints' | 'VectorPerpendicular'

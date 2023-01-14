@@ -39,5 +39,7 @@ const B = geo.create('Point', { x: 7, y: 2, color: 'blue', label: 'B' })
 const AB = geo.create('Line', { point1: A, point2: B })
 const C = geo.create('Point', { x: 3, y: 5, label: 'C' })
 geo.create('LineParallel', { line: AB, point: C, color: 'blue', thickness: 2 })
+geo.create('LinePerpendicular', { line: AB, point: C, color: 'blue', thickness: 2 })
+geo.create('VectorPerpendicular', { line: AB, origin: C, thickness: 4, color: 'orange' })
 
 geo.refreshSave()

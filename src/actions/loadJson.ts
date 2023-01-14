@@ -89,10 +89,20 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const point2 = figure.elements.get(options.idPoint2)
       figure.create('Vector', { point1, point2, origin, ...options })
     }
+    if (options.type === 'VectorPerpendicular') {
+      const origin = figure.elements.get(options.idOrigin)
+      const line = figure.elements.get(options.idLine)
+      figure.create('VectorPerpendicular', { origin, line, ...options })
+    }
     if (options.type === 'LineParallel') {
       const line = figure.elements.get(options.idLine)
       const point = figure.elements.get(options.idPoint)
       figure.create('LineParallel', { line, point, ...options })
+    }
+    if (options.type === 'LinePerpendicular') {
+      const line = figure.elements.get(options.idLine)
+      const point = figure.elements.get(options.idPoint)
+      figure.create('LinePerpendicular', { line, point, ...options })
     }
   }
   // Pour la navigation dans l'historique on ne sauvegarde que le premier chargement

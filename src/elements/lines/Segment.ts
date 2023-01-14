@@ -1,6 +1,6 @@
 import Figure from '../../Figure'
 import Element2D from '../Element2D'
-import { OptionsLine } from '../interfaces'
+import { Binome, OptionsLine } from '../interfaces'
 import Point from '../points/Point'
 
 /**
@@ -63,6 +63,32 @@ class Segment extends Element2D {
       console.log('Erreur dans Line.equation()', error)
       // this.exist = false
       return [NaN, NaN, NaN]
+    }
+  }
+
+  /**
+   * Vecteur directeur de la droite
+   */
+  get unitVectorBinome (): Binome {
+    try {
+      const [a, b] = this.equation
+      return { x: b, y: -a }
+    } catch (error) {
+      console.log('Erreur dans Line.normal()', error)
+      return { x: NaN, y: NaN }
+    }
+  }
+
+  /**
+   * Vecteur normal à la droite
+   */
+  get unitPerpendicularVectorBinome (): Binome {
+    try {
+      const [a, b] = this.equation
+      return { x: a, y: b }
+    } catch (error) {
+      console.log('Erreur dans Line.directeur()', error)
+      return { x: NaN, y: NaN }
     }
   }
 
