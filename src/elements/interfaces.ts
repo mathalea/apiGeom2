@@ -21,6 +21,7 @@ export interface OptionsPoint extends OptionsElement2D {
   label?: string
   labelDx?: number
   labelDy?: number
+  isFree: boolean
 }
 
 export interface OptionsMiddle extends OptionsElement2D {
@@ -98,4 +99,5 @@ export type typeElement2D = '' |
 'Point' | 'PointIntersectionLL' | 'Middle' |
 'Segment' | 'Line' | 'Ray' |
 'Circle' | 'CircleDynamicRadius' | 'CircleCenterPoint' |
-'TextByPosition' | 'TextByPoint' | 'DisplayDistance' | 'TextDynamicByPosition'
+'TextByPosition' | 'TextByPoint' | 'DisplayDistance' | 'TextDynamicByPosition' |
+'Vector' | 'VectorByPoints'

@@ -79,6 +79,16 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const dynamicNumber = figure.elements.get(options.idDynamicNumber) as DynamicNumber
       figure.create('TextDynamicByPosition', { dynamicNumber, ...options })
     }
+    if (options.type === 'Vector') {
+      const origin = figure.elements.get(options.idOrigin)
+      figure.create('Vector', { origin, ...options })
+    }
+    if (options.type === 'VectorByPoints') {
+      const origin = figure.elements.get(options.idOrigin)
+      const point1 = figure.elements.get(options.idPoint1)
+      const point2 = figure.elements.get(options.idPoint2)
+      figure.create('Vector', { point1, point2, origin, ...options })
+    }
   }
   // Pour la navigation dans l'historique on ne sauvegarde que le premier chargement
   // les autres chargements proviennent de goBack() ou de goForward()

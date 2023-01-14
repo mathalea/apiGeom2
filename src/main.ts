@@ -49,4 +49,10 @@ geo.create('Segment', { point1: C, point2: O1 })
 geo.create('Segment', { point1: B, point2: O2 })
 geo.create('Segment', { point1: A, point2: O3 })
 
+const O = geo.create('Point', { x: -4, y: 0, shape: '' })
+geo.create('Vector', { x: 1, y: 3, origin: O, isDashed: true, color: 'blue' })
+const v = geo.create('VectorByPoints', { point1: A, point2: C, origin: O })
+v.color = 'green'
+v.thickness = 2
+
 geo.refreshSave()

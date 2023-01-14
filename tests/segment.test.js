@@ -6,7 +6,7 @@ const A = geo.create('Point', { x: 4, y: 5 })
 const B = geo.create('Point', { x: 8, y: -12, shape: 'o' })
 const C = geo.create('Point', { x: 9, y: 6, id: 'C' })
 const sAB = geo.create('Segment', { point1: A, point2: B, color: 'blue' })
-const sAH = geo.create('Segment', { point1: A, point2: geo.elements.get('C') })
+const sAH = geo.create('Segment', { point1: A, point2: C })
 sAH.thickness = 3
 
 test('Point - Segment - Couleur', () => {

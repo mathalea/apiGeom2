@@ -18,6 +18,8 @@ import { loadJson } from './actions/loadJson'
 import 'katex/dist/katex.min.css'
 import TextDynamicByPosition from './elements/text/TextDynamicByPosition'
 import Distance from './dynamicNumbers/Distance'
+import Vector from './elements/vector/Vector'
+import VectorByPoints from './elements/vector/VectorByPoints'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -161,7 +163,7 @@ class Figure {
     this.svg.addEventListener('pointerdown', (event: PointerEvent) => {
       const [pointerX, pointerY] = this.getPointerCoord(event)
       const point = getClickedElement(this, pointerX, pointerY)
-      if (point !== undefined) {
+      if (point?.isFree === true) {
         this.pointInDrag = point
         if (this.div !== null) this.div.style.cursor = 'move'
       }
@@ -251,6 +253,7 @@ class Figure {
     return loadJson(this, json, eraseHistory)
   }
 }
+
 const classes = {
   Point,
   PointIntersectionLL,
@@ -264,7 +267,9 @@ const classes = {
   TextByPoint,
   TextByPosition,
   TextDynamicByPosition,
-  Distance
+  Distance,
+  Vector,
+  VectorByPoints
 }
 
 export default Figure

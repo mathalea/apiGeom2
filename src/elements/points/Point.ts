@@ -1,7 +1,6 @@
 import Figure from '../../Figure'
 import { defaultSize } from '../defaultValues'
 import Element2D from '../Element2D'
-import { OptionsPoint } from '../interfaces'
 import TextByPoint from '../text/TextByPoint'
 
 /**
@@ -16,6 +15,8 @@ class Point extends Element2D {
   private _shape: 'x' | 'o' | ''
   /** Taille du point, correspond à ce qui est ajouté dans les 4 directions pour faire la croix ou au rayon du rond */
   private _size: number
+  /** Le point est-il librement déplaçable ? */
+  readonly isFree: boolean
   /** Elément SVG pour le premier trait de la croix */
   private svgLine1!: SVGLineElement
   /** Elément SVG pour le deuxième trait de la croix */
@@ -28,16 +29,29 @@ class Point extends Element2D {
   labelDx: number
   /** Décalage horizontal pour le nom du point */
   labelDy: number
-  constructor (figure: Figure, { x, y, ...options }: OptionsPoint) {
-    super(figure, options)
+  constructor (figure: Figure, { x, y, shape, size, label, labelDx, labelDy, isFree = true, color, thickness, hasToBeSaved, id }:
+  { x: number
+    y: number
+    shape?: 'x' | 'o' | ''
+    size?: number
+    label?: string
+    labelDx?: number
+    labelDy?: number
+    color?: string
+    thickness?: number
+    hasToBeSaved?: boolean
+    isFree?: boolean
+    id?: string }) {
+    super(figure, { color, thickness, hasToBeSaved, id })
     this.type = 'Point'
-    this._shape = options?.shape ?? 'x'
-    this._size = options?.size ?? defaultSize
-    this.labelDx = options.labelDx ?? 0.2
-    this.labelDy = options.labelDy ?? 0.2
+    this._shape = shape ?? 'x'
+    this._size = size ?? defaultSize
+    this.labelDx = labelDx ?? 0.2
+    this.labelDy = labelDy ?? 0.2
     this._x = x
     this._y = y
-    if (options?.label !== undefined) this._label = options.label
+    this._label = label
+    this.isFree = isFree
   }
 
   draw (): void {
