@@ -9,8 +9,8 @@ import Figure from './Figure'
 const geo = new Figure()
 
 // On affiche le svg dans un div
-const div = document.querySelector('#app')
-div?.appendChild(geo.svg)
+const div = document.querySelector('#app') as HTMLDivElement
+geo.div = div
 
 // On affiche la sauvegarde au format json dans un div
 const divSave = document.querySelector('#save') as HTMLDivElement
@@ -23,12 +23,12 @@ const btnForward = document.querySelector('#btnForward')
 btnForward?.addEventListener('click', () => geo.goForward())
 
 // Création de la figure
-const A = geo.point(0, 0)
-const B = geo.point(5, 0, { label: 'B', style: 'o' })
-const C = geo.point(2, 6, { label: 'C', color: 'green', size: 0.3, thickness: 3 })
-const sAB = geo.segment(A, B)
-const sAC = geo.segment(A, C, { color: 'blue', thickness: 3 })
-const sBC = geo.segment(B, C)
+const A = geo.create('Point', { x: 0, y: 0, shape: 'o', label: 'A', labelDx: -0.6, labelDy: 0.3 })
+const B = geo.create('Point', { x: 7, y: 2, color: 'blue', label: 'B' })
+const AB = geo.create('Line', { point1: A, point2: B })
+const C = geo.create('Point', { x: 3, y: 5, label: 'C' })
+geo.create('LineParallel', { line: AB, point: C, color: 'blue', thickness: 2 })
+
 
 // Sauvegarde de la figure et affichage de cette sauvegarde
 geo.refreshSave()

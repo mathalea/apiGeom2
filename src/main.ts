@@ -34,10 +34,10 @@ btnLoad?.addEventListener('click', () => {
 })
 
 // Création de la figure
-const A = geo.create('Point', { x: 0, y: 0, shape: 'o', label: 'A_1', labelDx: -0.6, labelDy: 0.3 })
-const B = geo.create('Point', { x: 7, y: 2, color: 'blue', label: '\\mathcal{B}' })
+const A = geo.create('Point', { x: 0, y: 0, shape: 'o', label: 'A', labelDx: -0.6, labelDy: 0.3 })
+const B = geo.create('Point', { x: 7, y: 2, color: 'blue', label: 'B' })
 const AB = geo.create('Line', { point1: A, point2: B })
-const C = geo.create('Point', { x: 3, y: 5 })
+const C = geo.create('Point', { x: 3, y: 5, label: 'C' })
 geo.create('LineParallel', { line: AB, point: C, color: 'blue', thickness: 2 })
 
 geo.refreshSave()
