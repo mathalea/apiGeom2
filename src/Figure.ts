@@ -24,6 +24,7 @@ import LineParallel from './elements/lines/LineParallel'
 import LinePerpendicular from './elements/lines/LinePerpendicular'
 import VectorPerpendicular from './elements/vector/VectorPerpendicular'
 import Polyline from './elements/lines/Polyline'
+import Polygon from './elements/lines/Polyligon'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -268,6 +269,7 @@ const classes = {
   Segment,
   Ray,
   Polyline,
+  Polygon,
   Circle,
   CircleCenterPoint,
   CircleCenterDynamicRadius,
