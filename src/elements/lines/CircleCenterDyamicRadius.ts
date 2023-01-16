@@ -16,7 +16,7 @@ class CircleCenterDynamicRadius extends Circle {
     this.radiusDynamic = radius
     this.radiusDynamic.subscribe(this)
     this.update()
-    this.setColorThicknessAndDashed()
+    this.setVisibilityColorThicknessAndDashed()
   }
 
   update (): void {
@@ -40,7 +40,8 @@ class CircleCenterDynamicRadius extends Circle {
       thickness: this.thickness,
       fillColor: this.fillColor,
       fillOpacity: this.fillOpacity,
-      isDashed: this.isDashed
+      isDashed: this.isDashed,
+      isVisible: this.isVisible
     }
   }
 }

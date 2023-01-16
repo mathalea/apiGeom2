@@ -16,6 +16,7 @@ export interface OptionsElement2D {
   thickness?: number
   isDashed?: boolean
   hasToBeSaved?: boolean
+  isVisible?: boolean
 }
 
 export interface OptionsPoint extends OptionsElement2D {
@@ -70,6 +71,7 @@ export interface OptionsPolygon extends OptionsElement2D {
 export interface OptionsLine extends OptionsElement2D {
   point1: Point
   point2: Point
+  shape?: '' | '|-|' | '|-' | '|-'
 }
 
 export interface OptionsLineParallel extends OptionsElement2D {

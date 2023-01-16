@@ -34,11 +34,14 @@ btnLoad?.addEventListener('click', () => {
 })
 
 // Création de la figure
-const A = geo.create('Point', { x: 0, y: 0, shape: '', label: 'A', labelDx: -0.6, labelDy: 0.3 })
-const B = geo.create('Point', { x: 7, y: 2, color: 'blue', label: 'B', shape: '' })
-const C = geo.create('Point', { x: 3, y: 5, label: 'C', shape: '' })
-const AB = geo.create('Segment', { point1: A, point2: B })
-geo.create('LinePerpendicular', { line: AB, point: C })
-geo.create('Polygon', { points: [A, B, C], color: 'blue', thickness: 2 })
-
+const A = geo.create('Point', { x: 0, y: 0, shape: 'x', labelDx: -0.6, labelDy: 0.3, label: 'A' })
+const B = geo.create('Point', { x: 7, y: 2, color: 'blue', label: 'B' })
+const C = geo.create('Point', { x: 3, y: 5, label: 'C' })
+const p = geo.create('Polygon', { points: [A, B, C], color: 'purple', thickness: 2 })
+p.createSegments()
+const hauteur1 = geo.create('LinePerpendicular', { line: p.segments[0], point: p.points[2], isDashed: true })
+const hauteur2 = geo.create('LinePerpendicular', { line: p.segments[1], point: p.points[0], isDashed: true })
+geo.create('LinePerpendicular', { line: p.segments[2], point: p.points[1], isDashed: true })
+const O = geo.create('PointIntersectionLL', { line1: hauteur1, line2: hauteur2, label: 'O', shape: 'o' })
+geo.create('CircleCenterPoint', { center: O, point: A, thickness: 2, color: 'blue' })
 geo.refreshSave()

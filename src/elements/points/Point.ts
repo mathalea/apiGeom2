@@ -62,8 +62,8 @@ class Point extends Element2D {
     this.svgCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
     // Le groupe parent de la représentation du point
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-    this.figure.svg.appendChild(this.groupSvg)
-    this.setColorThicknessAndDashed()
+    this.setVisibilityColorThicknessAndDashed()
+    this.shape = this._shape
     this.label = this._label
     this.update()
   }
@@ -123,6 +123,22 @@ class Point extends Element2D {
 
   set shape (shape) {
     this._shape = shape
+    if (this._shape === 'x') {
+      this.figure.svg.appendChild(this.groupSvg)
+      this.svgCircle.remove()
+      this.groupSvg.appendChild(this.svgLine1)
+      this.groupSvg.appendChild(this.svgLine2)
+    } else if (this._shape === 'o') {
+      this.figure.svg.appendChild(this.groupSvg)
+      this.svgLine1.remove()
+      this.svgLine2.remove()
+      this.groupSvg.appendChild(this.svgCircle)
+    } else {
+      this.groupSvg.remove()
+      this.svgLine1.remove()
+      this.svgLine2.remove()
+      this.svgCircle.remove()
+    }
     this.update()
   }
 

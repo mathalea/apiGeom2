@@ -9,3 +9,9 @@ export const defaultHistorySize = 5
 
 // Nombre de chiffres après la virgule dans les affichages
 export const displayDigits = 2
+
+// Pente d'une droite verticale
+export const defaultMaxSlope = 10 ** 4
+
+// Pente d'une droite horizontale
+export const defaultMinSlope = 10 ** -4

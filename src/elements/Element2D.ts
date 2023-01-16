@@ -17,22 +17,25 @@ class Element2D {
   protected _thickness: number
   /** Tracé en pointillés ? */
   protected _isDashed: boolean
+  /** Visible ? */
+  protected _isVisible: boolean
   /** Liste des enfants à notifier à chaque fois que l'élément est déplacé */
   observers: Array<Element2D | DynamicNumber>
   /** Permet de ne pas sauvegarder des objets secondaires qui seront reconstruits (label d'un point, codage d'une figure...) */
   private readonly hasToBeSaved: boolean
-  constructor (figure: Figure, options?: OptionsElement2D) {
+  constructor (figure: Figure, { id, color, thickness, isDashed, hasToBeSaved, isVisible }: OptionsElement2D) {
     this.figure = figure
-    if (options === undefined || options?.id === undefined || this.figure.elements.has(options?.id)) {
+    if (id === undefined || this.figure.elements.has(id)) {
       this.id = 'api' + (this.figure.elements.size + 1).toString()
     } else {
-      this.id = options.id
+      this.id = id
     }
-    this.hasToBeSaved = (options?.hasToBeSaved) ?? true
+    this.hasToBeSaved = (hasToBeSaved) ?? true
     if (this.hasToBeSaved) this.figure.elements.set(this.id, this)
-    this._color = options?.color ?? 'black'
-    this._thickness = options?.thickness ?? 1
-    this._isDashed = options?.isDashed ?? false
+    this._color = color ?? 'black'
+    this._thickness = thickness ?? 1
+    this._isDashed = isDashed ?? false
+    this._isVisible = isVisible ?? true
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'g')
     this.observers = []
   }
@@ -68,7 +71,8 @@ class Element2D {
       id: this.id,
       color: this.color,
       thickness: this.thickness,
-      isDashed: this.isDashed
+      isDashed: this.isDashed,
+      isVisible: this.isVisible
     }
   }
 
@@ -125,8 +129,23 @@ class Element2D {
     this._isDashed = isDashed
   }
 
+  /** Est-il visible ? Le groupe SVG est-il dans le code SVG ? */
+  get isVisible (): boolean {
+    return this._isVisible
+  }
+
+  set isVisible (isVisible) {
+    if (isVisible) {
+      this.figure.svg.appendChild(this.groupSvg)
+    } else {
+      this.groupSvg.remove()
+    }
+    this._isVisible = isVisible
+  }
+
   /** Modifie la couleur et l'épaisseur de l'élément */
-  setColorThicknessAndDashed (): void {
+  setVisibilityColorThicknessAndDashed (): void {
+    this.isVisible = this._isVisible
     this.color = this._color
     this.thickness = this._thickness
     this.isDashed = this._isDashed

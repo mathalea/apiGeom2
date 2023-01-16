@@ -23,7 +23,12 @@ class CircleCenterPoint extends CircleCenterDynamicRadius {
       type: this.type,
       idCenter: this.center.id,
       idPoint: this.point.id,
-      ...super.toJSON()
+      color: this.color,
+      thickness: this.thickness,
+      fillColor: this.fillColor,
+      fillOpacity: this.fillOpacity,
+      isDashed: this.isDashed,
+      isVisible: this.isVisible
     }
   }
 }

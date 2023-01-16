@@ -26,8 +26,7 @@ class Segment extends Element2D {
 
   draw (): void {
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'line')
-    this.figure.svg.appendChild(this.groupSvg)
-    this.setColorThicknessAndDashed()
+    this.setVisibilityColorThicknessAndDashed()
     this.update()
   }
 
@@ -97,6 +96,7 @@ class Segment extends Element2D {
       type: this.type,
       idPoint1: this.point1.id,
       idPoint2: this.point2.id,
+      shape: this.shape,
       ...super.toJSON()
     }
   }

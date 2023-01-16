@@ -29,8 +29,7 @@ class Circle extends Element2D {
   draw (): void {
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
     this.center.subscribe(this)
-    this.figure.svg.appendChild(this.groupSvg)
-    this.setColorThicknessAndDashed()
+    this.setVisibilityColorThicknessAndDashed()
     this.update()
   }
 
@@ -77,12 +76,13 @@ class Circle extends Element2D {
   }
 
   /** Modifie la couleur et l'épaisseur de l'élément */
-  setColorThicknessAndDashed (): void {
+  setVisibilityColorThicknessAndDashed (): void {
     this.color = this._color
     this.fillColor = this._fillColor
     if (this._fillOpacity !== undefined) this.fillOpacity = this._fillOpacity
     if (this._isDashed !== undefined) this.isDashed = this._isDashed
     this.isDashed = this._isDashed
+    this.isVisible = this._isVisible
   }
 
   update (): void {

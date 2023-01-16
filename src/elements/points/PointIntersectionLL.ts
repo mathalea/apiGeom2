@@ -14,7 +14,8 @@ export class PointIntersectionLL extends Point {
   /** Deuxième droite */
   line2: Segment
   constructor (figure: Figure, { line1, line2, ...options }: OptionsIntersectionLL) {
-    super(figure, { x: NaN, y: NaN, ...options })
+    const coords = intersectionLLCoord(line1, line2)
+    super(figure, { x: coords.x, y: coords.y, ...options })
     this.type = 'PointIntersectionLL'
     this.line1 = line1
     this.line2 = line2
@@ -40,7 +41,13 @@ export class PointIntersectionLL extends Point {
       type: this.type,
       idLine1: this.line1.id,
       idLine2: this.line2.id,
-      ...super.toJSON()
+      id: this.id,
+      shape: this.shape,
+      label: this.label,
+      color: this.color,
+      thickness: this.thickness,
+      isDashed: this.isDashed,
+      isVisible: this.isVisible
     }
   }
 }

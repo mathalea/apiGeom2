@@ -1,4 +1,5 @@
 import Figure from '../../Figure'
+import { defaultMaxSlope, defaultMinSlope } from '../defaultValues'
 import { OptionsLine } from '../interfaces'
 import Point from '../points/Point'
 import Segment from './Segment'
@@ -34,12 +35,12 @@ function getCoordsOut (A: Point, B: Point): [number, number, number, number] {
     Number.isNaN(A.x) || Number.isNaN(A.y) || Number.isNaN(B.x) || Number.isNaN(B.y)) return [NaN, NaN, NaN, NaN]
   try {
     const figure = A.figure
-    let pente = Infinity
+    let pente = defaultMaxSlope
     if (B.x !== A.x) {
       pente = (B.y - A.y) / (B.x - A.x)
     }
-    if (pente === Infinity) return [A.x, figure.yMax, A.x, figure.yMin]
-    if (Math.abs(pente) < 10 ** -4) return [figure.xMin, A.y, figure.xMax, A.y]
+    if (Math.abs(pente) >= defaultMaxSlope) return [A.x, figure.yMax, A.x, figure.yMin]
+    if (Math.abs(pente) < defaultMinSlope) return [figure.xMin, A.y, figure.xMax, A.y]
     let xOutLeft: number, yOutLeft: number
     let n = 0
     while (true) {

@@ -2,17 +2,21 @@ import Figure from '../../Figure'
 import Element2D from '../Element2D'
 import { OptionsPolygon } from '../interfaces'
 import Point from '../points/Point'
+import Segment from './Segment'
 
 /**
- * Trace une ligne brisée
+ * Trace une polygone
  */
 class Polygon extends Element2D {
   /** Liste des sommets */
   points: Point[]
+  /** Liste des côtés */
+  readonly segments: Segment[]
   constructor (figure: Figure, { points, ...options }: OptionsPolygon) {
     super(figure, options)
     this.type = 'Polygon'
     this.points = points
+    this.segments = []
     for (const point of points) {
       point.subscribe(this)
     }
@@ -20,10 +24,18 @@ class Polygon extends Element2D {
 
   draw (): void {
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'polygon')
-    this.figure.svg.appendChild(this.groupSvg)
     this.groupSvg.setAttribute('fill', 'none')
-    this.setColorThicknessAndDashed()
+    this.setVisibilityColorThicknessAndDashed()
     this.update()
+  }
+
+  /** Créer un segment caché pour chacun des côtés du polygone et ainsi permettre de placer des milieux, tracer des perpendiculaires... */
+  createSegments (): void {
+    for (let i = 0; i < this.points.length; i++) {
+      const point1 = this.points.at(i % this.points.length) as Point
+      const point2 = this.points.at((i + 1) % this.points.length) as Point
+      this.segments.push(this.figure.create('Segment', { point1, point2, hasToBeSaved: true, isVisible: false }))
+    }
   }
 
   update (): void {

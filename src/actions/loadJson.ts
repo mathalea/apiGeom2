@@ -55,7 +55,7 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
     }
     if (options.type === 'CircleCenterPoint') {
       const center = figure.elements.get(options.idCenter) as Point
-      const point = figure.elements.get(options.idPoint1) as Point
+      const point = figure.elements.get(options.idPoint) as Point
       figure.create('CircleCenterPoint', { center, point, ...options })
     }
     if (options.type === 'CircleDynamicRadius') {

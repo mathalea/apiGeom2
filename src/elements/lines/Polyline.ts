@@ -22,9 +22,8 @@ class Polyline extends Element2D {
 
   draw (): void {
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'polyline')
-    this.figure.svg.appendChild(this.groupSvg)
     this.groupSvg.setAttribute('fill', 'none')
-    this.setColorThicknessAndDashed()
+    this.setVisibilityColorThicknessAndDashed()
     this.update()
   }
 
