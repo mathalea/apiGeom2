@@ -39,6 +39,7 @@ export class PointIntersectionLL extends Point {
   toJSON (): object {
     return {
       type: this.type,
+      isChild: this.isChild,
       idLine1: this.line1.id,
       idLine2: this.line2.id,
       id: this.id,

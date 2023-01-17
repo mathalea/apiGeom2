@@ -12,10 +12,10 @@ abstract class DynamicNumber {
   private _value: number
   observers: Array<Element2D | DynamicNumber>
   type: string
-  hasToBeSaved: boolean
+  isChild: boolean
   textBefore: string
   textAfter: string
-  constructor (figure: Figure, { hasToBeSaved = true, textBefore = '', textAfter = '' }: OptionsDynamicNumber) {
+  constructor (figure: Figure, { isChild = false, textBefore = '', textAfter = '' }: OptionsDynamicNumber) {
     this.figure = figure
     this.id = 'api' + (this.figure.elements.size + 1).toString()
     this.observers = []
@@ -23,8 +23,8 @@ abstract class DynamicNumber {
     this.type = ''
     this.textBefore = textBefore
     this.textAfter = textAfter
-    this.hasToBeSaved = hasToBeSaved
-    if (this.hasToBeSaved) this.figure.elements.set(this.id, this)
+    this.isChild = isChild
+    if (this.isChild) this.figure.elements.set(this.id, this)
   }
 
   draw (): void {}

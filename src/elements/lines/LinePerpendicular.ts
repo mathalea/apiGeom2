@@ -9,7 +9,7 @@ class LinePerpendicular extends Line {
   /** Point par lequel passe cette droite */
   point: Point
   constructor (figure: Figure, { line, point, ...options }: OptionsLinePerpendicular) {
-    const vector = figure.create('VectorPerpendicular', { origin: point, line, hasToBeSaved: false, isVisible: true })
+    const vector = figure.create('VectorPerpendicular', { origin: point, line, isChild: true, isVisible: false })
     const vectorEnd = vector.representation?.point2 as Point
     super(figure, { point1: point, point2: vectorEnd, ...options })
     this.type = 'LinePerpendicular'
@@ -20,6 +20,7 @@ class LinePerpendicular extends Line {
   toJSON (): object {
     return {
       type: this.type,
+      isChild: this.isChild,
       idLine: this.line.id,
       idPoint: this.point.id,
       id: this.id,

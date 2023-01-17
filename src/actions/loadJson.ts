@@ -21,6 +21,7 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
   figure.clearHtml()
   figure.div?.appendChild(figure.svg)
   for (const options of Object.values(json)) {
+    if (options.isChild === true) continue
     if (options.type === 'Point') {
       figure.create('Point', { x: options.x, y: options.y, ...options })
     }

@@ -9,7 +9,7 @@ class LineParallel extends Line {
   /** Point par lequel passe cette droite */
   point: Point
   constructor (figure: Figure, { line, point, ...options }: OptionsLineParallel) {
-    const vector = figure.create('VectorByPoints', { point1: line.point1, point2: line.point2, origin: point, hasToBeSaved: false, isVisible: false })
+    const vector = figure.create('VectorByPoints', { point1: line.point1, point2: line.point2, origin: point, isChild: true, isVisible: false })
     const vectorEnd = vector.representation?.point2 as Point
     super(figure, { point1: point, point2: vectorEnd, ...options })
     this.type = 'LineParallel'
@@ -20,6 +20,7 @@ class LineParallel extends Line {
   toJSON (): object {
     return {
       type: this.type,
+      isChild: this.isChild,
       idLine: this.line.id,
       idPoint: this.point.id,
       id: this.id,

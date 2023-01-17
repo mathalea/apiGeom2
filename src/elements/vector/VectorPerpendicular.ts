@@ -34,6 +34,7 @@ class VectorUnitPerpendicular extends Vector {
     return {
       ...super.toJSON(),
       type: this.type,
+      isChild: this.isChild,
       idOrigin: this.origin.id,
       idLine: this.line.id
     }

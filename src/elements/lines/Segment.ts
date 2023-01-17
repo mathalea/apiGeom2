@@ -94,6 +94,7 @@ class Segment extends Element2D {
   toJSON (): object {
     return {
       type: this.type,
+      isChild: this.isChild,
       idPoint1: this.point1.id,
       idPoint2: this.point2.id,
       shape: this.shape,

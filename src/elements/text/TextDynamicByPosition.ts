@@ -15,9 +15,9 @@ class TextDynamicByPosition extends TextByPosition {
   minimumFractionDigits: number
   maximumFractionDigits: number
 
-  constructor (figure: Figure, { x, y, dynamicNumber, textBefore = '', textAfter = '', isLatex = true, color = 'black', hasToBeSaved = true, minimumFractionDigits = 0, maximumFractionDigits = displayDigits }: OptionsDynamicText) {
+  constructor (figure: Figure, { x, y, dynamicNumber, textBefore = '', textAfter = '', isLatex = true, color = 'black', isChild = false, minimumFractionDigits = 0, maximumFractionDigits = displayDigits }: OptionsDynamicText) {
     const value = textBefore + Intl.NumberFormat('fr-FR', { maximumFractionDigits, minimumFractionDigits }).format(dynamicNumber.value) + textAfter
-    super(figure, { x, y, text: value, isLatex, color, hasToBeSaved })
+    super(figure, { x, y, text: value, isLatex, color, isChild })
     this.type = 'TextDynamicByPosition'
     this.dynamicNumber = dynamicNumber
     this.textBefore = textBefore
@@ -34,6 +34,7 @@ class TextDynamicByPosition extends TextByPosition {
   toJSON (): object {
     return {
       type: this.type,
+      isChild: this.isChild,
       x: this.x,
       y: this.y,
       idDynamicNumber: this.dynamicNumber.id,

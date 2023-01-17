@@ -34,6 +34,7 @@ class CircleCenterDynamicRadius extends Circle {
     return {
       type: this.type,
       id: this.id,
+      isChild: this.isChild,
       idCenter: this.center.id,
       idRadius: this.radiusDynamic.id,
       color: this.color,

@@ -12,8 +12,8 @@ class Vector extends Element2D {
   end?: Point
   /** Représentation du vecteur */
   representation?: Segment
-  constructor (figure: Figure, { x, y, origin, color, thickness, isDashed, hasToBeSaved, isVisible }: { x: number, y: number, origin?: Point, color?: string, thickness?: number, isDashed?: boolean, isVisible?: boolean, hasToBeSaved?: boolean }) {
-    super(figure, { color, thickness, isDashed, hasToBeSaved, isVisible })
+  constructor (figure: Figure, { x, y, origin, color, thickness, isDashed, isChild, isVisible }: { x: number, y: number, origin?: Point, color?: string, thickness?: number, isDashed?: boolean, isVisible?: boolean, isChild?: boolean }) {
+    super(figure, { color, thickness, isDashed, isChild, isVisible })
     this.type = 'Vector'
     this.x = x
     this.y = y
@@ -23,8 +23,8 @@ class Vector extends Element2D {
   draw (): void {
     if (this.origin !== undefined) {
       this.origin.subscribe(this)
-      this.end = this.figure.create('Point', { x: this.origin.x + this.x, y: this.origin.y + this.y, shape: '', isFree: false, hasToBeSaved: false })
-      this.representation = this.figure.create('Segment', { point1: this.origin, point2: this.end, hasToBeSaved: false, color: this.color, thickness: this.thickness, isDashed: this.isDashed, isVisible: this.isVisible })
+      this.end = this.figure.create('Point', { x: this.origin.x + this.x, y: this.origin.y + this.y, shape: '', isFree: false, isChild: true })
+      this.representation = this.figure.create('Segment', { point1: this.origin, point2: this.end, isChild: true, color: this.color, thickness: this.thickness, isDashed: this.isDashed, isVisible: this.isVisible })
     }
   }
 
@@ -71,6 +71,7 @@ class Vector extends Element2D {
 
   toJSON (): object {
     return {
+      isChild: this.isChild,
       type: this.type,
       x: this.x,
       y: this.y,

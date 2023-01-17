@@ -15,7 +15,7 @@ export interface OptionsElement2D {
   fillOpacity?: number
   thickness?: number
   isDashed?: boolean
-  hasToBeSaved?: boolean
+  isChild?: boolean
   isVisible?: boolean
 }
 
@@ -35,7 +35,7 @@ export interface OptionsMiddle extends OptionsElement2D {
   point2: Point
   shape?: 'x' | 'o' | ''
   size?: number
-  hasToBeSaved?: boolean
+  isChild?: boolean
 }
 
 export interface OptionsIntersectionLL extends OptionsElement2D {
@@ -94,7 +94,7 @@ export interface OptionsText extends OptionsElement2D {
 }
 
 export interface OptionsDynamicNumber extends OptionsElement2D {
-  hasToBeSaved: boolean
+  isChild: boolean
   textBefore?: string
   textAfter?: string
 }

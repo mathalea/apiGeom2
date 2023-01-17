@@ -29,7 +29,7 @@ class Point extends Element2D {
   labelDx: number
   /** Décalage horizontal pour le nom du point */
   labelDy: number
-  constructor (figure: Figure, { x, y, shape, size, label, labelDx, labelDy, isFree = true, color, thickness, hasToBeSaved, id }:
+  constructor (figure: Figure, { x, y, shape, size, label, labelDx, labelDy, isFree = true, color, thickness, isChild, id }:
   { x: number
     y: number
     shape?: 'x' | 'o' | ''
@@ -39,10 +39,10 @@ class Point extends Element2D {
     labelDy?: number
     color?: string
     thickness?: number
-    hasToBeSaved?: boolean
+    isChild?: boolean
     isFree?: boolean
     id?: string }) {
-    super(figure, { color, thickness, hasToBeSaved, id })
+    super(figure, { color, thickness, isChild, id })
     this.type = 'Point'
     this._shape = shape ?? 'x'
     this._size = size ?? defaultSize
@@ -187,7 +187,7 @@ class Point extends Element2D {
 
   set label (label: string | undefined) {
     this._label = label
-    if (label !== undefined) this.elementTextLabel = this.figure.create('TextByPoint', { point: this, text: label, hasToBeSaved: false, dx: this.labelDx, dy: this.labelDy })
+    if (label !== undefined) this.elementTextLabel = this.figure.create('TextByPoint', { point: this, text: label, isChild: true, dx: this.labelDx, dy: this.labelDy })
   }
 
   /** Déplace le point */
@@ -205,6 +205,7 @@ class Point extends Element2D {
   toJSON (): object {
     return {
       type: this.type,
+      isChild: this.isChild,
       x: this.x,
       y: this.y,
       label: this.label,

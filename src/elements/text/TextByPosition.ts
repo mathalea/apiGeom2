@@ -17,8 +17,8 @@ class TextByPosition extends Element2D {
   /** Le texte est mis dans un div qui s'affichera par dessus le SVG */
   div!: HTMLDivElement
 
-  constructor (figure: Figure, { x, y, text, isLatex = true, color = 'black', hasToBeSaved = true }: OptionsText) {
-    super(figure, { hasToBeSaved })
+  constructor (figure: Figure, { x, y, text, isLatex = true, color = 'black', isChild = false }: OptionsText) {
+    super(figure, { isChild })
     this.type = 'TextByPosition'
     this._x = x
     this._y = y
@@ -83,6 +83,7 @@ class TextByPosition extends Element2D {
   toJSON (): object {
     return {
       type: this.type,
+      isChild: this.isChild,
       x: this.x,
       y: this.y,
       text: this.text,

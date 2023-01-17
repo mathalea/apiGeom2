@@ -21,17 +21,17 @@ class Element2D {
   protected _isVisible: boolean
   /** Liste des enfants à notifier à chaque fois que l'élément est déplacé */
   observers: Array<Element2D | DynamicNumber>
-  /** Permet de ne pas sauvegarder des objets secondaires qui seront reconstruits (label d'un point, codage d'une figure...) */
-  private readonly hasToBeSaved: boolean
-  constructor (figure: Figure, { id, color, thickness, isDashed, hasToBeSaved, isVisible }: OptionsElement2D) {
+  /** Les élément qui ont isChild à true sont ceux qui sont construits par d'autres et qui n'ont pas besoin d'être gérés par loadJson  */
+  protected readonly isChild: boolean
+  constructor (figure: Figure, { id, color, thickness, isDashed, isChild, isVisible }: OptionsElement2D) {
     this.figure = figure
     if (id === undefined || this.figure.elements.has(id)) {
       this.id = 'element' + (this.figure.elements.size + 1).toString()
     } else {
       this.id = id
     }
-    this.hasToBeSaved = (hasToBeSaved) ?? true
-    if (this.hasToBeSaved) this.figure.elements.set(this.id, this)
+    this.isChild = (isChild) ?? false
+    this.figure.elements.set(this.id, this)
     this._color = color ?? 'black'
     this._thickness = thickness ?? 1
     this._isDashed = isDashed ?? false
@@ -69,6 +69,7 @@ class Element2D {
     return {
       type: this.type,
       id: this.id,
+      isChild: this.isChild,
       color: this.color,
       thickness: this.thickness,
       isDashed: this.isDashed,

@@ -33,6 +33,7 @@ class VectorByPoints extends Vector {
     return {
       ...super.toJSON(),
       type: this.type,
+      isChild: this.isChild,
       idPoint1: this.point1.id,
       idPoint2: this.point2.id
     }

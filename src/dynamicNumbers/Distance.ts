@@ -11,8 +11,8 @@ class Distance extends DynamicNumber {
   point1: Point
   /** Pointeur vers la deuxième extrémité */
   point2: Point
-  constructor (figure: Figure, { point1, point2, hasToBeSaved = true }: { point1: Point, point2: Point, hasToBeSaved?: boolean }) {
-    super(figure, { hasToBeSaved })
+  constructor (figure: Figure, { point1, point2, isChild = false }: { point1: Point, point2: Point, isChild?: boolean }) {
+    super(figure, { isChild })
     this.type = 'Distance'
     this.point1 = point1
     this.idPoint1 = point1.id
@@ -37,6 +37,7 @@ class Distance extends DynamicNumber {
     return {
       type: this.type,
       id: this.id,
+      isChild: this.isChild,
       idPoint1: this.idPoint1,
       idPoint2: this.idPoint2
     }

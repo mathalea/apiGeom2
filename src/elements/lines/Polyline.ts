@@ -47,6 +47,7 @@ class Polyline extends Element2D {
     }
     return {
       type: this.type,
+      isChild: this.isChild,
       idPoints,
       ...super.toJSON()
     }

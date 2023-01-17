@@ -102,6 +102,7 @@ class Circle extends Element2D {
   toJSON (): object {
     return {
       type: this.type,
+      isChild: this.isChild,
       idCenter: this.center.id,
       radius: this._radius,
       fillColor: this.fillColor,

@@ -26,6 +26,7 @@ class Polygon extends Element2D {
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'polygon')
     this.groupSvg.setAttribute('fill', 'none')
     this.setVisibilityColorThicknessAndDashed()
+    this.createSegments()
     this.update()
   }
 
@@ -34,7 +35,7 @@ class Polygon extends Element2D {
     for (let i = 0; i < this.points.length; i++) {
       const point1 = this.points.at(i % this.points.length) as Point
       const point2 = this.points.at((i + 1) % this.points.length) as Point
-      this.segments.push(this.figure.create('Segment', { point1, point2, hasToBeSaved: true, isVisible: false }))
+      this.segments.push(this.figure.create('Segment', { point1, point2, isChild: true, isVisible: false }))
     }
   }
 
@@ -59,6 +60,7 @@ class Polygon extends Element2D {
     return {
       type: this.type,
       idPoints,
+      isChild: this.isChild,
       ...super.toJSON()
     }
   }
