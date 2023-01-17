@@ -517,7 +517,7 @@ geo.loadJson(save)
 
 test('Chargement', () => {
   expect(save).toEqual(JSON.parse(geo.json))
-  const A = geo.elements.get('element1')
+  // const A = geo.elements.get('element1')
   // A.moveTo(1, 1)
   // A.moveTo(0, 0)
   // const C = geo.elements.get('element5')

@@ -1,7 +1,8 @@
 import Figure from '../../Figure'
 import Element2D from '../Element2D'
-import { Binome, OptionsLine } from '../interfaces'
+import { Binome, OptionsElement2D, OptionsLine } from '../interfaces'
 import Point from '../points/Point'
+import Vector from '../vector/Vector'
 
 /**
  * Trace un segment qui a pour extrémités deux points donnés
@@ -28,6 +29,14 @@ class Segment extends Element2D {
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'line')
     this.setVisibilityColorThicknessAndDashed()
     this.update()
+  }
+
+  translate ({ vector, ...options }: { vector: Vector } & OptionsElement2D): Segment {
+    const newPoint1 = this.figure.create('PointByTranslation', { vector, origin: this.point1 })
+    const newPoint2 = this.figure.create('PointByTranslation', { vector, origin: this.point2 })
+    const type = this.type as 'Line' | 'Segment' | 'Ray'
+    const result = this.figure.create(type, { point1: newPoint1, point2: newPoint2, ...options }) as Segment
+    return result
   }
 
   update (): void {
