@@ -26,7 +26,7 @@ class Element2D {
   constructor (figure: Figure, { id, color, thickness, isDashed, hasToBeSaved, isVisible }: OptionsElement2D) {
     this.figure = figure
     if (id === undefined || this.figure.elements.has(id)) {
-      this.id = 'api' + (this.figure.elements.size + 1).toString()
+      this.id = 'element' + (this.figure.elements.size + 1).toString()
     } else {
       this.id = id
     }
