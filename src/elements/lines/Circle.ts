@@ -1,7 +1,8 @@
 import Figure from '../../Figure'
 import Element2D from '../Element2D'
-import { OptionsCircle } from '../interfaces'
+import { OptionsCircle, OptionsElement2D } from '../interfaces'
 import Point from '../points/Point'
+import Vector from '../vector/Vector'
 
 /**
  * Trace un cercle dont on connait le centre et le rayon
@@ -97,6 +98,13 @@ class Circle extends Element2D {
       this.groupSvg.setAttribute('r', `${rSvg}`)
     }
     this.notify()
+  }
+
+  translate ({ vector, ...options }: { vector: Vector } & OptionsElement2D): Circle {
+    const newCenter = this.figure.create('PointByTranslation', { origin: this.center, vector, shape: this.center.shape })
+    if (this.center.label !== undefined) newCenter.label = this.center.label + "'"
+    const newCircle = this.figure.create('Circle', { center: newCenter, radius: this.radius, ...options })
+    return newCircle
   }
 
   toJSON (): object {

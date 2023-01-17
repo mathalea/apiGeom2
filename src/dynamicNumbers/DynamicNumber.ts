@@ -17,7 +17,7 @@ abstract class DynamicNumber {
   textAfter: string
   constructor (figure: Figure, { isChild = false, textBefore = '', textAfter = '' }: OptionsDynamicNumber) {
     this.figure = figure
-    this.id = 'api' + (this.figure.elements.size + 1).toString()
+    this.id = 'element' + (this.figure.elements.size + 1).toString()
     this.observers = []
     this._value = NaN
     this.type = ''

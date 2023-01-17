@@ -1,8 +1,9 @@
 import Figure from '../../Figure'
 import DynamicNumber from '../../dynamicNumbers/DynamicNumber'
-import { OptionsCircleCenterDynamicRadius } from '../interfaces'
+import { OptionsCircleCenterDynamicRadius, OptionsElement2D } from '../interfaces'
 import Point from '../points/Point'
 import Circle from './Circle'
+import Vector from '../vector/Vector'
 
 class CircleCenterDynamicRadius extends Circle {
   /** Centre du cercle */
@@ -28,6 +29,13 @@ class CircleCenterDynamicRadius extends Circle {
     this.groupSvg.setAttribute('cy', `${ySvg}`)
     this.groupSvg.setAttribute('r', `${rSvg}`)
     this.notify()
+  }
+
+  translate ({ vector, ...options }: { vector: Vector } & OptionsElement2D): CircleCenterDynamicRadius {
+    const newCenter = this.figure.create('PointByTranslation', { origin: this.center, vector, shape: this.center.shape })
+    if (this.center.label !== undefined) newCenter.label = this.center.label + "'"
+    const newCircle = this.figure.create('CircleCenterDynamicRadius', { center: newCenter, radius: this.radiusDynamic, ...options })
+    return newCircle
   }
 
   toJSON (): object {

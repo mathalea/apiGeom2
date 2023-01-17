@@ -442,17 +442,69 @@ const save = {
     idLine2: 'element32',
     id: 'element37',
     shape: 'x',
+    label: 'O',
     color: 'black',
     thickness: 1,
     isDashed: false,
     isVisible: true
   },
   element38: {
+    type: 'TextByPoint',
+    isChild: true,
+    point: 'element37',
+    text: 'O',
+    id: 'element38',
+    color: 'back'
+  },
+  element39: {
+    type: 'Distance',
+    id: 'element39',
+    isChild: true,
+    idPoint1: 'element37',
+    idPoint2: 'element1'
+  },
+  element40: {
     type: 'CircleCenterPoint',
     isChild: false,
     idCenter: 'element37',
     idPoint: 'element1',
     color: 'blue',
+    thickness: 1,
+    fillColor: 'none',
+    isDashed: false,
+    isVisible: true
+  },
+  element41: {
+    type: 'PointByTranslation',
+    idOrigin: 'element37',
+    idVector: 'element11',
+    isChild: false,
+    x: 0.39655172413793105,
+    y: -3.637931034482759,
+    label: "O'",
+    shape: 'x',
+    size: 0.1,
+    id: 'element41',
+    color: 'black',
+    thickness: 1,
+    isDashed: false,
+    isVisible: true
+  },
+  element42: {
+    type: 'TextByPoint',
+    isChild: true,
+    point: 'element41',
+    text: "O'",
+    id: 'element42',
+    color: 'back'
+  },
+  element43: {
+    type: 'CircleDynamicRadius',
+    id: 'element43',
+    isChild: false,
+    idCenter: 'element41',
+    idRadius: 'element39',
+    color: 'black',
     thickness: 1,
     fillColor: 'none',
     isDashed: false,
@@ -468,7 +520,7 @@ test('Chargement', () => {
   const A = geo.elements.get('element1')
   // A.moveTo(1, 1)
   // A.moveTo(0, 0)
-  const C = geo.elements.get('element5')
+  // const C = geo.elements.get('element5')
   // C.moveTo(6, 2)
   // C.moveTo(3, 5)
   expect(save).toEqual(JSON.parse(geo.json))

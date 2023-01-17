@@ -11,7 +11,7 @@ import CircleCenterDynamicRadius from './CircleCenterDyamicRadius'
 class CircleCenterPoint extends CircleCenterDynamicRadius {
   point: Point
   constructor (figure: Figure, { center, point, ...options }: OptionsCircleCenterPoint) {
-    const radius = new Distance(figure, { point1: center, point2: point, isChild: false })
+    const radius = new Distance(figure, { point1: center, point2: point, isChild: true })
     super(figure, { center, radius, ...options })
     this.type = 'CircleCenterPoint'
     this.point = point

@@ -32,7 +32,7 @@ import PointByTranslation from './elements/points/PointByTranslation'
  * générer des figures de géométrie statique ou dynamique
  */
 class Figure {
-  /** La clé est par défaut api0, api1, api2... ou le nom de l'élément et la valeur est l'élément géométrique (segment, point, polygone...) */
+  /** La clé est par défaut element0, element1, element2... ou le nom de l'élément et la valeur est l'élément géométrique (segment, point, polygone...) */
   elements: Map<string, (Element2D | DynamicNumber)>
   /** Un tableau des différentes sauvegardes automatiques utilisé pour les undo ou redo */
   history: string[]
