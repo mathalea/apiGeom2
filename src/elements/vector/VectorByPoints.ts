@@ -31,11 +31,15 @@ class VectorByPoints extends Vector {
 
   toJSON (): object {
     return {
-      ...super.toJSON(),
       type: this.type,
       isChild: this.isChild,
       idPoint1: this.point1.id,
-      idPoint2: this.point2.id
+      idPoint2: this.point2.id,
+      idOrigin: this.origin?.id,
+      color: this.color,
+      thickness: this.thickness,
+      isDashed: this.isDashed,
+      isVisible: this.isVisible
     }
   }
 }

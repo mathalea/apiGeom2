@@ -25,6 +25,7 @@ import LinePerpendicular from './elements/lines/LinePerpendicular'
 import VectorPerpendicular from './elements/vector/VectorPerpendicular'
 import Polyline from './elements/lines/Polyline'
 import Polygon from './elements/lines/Polyligon'
+import PointByTranslation from './elements/points/PointByTranslation'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -263,6 +264,7 @@ const classes = {
   Point,
   PointIntersectionLL,
   Middle,
+  PointByTranslation,
   Line,
   LineParallel,
   LinePerpendicular,

@@ -11,8 +11,8 @@ class Middle extends Point {
   /** Deuxième extrémité */
   point2: Point
   constructor (figure: Figure, { point1, point2, ...options }: OptionsMiddle) {
-    const [xM, yM] = coordsMiddle(point1, point2)
-    super(figure, { x: xM, y: yM, ...options })
+    const [x, y] = coordsMiddle(point1, point2)
+    super(figure, { x, y, isFree: false, ...options })
     this.type = 'Middle'
     this.point1 = point1
     this.point2 = point2

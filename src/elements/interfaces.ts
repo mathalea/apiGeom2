@@ -1,6 +1,8 @@
 import DynamicNumber from '../dynamicNumbers/DynamicNumber'
+import Element2D from './Element2D'
 import Line from './lines/Line'
 import Point from './points/Point'
+import Vector from './vector/Vector'
 
 export interface Binome {
   x: number
@@ -30,12 +32,36 @@ export interface OptionsPoint extends OptionsElement2D {
   isFree: boolean
 }
 
+export interface OptionsPointByTranslation extends OptionsElement2D {
+  origin: Point
+  vector: Vector
+  shape?: 'x' | 'o' | ''
+  size?: number
+  isChild?: boolean
+  label?: string
+  labelDx?: number
+  labelDy?: number
+}
+export interface OptionsElementByTranslation extends OptionsElement2D {
+  origin: Element2D
+  vector: Vector
+  shape?: 'x' | 'o' | ''
+  size?: number
+  isChild?: boolean
+  label?: string
+  labelDx?: number
+  labelDy?: number
+}
+
 export interface OptionsMiddle extends OptionsElement2D {
   point1: Point
   point2: Point
   shape?: 'x' | 'o' | ''
   size?: number
   isChild?: boolean
+  label?: string
+  labelDx?: number
+  labelDy?: number
 }
 
 export interface OptionsIntersectionLL extends OptionsElement2D {
@@ -138,6 +164,7 @@ export interface OptionsVectorPerpendicular extends OptionsElement2D {
 
 export type typeElement2D = '' |
 'Point' | 'PointIntersectionLL' | 'Middle' |
+'PointByTranslation' |
 'Segment' | 'Line' | 'Ray' | 'LineParallel' | 'LinePerpendicular' |
 'Polyline' | 'Polygon' |
 'Circle' | 'CircleDynamicRadius' | 'CircleCenterPoint' |

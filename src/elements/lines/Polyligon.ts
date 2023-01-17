@@ -1,7 +1,8 @@
 import Figure from '../../Figure'
 import Element2D from '../Element2D'
-import { OptionsPolygon } from '../interfaces'
+import { OptionsElement2D, OptionsPolygon } from '../interfaces'
 import Point from '../points/Point'
+import Vector from '../vector/Vector'
 import Segment from './Segment'
 
 /**
@@ -63,6 +64,16 @@ class Polygon extends Element2D {
       isChild: this.isChild,
       ...super.toJSON()
     }
+  }
+
+  translate ({ vector, ...options }: { vector: Vector } & OptionsElement2D): Polygon {
+    const newPoints = []
+    for (const point of this.points) {
+      const newPoint = this.figure.create('PointByTranslation', { origin: point, vector, shape: '' })
+      if (point.label !== undefined) newPoint.label = point.label + "'"
+      newPoints.push(newPoint)
+    }
+    return this.figure.create('Polygon', { points: newPoints, ...options })
   }
 }
 

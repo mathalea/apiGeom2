@@ -21,7 +21,7 @@ class Element2D {
   protected _isVisible: boolean
   /** Liste des enfants à notifier à chaque fois que l'élément est déplacé */
   observers: Array<Element2D | DynamicNumber>
-  /** Les élément qui ont isChild à true sont ceux qui sont construits par d'autres et qui n'ont pas besoin d'être gérés par loadJson  */
+  /** Les élément qui ont isChild à true sont ceux qui sont construits par d'autres et qui n'ont pas */
   protected readonly isChild: boolean
   constructor (figure: Figure, { id, color, thickness, isDashed, isChild, isVisible }: OptionsElement2D) {
     this.figure = figure
