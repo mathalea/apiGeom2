@@ -1,5 +1,6 @@
 import DynamicNumber from '../dynamicNumbers/DynamicNumber'
 import Element2D from './Element2D'
+import Circle from './lines/Circle'
 import Line from './lines/Line'
 import Point from './points/Point'
 import Vector from './vector/Vector'
@@ -67,6 +68,14 @@ export interface OptionsMiddle extends OptionsElement2D {
 export interface OptionsIntersectionLL extends OptionsElement2D {
   line1: Line
   line2: Line
+  shape?: 'x' | 'o' | ''
+  size?: number
+}
+
+export interface OptionsIntersectionCC extends OptionsElement2D {
+  circle1: Circle
+  circle2: Circle
+  n?: 1 | 2
   shape?: 'x' | 'o' | ''
   size?: number
 }
@@ -163,7 +172,7 @@ export interface OptionsVectorPerpendicular extends OptionsElement2D {
 }
 
 export type typeElement2D = '' |
-'Point' | 'PointIntersectionLL' | 'Middle' |
+'Point' | 'PointIntersectionLL' | 'PointIntersectionCC' | 'Middle' |
 'PointByTranslation' |
 'Segment' | 'Line' | 'Ray' | 'LineParallel' | 'LinePerpendicular' |
 'Polyline' | 'Polygon' |

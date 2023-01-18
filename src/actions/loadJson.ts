@@ -4,6 +4,7 @@ import Line from '../elements/lines/Line'
 import Point from '../elements/points/Point'
 import DynamicNumber from '../dynamicNumbers/DynamicNumber'
 import Vector from '../elements/vector/Vector'
+import Circle from '../elements/lines/Circle'
 
 /**
  * Analyse l'objet de la sauvegarde et si le type est pris en charge alors on créé l'élément
@@ -40,6 +41,11 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const line1 = figure.elements.get(options.idLine1) as Line
       const line2 = figure.elements.get(options.idLine2) as Line
       figure.create('PointIntersectionLL', { line1, line2, ...options })
+    }
+    if (options.type === 'PointIntersectionCC') {
+      const circle1 = figure.elements.get(options.idCircle1) as Circle
+      const circle2 = figure.elements.get(options.idCircle2) as Circle
+      figure.create('PointIntersectionCC', { circle1, circle2, ...options })
     }
     if (options.type === 'Segment') {
       const point1 = figure.elements.get(options.idPoint1) as Point

@@ -9,7 +9,7 @@ import Vector from '../vector/Vector'
  */
 class Circle extends Element2D {
   /** Rayon du cercle */
-  private _radius: number
+  _radius: number
   /** Couleur de remplissage du cercle */
   private _fillColor: string | 'none'
   /** Opacité de remplissage entre 0 et 1 */

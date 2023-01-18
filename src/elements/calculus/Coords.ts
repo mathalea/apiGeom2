@@ -15,12 +15,12 @@ export class Coords {
   }
 }
 
-export function intersectionCCCoord (C1: Circle, C2: Circle, n: 1 | 2 = 1): Coords {
+export function intersectionCCCoord (circle1: Circle, circle2: Circle, n: 1 | 2 = 1): Coords {
   try {
-    const O1 = C1.center
-    const O2 = C2.center
-    const r0 = C1.radius
-    const r1 = C2.radius
+    const O1 = circle1.center
+    const O2 = circle2.center
+    const r0 = circle1._radius
+    const r1 = circle2._radius
     const x0 = O1.x
     const x1 = O2.x
     const y0 = O1.y

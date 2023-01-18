@@ -25,6 +25,7 @@ class CircleCenterDynamicRadius extends Circle {
     const xSvg = this.figure.xToSx(this.center.x)
     const ySvg = this.figure.yToSy(this.center.y)
     const rSvg = this.figure.pixelsPerUnit * this.radiusDynamic?.value
+    this._radius = this.radiusDynamic.value
     this.groupSvg.setAttribute('cx', `${xSvg}`)
     this.groupSvg.setAttribute('cy', `${ySvg}`)
     this.groupSvg.setAttribute('r', `${rSvg}`)
