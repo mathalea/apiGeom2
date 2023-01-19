@@ -80,6 +80,14 @@ export interface OptionsIntersectionCC extends OptionsElement2D {
   size?: number
 }
 
+export interface OptionsIntersectionLC extends OptionsElement2D {
+  line: Line
+  circle: Circle
+  n?: 1 | 2
+  shape?: 'x' | 'o' | ''
+  size?: number
+}
+
 export interface OptionsCircle extends OptionsElement2D {
   center: Point
   radius: number
@@ -172,7 +180,7 @@ export interface OptionsVectorPerpendicular extends OptionsElement2D {
 }
 
 export type typeElement2D = '' |
-'Point' | 'PointIntersectionLL' | 'PointIntersectionCC' | 'Middle' |
+'Point' | 'PointIntersectionLL' | 'PointIntersectionCC' | 'PointsIntersectionCC' | 'PointIntersectionLC' | 'PointsIntersectionLC' | 'Middle' |
 'PointByTranslation' |
 'Segment' | 'Line' | 'Ray' | 'LineParallel' | 'LinePerpendicular' |
 'Polyline' | 'Polygon' |

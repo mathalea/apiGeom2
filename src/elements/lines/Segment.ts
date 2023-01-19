@@ -59,7 +59,7 @@ class Segment extends Element2D {
     }
   }
 
-  /** Renvoie [a, b, c] tels que ax +y + c = 0 est l'équation de la droite passant par point1 et point2 */
+  /** Renvoie [a, b, c] tels que ax + by + c = 0 est l'équation de la droite passant par point1 et point2 */
   get equation (): [number, number, number] {
     if (this.point1.x === undefined || this.point1.y === undefined || this.point2.x === undefined || this.point2.y === undefined) return [NaN, NaN, NaN]
     try {

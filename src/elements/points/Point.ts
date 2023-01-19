@@ -1,6 +1,7 @@
 import Figure from '../../Figure'
 import { defaultSize } from '../defaultValues'
 import Element2D from '../Element2D'
+import Line from '../lines/Line'
 import TextByPoint from '../text/TextByPoint'
 
 /**
@@ -115,6 +116,33 @@ class Point extends Element2D {
       this.svgLine2.remove()
       this.svgCircle.remove()
     }
+  }
+
+  isOnline (line: Line): boolean {
+    const [a, b, c] = line.equation
+    let result = (Math.abs(a * this.x + b * this.y + c) < 10 ** -6)
+    if (line.type === 'Segment' && (this.x < Math.min(line.point1.x, line.point2.x) || this.x > Math.max(line.point1.x, line.point2.x) || this.y < Math.min(line.point1.y, line.point2.y) || this.y > Math.max(line.point1.y, line.point2.y))) {
+      result = false
+    }
+    if (line.type === 'Ray') {
+      // Direction gauche droite
+      if (line.point1.x < line.point2.x && this.x < line.point1.x) {
+        result = false
+      }
+      // Direction droite gauche
+      if (line.point1.x > line.point2.x && this.x > line.point1.x) {
+        result = false
+      }
+      // Direction bas haut
+      if (line.point1.y < line.point2.y && this.y < line.point1.y) {
+        result = false
+      }
+      // Direction haut bas
+      if (line.point1.y > line.point2.y && this.y > line.point1.y) {
+        result = false
+      }
+    }
+    return result
   }
 
   get shape (): 'x' | 'o' | '' {

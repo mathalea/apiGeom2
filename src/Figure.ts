@@ -27,6 +27,9 @@ import Polyline from './elements/lines/Polyline'
 import Polygon from './elements/lines/Polyligon'
 import PointByTranslation from './elements/points/PointByTranslation'
 import PointIntersectionCC from './elements/points/PointIntersectionCC'
+import PointIntersectionLC from './elements/points/PointIntersectionLC'
+import PointsIntersectionCC from './elements/points/PointsIntersectionCC'
+import PointsIntersectionLC from './elements/points/PointsIntersectionLC'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -260,11 +263,13 @@ class Figure {
     return loadJson(this, json, eraseHistory)
   }
 }
-
 const classes = {
   Point,
   PointIntersectionLL,
   PointIntersectionCC,
+  PointsIntersectionCC,
+  PointIntersectionLC,
+  PointsIntersectionLC,
   Middle,
   PointByTranslation,
   Line,

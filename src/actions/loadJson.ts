@@ -47,6 +47,21 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const circle2 = figure.elements.get(options.idCircle2) as Circle
       figure.create('PointIntersectionCC', { circle1, circle2, ...options })
     }
+    if (options.type === 'PointsIntersectionCC') {
+      const circle1 = figure.elements.get(options.idCircle1) as Circle
+      const circle2 = figure.elements.get(options.idCircle2) as Circle
+      figure.create('PointsIntersectionCC', { circle1, circle2, ...options })
+    }
+    if (options.type === 'PointIntersectionLC') {
+      const line = figure.elements.get(options.idLine) as Line
+      const circle = figure.elements.get(options.idCircle) as Circle
+      figure.create('PointIntersectionLC', { line, circle, ...options })
+    }
+    if (options.type === 'PointsIntersectionLC') {
+      const line = figure.elements.get(options.idLine) as Line
+      const circle = figure.elements.get(options.idCircle) as Circle
+      figure.create('PointsIntersectionLC', { line, circle, ...options })
+    }
     if (options.type === 'Segment') {
       const point1 = figure.elements.get(options.idPoint1) as Point
       const point2 = figure.elements.get(options.idPoint2) as Point
