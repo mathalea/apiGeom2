@@ -1,6 +1,21 @@
-# figure2 - Moteur de géométrie dynamique
+# apiGeom - Moteur de géométrie dynamique
 
-## Utilisation
+apiGeom est un logiciel de géométrie dynamique simple et léger avec les fonctionnalités suivantes : 
+
+- Création de constructions géométriques à la souris
+- Création de constructions géométriques en Javascript
+- Sauvegarde de la figure dans un fichier json éditable 
+- Export de la figure en LaTeX (Tikz ou Pstricks)
+- Création d'une figure statique
+- Interaction avec la figure en Javascript (pour modifier ou tester une construction)
+
+L'objectif n'est pas de concurrencer MathGraph32 ou GeoGebra. 
+
+apiGeom est beaucoup plus léger et aura moins de fonctionnalités. Sa particularité est le parti pris d'une géométrie à la française 
+avec une interface épurée et une manipulation entièrement réalisée en Javascript.
+
+
+## Exemple d'utilisation
 
 ```js
 import Figure from './Figure'
@@ -33,3 +48,20 @@ geo.create('LineParallel', { line: AB, point: C, color: 'blue', thickness: 2 })
 // Sauvegarde de la figure et affichage de cette sauvegarde
 geo.refreshSave()
 ```
+
+Toutes les constructions se font à l'aide de la méthode `create` d'une instance de `Figure`.
+Le premier argument est une chaine de caractère décrivant le construction et le deuxième est un objet avec les paramètres obligatoires et les paramètres optionnels.
+
+## Utilisation en local
+
+Après avoir récupéré le code, il faut lancer les commandes : 
+
+```js
+pnpm install
+pnpm start
+```
+
+## Documentation
+
+`pnpm doc` pour générer la documentation qu'il faut ensuite lire dans `./docs/index.html`
+
