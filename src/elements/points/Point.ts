@@ -215,7 +215,7 @@ class Point extends Element2D {
 
   set label (label: string | undefined) {
     this._label = label
-    if (label !== undefined) this.elementTextLabel = this.figure.create('TextByPoint', { point: this, text: '$' + label + '$', isChild: true, dx: this.labelDx, dy: this.labelDy })
+    if (label !== undefined) this.elementTextLabel = this.figure.create('TextByPoint', { point: this, text: '$' + label + '$', isChild: true, dx: this.labelDx, dy: this.labelDy, id: this.id + '_label' })
   }
 
   /** Déplace le point */

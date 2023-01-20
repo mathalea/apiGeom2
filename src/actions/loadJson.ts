@@ -18,12 +18,13 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
     figure.history = []
     figure.historyIndex = -1
   }
+  figure.lastIdUsed = 1
   figure.elements.clear()
-  if (figure.container !== null) figure.container.innerHTML = ''
+  if (figure.container != null) figure.container.innerHTML = ''
   figure.clearHtml()
   figure.container?.appendChild(figure.svg)
   for (const options of Object.values(json)) {
-    if (options.isChild === true) continue
+    // if (options.isChild === true) continue
     if (options.type === 'Point') {
       figure.create('Point', { x: options.x, y: options.y, ...options })
     }

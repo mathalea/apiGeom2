@@ -65,7 +65,7 @@ abstract class DynamicNumber {
   }
 
   display ({ x, y, textBefore = '', textAfter = '', color, minimumFractionDigits, maximumFractionDigits }: { x: number, y: number, textBefore?: string, textAfter?: string, color?: string, minimumFractionDigits?: number, maximumFractionDigits?: number }): TextDynamicByPosition {
-    return this.figure.create('TextDynamicByPosition', { x, y, dynamicNumber: this, color, textBefore, textAfter, minimumFractionDigits, maximumFractionDigits })
+    return this.figure.create('TextDynamicByPosition', { x, y, dynamicNumber: this, color, textBefore, textAfter, minimumFractionDigits, maximumFractionDigits, id: this.id + '_display' })
   }
 }
 

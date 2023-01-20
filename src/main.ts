@@ -37,5 +37,7 @@ btnLoad?.addEventListener('click', () => {
 const A = figure.create('Point', { x: 0, y: 0, shape: 'x', label: 'A' })
 const B = figure.create('Point', { x: 4, y: 1, color: 'blue', label: 'B' })
 const C = figure.create('Point', { x: 2, y: 4, color: 'blue', label: 'C' })
-figure.create('Polygon', { points: [A, B, C] })
+const p = figure.create('Polygon', { points: [A, B, C] })
+figure.create('LinePerpendicular', { line: p.segments[0], point: C })
+console.log(figure.elements)
 figure.refreshSave()

@@ -76,6 +76,8 @@ class Figure {
   pointerY: number | null
   /** Action du pointeur (par défaut drag) */
   private readonly _pointerAction: string
+  /** Compteur pour fabriquer un nouvel id d'élément */
+  lastIdUsed: number
 
   /**
    * @param __namedParameters width - Largeur en pixels du SVG
@@ -104,6 +106,7 @@ class Figure {
     this._pointerAction = 'drag'
     this.pointerX = null
     this.pointerY = null
+    this.lastIdUsed = 1
 
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
     this.divSave = null
@@ -242,7 +245,7 @@ class Figure {
   get json (): string {
     // Le JSON est personnalisé avec la méthode toJSON() des éléments
     const save = { apiGeomVersion: 0.1, ...Object.fromEntries(this.elements) }
-    return JSON.stringify(save, null, 2)
+    return JSON.stringify(save, filter, 2)
   }
 
   getContainer (): HTMLElement | null {
@@ -291,3 +294,13 @@ const classes = {
 }
 
 export default Figure
+
+function filter (key: string, value: Element2D): undefined | Element2D {
+  if (value?.isChild) {
+    return undefined
+  }
+  if (key === 'isChild') {
+    return undefined
+  }
+  return value
+}

@@ -22,11 +22,14 @@ class Element2D {
   /** Liste des enfants à notifier à chaque fois que l'élément est déplacé */
   observers: Array<Element2D | DynamicNumber>
   /** Les élément qui ont isChild à true sont ceux qui sont construits par d'autres et qui n'ont pas */
-  protected readonly isChild: boolean
+  readonly isChild: boolean
   constructor (figure: Figure, { id, color, thickness, isDashed, isChild, isVisible }: OptionsElement2D) {
     this.figure = figure
     if (id === undefined || this.figure.elements.has(id)) {
-      this.id = 'element' + (this.figure.elements.size + 1).toString()
+      while (this.figure.elements.has('element' + this.figure.lastIdUsed.toString())) {
+        this.figure.lastIdUsed++
+      }
+      this.id = 'element' + (this.figure.lastIdUsed).toString()
     } else {
       this.id = id
     }
