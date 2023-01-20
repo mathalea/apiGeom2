@@ -30,7 +30,7 @@ class Point extends Element2D {
   labelDx: number
   /** Décalage horizontal pour le nom du point */
   labelDy: number
-  constructor (figure: Figure, { x, y, shape, size, label, labelDx, labelDy, isFree = true, color, thickness, isChild, id }:
+  constructor (figure: Figure, { x, y, shape, size, label, labelDx, labelDy, isFree = true, color, thickness, isChild, isVisible, id }:
   { x: number
     y: number
     shape?: 'x' | 'o' | ''
@@ -42,6 +42,7 @@ class Point extends Element2D {
     thickness?: number
     isChild?: boolean
     isFree?: boolean
+    isVisible?: boolean
     id?: string }) {
     super(figure, { color, thickness, isChild, id })
     this.type = 'Point'
@@ -53,6 +54,7 @@ class Point extends Element2D {
     this._y = y
     this._label = label
     this.isFree = isFree
+    this._isVisible = isVisible ?? true
   }
 
   draw (): void {
@@ -64,8 +66,10 @@ class Point extends Element2D {
     // Le groupe parent de la représentation du point
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'g')
     this.setVisibilityColorThicknessAndDashed()
-    this.shape = this._shape
-    this.label = this._label
+    if (this.isVisible) {
+      this.shape = this._shape
+      this.label = this._label
+    }
     this.update()
   }
 

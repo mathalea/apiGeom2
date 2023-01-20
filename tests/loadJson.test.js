@@ -8,24 +8,37 @@ import Figure from 'src/Figure'
  */
 const save = {
   apiGeomVersion: 0.1,
-  element1: {
+  element0: {
     type: 'Point',
     x: 0,
     y: 0,
     label: 'A',
     shape: 'x',
     size: 0.1,
-    id: 'element1',
+    id: 'element0',
     color: 'black',
+    thickness: 1,
+    isDashed: false,
+    isVisible: true
+  },
+  element1: {
+    type: 'Point',
+    x: 4,
+    y: 1,
+    label: 'B',
+    shape: 'x',
+    size: 0.1,
+    id: 'element1',
+    color: 'blue',
     thickness: 1,
     isDashed: false,
     isVisible: true
   },
   element2: {
     type: 'Point',
-    x: 4,
-    y: 1,
-    label: 'B',
+    x: 2,
+    y: 4,
+    label: 'C',
     shape: 'x',
     size: 0.1,
     id: 'element2',
@@ -35,36 +48,68 @@ const save = {
     isVisible: true
   },
   element3: {
-    type: 'Point',
-    x: 2,
-    y: 4,
-    label: 'C',
-    shape: 'x',
-    size: 0.1,
-    id: 'element3',
-    color: 'blue',
-    thickness: 1,
-    isDashed: false,
-    isVisible: true
-  },
-  element4: {
     type: 'Polygon',
     idPoints: [
+      'element0',
       'element1',
-      'element2',
-      'element3'
+      'element2'
     ],
-    id: 'element4',
+    id: 'element3',
     color: 'black',
     thickness: 1,
     isDashed: false,
     isVisible: true
   },
-  element8: {
+  element4: {
+    type: 'VectorByPoints',
+    idPoint1: 'element1',
+    idPoint2: 'element2',
+    color: 'black',
+    thickness: 1,
+    isDashed: false,
+    isVisible: true
+  },
+  element5: {
+    type: 'LineByPointVector',
+    idPoint: 'element0',
+    idVector: 'element4',
+    id: 'element5',
+    color: 'black',
+    thickness: 1,
+    isDashed: false
+  },
+  element6: {
     type: 'LinePerpendicular',
-    idLine: 'element4_segment0',
-    idPoint: 'element3',
+    idLine: 'element3_segment0',
+    idPoint: 'element2',
+    id: 'element6',
+    color: 'black',
+    thickness: 1,
+    isDashed: false
+  },
+  element7: {
+    type: 'LineParallel',
+    idLine: 'element3_segment0',
+    idPoint: 'element2',
+    id: 'element7',
+    color: 'black',
+    thickness: 1,
+    isDashed: false
+  },
+  element8: {
+    type: 'LineParallel',
+    idLine: 'element3_segment1',
+    idPoint: 'element0',
     id: 'element8',
+    color: 'black',
+    thickness: 1,
+    isDashed: false
+  },
+  element9: {
+    type: 'LineParallel',
+    idLine: 'element3_segment2',
+    idPoint: 'element1',
+    id: 'element9',
     color: 'black',
     thickness: 1,
     isDashed: false

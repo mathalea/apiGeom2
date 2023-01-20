@@ -2,16 +2,16 @@ import Figure from '../../Figure'
 import { OptionsLinePerpendicular } from '../interfaces'
 import Point from '../points/Point'
 import Line from './Line'
+import LineByPointVector from './LineByPointVector'
 
-class LinePerpendicular extends Line {
+class LinePerpendicular extends LineByPointVector {
   /** Droite parallèle qui la définit */
   line: Line
   /** Point par lequel passe cette droite */
   point: Point
   constructor (figure: Figure, { line, point, ...options }: OptionsLinePerpendicular) {
     const vector = figure.create('VectorPerpendicular', { origin: point, line, isChild: true, isVisible: false })
-    const vectorEnd = vector.representation?.point2 as Point
-    super(figure, { point1: point, point2: vectorEnd, ...options })
+    super(figure, { point, vector, ...options })
     this.type = 'LinePerpendicular'
     this.line = line
     this.point = point

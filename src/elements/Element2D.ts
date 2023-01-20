@@ -25,15 +25,28 @@ class Element2D {
   readonly isChild: boolean
   constructor (figure: Figure, { id, color, thickness, isDashed, isChild, isVisible }: OptionsElement2D) {
     this.figure = figure
+    this.isChild = (isChild) ?? false
     if (id === undefined || this.figure.elements.has(id)) {
-      while (this.figure.elements.has('element' + this.figure.lastIdUsed.toString())) {
-        this.figure.lastIdUsed++
+      let cpt = 0
+      /** Certains éléments sont construits par d'autres (codages, points temporaires, labels...)
+       *  on les nomme elementTmpX, on met this.child à true et on ne les sauvegarde pas dans le Json
+       *  mais ils sont bien présents dans figure.elements
+       */
+      if (this.isChild) {
+        while (this.figure.elements.has('elementTmp' + cpt.toString())) {
+          cpt++
+        }
+        this.id = 'elementTmp' + cpt.toString()
+      } else {
+        let cpt = 0
+        while (this.figure.elements.has('element' + cpt.toString())) {
+          cpt++
+        }
+        this.id = 'element' + (cpt).toString()
       }
-      this.id = 'element' + (this.figure.lastIdUsed).toString()
     } else {
       this.id = id
     }
-    this.isChild = (isChild) ?? false
     this.figure.elements.set(this.id, this)
     this._color = color ?? 'black'
     this._thickness = thickness ?? 1

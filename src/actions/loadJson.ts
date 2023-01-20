@@ -18,7 +18,6 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
     figure.history = []
     figure.historyIndex = -1
   }
-  figure.lastIdUsed = 1
   figure.elements.clear()
   if (figure.container != null) figure.container.innerHTML = ''
   figure.clearHtml()
@@ -122,6 +121,11 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const origin = figure.elements.get(options.idOrigin)
       const line = figure.elements.get(options.idLine)
       figure.create('VectorPerpendicular', { origin, line, ...options })
+    }
+    if (options.type === 'LineByPointVector') {
+      const vector = figure.elements.get(options.idVector)
+      const point = figure.elements.get(options.idPoint)
+      figure.create('LineByPointVector', { vector, point, ...options })
     }
     if (options.type === 'LineParallel') {
       const line = figure.elements.get(options.idLine)

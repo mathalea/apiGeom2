@@ -30,6 +30,7 @@ import PointIntersectionCC from 'elements/points/PointIntersectionCC'
 import PointIntersectionLC from 'elements/points/PointIntersectionLC'
 import PointsIntersectionCC from 'elements/points/PointsIntersectionCC'
 import PointsIntersectionLC from 'elements/points/PointsIntersectionLC'
+import LineByPointVector from 'elements/lines/LineByPointVector'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -76,8 +77,6 @@ class Figure {
   pointerY: number | null
   /** Action du pointeur (par défaut drag) */
   private readonly _pointerAction: string
-  /** Compteur pour fabriquer un nouvel id d'élément */
-  lastIdUsed: number
 
   /**
    * @param __namedParameters width - Largeur en pixels du SVG
@@ -106,7 +105,6 @@ class Figure {
     this._pointerAction = 'drag'
     this.pointerX = null
     this.pointerY = null
-    this.lastIdUsed = 1
 
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
     this.divSave = null
@@ -275,6 +273,7 @@ const classes = {
   Middle,
   PointByTranslation,
   Line,
+  LineByPointVector,
   LineParallel,
   LinePerpendicular,
   Segment,
