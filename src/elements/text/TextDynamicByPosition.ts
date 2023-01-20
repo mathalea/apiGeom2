@@ -15,9 +15,9 @@ class TextDynamicByPosition extends TextByPosition {
   minimumFractionDigits: number
   maximumFractionDigits: number
 
-  constructor (figure: Figure, { x, y, dynamicNumber, textBefore = '', textAfter = '', isLatex = true, color = 'black', isChild = false, minimumFractionDigits = 0, maximumFractionDigits = displayDigits }: OptionsDynamicText) {
+  constructor (figure: Figure, { x, y, dynamicNumber, textBefore = '', textAfter = '', color = 'black', isChild = false, minimumFractionDigits = 0, maximumFractionDigits = displayDigits }: OptionsDynamicText) {
     const value = textBefore + Intl.NumberFormat('fr-FR', { maximumFractionDigits, minimumFractionDigits }).format(dynamicNumber.value) + textAfter
-    super(figure, { x, y, text: value, isLatex, color, isChild })
+    super(figure, { x, y, text: value, color, isChild })
     this.type = 'TextDynamicByPosition'
     this.dynamicNumber = dynamicNumber
     this.textBefore = textBefore
@@ -42,7 +42,6 @@ class TextDynamicByPosition extends TextByPosition {
       textAfter: this.textAfter,
       minimumFractionDigits: this.minimumFractionDigits,
       maximumFractionDigits: this.maximumFractionDigits,
-      isLatex: this.isLatex,
       color: this.color
     }
   }

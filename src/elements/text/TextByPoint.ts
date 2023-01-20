@@ -13,8 +13,8 @@ export class TextByPoint extends TextByPosition {
   dx: number
   /** Décalage vertical par rapport au point */
   dy: number
-  constructor (figure: Figure, { point, text, isLatex = true, dx = 0, dy = 0, color = 'back', isChild }: OptionsRestrictedText) {
-    super(figure, { x: point.x + dx, y: point.y + dy, text, isLatex, color, isChild })
+  constructor (figure: Figure, { point, text, dx = 0, dy = 0, color = 'back', isChild }: OptionsRestrictedText) {
+    super(figure, { x: point.x + dx, y: point.y + dy, text, color, isChild })
     this.type = 'TextByPoint'
     this.dx = dx
     this.dy = dy

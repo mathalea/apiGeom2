@@ -1,6 +1,7 @@
 import Figure from '../../Figure'
 import Element2D from '../Element2D'
-import katex from 'katex'
+import renderMathInElement from 'katex/dist/contrib/auto-render.js'
+import 'katex/dist/katex.min.css'
 import { OptionsText } from '../interfaces'
 
 /**
@@ -12,17 +13,15 @@ class TextByPosition extends Element2D {
   private _y!: number
   _color: string
   /** Détermine s'il faut utiliser KaTeX pour le rendu du texte */
-  readonly isLatex: boolean
   private _text!: string
   /** Le texte est mis dans un div qui s'affichera par dessus le SVG */
   div!: HTMLDivElement
 
-  constructor (figure: Figure, { x, y, text, isLatex = true, color = 'black', isChild = false }: OptionsText) {
+  constructor (figure: Figure, { x, y, text, color = 'black', isChild = false }: OptionsText) {
     super(figure, { isChild })
     this.type = 'TextByPosition'
     this._x = x
     this._y = y
-    this.isLatex = isLatex
     this._text = text
     this._color = color
   }
@@ -44,8 +43,18 @@ class TextByPosition extends Element2D {
 
   set text (text: string) {
     this._text = text
-    if (this.isLatex) katex.render(text, this.div)
-    else this.div.innerHTML = text
+    this.div.innerHTML = text
+    renderMathInElement(this.div, {
+      delimiters: [
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false }
+      ],
+      preProcess: (chaine: string) => chaine.replaceAll(String.fromCharCode(160), '\\,'),
+      throwOnError: true,
+      errorColor: '#CC0000',
+      strict: 'warn',
+      trust: false
+    })
   }
 
   get x (): number {

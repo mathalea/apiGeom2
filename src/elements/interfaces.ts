@@ -133,7 +133,6 @@ export interface OptionsText extends OptionsElement2D {
   dx?: number
   dy?: number
   text: string
-  isLatex?: boolean
 }
 
 export interface OptionsDynamicNumber extends OptionsElement2D {
@@ -150,7 +149,6 @@ export interface OptionsDynamicText extends OptionsElement2D {
   dynamicNumber: DynamicNumber
   textBefore: string
   textAfter: string
-  isLatex?: boolean
   minimumFractionDigits?: number
   maximumFractionDigits?: number
 }
@@ -160,7 +158,6 @@ export interface OptionsRestrictedText extends OptionsElement2D {
   dx?: number
   dy?: number
   text: string
-  isLatex?: boolean
 }
 
 export interface OptionsVector extends OptionsElement2D {
