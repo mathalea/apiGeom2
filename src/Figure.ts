@@ -242,7 +242,8 @@ class Figure {
   /** Génère le code JSON de la figure qui permettra de la recharger */
   get json (): string {
     // Le JSON est personnalisé avec la méthode toJSON() des éléments
-    return JSON.stringify(Object.fromEntries(this.elements), null, 2)
+    const save = {apiGeomVersion: 0.1, ...Object.fromEntries(this.elements)}
+    return JSON.stringify(save, null, 2)
   }
 
   get div (): HTMLDivElement | null {
