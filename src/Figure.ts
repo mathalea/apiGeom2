@@ -1,35 +1,35 @@
-import { defaultHistorySize } from './elements/defaultValues'
-import Element2D from './elements/Element2D'
-import DynamicNumber from './dynamicNumbers/DynamicNumber'
-import Point from './elements/points/Point'
-import PointIntersectionLL from './elements/points/PointIntersectionLL'
-import Middle from './elements/points/Middle'
-import Line from './elements/lines/Line'
-import Segment from './elements/lines/Segment'
-import Ray from './elements/lines/Ray'
-import Circle from './elements/lines/Circle'
-import CircleCenterPoint from './elements/lines/CircleCenterPoint'
-import CircleCenterDynamicRadius from './elements/lines/CircleCenterDyamicRadius'
-import TextByPoint from './elements/text/TextByPoint'
-import TextByPosition from './elements/text/TextByPosition'
+import { defaultHistorySize } from 'elements/defaultValues'
+import Element2D from 'elements/Element2D'
+import DynamicNumber from 'dynamicNumbers/DynamicNumber'
+import Point from 'elements/points/Point'
+import PointIntersectionLL from 'elements/points/PointIntersectionLL'
+import Middle from 'elements/points/Middle'
+import Line from 'elements/lines/Line'
+import Segment from 'elements/lines/Segment'
+import Ray from 'elements/lines/Ray'
+import Circle from 'elements/lines/Circle'
+import CircleCenterPoint from 'elements/lines/CircleCenterPoint'
+import CircleCenterDynamicRadius from 'elements/lines/CircleCenterDyamicRadius'
+import TextByPoint from 'elements/text/TextByPoint'
+import TextByPosition from 'elements/text/TextByPosition'
 
-import { getClickedElement } from './pointerActions/handlePointerAction'
-import { loadJson } from './actions/loadJson'
+import { getClickedElement } from 'pointerActions/handlePointerAction'
+import { loadJson } from 'actions/loadJson'
 import 'katex/dist/katex.min.css'
-import TextDynamicByPosition from './elements/text/TextDynamicByPosition'
-import Distance from './dynamicNumbers/Distance'
-import Vector from './elements/vector/Vector'
-import VectorByPoints from './elements/vector/VectorByPoints'
-import LineParallel from './elements/lines/LineParallel'
-import LinePerpendicular from './elements/lines/LinePerpendicular'
-import VectorPerpendicular from './elements/vector/VectorPerpendicular'
-import Polyline from './elements/lines/Polyline'
-import Polygon from './elements/lines/Polyligon'
-import PointByTranslation from './elements/points/PointByTranslation'
-import PointIntersectionCC from './elements/points/PointIntersectionCC'
-import PointIntersectionLC from './elements/points/PointIntersectionLC'
-import PointsIntersectionCC from './elements/points/PointsIntersectionCC'
-import PointsIntersectionLC from './elements/points/PointsIntersectionLC'
+import TextDynamicByPosition from 'elements/text/TextDynamicByPosition'
+import Distance from 'dynamicNumbers/Distance'
+import Vector from 'elements/vector/Vector'
+import VectorByPoints from 'elements/vector/VectorByPoints'
+import LineParallel from 'elements/lines/LineParallel'
+import LinePerpendicular from 'elements/lines/LinePerpendicular'
+import VectorPerpendicular from 'elements/vector/VectorPerpendicular'
+import Polyline from 'elements/lines/Polyline'
+import Polygon from 'elements/lines/Polyligon'
+import PointByTranslation from 'elements/points/PointByTranslation'
+import PointIntersectionCC from 'elements/points/PointIntersectionCC'
+import PointIntersectionLC from 'elements/points/PointIntersectionLC'
+import PointsIntersectionCC from 'elements/points/PointsIntersectionCC'
+import PointsIntersectionLC from 'elements/points/PointsIntersectionLC'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -64,8 +64,8 @@ class Figure {
   dx: number
   /** Si l'option snapGrid est active, cela détermine la distance verticale entre deux lieux de dépot du point */
   dy: number
-  /** div dans lequel sera inséré le SVG et les div avec le texte mathématiques */
-  _div: HTMLDivElement | null
+  /** div (ou p ou svg…) dans lequel sera inséré le SVG et les div avec le texte mathématiques */
+  container!: HTMLElement
   /** SVG de la figure géométrique */
   svg: SVGElement
   /** div dans lequel sera écrit la dernière sauvegarde automatique au format JSON */
@@ -106,7 +106,6 @@ class Figure {
     this.pointerY = null
 
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-    this._div = null
     this.divSave = null
     this.svg.style.width = `${this.width}px`
     this.svg.style.height = `${this.height}px`
@@ -175,7 +174,7 @@ class Figure {
       const point = getClickedElement(this, pointerX, pointerY)
       if (point?.isFree === true) {
         this.pointInDrag = point
-        if (this.div !== null) this.div.style.cursor = 'move'
+        if (this.container !== null) this.container.style.cursor = 'move'
       }
       // handlePointerAction(this, event)
     })
@@ -183,7 +182,7 @@ class Figure {
     const stopDrag = (): void => {
       if (this.pointInDrag !== undefined) {
         this.pointInDrag = undefined
-        if (this.div !== null) this.div.style.cursor = 'auto'
+        if (this.container !== null) this.container.style.cursor = 'auto'
         this.refreshSave()
       }
     }
@@ -242,21 +241,20 @@ class Figure {
   /** Génère le code JSON de la figure qui permettra de la recharger */
   get json (): string {
     // Le JSON est personnalisé avec la méthode toJSON() des éléments
-    const save = {apiGeomVersion: 0.1, ...Object.fromEntries(this.elements)}
+    const save = { apiGeomVersion: 0.1, ...Object.fromEntries(this.elements) }
     return JSON.stringify(save, null, 2)
   }
 
-  get div (): HTMLDivElement | null {
-    return this._div
+  getContainer (): HTMLElement | null {
+    return this.container
   }
 
-  set div (div: HTMLDivElement | null) {
-    this._div = div
-    if (div !== null) {
-      div.innerHTML = ''
-      div.style.position = 'relative'
-      div.appendChild(this.svg)
-    }
+  setContainer (parentContainer: HTMLElement): void {
+    if (!(parentContainer instanceof HTMLElement)) throw Error('container doit être un HTMLElement')
+    this.container = document.createElement('div')
+    parentContainer.appendChild(this.container)
+    this.container.style.position = 'relative'
+    this.container.appendChild(this.svg)
   }
 
   /** Efface la figure actuelle et charge une nouvelle figure à partir du code généré par this.json  */

@@ -19,9 +19,9 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
     figure.historyIndex = -1
   }
   figure.elements.clear()
-  if (figure.div !== null) figure.div.innerHTML = ''
+  if (figure.container !== null) figure.container.innerHTML = ''
   figure.clearHtml()
-  figure.div?.appendChild(figure.svg)
+  figure.container?.appendChild(figure.svg)
   for (const options of Object.values(json)) {
     if (options.isChild === true) continue
     if (options.type === 'Point') {

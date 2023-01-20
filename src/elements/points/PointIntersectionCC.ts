@@ -26,7 +26,7 @@ export class PointIntersectionCC extends Point {
   }
 
   update (): void {
-    if (this.circle1 === undefined || this.circle2 === undefined) return
+    if (this.circle1 == null || this.circle2 == null) return
     try {
       const { x, y } = intersectionCCCoord(this.circle1, this.circle2, this.n)
       this._x = x

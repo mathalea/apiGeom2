@@ -66,7 +66,7 @@ class Polygon extends Element2D {
     }
   }
 
-  translate ({ vector, ...options }: { vector: Vector } & OptionsElement2D): Polygon {
+  createTranslated ({ vector, ...options }: { vector: Vector } & OptionsElement2D): Polygon {
     const newPoints = []
     for (const point of this.points) {
       const newPoint = this.figure.create('PointByTranslation', { origin: point, vector, shape: '' })

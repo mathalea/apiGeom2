@@ -30,7 +30,7 @@ class TextByPosition extends Element2D {
     this.div = document.createElement('div')
     this.div.style.position = 'absolute'
     this.div.style.pointerEvents = 'none'
-    this.figure.div?.appendChild(this.div)
+    this.figure.container?.appendChild(this.div)
     if (this.color !== 'black') this.div.style.color = this.color
     this.text = this._text
     this.x = this._x
@@ -86,7 +86,7 @@ class TextByPosition extends Element2D {
   }
 
   show (): void {
-    this.figure.div?.appendChild(this.div)
+    this.figure.container?.appendChild(this.div)
   }
 
   toJSON (): object {
