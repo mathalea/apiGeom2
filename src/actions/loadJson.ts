@@ -48,6 +48,11 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const line = figure.elements.get(options.idLine) as Segment
       figure.create('PointByReflectOverLine', { origin, line, ...options })
     }
+    if (options.type === 'PointBySimilarity') {
+      const origin = figure.elements.get(options.idOrigin) as Point
+      const center = figure.elements.get(options.idCenter) as Point
+      figure.create('PointBySimilarity', { origin, center, ...options })
+    }
     if (options.type === 'PointByRotation') {
       const origin = figure.elements.get(options.idOrigin) as Point
       const center = figure.elements.get(options.idCenter) as Point

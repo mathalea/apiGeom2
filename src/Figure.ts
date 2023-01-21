@@ -36,6 +36,7 @@ import PointByDynamicRotation from 'elements/points/PointByDynamicRotation'
 import PointByDilate from 'elements/points/PointByDilate'
 import PointByProjection from 'elements/points/PointByProjection'
 import PointByReflectOverLine from 'elements/points/PointByReflectOverLine'
+import PointBySimilarity from 'elements/points/PointBySimilarity'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -281,6 +282,7 @@ const classes = {
   PointByRotation,
   PointByReflectOverLine,
   PointByDilate,
+  PointBySimilarity,
   PointByDynamicRotation,
   PointByProjection,
   Line,

@@ -36,7 +36,5 @@ btnLoad?.addEventListener('click', () => {
 // Création de la figure
 const A = figure.create('Point', { x: 0, y: 0, shape: 'x', label: 'A' })
 const B = figure.create('Point', { x: 4, y: 1, color: 'blue', label: 'B' })
-const M = figure.create('Point', { x: 4, y: 4, label: 'M' })
-const AB = figure.create('Line', { point1: A, point2: B })
-figure.create('PointByReflectOverLine', { origin: M, line: AB })
+figure.create('PointBySimilarity', { origin: A, center: B, angle: 30, k: 0.5 })
 figure.refreshSave()
