@@ -36,6 +36,7 @@ btnLoad?.addEventListener('click', () => {
 // Création de la figure
 const A = figure.create('Point', { x: 0, y: 0, shape: 'x', label: 'A' })
 const B = figure.create('Point', { x: 4, y: 1, color: 'blue', label: 'B' })
-const AB = figure.create('Distance', { point1: A, point2: B })
-figure.create('PointByDynamicRotation', { origin: A, center: B, dynamicAngle: AB, shape: 'o', label: 'A\'' })
+const A2 = figure.create('PointByDilate', { origin: A, center: B, k: 1.5, label: 'A\'', shape: 'o', color: 'blue' })
+A2.k = -2
+A2.update()
 figure.refreshSave()

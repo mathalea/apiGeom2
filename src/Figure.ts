@@ -33,6 +33,7 @@ import PointsIntersectionLC from 'elements/points/PointsIntersectionLC'
 import LineByPointVector from 'elements/lines/LineByPointVector'
 import PointByRotation from 'elements/points/PointByRotation'
 import PointByDynamicRotation from 'elements/points/PointByDynamicRotation'
+import PointByDilate from 'elements/points/PointByDilate'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -265,6 +266,7 @@ class Figure {
     return loadJson(this, json, eraseHistory)
   }
 }
+
 const classes = {
   Point,
   PointIntersectionLL,
@@ -275,6 +277,7 @@ const classes = {
   Middle,
   PointByTranslation,
   PointByRotation,
+  PointByDilate,
   PointByDynamicRotation,
   Line,
   LineByPointVector,
