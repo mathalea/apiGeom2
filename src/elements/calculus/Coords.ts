@@ -238,26 +238,26 @@ export function intersectionLCCoord (D: Line, C: Circle, n: 1 | 2 = 1): Coords {
 
 /**
  *
- * @param M Point
- * @param d Droite
- * @returns [x, y] coordonnées du projeté orthogonale sur d
+ * @param origin Point
+ * @param line Droite
+ * @returns { x, y } coordonnées du projeté orthogonale sur d
  * @author Jean-Claude Lhote
  */
-export function orthogonalProjectionCoord (M: Point | Coords, d: Line): Coords {
+export function orthogonalProjectionCoord (origin: Point, line: Line): Coords {
   try {
-    const [a, b, c] = d.equation
+    const [a, b, c] = line.equation
     const k = 1 / (a * a + b * b)
     let x: number | undefined, y: number | undefined
     if (a === 0) {
-      x = M.x
+      x = origin.x
       y = -c / b
     } else if (b === 0) {
-      y = M.y
+      y = origin.y
       x = -c / a
     } else {
-      if (M.x === undefined || M.y === undefined) return new Coords()
-      x = k * (b * b * M.x - a * b * M.y - a * c)
-      y = k * (-a * b * M.x + a * a * M.y + (a * a * c) / b) - c / b
+      if (origin.x === undefined || origin.y === undefined) return new Coords()
+      x = k * (b * b * origin.x - a * b * origin.y - a * c)
+      y = k * (-a * b * origin.x + a * a * origin.y + (a * a * c) / b) - c / b
     }
     return new Coords(x, y)
   } catch (error) {
@@ -319,4 +319,21 @@ export function similitudeCoord (A: Point | Coords, O: Point | Coords, k: number
   } catch (error) {
     return new Coords(NaN, NaN)
   }
+}
+
+export function reflectOverLineCoord (origin: Point, line: Line): Coords {
+  let x: number, y: number
+  const [a, b, c] = line.equation
+  const k = 1 / (a * a + b * b)
+  if (a === 0) {
+    x = origin.x
+    y = -(origin.y + (2 * c) / b)
+  } else if (b === 0) {
+    y = origin.y
+    x = -(origin.x + (2 * c) / a)
+  } else {
+    x = k * ((b * b - a * a) * origin.x - 2 * a * b * origin.y - 2 * a * c)
+    y = k * ((a * a - b * b) * origin.y - 2 * a * b * origin.x + (a * a * c) / b - b * c) - c / b
+  }
+  return { x, y }
 }

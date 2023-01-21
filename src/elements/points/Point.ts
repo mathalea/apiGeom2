@@ -234,6 +234,16 @@ class Point extends Element2D {
     return Math.hypot(this._x - pointerX, this._y - pointerY)
   }
 
+  get isVisible (): boolean {
+    return this._isVisible
+  }
+
+  set isVisible (isVisible) {
+    this._isVisible = isVisible
+    this.isVisible ? this.elementTextLabel?.show() : this.elementTextLabel?.hide()
+    super.isVisible = isVisible
+  }
+
   toJSON (): object {
     return {
       type: this.type,

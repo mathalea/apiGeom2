@@ -33,6 +33,15 @@ export interface OptionsPoint extends OptionsElement2D {
   isFree: boolean
 }
 
+export interface OptionsPointBy extends OptionsElement2D {
+  shape?: 'x' | 'o' | ''
+  size?: number
+  label?: string
+  labelDx?: number
+  labelDy?: number
+  isFree?: boolean
+}
+
 export interface OptionsPointByTranslation extends OptionsElement2D {
   origin: Point
   vector: Vector
@@ -178,7 +187,7 @@ export interface OptionsVectorPerpendicular extends OptionsElement2D {
 
 export type typeElement2D = '' |
 'Point' | 'PointIntersectionLL' | 'PointIntersectionCC' | 'PointsIntersectionCC' | 'PointIntersectionLC' | 'PointsIntersectionLC' | 'Middle' |
-'PointByTranslation' | 'PointByRotation' | 'PointByDynamicRotation' | 'PointByDilate' |
+'PointByTranslation' | 'PointByRotation' | 'PointByDynamicRotation' | 'PointByDilate' | 'PointByProjection' | 'PointByReflectOverLine' |
 'Segment' | 'Line' | 'Ray' | 'LineParallel' | 'LinePerpendicular' | 'LineByPointVector' |
 'Polyline' | 'Polygon' |
 'Circle' | 'CircleDynamicRadius' | 'CircleCenterPoint' |

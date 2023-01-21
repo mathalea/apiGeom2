@@ -34,6 +34,8 @@ import LineByPointVector from 'elements/lines/LineByPointVector'
 import PointByRotation from 'elements/points/PointByRotation'
 import PointByDynamicRotation from 'elements/points/PointByDynamicRotation'
 import PointByDilate from 'elements/points/PointByDilate'
+import PointByProjection from 'elements/points/PointByProjection'
+import PointByReflectOverLine from 'elements/points/PointByReflectOverLine'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -277,8 +279,10 @@ const classes = {
   Middle,
   PointByTranslation,
   PointByRotation,
+  PointByReflectOverLine,
   PointByDilate,
   PointByDynamicRotation,
+  PointByProjection,
   Line,
   LineByPointVector,
   LineParallel,
