@@ -17,14 +17,26 @@ abstract class DynamicNumber {
   textAfter: string
   constructor (figure: Figure, { isChild = false, textBefore = '', textAfter = '' }: OptionsDynamicNumber) {
     this.figure = figure
-    this.id = 'element' + (this.figure.elements.size + 1).toString()
+    this.isChild = isChild
+    if (this.isChild) {
+      let cpt = 0
+      while (this.figure.elements.has('elementTmp' + cpt.toString())) {
+        cpt++
+      }
+      this.id = 'elementTmp' + cpt.toString()
+    } else {
+      let cpt = 0
+      while (this.figure.elements.has('element' + cpt.toString())) {
+        cpt++
+      }
+      this.id = 'element' + (cpt).toString()
+    }
+    this.figure.elements.set(this.id, this)
     this.observers = []
     this._value = NaN
     this.type = ''
     this.textBefore = textBefore
     this.textAfter = textAfter
-    this.isChild = isChild
-    if (this.isChild) this.figure.elements.set(this.id, this)
   }
 
   draw (): void {}

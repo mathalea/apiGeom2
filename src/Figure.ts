@@ -31,6 +31,8 @@ import PointIntersectionLC from 'elements/points/PointIntersectionLC'
 import PointsIntersectionCC from 'elements/points/PointsIntersectionCC'
 import PointsIntersectionLC from 'elements/points/PointsIntersectionLC'
 import LineByPointVector from 'elements/lines/LineByPointVector'
+import PointByRotation from 'elements/points/PointByRotation'
+import PointByDynamicRotation from 'elements/points/PointByDynamicRotation'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -272,6 +274,8 @@ const classes = {
   PointsIntersectionLC,
   Middle,
   PointByTranslation,
+  PointByRotation,
+  PointByDynamicRotation,
   Line,
   LineByPointVector,
   LineParallel,

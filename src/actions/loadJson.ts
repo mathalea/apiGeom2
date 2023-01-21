@@ -32,6 +32,17 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const vector = figure.elements.get(options.idVector) as Vector
       figure.create('PointByTranslation', { origin, vector, ...options })
     }
+    if (options.type === 'PointByRotation') {
+      const origin = figure.elements.get(options.idOrigin) as Point
+      const center = figure.elements.get(options.idCenter) as Point
+      figure.create('PointByRotation', { origin, center, ...options })
+    }
+    if (options.type === 'PointByDynamicRotation') {
+      const origin = figure.elements.get(options.idOrigin) as Point
+      const center = figure.elements.get(options.idCenter) as Point
+      const dynamicAngle = figure.elements.get(options.idDynamicAngle) as Point
+      figure.create('PointByDynamicRotation', { origin, center, dynamicAngle, ...options })
+    }
     if (options.type === 'Middle') {
       const point1 = figure.elements.get(options.idPoint1) as Point
       const point2 = figure.elements.get(options.idPoint2) as Point
