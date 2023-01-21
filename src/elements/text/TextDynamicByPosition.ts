@@ -34,6 +34,7 @@ class TextDynamicByPosition extends TextByPosition {
   toJSON (): object {
     return {
       type: this.type,
+      id: this.id,
       isChild: this.isChild,
       x: this.x,
       y: this.y,

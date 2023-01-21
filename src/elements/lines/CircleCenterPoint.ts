@@ -21,6 +21,7 @@ class CircleCenterPoint extends CircleCenterDynamicRadius {
   toJSON (): object {
     return {
       type: this.type,
+      id: this.id,
       isChild: this.isChild,
       idCenter: this.center.id,
       idPoint: this.point.id,

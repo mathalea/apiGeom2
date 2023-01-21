@@ -15,15 +15,17 @@ class LineParallel extends LineByPointVector {
     this.type = 'LineParallel'
     this.line = line
     this.point = point
+    this.point.subscribe(this)
+    this.line.subscribe(this)
   }
 
   toJSON (): object {
     return {
       type: this.type,
+      id: this.id,
       isChild: this.isChild,
       idLine: this.line.id,
       idPoint: this.point.id,
-      id: this.id,
       color: this.color,
       thickness: this.thickness,
       isDashed: this.isDashed

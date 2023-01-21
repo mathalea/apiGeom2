@@ -26,13 +26,14 @@ class Element2D {
   constructor (figure: Figure, { id, color, thickness, isDashed, isChild, isVisible }: OptionsElement2D) {
     this.figure = figure
     this.isChild = (isChild) ?? false
-    if (id === undefined || this.figure.elements.has(id)) {
-      let cpt = 0
-      /** Certains éléments sont construits par d'autres (codages, points temporaires, labels...)
-       *  on les nomme elementTmpX, on met this.child à true et on ne les sauvegarde pas dans le Json
-       *  mais ils sont bien présents dans figure.elements
-       */
+    /** Certains éléments sont construits par d'autres (codages, points temporaires, labels...)
+     *  on les nomme elementTmpX, on met this.child à true et on ne les sauvegarde pas dans le Json
+     *  mais ils sont bien présents dans figure.elements
+    */
+    if (id == null || this.figure.elements.has(id)) {
+      if (id != null && this.figure.elements.has(id)) throw Error(`id ${id} déjà utilisé`)
       if (this.isChild) {
+        let cpt = 0
         while (this.figure.elements.has('elementTmp' + cpt.toString())) {
           cpt++
         }
@@ -74,6 +75,14 @@ class Element2D {
   notify (): void {
     for (const element of this.observers) {
       element.update()
+    }
+  }
+
+  remove (): void {
+    this.figure.elements.delete(this.id)
+    this.groupSvg.remove()
+    for (const element of this.observers) {
+      element.remove()
     }
   }
 

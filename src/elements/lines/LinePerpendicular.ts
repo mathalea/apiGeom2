@@ -20,10 +20,10 @@ class LinePerpendicular extends LineByPointVector {
   toJSON (): object {
     return {
       type: this.type,
+      id: this.id,
       isChild: this.isChild,
       idLine: this.line.id,
       idPoint: this.point.id,
-      id: this.id,
       color: this.color,
       thickness: this.thickness,
       isDashed: this.isDashed

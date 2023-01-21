@@ -37,6 +37,14 @@ class TextByPosition extends Element2D {
     this.y = this._y
   }
 
+  remove (): void {
+    this.figure.elements.delete(this.id)
+    this.div.remove()
+    for (const element of this.observers) {
+      element.remove()
+    }
+  }
+
   get text (): string {
     return this._text
   }
@@ -92,6 +100,7 @@ class TextByPosition extends Element2D {
   toJSON (): object {
     return {
       type: this.type,
+      id: this.id,
       isChild: this.isChild,
       x: this.x,
       y: this.y,

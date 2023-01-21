@@ -62,7 +62,15 @@ class Polygon extends Element2D {
       type: this.type,
       idPoints,
       isChild: this.isChild,
+      id: this.id,
       ...super.toJSON()
+    }
+  }
+
+  remove (): void {
+    super.remove()
+    for (const segment of this.segments) {
+      segment.remove()
     }
   }
 

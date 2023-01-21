@@ -12,8 +12,8 @@ class Vector extends Element2D {
   end?: Point
   /** Représentation du vecteur */
   representation?: Segment
-  constructor (figure: Figure, { x, y, origin, color, thickness, isDashed, isChild, isVisible }: { x: number, y: number, origin?: Point, color?: string, thickness?: number, isDashed?: boolean, isVisible?: boolean, isChild?: boolean }) {
-    super(figure, { color, thickness, isDashed, isChild, isVisible })
+  constructor (figure: Figure, { x, y, origin, color, thickness, isDashed, isChild, isVisible, id }: { x: number, y: number, origin?: Point, color?: string, thickness?: number, isDashed?: boolean, isVisible?: boolean, isChild?: boolean, id?: string }) {
+    super(figure, { color, thickness, isDashed, isChild, isVisible, id })
     this.type = 'Vector'
     this.x = x
     this.y = y
@@ -72,6 +72,7 @@ class Vector extends Element2D {
   toJSON (): object {
     return {
       isChild: this.isChild,
+      id: this.id,
       type: this.type,
       x: this.x,
       y: this.y,

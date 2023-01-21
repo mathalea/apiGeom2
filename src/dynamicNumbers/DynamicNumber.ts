@@ -64,6 +64,13 @@ abstract class DynamicNumber {
     }
   }
 
+  remove (): void {
+    this.figure.elements.delete(this.id)
+    for (const element of this.observers) {
+      element.remove()
+    }
+  }
+
   display ({ x, y, textBefore = '', textAfter = '', color, minimumFractionDigits, maximumFractionDigits }: { x: number, y: number, textBefore?: string, textAfter?: string, color?: string, minimumFractionDigits?: number, maximumFractionDigits?: number }): TextDynamicByPosition {
     return this.figure.create('TextDynamicByPosition', { x, y, dynamicNumber: this, color, textBefore, textAfter, minimumFractionDigits, maximumFractionDigits, id: this.id + '_display' })
   }

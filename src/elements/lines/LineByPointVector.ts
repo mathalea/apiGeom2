@@ -18,10 +18,10 @@ class LineByPointVector extends Line {
   toJSON (): object {
     return {
       type: this.type,
+      id: this.id,
       idPoint: this.point.id,
       idVector: this.vector.id,
       isChild: this.isChild,
-      id: this.id,
       color: this.color,
       thickness: this.thickness,
       isDashed: this.isDashed

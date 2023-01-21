@@ -29,6 +29,7 @@ class PointByTranslation extends Point {
   toJSON (): object {
     return {
       type: this.type,
+      id: this.id,
       idOrigin: this.origin.id,
       idVector: this.vector.id,
       ...super.toJSON()
