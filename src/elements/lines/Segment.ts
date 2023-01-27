@@ -167,6 +167,7 @@ class Segment extends Element2D {
       idPoint1: this.point1.id,
       idPoint2: this.point2.id,
       shape: this.shape,
+      borderSize: this.borderSize,
       ...super.toJSON()
     }
   }

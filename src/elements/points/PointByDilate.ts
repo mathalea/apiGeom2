@@ -36,7 +36,8 @@ class PointByDilate extends Point {
       shape: this.shape,
       size: this.size,
       color: this.color,
-      isDashed: this.isDashed
+      isDashed: this.isDashed,
+      thickness: this.thickness
     }
   }
 }
