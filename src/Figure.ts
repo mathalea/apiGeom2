@@ -37,6 +37,7 @@ import PointByDilate from 'elements/points/PointByDilate'
 import PointByProjection from 'elements/points/PointByProjection'
 import PointByReflectOverLine from 'elements/points/PointByReflectOverLine'
 import PointBySimilarity from 'elements/points/PointBySimilarity'
+import PointOnLine from 'elements/points/PointOnLine'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -272,6 +273,7 @@ class Figure {
 
 const classes = {
   Point,
+  PointOnLine,
   PointIntersectionLL,
   PointIntersectionCC,
   PointsIntersectionCC,

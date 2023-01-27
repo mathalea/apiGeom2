@@ -28,6 +28,10 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
     if (options.type === 'Point') {
       figure.create('Point', { x: options.x, y: options.y, ...options })
     }
+    if (options.type === 'PointOnLine') {
+      const line = figure.elements.get(options.idLine) as Line
+      figure.create('PointOnLine', { line, ...options })
+    }
     if (options.type === 'PointByTranslation') {
       const origin = figure.elements.get(options.idOrigin) as Point
       const vector = figure.elements.get(options.idVector) as Vector

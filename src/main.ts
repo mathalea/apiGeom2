@@ -34,7 +34,12 @@ btnLoad?.addEventListener('click', () => {
 })
 
 // Création de la figure
-const A = figure.create('Point', { x: 0, y: 0, shape: 'x', label: 'A' })
-const B = figure.create('Point', { x: 4, y: 1, color: 'blue', label: 'B' })
-figure.create('PointBySimilarity', { origin: A, center: B, angle: 30, k: 0.5 })
+const A = figure.create('Point', { x: 0, y: 0, shape: 'o', label: 'A' })
+const B = figure.create('Point', { x: 0, y: 3, color: 'blue', label: 'B' })
+const s = figure.create('Segment', { point1: A, point2: B })
+const l = figure.create('Line', { point1: A, point2: B })
+const r = figure.create('Ray', { point1: A, point2: B })
+figure.create('PointOnLine', { line: s, k: 0.25, label: 'S' })
+figure.create('PointOnLine', { line: l, k: 0.5, label: 'L' })
+figure.create('PointOnLine', { line: r, k: 0.75, label: 'R' })
 figure.refreshSave()

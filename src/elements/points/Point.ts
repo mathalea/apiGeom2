@@ -17,7 +17,7 @@ class Point extends Element2D {
   /** Taille du point, correspond à ce qui est ajouté dans les 4 directions pour faire la croix ou au rayon du rond */
   private _size: number
   /** Le point est-il librement déplaçable ? */
-  readonly isFree: boolean
+  isFree: boolean
   /** Elément SVG pour le premier trait de la croix */
   private svgLine1!: SVGLineElement
   /** Elément SVG pour le deuxième trait de la croix */
