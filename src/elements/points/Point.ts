@@ -13,15 +13,15 @@ class Point extends Element2D {
   /** Nom que l'on affiche à côté du point */
   private _label?: string
   /** Croix, rond ou rien */
-  private _shape: 'x' | 'o' | ''
+  private _shape: 'x' | 'o' | '' | '|'
   /** Taille du point, correspond à ce qui est ajouté dans les 4 directions pour faire la croix ou au rayon du rond */
   private _size: number
   /** Le point est-il librement déplaçable ? */
   isFree: boolean
   /** Elément SVG pour le premier trait de la croix */
-  private svgLine1!: SVGLineElement
+  protected svgLine1!: SVGLineElement
   /** Elément SVG pour le deuxième trait de la croix */
-  private svgLine2!: SVGLineElement
+  protected svgLine2!: SVGLineElement
   /** Elément SVG pour rond */
   private svgCircle!: SVGCircleElement
   /** Affichage du nom du point */
@@ -33,7 +33,7 @@ class Point extends Element2D {
   constructor (figure: Figure, { x, y, shape, size, label, labelDx, labelDy, isFree = true, color, thickness, isChild, isVisible, id }:
   { x: number
     y: number
-    shape?: 'x' | 'o' | ''
+    shape?: 'x' | 'o' | '' | '|'
     size?: number
     label?: string
     labelDx?: number
@@ -48,6 +48,7 @@ class Point extends Element2D {
     this.type = 'Point'
     this._shape = shape ?? 'x'
     this._size = size ?? defaultSize
+    this._thickness = thickness ?? defaultSize
     this.labelDx = labelDx ?? 0.2
     this.labelDy = labelDy ?? 0.2
     this._x = x
@@ -115,7 +116,7 @@ class Point extends Element2D {
       this.svgLine1.remove()
       this.svgLine2.remove()
       this.groupSvg.appendChild(this.svgCircle)
-    } else {
+    } else if (this._shape === '') {
       this.svgLine1.remove()
       this.svgLine2.remove()
       this.svgCircle.remove()
@@ -149,7 +150,7 @@ class Point extends Element2D {
     return result
   }
 
-  get shape (): 'x' | 'o' | '' {
+  get shape (): 'x' | 'o' | '' | '|' {
     return this._shape
   }
 
@@ -165,7 +166,7 @@ class Point extends Element2D {
       this.svgLine1.remove()
       this.svgLine2.remove()
       this.groupSvg.appendChild(this.svgCircle)
-    } else {
+    } else if (this._shape === '') {
       this.groupSvg.remove()
       this.svgLine1.remove()
       this.svgLine2.remove()

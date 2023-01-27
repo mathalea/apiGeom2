@@ -6,10 +6,10 @@ class PointByDilate extends Point {
   origin: Point
   center: Point
   k: number
-  constructor (figure: Figure, { origin, center, k, ...options }: { origin: Point, center: Point, k: number, shape?: 'o' | 'x' | '' } & OptionsElement2D) {
+  constructor (figure: Figure, { origin, center, k, color, thickness, ...options }: { origin: Point, center: Point, k: number, shape?: 'o' | 'x' | '' | '|' } & OptionsElement2D) {
     const x = (center.x + k * (origin.x - center.x))
     const y = (center.y + k * (origin.y - center.y))
-    super(figure, { x, y, ...options })
+    super(figure, { x, y, color, thickness, ...options })
     this.type = 'PointByDilate'
     this.origin = origin
     this.center = center

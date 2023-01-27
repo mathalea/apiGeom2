@@ -25,7 +25,7 @@ export interface OptionsElement2D {
 export interface OptionsPoint extends OptionsElement2D {
   x: number
   y: number
-  shape?: 'x' | 'o' | ''
+  shape?: 'x' | 'o' | '' | '|'
   size?: number
   label?: string
   labelDx?: number
@@ -34,7 +34,7 @@ export interface OptionsPoint extends OptionsElement2D {
 }
 
 export interface OptionsPointBy extends OptionsElement2D {
-  shape?: 'x' | 'o' | ''
+  shape?: 'x' | 'o' | '' | '|'
   size?: number
   label?: string
   labelDx?: number
@@ -123,7 +123,8 @@ export interface OptionsPolygon extends OptionsElement2D {
 export interface OptionsLine extends OptionsElement2D {
   point1: Point
   point2: Point
-  shape?: '' | '|-|' | '|-' | '|-'
+  shape?: '' | '|-|' | '|-' | '-|'
+  borderSize?: number
 }
 
 export interface OptionsLineParallel extends OptionsElement2D {

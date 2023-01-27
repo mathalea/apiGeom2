@@ -16,15 +16,25 @@ class Line extends Segment {
   update (): void {
     const [x1Svg, y1Svg, x2Svg, y2Svg] = getCoordsOut(this.point1, this.point2)
     if (Number.isNaN(x1Svg) || Number.isNaN(x2Svg) || Number.isNaN(y1Svg) || Number.isNaN(y1Svg)) {
-      this.groupSvg.removeAttribute('x1')
-      this.groupSvg.removeAttribute('x2')
-      this.groupSvg.removeAttribute('y1')
-      this.groupSvg.removeAttribute('y2')
+      this.svgLine.removeAttribute('x1')
+      this.svgLine.removeAttribute('x2')
+      this.svgLine.removeAttribute('y1')
+      this.svgLine.removeAttribute('y2')
     } else {
-      this.groupSvg.setAttribute('x1', `${this.figure.xToSx(x1Svg)}`)
-      this.groupSvg.setAttribute('y1', `${this.figure.yToSy(y1Svg)}`)
-      this.groupSvg.setAttribute('x2', `${this.figure.xToSx(x2Svg)}`)
-      this.groupSvg.setAttribute('y2', `${this.figure.yToSy(y2Svg)}`)
+      this.svgLine.setAttribute('x1', `${this.figure.xToSx(x1Svg)}`)
+      this.svgLine.setAttribute('y1', `${this.figure.yToSy(y1Svg)}`)
+      this.svgLine.setAttribute('x2', `${this.figure.xToSx(x2Svg)}`)
+      this.svgLine.setAttribute('y2', `${this.figure.yToSy(y2Svg)}`)
+    }
+    if (this.shape?.at(0) === '|') {
+      this.drawBorder1()
+    } else {
+      this.svgBorder1.remove()
+    }
+    if (this.shape?.at(-1) === '|') {
+      this.drawBorder2()
+    } else {
+      this.svgBorder2.remove()
     }
     this.notify()
   }

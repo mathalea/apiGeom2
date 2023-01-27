@@ -1,3 +1,4 @@
+import { similitudeCoord } from 'elements/calculus/Coords'
 import { OptionsPointBy } from 'elements/interfaces'
 import Line from 'elements/lines/Line'
 import Figure from '../../Figure'
@@ -7,10 +8,11 @@ class PointOnLine extends PointByDilate {
   line: Line
   constructor (figure: Figure, { line, k, ...options }: { line: Line, k?: number } & OptionsPointBy) {
     if (k === undefined) k = Math.random()
-    super(figure, { origin: line.point2, center: line.point1, k, ...options })
+    super(figure, { origin: line.point2, center: line.point1, k, shape: '|', ...options })
     this.type = 'PointOnLine'
     this.line = line
     this.isFree = true
+    this.line.subscribe(this)
   }
 
   /** Déplace le point */
@@ -59,6 +61,28 @@ class PointOnLine extends PointByDilate {
       }
     } catch (error) {
       console.log('Erreur dans PointOnLine')
+    }
+    this.update()
+  }
+
+  update (): void {
+    if (this.shape === '|') {
+      const a = { x: this.line.point1.x, y: this.line.point1.y }
+      const o = { x: this._x, y: this._y }
+      const l = Math.hypot(this.line.point1.x - this._x, this.line.point1.y - this._y)
+      const { x: x1, y: y1 } = similitudeCoord(a, o, (1 / l) * this.size, 90)
+      const { x: x2, y: y2 } = similitudeCoord(a, o, (1 / l) * this.size, -90)
+      const x1Svg = this.figure.xToSx(x1).toString()
+      const x2Svg = this.figure.xToSx(x2).toString()
+      const y1Svg = this.figure.yToSy(y1).toString()
+      const y2Svg = this.figure.yToSy(y2).toString()
+      this.svgLine1.setAttribute('x1', x1Svg)
+      this.svgLine1.setAttribute('y1', y1Svg)
+      this.svgLine1.setAttribute('x2', x2Svg)
+      this.svgLine1.setAttribute('y2', y2Svg)
+      this.groupSvg.appendChild(this.svgLine1)
+      this.svgLine1.setAttribute('stroke-width', '1')
+      this.thickness = this._thickness
     }
     super.update()
   }
