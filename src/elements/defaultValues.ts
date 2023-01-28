@@ -15,3 +15,27 @@ export const defaultMaxSlope = 10 ** 4
 
 // Pente d'une droite horizontale
 export const defaultMinSlope = 10 ** -4
+
+// Ecart entre le lieu du clic et la position de la fenêtre modale en unité de la figure
+export const defaultDeltaXModal = 1
+
+// Couleurs
+export const colors = {
+  DEFAULT: '#F15929',
+  lightest: '#f87f5c',
+  light: '#f56d45',
+  dark: '#F45E27',
+  darkest: '#E64A10',
+  back: '#f5f1f3',
+  backdark: '#dadbdf',
+  backdarker: '#cecfd4',
+  backcorrection: '#E0A588',
+  backnav: '#F15929',
+  backnavlight: '#f56d45',
+  title: '#342A34',
+  titlemenu: '#F15929',
+  titlelight: '#f5f1f3',
+  titleexercise: '#F15929',
+  darkmode: '#2e2e2b',
+  darkmodelight: '#363633'
+}

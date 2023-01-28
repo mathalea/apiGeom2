@@ -78,6 +78,8 @@ class Figure {
   svg: SVGElement
   /** div dans lequel sera écrit la dernière sauvegarde automatique au format JSON */
   divSave: HTMLDivElement | null
+  /** Eventuel div dans lequel on attend une réponse de l'utilisateur */
+  modal!: HTMLDivElement
   /** Abscisse du pointeur dans le repère de la figure */
   pointerX: number | null
   /** Ordonnée du pointeur dans le repère de la figure */
