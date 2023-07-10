@@ -38,6 +38,12 @@ import PointByProjection from 'elements/points/PointByProjection'
 import PointByReflectOverLine from 'elements/points/PointByReflectOverLine'
 import PointBySimilarity from 'elements/points/PointBySimilarity'
 import PointOnLine from 'elements/points/PointOnLine'
+import Arc from 'elements/lines/Arc'
+import Angle from 'dynamicNumbers/Angle'
+import ArcBy3PointsAndRadius from 'elements/lines/ArcBy3PointsAndRadius'
+import PointByDynamicDilate from 'elements/points/PointByDynamicDilate'
+import DynamicCalcul from 'dynamicNumbers/DynamicCalcul'
+import PointOnLineAtDistance from 'elements/points/PointOnLineAtDistance'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -212,6 +218,7 @@ class Figure {
 
   /** Sauvegarde la figure, met à jour l'historique et l'inscrit dans le div this.divSave */
   refreshSave (): void {
+    console.log(this.json)
     const save = this.json
     if (this.divSave !== null) {
       this.divSave.textContent = save
@@ -276,6 +283,7 @@ class Figure {
 const classes = {
   Point,
   PointOnLine,
+  PointOnLineAtDistance,
   PointIntersectionLL,
   PointIntersectionCC,
   PointsIntersectionCC,
@@ -286,9 +294,12 @@ const classes = {
   PointByRotation,
   PointByReflectOverLine,
   PointByDilate,
+  PointByDynamicDilate,
   PointBySimilarity,
   PointByDynamicRotation,
   PointByProjection,
+  Arc,
+  ArcBy3PointsAndRadius,
   Line,
   LineByPointVector,
   LineParallel,
@@ -304,6 +315,8 @@ const classes = {
   TextByPosition,
   TextDynamicByPosition,
   Distance,
+  Angle,
+  DynamicCalcul,
   Vector,
   VectorByPoints,
   VectorPerpendicular

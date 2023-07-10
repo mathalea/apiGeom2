@@ -9,7 +9,7 @@ import { OptionsDynamicNumber } from '../elements/interfaces'
 abstract class DynamicNumber {
   figure: Figure
   readonly id: string
-  private _value: number
+  protected _value: number
   observers: Array<Element2D | DynamicNumber>
   type: string
   isChild: boolean
@@ -43,6 +43,7 @@ abstract class DynamicNumber {
 
   set value (x: number) {
     this._value = x
+    this.notify()
   }
 
   get value (): number {
@@ -53,12 +54,14 @@ abstract class DynamicNumber {
     return this.textBefore + this.value.toString() + this.textAfter
   }
 
-  abstract update (): void
+  update (): void {
+    this.notify()
+  }
 
   /** S'abonner aux modifications des éléments parents
   * Par exemple le segment s'abonnera aux modifications de ses deux extrémités
   */
-  subscribe (element: Element2D): void {
+  subscribe (element: Element2D | DynamicNumber): void {
     this.observers.push(element)
   }
 
@@ -80,6 +83,15 @@ abstract class DynamicNumber {
     this.figure.elements.delete(this.id)
     for (const element of this.observers) {
       element.remove()
+    }
+  }
+
+  /** Personnalise la sortie JSON de l'élément pour la sauvegarde */
+  toJSON (): object {
+    return {
+      type: this.type,
+      id: this.id,
+      isChild: this.isChild
     }
   }
 

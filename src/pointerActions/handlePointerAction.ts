@@ -7,7 +7,7 @@ export function getClickedElement (figure: Figure, pointerX: number, pointerY: n
   const possibleElements = []
   figure.modal?.remove()
   for (const element of figure.elements.values()) {
-    if (element instanceof Point && element.distancePointer(pointerX, pointerY) * figure.pixelsPerUnit < distanceInPixels) {
+    if (element instanceof Point && element.isFree && element.distancePointer(pointerX, pointerY) * figure.pixelsPerUnit < distanceInPixels) {
       possibleElements.push(element)
     }
   }

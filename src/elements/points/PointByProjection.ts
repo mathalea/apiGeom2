@@ -9,7 +9,7 @@ class PointByProjection extends Point {
   line: Segment
   constructor (figure: Figure, { origin, line, ...options }: { origin: Point, line: Segment } & OptionsElement2D) {
     const { x, y } = orthogonalProjectionCoord(origin, line)
-    super(figure, { x, y, ...options })
+    super(figure, { x, y, isFree: false, ...options })
     this.type = 'PointByProjection'
     this.origin = origin
     this.line = line
