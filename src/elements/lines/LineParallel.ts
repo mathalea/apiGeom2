@@ -1,7 +1,7 @@
-import Figure from '../../Figure'
-import { OptionsLineParallel } from '../interfaces'
-import Point from '../points/Point'
-import Line from './Line'
+import type Figure from '../../Figure'
+import { type OptionsLineParallel } from '../interfaces'
+import type Point from '../points/Point'
+import type Line from './Line'
 import LineByPointVector from './LineByPointVector'
 
 class LineParallel extends LineByPointVector {

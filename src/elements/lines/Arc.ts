@@ -1,10 +1,10 @@
-import DynamicNumber from 'dynamicNumbers/DynamicNumber'
-import { rotationCoord } from 'elements/calculus/Coords'
-import { distance, getLargeSweep } from 'elements/calculus/utils'
-import Element2D from 'elements/Element2D'
-import { OptionsElement2D } from 'elements/interfaces'
-import Point from 'elements/points/Point'
-import Figure from '../../Figure'
+import type DynamicNumber from '../../dynamicNumbers/DynamicNumber'
+import { rotationCoord } from '../calculus/Coords'
+import { distance, getLargeSweep } from '../calculus/utils'
+import Element2D from '../Element2D'
+import { type OptionsElement2D } from '../interfaces'
+import type Point from '../points/Point'
+import type Figure from '../../Figure'
 
 class Arc extends Element2D {
   start: Point

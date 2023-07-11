@@ -1,7 +1,7 @@
-import Figure from '../../Figure'
-import { OptionsVectorPerpendicular } from '../interfaces'
-import Line from '../lines/Line'
-import Point from '../points/Point'
+import type Figure from '../../Figure'
+import { type OptionsVectorPerpendicular } from '../interfaces'
+import type Line from '../lines/Line'
+import type Point from '../points/Point'
 import Vector from './Vector'
 
 class VectorUnitPerpendicular extends Vector {

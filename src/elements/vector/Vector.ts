@@ -1,7 +1,7 @@
-import Figure from '../../Figure'
-import Point from '../points/Point'
+import type Figure from '../../Figure'
+import type Point from '../points/Point'
 import Element2D from '../Element2D'
-import Segment from '../lines/Segment'
+import type Segment from '../lines/Segment'
 
 class Vector extends Element2D {
   x: number

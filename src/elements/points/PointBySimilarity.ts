@@ -1,6 +1,6 @@
-import { similitudeCoord } from 'elements/calculus/Coords'
-import { OptionsPointBy } from 'elements/interfaces'
-import Figure from '../../Figure'
+import { similitudeCoord } from '../calculus/Coords'
+import { type OptionsPointBy } from '../interfaces'
+import type Figure from '../../Figure'
 import Point from './Point'
 
 class PointBySimilarity extends Point {

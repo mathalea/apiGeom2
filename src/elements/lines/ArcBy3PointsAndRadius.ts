@@ -1,6 +1,6 @@
-import { OptionsElement2D } from 'elements/interfaces'
-import Point from 'elements/points/Point'
-import Figure from '../../Figure'
+import { type OptionsElement2D } from '../interfaces'
+import type Point from '../points/Point'
+import type Figure from '../../Figure'
 import Arc from './Arc'
 
 class ArcBy3PointsAndRadius extends Arc {

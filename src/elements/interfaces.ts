@@ -1,9 +1,9 @@
-import DynamicNumber from '../dynamicNumbers/DynamicNumber'
-import Element2D from './Element2D'
-import Circle from './lines/Circle'
-import Line from './lines/Line'
-import Point from './points/Point'
-import Vector from './vector/Vector'
+import type DynamicNumber from '../dynamicNumbers/DynamicNumber'
+import type Element2D from './Element2D'
+import type Circle from './lines/Circle'
+import type Line from './lines/Line'
+import type Point from './points/Point'
+import type Vector from './vector/Vector'
 
 export interface Binome {
   x: number
@@ -107,6 +107,10 @@ export interface OptionsCircleCenterDynamicRadius extends OptionsElement2D {
   radius: DynamicNumber
 }
 
+/**
+ * @param {Point} center
+ * @param {Point} point
+ */
 export interface OptionsCircleCenterPoint extends OptionsElement2D {
   center: Point
   point: Point

@@ -1,7 +1,7 @@
-import Figure from '../Figure'
-import Element2D from '../elements/Element2D'
-import TextDynamicByPosition from '../elements/text/TextDynamicByPosition'
-import { OptionsDynamicNumber } from '../elements/interfaces'
+import type Figure from '../Figure'
+import type Element2D from '../elements/Element2D'
+import type TextDynamicByPosition from '../elements/text/TextDynamicByPosition'
+import { type OptionsDynamicNumber } from '../elements/interfaces'
 
 /**
  * Pour les valeurs numériques variables qui seront les « parents » de constructions

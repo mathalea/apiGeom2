@@ -1,7 +1,7 @@
-import Figure from '../Figure'
+import type Figure from '../Figure'
 import { colors, defaultDeltaXModal, defaultDistanceClick } from '../elements/defaultValues'
 import Point from '../elements/points/Point'
-import TextByPosition from 'elements/text/TextByPosition'
+import TextByPosition from '../elements/text/TextByPosition'
 
 export function getClickedElement (figure: Figure, pointerX: number, pointerY: number, distanceInPixels = defaultDistanceClick): Point | undefined {
   const possibleElements = []

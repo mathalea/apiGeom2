@@ -1,8 +1,8 @@
-import Figure from '../../Figure'
+import type Figure from '../../Figure'
 import { intersectionLCCoord } from '../calculus/Coords'
-import { OptionsIntersectionLC } from '../interfaces'
-import Circle from '../lines/Circle'
-import Line from '../lines/Line'
+import { type OptionsIntersectionLC } from '../interfaces'
+import type Circle from '../lines/Circle'
+import type Line from '../lines/Line'
 import Point from './Point'
 
 /**

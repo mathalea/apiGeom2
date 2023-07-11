@@ -1,7 +1,7 @@
-import { orthogonalProjectionCoord } from 'elements/calculus/Coords'
-import { OptionsElement2D } from 'elements/interfaces'
-import Segment from 'elements/lines/Segment'
-import Figure from '../../Figure'
+import { orthogonalProjectionCoord } from '../calculus/Coords'
+import { type OptionsElement2D } from '../interfaces'
+import type Segment from '../lines/Segment'
+import type Figure from '../../Figure'
 import Point from './Point'
 
 class PointByProjection extends Point {

@@ -1,5 +1,5 @@
-import { OptionsDynamicNumber } from 'elements/interfaces'
-import Figure from '../Figure'
+import { type OptionsDynamicNumber } from '../elements/interfaces'
+import type Figure from '../Figure'
 import DynamicNumber from './DynamicNumber'
 
 class DynamicCalcul extends DynamicNumber {

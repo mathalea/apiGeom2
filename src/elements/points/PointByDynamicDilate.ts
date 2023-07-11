@@ -1,7 +1,7 @@
-import DynamicNumber from 'dynamicNumbers/DynamicNumber'
-import { OptionsPointBy } from 'elements/interfaces'
-import Figure from '../../Figure'
-import Point from './Point'
+import type DynamicNumber from '../../dynamicNumbers/DynamicNumber'
+import { type OptionsPointBy } from '../interfaces'
+import type Figure from '../../Figure'
+import type Point from './Point'
 import PointByDilate from './PointByDilate'
 
 class PointByDynamicDilate extends PointByDilate {

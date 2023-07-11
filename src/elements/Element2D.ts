@@ -1,6 +1,6 @@
-import Figure from '../Figure'
-import DynamicNumber from '../dynamicNumbers/DynamicNumber'
-import { OptionsElement2D, typeElement2D } from './interfaces'
+import type Figure from '../Figure'
+import type DynamicNumber from '../dynamicNumbers/DynamicNumber'
+import { type OptionsElement2D, type typeElement2D } from './interfaces'
 
 class Element2D {
   /** Espace de travail dans lequel l'élément sera représenté */

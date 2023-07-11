@@ -1,7 +1,7 @@
-import { similitudeCoord } from 'elements/calculus/Coords'
-import { OptionsPointBy } from 'elements/interfaces'
-import Line from 'elements/lines/Line'
-import Figure from '../../Figure'
+import { similitudeCoord } from '../calculus/Coords'
+import { type OptionsPointBy } from '../interfaces'
+import type Line from '../lines/Line'
+import type Figure from '../../Figure'
 import PointByDilate from './PointByDilate'
 
 class PointOnLine extends PointByDilate {

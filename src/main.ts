@@ -1,8 +1,4 @@
-import Line from 'elements/lines/Line'
 import Figure from './Figure'
-import Point from 'elements/points/Point'
-import Ray from 'elements/lines/Ray'
-import Segment from 'elements/lines/Segment'
 
 // Créé un espace de travail pour une figure géométrique
 const figure = new Figure()
@@ -52,7 +48,6 @@ med2.thickness = 2
 med2.color = 'blue'
 const O = figure.create('PointIntersectionLL', { line1: med1, line2: med2, shape: 'o', size: 0.3 })
 const circonscrit = figure.create('CircleCenterPoint', { center: O, point: A })
-circonscrit.color = 'red'
 circonscrit.isDashed = true
 circonscrit.thickness = 2
 circonscrit.fillColor = 'orange'

@@ -1,7 +1,7 @@
-import Figure from '../../Figure'
+import type Figure from '../../Figure'
 import Element2D from '../Element2D'
-import { OptionsPolyline } from '../interfaces'
-import Point from '../points/Point'
+import { type OptionsPolyline } from '../interfaces'
+import type Point from '../points/Point'
 
 /**
  * Trace une ligne brisée

@@ -1,7 +1,7 @@
-import DynamicNumber from 'dynamicNumbers/DynamicNumber'
-import { OptionsElement2D } from 'elements/interfaces'
-import Figure from '../../Figure'
-import Point from './Point'
+import type DynamicNumber from '../../dynamicNumbers/DynamicNumber'
+import { type OptionsElement2D } from '../interfaces'
+import type Figure from '../../Figure'
+import type Point from './Point'
 import PointByRotation from './PointByRotation'
 
 class PointByDynamicRotation extends PointByRotation {

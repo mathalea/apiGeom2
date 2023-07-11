@@ -1,9 +1,9 @@
-import Figure from '../../Figure'
+import type Figure from '../../Figure'
 import Element2D from '../Element2D'
-import { OptionsIntersectionLC } from '../interfaces'
-import Circle from '../lines/Circle'
-import Line from '../lines/Line'
-import Point from './Point'
+import { type OptionsIntersectionLC } from '../interfaces'
+import type Circle from '../lines/Circle'
+import type Line from '../lines/Line'
+import type Point from './Point'
 
 class PointsIntersectionLC extends Element2D {
   /** Droite ou segment ou demi-droite */

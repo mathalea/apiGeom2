@@ -1,6 +1,6 @@
-import Figure from '../../Figure'
-import { OptionsRestrictedText } from '../interfaces'
-import Point from '../points/Point'
+import type Figure from '../../Figure'
+import { type OptionsRestrictedText } from '../interfaces'
+import type Point from '../points/Point'
 import TextByPosition from './TextByPosition'
 
 /**

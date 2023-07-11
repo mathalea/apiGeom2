@@ -1,9 +1,9 @@
-import Figure from '../../Figure'
-import DynamicNumber from '../../dynamicNumbers/DynamicNumber'
-import { OptionsCircleCenterDynamicRadius, OptionsElement2D } from '../interfaces'
-import Point from '../points/Point'
+import type Figure from '../../Figure'
+import type DynamicNumber from '../../dynamicNumbers/DynamicNumber'
+import { type OptionsCircleCenterDynamicRadius, type OptionsElement2D } from '../interfaces'
+import type Point from '../points/Point'
 import Circle from './Circle'
-import Vector from '../vector/Vector'
+import type Vector from '../vector/Vector'
 
 class CircleCenterDynamicRadius extends Circle {
   /** Centre du cercle */

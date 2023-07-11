@@ -1,8 +1,8 @@
-import Figure from '../../Figure'
+import type Figure from '../../Figure'
 import { defaultSize } from '../defaultValues'
 import Element2D from '../Element2D'
-import Line from '../lines/Line'
-import TextByPoint from '../text/TextByPoint'
+import type Line from '../lines/Line'
+import type TextByPoint from '../text/TextByPoint'
 
 /**
  * Trace un point et ajoute un éventuel label à partir de la propriété label

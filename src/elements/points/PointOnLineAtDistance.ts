@@ -1,8 +1,8 @@
-import { homothetieCoord } from 'elements/calculus/Coords'
-import { distance as calculDistance } from 'elements/calculus/utils'
-import { OptionsPointBy } from 'elements/interfaces'
-import Line from 'elements/lines/Line'
-import Figure from '../../Figure'
+import { homothetieCoord } from '../calculus/Coords'
+import { distance as calculDistance } from '../calculus/utils'
+import { type OptionsPointBy } from '../interfaces'
+import type Line from '../lines/Line'
+import type Figure from '../../Figure'
 import Point from './Point'
 class PointOnLineAtDistance extends Point {
   distance: number

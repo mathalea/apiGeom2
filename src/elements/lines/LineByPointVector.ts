@@ -1,7 +1,7 @@
-import { OptionsElement2D } from 'elements/interfaces'
-import Point from 'elements/points/Point'
-import Vector from 'elements/vector/Vector'
-import Figure from '../../Figure'
+import { type OptionsElement2D } from '../interfaces'
+import type Point from '../points/Point'
+import type Vector from '../vector/Vector'
+import type Figure from '../../Figure'
 import Line from './Line'
 
 class LineByPointVector extends Line {

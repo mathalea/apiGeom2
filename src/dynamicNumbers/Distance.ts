@@ -1,5 +1,5 @@
-import Figure from '../Figure'
-import Point from '../elements/points/Point'
+import type Figure from '../Figure'
+import type Point from '../elements/points/Point'
 import DynamicNumber from './DynamicNumber'
 
 class Distance extends DynamicNumber {

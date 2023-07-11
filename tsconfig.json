@@ -14,14 +14,14 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "actions/*": ["src/actions/*"],
-      "dynamicNumbers/*": ["src/dynamicNumbers/*"],
-      "elements/*": ["src/elements/*"],
-      "pointerActions/*": ["src/pointerActions/*"],
-      "transformations/*": ["src/transformations*"]
-    }
+    // "baseUrl": ".",
+    // "paths": {
+    //   "actions/*": ["src/actions/*"],
+    //   "dynamicNumbers/*": ["src/dynamicNumbers/*"],
+    //   "elements/*": ["src/elements/*"],
+    //   "pointerActions/*": ["src/pointerActions/*"],
+    //   "transformations/*": ["src/transformations*"]
+    // }
   },
   "include": ["src", "vite.config.js"]
 }

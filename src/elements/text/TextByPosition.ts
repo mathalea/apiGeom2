@@ -1,8 +1,8 @@
-import Figure from '../../Figure'
+import type Figure from '../../Figure'
 import Element2D from '../Element2D'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
-import { OptionsText } from '../interfaces'
+import { type OptionsText } from '../interfaces'
 
 /**
  * Créé un div contenant un texte qui est mis au dessus du svg

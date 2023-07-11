@@ -1,7 +1,7 @@
-import Figure from '../../Figure'
+import type Figure from '../../Figure'
 import { intersectionLLCoord } from '../calculus/Coords'
-import { OptionsIntersectionLL } from '../interfaces'
-import Segment from '../lines/Segment'
+import { type OptionsIntersectionLL } from '../interfaces'
+import type Segment from '../lines/Segment'
 import Point from './Point'
 
 /**

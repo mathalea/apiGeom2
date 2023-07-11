@@ -1,7 +1,7 @@
-import { reflectOverLineCoord } from 'elements/calculus/Coords'
-import { OptionsPointBy } from 'elements/interfaces'
-import Line from 'elements/lines/Line'
-import Figure from '../../Figure'
+import { reflectOverLineCoord } from '../calculus/Coords'
+import { type OptionsPointBy } from '../interfaces'
+import type Line from '../lines/Line'
+import type Figure from '../../Figure'
 import Point from './Point'
 
 class PointByReflectOverLine extends Point {

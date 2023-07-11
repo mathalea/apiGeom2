@@ -1,7 +1,7 @@
-import { Coords } from 'elements/calculus/Coords'
-import { defaultMinSlope } from 'elements/defaultValues'
-import Point from 'elements/points/Point'
-import Figure from '../Figure'
+import { type Coords } from '../elements/calculus/Coords'
+import { defaultMinSlope } from '../elements/defaultValues'
+import type Point from '../elements/points/Point'
+import type Figure from '../Figure'
 import DynamicNumber from './DynamicNumber'
 
 class Angle extends DynamicNumber {

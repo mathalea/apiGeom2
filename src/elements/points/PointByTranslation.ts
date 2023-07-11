@@ -1,6 +1,6 @@
-import Figure from '../../Figure'
-import { OptionsPointByTranslation } from '../interfaces'
-import Vector from '../vector/Vector'
+import type Figure from '../../Figure'
+import { type OptionsPointByTranslation } from '../interfaces'
+import type Vector from '../vector/Vector'
 import Point from './Point'
 
 /**

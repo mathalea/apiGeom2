@@ -1,8 +1,8 @@
-import Figure from '../../Figure'
+import type Figure from '../../Figure'
 import Element2D from '../Element2D'
-import { OptionsCircle, OptionsElement2D } from '../interfaces'
-import Point from '../points/Point'
-import Vector from '../vector/Vector'
+import { type OptionsCircle, type OptionsElement2D } from '../interfaces'
+import type Point from '../points/Point'
+import type Vector from '../vector/Vector'
 
 /**
  * Trace un cercle dont on connait le centre et le rayon

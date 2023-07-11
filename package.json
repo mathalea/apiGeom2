@@ -28,7 +28,8 @@
     "preview": "vite preview",
     "doc": "typedoc --entryPointStrategy expand ./src",
     "test": "vitest --environment jsdom",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "lint": "eslint ./src/. --ext .js,.ts --fix"
   },
   "devDependencies": {
     "@types/katex": "^0.16.0",

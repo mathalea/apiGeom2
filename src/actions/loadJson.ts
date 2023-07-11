@@ -5,7 +5,7 @@ import type Point from '../elements/points/Point'
 import type DynamicNumber from '../dynamicNumbers/DynamicNumber'
 import type Vector from '../elements/vector/Vector'
 import type Circle from '../elements/lines/Circle'
-import type Segment from 'elements/lines/Segment'
+import type Segment from '../elements/lines/Segment'
 
 /**
  * Analyse l'objet de la sauvegarde et si le type est pris en charge alors on créé l'élément

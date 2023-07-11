@@ -1,5 +1,5 @@
-import { OptionsElement2D } from 'elements/interfaces'
-import Figure from '../../Figure'
+import { type OptionsElement2D } from '../interfaces'
+import type Figure from '../../Figure'
 import Point from './Point'
 
 class PointByDilate extends Point {

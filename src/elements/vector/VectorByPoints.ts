@@ -1,6 +1,6 @@
-import Figure from '../../Figure'
-import { OptionsVectorByPoints } from '../interfaces'
-import Point from '../points/Point'
+import type Figure from '../../Figure'
+import { type OptionsVectorByPoints } from '../interfaces'
+import type Point from '../points/Point'
 import Vector from './Vector'
 
 class VectorByPoints extends Vector {

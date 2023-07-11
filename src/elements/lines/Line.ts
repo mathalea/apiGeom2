@@ -1,7 +1,7 @@
-import Figure from '../../Figure'
+import type Figure from '../../Figure'
 import { defaultMaxSlope, defaultMinSlope } from '../defaultValues'
-import { OptionsLine } from '../interfaces'
-import Point from '../points/Point'
+import { type OptionsLine } from '../interfaces'
+import type Point from '../points/Point'
 import Segment from './Segment'
 
 /**

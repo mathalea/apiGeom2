@@ -1,5 +1,4 @@
-import Figure from '../../Figure'
-import { OptionsMiddle } from '../interfaces'
+import type Figure from '../../Figure'
 import Point from './Point'
 
 /**

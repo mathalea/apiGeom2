@@ -1,4 +1,4 @@
-import Figure from '../Figure'
+import type Figure from '../Figure'
 import DynamicNumber from './DynamicNumber'
 
 class Const extends DynamicNumber {

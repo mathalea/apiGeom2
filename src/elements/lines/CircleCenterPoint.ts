@@ -1,7 +1,6 @@
-import Figure from '../../Figure'
+import type Figure from '../../Figure'
 import Distance from '../../dynamicNumbers/Distance'
-import { OptionsCircleCenterPoint } from '../interfaces'
-import Point from '../points/Point'
+import type Point from '../points/Point'
 import CircleCenterDynamicRadius from './CircleCenterDyamicRadius'
 
 /**
@@ -10,7 +9,7 @@ import CircleCenterDynamicRadius from './CircleCenterDyamicRadius'
  */
 class CircleCenterPoint extends CircleCenterDynamicRadius {
   point: Point
-  constructor (figure: Figure, { center, point, ...options }: OptionsCircleCenterPoint) {
+  constructor (figure: Figure, { center, point, ...options }: { center: Point, point: Point }) {
     const radius = new Distance(figure, { point1: center, point2: point, isChild: true })
     super(figure, { center, radius, ...options })
     this.type = 'CircleCenterPoint'

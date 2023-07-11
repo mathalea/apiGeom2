@@ -41,13 +41,13 @@ export default defineConfig({
   publicDir: 'public', // https://vitejs.dev/config/shared-options.html#publicdir
   resolve: {
     // Attention à répercuter toutes ces modifs dans le tsconfig (paths)
-    alias: { // cf https://vitejs.dev/config/shared-options.html#resolve-alias
-      actions: resolve(srcDir, 'actions'),
-      dynamicNumbers: resolve(srcDir, 'dynamicNumbers'),
-      elements: resolve(srcDir, 'elements'),
-      pointerActions: resolve(srcDir, 'pointerActions'),
-      transformations: resolve(srcDir, 'transformations')
-    }
+    // alias: { // cf https://vitejs.dev/config/shared-options.html#resolve-alias
+    //   actions: resolve(srcDir, 'actions'),
+    //   dynamicNumbers: resolve(srcDir, 'dynamicNumbers'),
+    //   elements: resolve(srcDir, 'elements'),
+    //   pointerActions: resolve(srcDir, 'pointerActions'),
+    //   transformations: resolve(srcDir, 'transformations')
+    // }
   },
   rollupOptions: { // https://vitejs.dev/guide/build.html#customizing-the-build
     maxParallelFileOps: 10 // https://rollupjs.org/guide/en/#maxparallelfileops

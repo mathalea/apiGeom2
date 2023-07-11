@@ -1,4 +1,4 @@
-import { type OptionsElement2D } from 'elements/interfaces'
+import { type OptionsElement2D } from '../interfaces'
 import type Figure from '../../Figure'
 import LinePerpendicular from './LinePerpendicular'
 import type Segment from './Segment'

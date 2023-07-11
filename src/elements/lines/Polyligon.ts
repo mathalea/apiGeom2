@@ -1,9 +1,9 @@
-import Figure from '../../Figure'
+import type Figure from '../../Figure'
 import Element2D from '../Element2D'
-import { OptionsElement2D, OptionsPolygon } from '../interfaces'
-import Point from '../points/Point'
-import Vector from '../vector/Vector'
-import Segment from './Segment'
+import { type OptionsElement2D } from '../interfaces'
+import type Point from '../points/Point'
+import type Vector from '../vector/Vector'
+import type Segment from './Segment'
 
 /**
  * Trace une polygone

@@ -1,7 +1,7 @@
-import Figure from '../../Figure'
-import DynamicNumber from '../../dynamicNumbers/DynamicNumber'
+import type Figure from '../../Figure'
+import type DynamicNumber from '../../dynamicNumbers/DynamicNumber'
 import TextByPosition from './TextByPosition'
-import { OptionsDynamicText } from '../interfaces'
+import { type OptionsDynamicText } from '../interfaces'
 import { displayDigits } from '../defaultValues'
 
 /**

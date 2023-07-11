@@ -1,10 +1,10 @@
-import { similitudeCoord } from 'elements/calculus/Coords'
-import { defaultSize } from 'elements/defaultValues'
-import Figure from '../../Figure'
+import { similitudeCoord } from '../calculus/Coords'
+import { defaultSize } from '../defaultValues'
+import type Figure from '../../Figure'
 import Element2D from '../Element2D'
-import { Binome, OptionsElement2D, OptionsLine } from '../interfaces'
-import Point from '../points/Point'
-import Vector from '../vector/Vector'
+import { type Binome, type OptionsElement2D, type OptionsLine } from '../interfaces'
+import type Point from '../points/Point'
+import type Vector from '../vector/Vector'
 
 /**
  * Trace un segment qui a pour extrémités deux points donnés
