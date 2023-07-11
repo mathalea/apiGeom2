@@ -11,8 +11,7 @@ apiGeom est un logiciel de géométrie dynamique simple et léger avec les fonct
 
 L'objectif n'est pas de concurrencer MathGraph32 ou GeoGebra.
 
-apiGeom est beaucoup plus léger et aura moins de fonctionnalités. Sa particularité est le parti pris d'une géométrie à la française
-avec une interface épurée et une manipulation entièrement réalisée en Javascript.
+apiGeom est beaucoup plus léger et aura moins de fonctionnalités. Sa particularité est le parti pris d'une géométrie à la française avec une interface épurée et une manipulation entièrement réalisée en Javascript.
 
 ## Exemple d'utilisation
 

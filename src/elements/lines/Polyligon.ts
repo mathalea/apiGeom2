@@ -13,7 +13,7 @@ class Polygon extends Element2D {
   points: Point[]
   /** Liste des côtés */
   readonly segments: Segment[]
-  constructor (figure: Figure, { points, ...options }: OptionsPolygon) {
+  constructor (figure: Figure, { points, ...options }: { points: Point[] }) {
     super(figure, options)
     this.type = 'Polygon'
     this.points = points

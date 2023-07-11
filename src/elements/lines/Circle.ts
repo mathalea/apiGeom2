@@ -43,17 +43,6 @@ class Circle extends Element2D {
     this.update()
   }
 
-  /** Couleur au format HTML */
-  get color (): string {
-    return this._color
-  }
-
-  /** Change la couleur des tracés de l'élément */
-  set color (color: string) {
-    this._color = color
-    this.groupSvg.setAttribute('stroke', color)
-  }
-
   /** Couleur de remplissage au format HTML */
   get fillColor (): string {
     return this._fillColor

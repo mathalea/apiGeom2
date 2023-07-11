@@ -1,11 +1,11 @@
-import Figure from '../Figure'
-import Distance from '../dynamicNumbers/Distance'
-import Line from '../elements/lines/Line'
-import Point from '../elements/points/Point'
-import DynamicNumber from '../dynamicNumbers/DynamicNumber'
-import Vector from '../elements/vector/Vector'
-import Circle from '../elements/lines/Circle'
-import Segment from 'elements/lines/Segment'
+import type Figure from '../Figure'
+import type Distance from '../dynamicNumbers/Distance'
+import type Line from '../elements/lines/Line'
+import type Point from '../elements/points/Point'
+import type DynamicNumber from '../dynamicNumbers/DynamicNumber'
+import type Vector from '../elements/vector/Vector'
+import type Circle from '../elements/lines/Circle'
+import type Segment from 'elements/lines/Segment'
 
 /**
  * Analyse l'objet de la sauvegarde et si le type est pris en charge alors on créé l'élément
@@ -172,6 +172,10 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const line = figure.elements.get(options.idLine)
       const point = figure.elements.get(options.idPoint)
       figure.create('LinePerpendicular', { line, point, ...options })
+    }
+    if (options.type === 'PerpendicularBissector') {
+      const segment = figure.elements.get(options.idSegment)
+      figure.create('PerpendicularBissector', { segment, ...options })
     }
     if (options.type === 'Polyline') {
       const points = []

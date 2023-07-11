@@ -44,6 +44,7 @@ import ArcBy3PointsAndRadius from 'elements/lines/ArcBy3PointsAndRadius'
 import PointByDynamicDilate from 'elements/points/PointByDynamicDilate'
 import DynamicCalcul from 'dynamicNumbers/DynamicCalcul'
 import PointOnLineAtDistance from 'elements/points/PointOnLineAtDistance'
+import PerpendicularBissector from 'elements/lines/PerpendicularBissector'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -218,7 +219,6 @@ class Figure {
 
   /** Sauvegarde la figure, met à jour l'historique et l'inscrit dans le div this.divSave */
   refreshSave (): void {
-    console.log(this.json)
     const save = this.json
     if (this.divSave !== null) {
       this.divSave.textContent = save
@@ -304,6 +304,7 @@ const classes = {
   LineByPointVector,
   LineParallel,
   LinePerpendicular,
+  PerpendicularBissector,
   Segment,
   Ray,
   Polyline,

@@ -190,7 +190,7 @@ export type typeElement2D = '' |
 'Point' | 'PointIntersectionLL' | 'PointIntersectionCC' | 'PointsIntersectionCC' | 'PointIntersectionLC' | 'PointsIntersectionLC' | 'Middle' | 'PointOnLine' |
 'PointByTranslation' | 'PointByRotation' | 'PointByDynamicRotation' | 'PointByDilate' | 'PointByDynamicDilate' | 'PointByProjection' | 'PointByReflectOverLine' | 'PointBySimilarity' |
 'PointOnLineAtDistance' |
-'Segment' | 'Line' | 'Ray' | 'LineParallel' | 'LinePerpendicular' | 'LineByPointVector' |
+'Segment' | 'Line' | 'Ray' | 'LineParallel' | 'LinePerpendicular' | 'LineByPointVector' | 'PerpendicularBissector' |
 'Polyline' | 'Polygon' |
 'Circle' | 'CircleDynamicRadius' | 'CircleCenterPoint' |
 'TextByPosition' | 'TextByPoint' | 'DisplayDistance' | 'TextDynamicByPosition' |

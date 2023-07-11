@@ -5,7 +5,7 @@ import Line from './Line'
 import LineByPointVector from './LineByPointVector'
 
 class LinePerpendicular extends LineByPointVector {
-  /** Droite parallèle qui la définit */
+  /** Droite perpendiculaire qui la définit */
   line: Line
   /** Point par lequel passe cette droite */
   point: Point

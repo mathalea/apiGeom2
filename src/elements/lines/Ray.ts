@@ -7,7 +7,12 @@ import Segment from './Segment'
  * Trace une demi-droite d'origine point1 et qui passe par point 2
  */
 class Ray extends Segment {
-  constructor (figure: Figure, { point1, point2, ...options }: OptionsLine) {
+  constructor (figure: Figure, { point1, point2, ...options }: {
+    point1: Point
+    point2: Point
+    shape?: '' | '|-|' | '|-' | '-|'
+    borderSize?: number
+  }) {
     super(figure, { point1, point2, ...options })
     this.type = 'Ray'
   }
