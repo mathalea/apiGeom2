@@ -89,6 +89,8 @@ class Element2D {
   /** Créé ou met à jour le groupe SVG de l'élément */
   update (): void {}
 
+  draw (): void {}
+
   /** Personnalise la sortie JSON de l'élément pour la sauvegarde */
   toJSON (): object {
     return {

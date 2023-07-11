@@ -272,6 +272,13 @@ class Figure {
     parentContainer.appendChild(this.container)
     this.container.style.position = 'relative'
     this.container.appendChild(this.svg)
+    this.drawTexts()
+  }
+
+  // Les texts ont besoin d'un container
+  drawTexts (): void {
+    const texts = [...this.elements.values()].filter(e => e.type.includes('Text'))
+    texts.forEach(text => { text.draw() })
   }
 
   /** Efface la figure actuelle et charge une nouvelle figure à partir du code généré par this.json  */
