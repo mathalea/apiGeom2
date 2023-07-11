@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/mathalea/apiGeom2",
   "type": "module",
+  "main": "src/Figure.ts",
+  "module": "src/Figure.ts",
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
