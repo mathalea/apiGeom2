@@ -191,6 +191,9 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       }
       figure.create('Polygon', { points, ...options })
     }
+    if (options.type === 'Graph') {
+      figure.create('Graph', { ...options })
+    }
   }
   // Pour la navigation dans l'historique on ne sauvegarde que le premier chargement
   // les autres chargements proviennent de goBack() ou de goForward()
