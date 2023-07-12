@@ -45,6 +45,7 @@ import PointByDynamicDilate from './elements/points/PointByDynamicDilate'
 import DynamicCalcul from './dynamicNumbers/DynamicCalcul'
 import PointOnLineAtDistance from './elements/points/PointOnLineAtDistance'
 import PerpendicularBissector from './elements/lines/PerpendicularBissector'
+import Graph from './elements/calculus/Graph'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -327,7 +328,8 @@ const classes = {
   DynamicCalcul,
   Vector,
   VectorByPoints,
-  VectorPerpendicular
+  VectorPerpendicular,
+  Graph
 }
 
 export default Figure

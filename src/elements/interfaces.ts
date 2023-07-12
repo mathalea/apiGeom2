@@ -200,4 +200,5 @@ export type typeElement2D = '' |
 'TextByPosition' | 'TextByPoint' | 'DisplayDistance' | 'TextDynamicByPosition' |
 'Vector' | 'VectorByPoints' | 'VectorPerpendicular' |
 'Arc' | 'ArcBy3PointsAndRadius' |
-'Distance' | 'Angle' | 'DynamicCalcul'
+'Distance' | 'Angle' | 'DynamicCalcul' |
+'Graph'

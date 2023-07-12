@@ -53,3 +53,6 @@ circonscrit.fillColor = 'orange'
 circonscrit.fillOpacity = 0.2
 figure.create('TextByPosition', { x: -3, y: 3, text: 'Essai de $x^2$ et de $\\frac{3}{4}$' })
 figure.setContainer(div)
+
+const f = (x: number): number => Math.sin(x)
+figure.create('Graph', { f, thickness: 2, color: 'blue', step: 0.1 })
