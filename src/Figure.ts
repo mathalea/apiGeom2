@@ -2,6 +2,7 @@ import { defaultHistorySize } from './elements/defaultValues'
 import type Element2D from './elements/Element2D'
 import type DynamicNumber from './dynamicNumbers/DynamicNumber'
 import Point from './elements/points/Point'
+import PointOnGraph from './elements/points/PoinrOnGraph'
 import PointIntersectionLL from './elements/points/PointIntersectionLL'
 import Middle from './elements/points/Middle'
 import Line from './elements/lines/Line'
@@ -35,6 +36,8 @@ import PointByRotation from './elements/points/PointByRotation'
 import PointByDynamicRotation from './elements/points/PointByDynamicRotation'
 import PointByDilate from './elements/points/PointByDilate'
 import PointByProjection from './elements/points/PointByProjection'
+import PointByProjectionOnAxisX from './elements/points/PointByProjectionOnAxisX'
+import PointByProjectionOnAxisY from './elements/points/PointByProjectionOnAxisY'
 import PointByReflectOverLine from './elements/points/PointByReflectOverLine'
 import PointBySimilarity from './elements/points/PointBySimilarity'
 import PointOnLine from './elements/points/PointOnLine'
@@ -46,6 +49,7 @@ import DynamicCalcul from './dynamicNumbers/DynamicCalcul'
 import PointOnLineAtDistance from './elements/points/PointOnLineAtDistance'
 import PerpendicularBissector from './elements/lines/PerpendicularBissector'
 import Graph from './elements/calculus/Graph'
+import Grid from './elements/grid/Grid'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -291,6 +295,7 @@ class Figure {
 const classes = {
   Point,
   PointOnLine,
+  PointOnGraph,
   PointOnLineAtDistance,
   PointIntersectionLL,
   PointIntersectionCC,
@@ -306,6 +311,8 @@ const classes = {
   PointBySimilarity,
   PointByDynamicRotation,
   PointByProjection,
+  PointByProjectionOnAxisX,
+  PointByProjectionOnAxisY,
   Arc,
   ArcBy3PointsAndRadius,
   Line,
@@ -329,7 +336,8 @@ const classes = {
   Vector,
   VectorByPoints,
   VectorPerpendicular,
-  Graph
+  Graph,
+  Grid
 }
 
 export default Figure

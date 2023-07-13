@@ -32,27 +32,12 @@ btnLoad?.addEventListener('click', () => {
     )
     .catch((error) => { console.log('Erreur avec le chargement', error) })
 })
-
-// Création de la figure
-const A = figure.create('Point', { x: 0, y: 0, label: '\\pi\\times x^2_\\omega' })
-const B = figure.create('Point', { x: 4, y: 0, label: 'B' })
-const C = figure.create('Point', { x: -1, y: 4, label: 'C' })
-const p = figure.create('Polygon', { points: [A, B, C] })
-figure.create('PerpendicularBissector', { segment: p.segments[0], color: 'blue', thickness: 2 })
-const med1 = figure.create('PerpendicularBissector', { segment: p.segments[1] })
-const med2 = figure.create('PerpendicularBissector', { segment: p.segments[2] })
-med1.thickness = 2
-med1.color = 'blue'
-med2.thickness = 2
-med2.color = 'blue'
-const O = figure.create('PointIntersectionLL', { line1: med1, line2: med2, shape: 'o', size: 0.3 })
-const circonscrit = figure.create('CircleCenterPoint', { center: O, point: A })
-circonscrit.isDashed = true
-circonscrit.thickness = 2
-circonscrit.fillColor = 'orange'
-circonscrit.fillOpacity = 0.2
-figure.create('TextByPosition', { x: -3, y: 3, text: 'Essai de $x^2$ et de $\\frac{3}{4}$' })
 figure.setContainer(div)
 
-const f = 'sin(x)'
-figure.create('Graph', { expression: f, thickness: 2, color: 'blue', step: 0.1 })
+// Création de la figure
+const f = 'x^3/10 + x*sin(x)'
+const graph = figure.create('Graph', { expression: f, thickness: 2, color: 'blue', step: 0.1 })
+const M = figure.create('PointOnGraph', { graph, thickness: 2, color: 'red', label: 'M' })
+M.createSegmentToAxeX()
+M.createSegmentToAxeY()
+figure.create('Grid', {})

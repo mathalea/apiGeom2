@@ -47,6 +47,14 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const line = figure.elements.get(options.idLine) as Segment
       figure.create('PointByProjection', { origin, line, ...options })
     }
+    if (options.type === 'PointByProjectionOnAxisX') {
+      const origin = figure.elements.get(options.idOrigin) as Point
+      figure.create('PointByProjectionOnAxisX', { origin, ...options })
+    }
+    if (options.type === 'PointByProjectionOnAxisY') {
+      const origin = figure.elements.get(options.idOrigin) as Point
+      figure.create('PointByProjectionOnAxisY', { origin, ...options })
+    }
     if (options.type === 'PointByReflectOverLine') {
       const origin = figure.elements.get(options.idOrigin) as Point
       const line = figure.elements.get(options.idLine) as Segment
@@ -193,6 +201,13 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
     }
     if (options.type === 'Graph') {
       figure.create('Graph', { ...options })
+    }
+    if (options.type === 'Grid') {
+      figure.create('Grid', { ...options })
+    }
+    if (options.type === 'PointOnGraph') {
+      const graph = figure.elements.get(options.idGraph)
+      figure.create('PointOnGraph', { graph, ...options })
     }
   }
   // Pour la navigation dans l'historique on ne sauvegarde que le premier chargement

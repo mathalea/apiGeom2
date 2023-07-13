@@ -192,8 +192,8 @@ export interface OptionsVectorPerpendicular extends OptionsElement2D {
 
 export type typeElement2D = '' |
 'Point' | 'PointIntersectionLL' | 'PointIntersectionCC' | 'PointsIntersectionCC' | 'PointIntersectionLC' | 'PointsIntersectionLC' | 'Middle' | 'PointOnLine' |
-'PointByTranslation' | 'PointByRotation' | 'PointByDynamicRotation' | 'PointByDilate' | 'PointByDynamicDilate' | 'PointByProjection' | 'PointByReflectOverLine' | 'PointBySimilarity' |
-'PointOnLineAtDistance' |
+'PointByTranslation' | 'PointByRotation' | 'PointByDynamicRotation' | 'PointByDilate' | 'PointByDynamicDilate' | 'PointByProjection' | 'PointByProjectionOnAxisX' | 'PointByProjectionOnAxisY' | 'PointByReflectOverLine' | 'PointBySimilarity' |
+'PointOnLineAtDistance' | 'PointOnGraph' |
 'Segment' | 'Line' | 'Ray' | 'LineParallel' | 'LinePerpendicular' | 'LineByPointVector' | 'PerpendicularBissector' |
 'Polyline' | 'Polygon' |
 'Circle' | 'CircleDynamicRadius' | 'CircleCenterPoint' |
@@ -201,4 +201,4 @@ export type typeElement2D = '' |
 'Vector' | 'VectorByPoints' | 'VectorPerpendicular' |
 'Arc' | 'ArcBy3PointsAndRadius' |
 'Distance' | 'Angle' | 'DynamicCalcul' |
-'Graph'
+'Grid' | 'Graph'

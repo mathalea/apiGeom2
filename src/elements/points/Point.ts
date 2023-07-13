@@ -2,6 +2,7 @@ import type Figure from '../../Figure'
 import { defaultSize } from '../defaultValues'
 import Element2D from '../Element2D'
 import type Line from '../lines/Line'
+import type Segment from '../lines/Segment'
 import type TextByPoint from '../text/TextByPoint'
 
 /**
@@ -243,6 +244,16 @@ class Point extends Element2D {
     this._isVisible = isVisible
     this.isVisible ? this.elementTextLabel?.show() : this.elementTextLabel?.hide()
     super.isVisible = isVisible
+  }
+
+  createSegmentToAxeX (): Segment {
+    const M = this.figure.create('PointByProjectionOnAxisX', { origin: this, isVisible: false })
+    return this.figure.create('Segment', { point1: this, point2: M, isDashed: true })
+  }
+
+  createSegmentToAxeY (): Segment {
+    const M = this.figure.create('PointByProjectionOnAxisY', { origin: this, isVisible: false })
+    return this.figure.create('Segment', { point1: this, point2: M, isDashed: true })
   }
 
   toJSON (): object {

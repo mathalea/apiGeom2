@@ -1,5 +1,6 @@
 import type Figure from '../Figure'
 import type DynamicNumber from '../dynamicNumbers/DynamicNumber'
+import { defaultThickness } from './defaultValues'
 import { type OptionsElement2D, type typeElement2D } from './interfaces'
 
 class Element2D {
@@ -50,7 +51,7 @@ class Element2D {
     }
     this.figure.elements.set(this.id, this)
     this._color = color ?? 'black'
-    this._thickness = thickness ?? 1
+    this._thickness = thickness ?? defaultThickness
     this._isDashed = isDashed ?? false
     this._isVisible = isVisible ?? true
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'g')
