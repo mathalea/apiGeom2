@@ -54,9 +54,31 @@ class Grid extends Element2D {
       svgAxeY.setAttribute('stroke-width', '1')
       this.groupSvg.appendChild(svgAxeY)
     }
+    if (this.grid) {
+      const svgGrid = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+      svgGrid.setAttribute('stroke', 'black')
+      svgGrid.setAttribute('stroke-width', '0.5')
+      svgGrid.setAttribute('stroke-dasharray', '1 1')
+      this.groupSvg.appendChild(svgGrid)
+      for (let x = this.figure.xMin; x <= this.figure.xMax; x += this.stepX) {
+        const svgLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        svgLine.setAttribute('x1', this.figure.xToSx(x).toString())
+        svgLine.setAttribute('y1', this.figure.yToSy(this.figure.yMin).toString())
+        svgLine.setAttribute('x2', this.figure.xToSx(x).toString())
+        svgLine.setAttribute('y2', this.figure.yToSy(this.figure.yMax).toString())
+        svgGrid.appendChild(svgLine)
+      }
+      for (let y = this.figure.yMin; y <= this.figure.yMax; y += this.stepY) {
+        const svgLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        svgLine.setAttribute('x1', this.figure.xToSx(this.figure.xMin).toString())
+        svgLine.setAttribute('y1', this.figure.yToSy(y).toString())
+        svgLine.setAttribute('x2', this.figure.xToSx(this.figure.xMax).toString())
+        svgLine.setAttribute('y2', this.figure.yToSy(y).toString())
+        svgGrid.appendChild(svgLine)
+      }
+    }
     this.setVisibilityColorThicknessAndDashed()
     this.update()
-    console.log(this.axeX, this.axeY, this.groupSvg)
   }
 
   toJSON (): object {

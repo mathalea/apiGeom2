@@ -1,7 +1,8 @@
 import Figure from './Figure'
+import * as math from 'mathjs'
 
 // Créé un espace de travail pour une figure géométrique
-const figure = new Figure()
+const figure = new Figure({ pixelsPerUnit: 50, xMin: -5, yMin: -3, xScale: 0.5 })
 
 // On affiche le svg dans un div
 const div = document.querySelector('#app') as HTMLDivElement
@@ -36,7 +37,10 @@ figure.setContainer(div)
 
 // Création de la figure
 const f = 'x^3/10 + x*sin(x)'
+const f2 = math.derivative(f, 'x').toString()
+
 const graph = figure.create('Graph', { expression: f, thickness: 2, color: 'blue', step: 0.1 })
+figure.create('Graph', { expression: f2, thickness: 2, color: 'green', step: 0.1 })
 const M = figure.create('PointOnGraph', { graph, thickness: 2, color: 'red', label: 'M' })
 M.createSegmentToAxeX()
 M.createSegmentToAxeY()

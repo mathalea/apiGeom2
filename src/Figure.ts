@@ -85,6 +85,12 @@ class Figure {
   /** Si l'option snapGrid est active, cela détermine la distance verticale entre deux lieux de dépot du point */
   dy: number
   /** div (ou p ou svg…) dans lequel sera inséré le SVG et les div avec le texte mathématiques */
+  /** Échelle globale */
+  scale: number
+  /** Échelle horizontale */
+  xScale: number
+  /** Échelle verticale */
+  yScale: number
   container!: HTMLElement
   /** SVG de la figure géométrique */
   svg: SVGElement
@@ -109,7 +115,7 @@ class Figure {
    * @param dx - Si l'option snapGrid est activée, cela correspond à la distance horizontale du quadrillage sur lequel les points peuvent être déposés
    * @param dy - Si l'option snapGrid est activée, cela correspond à la distance verticale du quadrillage sur lequel les points peuvent être déposés
    */
-  constructor ({ width = 600, height = 400, pixelsPerUnit = 30, xMin = -10, yMin = -6, isDynamic = true, dx = 1, dy = 1 }: { width?: number, height?: number, pixelsPerUnit?: number, xMin?: number, yMin?: number, isDynamic?: boolean, dx?: number, dy?: number } = {}) {
+  constructor ({ width = 600, height = 400, pixelsPerUnit = 30, xMin = -10, yMin = -6, isDynamic = true, dx = 1, dy = 1, xScale = 1, yScale = 1, scale = 1 }: { width?: number, height?: number, pixelsPerUnit?: number, xMin?: number, yMin?: number, isDynamic?: boolean, dx?: number, dy?: number, xScale?: number, yScale?: number, scale?: number } = {}) {
     this.elements = new Map()
     this.history = []
     this.historyIndex = -1 // dernier item de l'historique
@@ -117,11 +123,14 @@ class Figure {
     this.height = height
     this.pixelsPerUnit = pixelsPerUnit
     this.xMin = xMin
-    this.xMax = xMin + width / pixelsPerUnit
+    this.xMax = xMin + width / pixelsPerUnit / scale / xScale
     this.yMin = yMin
-    this.yMax = yMin + height / pixelsPerUnit
+    this.yMax = yMin + height / pixelsPerUnit / scale / yScale
     this.dx = dx
     this.dy = dy
+    this.xScale = xScale
+    this.yScale = yScale
+    this.scale = scale
     this.isDynamic = isDynamic
     this._pointerAction = 'drag'
     this.pointerX = null
@@ -161,30 +170,30 @@ class Figure {
 
   /** Abscisse dans nos coordonnées converti en abscisse du SVG */
   xToSx (x: number): number {
-    return x * this.pixelsPerUnit
+    return x * this.pixelsPerUnit * this.xScale * this.scale
   }
 
   /** Abscisse dans nos coordonnées converti en abscisse du SVG */
   yToSy (y: number): number {
-    return -y * this.pixelsPerUnit
+    return -y * this.pixelsPerUnit * this.yScale * this.scale
   }
 
   /** Abscisse du SVG converti dans nos coordonnées */
   sxTox (x: number): number {
-    return x / this.pixelsPerUnit
+    return x / this.pixelsPerUnit / this.xScale / this.scale
   }
 
   /** Abscisse du SVG converti dans nos coordonnées */
   syToy (y: number): number {
-    return -y / this.pixelsPerUnit
+    return -y / this.pixelsPerUnit / this.yScale / this.scale
   }
 
   /** Récupère les coordonnées du pointeur dans le repère de la figure */
   getPointerCoord (event: PointerEvent): [number, number] {
     event.preventDefault()
     const rect = this.svg.getBoundingClientRect()
-    const pointerX = (event.clientX - rect.x) / this.pixelsPerUnit + this.xMin
-    const pointerY = -(event.clientY - rect.y) / this.pixelsPerUnit + this.yMax
+    const pointerX = (event.clientX - rect.x) / this.pixelsPerUnit / this.xScale / this.scale + this.xMin
+    const pointerY = -(event.clientY - rect.y) / this.pixelsPerUnit / this.yScale / this.scale + this.yMax
     return [pointerX, pointerY]
   }
 
