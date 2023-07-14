@@ -16,8 +16,8 @@ class Middle extends Point {
     size?: number
     isChild?: boolean
     label?: string
-    labelDx?: number
-    labelDy?: number
+    labelDxInPixels?: number
+    labelDyInPixels?: number
   }) {
     const [x, y] = coordsMiddle(point1, point2)
     super(figure, { x, y, isFree: false, ...options })

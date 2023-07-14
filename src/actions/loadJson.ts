@@ -24,188 +24,149 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
   figure.clearHtml()
   figure.container?.appendChild(figure.svg)
   for (const options of Object.values(json)) {
-    // if (options.isChild === true) continue
     if (options.type === 'Point') {
       figure.create('Point', { x: options.x, y: options.y, ...options })
-    }
-    if (options.type === 'PointOnLine') {
+    } else if (options.type === 'PointOnLine') {
       const line = figure.elements.get(options.idLine) as Line
       figure.create('PointOnLine', { line, ...options })
-    }
-    if (options.type === 'PointByTranslation') {
+    } else if (options.type === 'PointByTranslation') {
       const origin = figure.elements.get(options.idOrigin) as Point
       const vector = figure.elements.get(options.idVector) as Vector
       figure.create('PointByTranslation', { origin, vector, ...options })
-    }
-    if (options.type === 'PointByDilate') {
+    } else if (options.type === 'PointByDilate') {
       const origin = figure.elements.get(options.idOrigin) as Point
       const center = figure.elements.get(options.idCenter) as Point
       figure.create('PointByDilate', { origin, center, ...options })
-    }
-    if (options.type === 'PointByProjection') {
+    } else if (options.type === 'PointByProjection') {
       const origin = figure.elements.get(options.idOrigin) as Point
       const line = figure.elements.get(options.idLine) as Segment
       figure.create('PointByProjection', { origin, line, ...options })
-    }
-    if (options.type === 'PointByProjectionOnAxisX') {
+    } else if (options.type === 'PointByProjectionOnAxisX') {
       const origin = figure.elements.get(options.idOrigin) as Point
       figure.create('PointByProjectionOnAxisX', { origin, ...options })
-    }
-    if (options.type === 'PointByProjectionOnAxisY') {
+    } else if (options.type === 'PointByProjectionOnAxisY') {
       const origin = figure.elements.get(options.idOrigin) as Point
       figure.create('PointByProjectionOnAxisY', { origin, ...options })
-    }
-    if (options.type === 'PointByReflectOverLine') {
+    } else if (options.type === 'PointByReflectOverLine') {
       const origin = figure.elements.get(options.idOrigin) as Point
       const line = figure.elements.get(options.idLine) as Segment
       figure.create('PointByReflectOverLine', { origin, line, ...options })
-    }
-    if (options.type === 'PointBySimilarity') {
+    } else if (options.type === 'PointBySimilarity') {
       const origin = figure.elements.get(options.idOrigin) as Point
       const center = figure.elements.get(options.idCenter) as Point
       figure.create('PointBySimilarity', { origin, center, ...options })
-    }
-    if (options.type === 'PointByRotation') {
+    } else if (options.type === 'PointByRotation') {
       const origin = figure.elements.get(options.idOrigin) as Point
       const center = figure.elements.get(options.idCenter) as Point
       figure.create('PointByRotation', { origin, center, ...options })
-    }
-    if (options.type === 'PointByDynamicRotation') {
+    } else if (options.type === 'PointByDynamicRotation') {
       const origin = figure.elements.get(options.idOrigin) as Point
       const center = figure.elements.get(options.idCenter) as Point
       const dynamicAngle = figure.elements.get(options.idDynamicAngle) as Point
       figure.create('PointByDynamicRotation', { origin, center, dynamicAngle, ...options })
-    }
-    if (options.type === 'Middle') {
+    } else if (options.type === 'Middle') {
       const point1 = figure.elements.get(options.idPoint1) as Point
       const point2 = figure.elements.get(options.idPoint2) as Point
       figure.create('Middle', { point1, point2, ...options })
-    }
-    if (options.type === 'PointIntersectionLL') {
+    } else if (options.type === 'PointIntersectionLL') {
       const line1 = figure.elements.get(options.idLine1) as Line
       const line2 = figure.elements.get(options.idLine2) as Line
       figure.create('PointIntersectionLL', { line1, line2, ...options })
-    }
-    if (options.type === 'PointIntersectionCC') {
+    } else if (options.type === 'PointIntersectionCC') {
       const circle1 = figure.elements.get(options.idCircle1) as Circle
       const circle2 = figure.elements.get(options.idCircle2) as Circle
       figure.create('PointIntersectionCC', { circle1, circle2, ...options })
-    }
-    if (options.type === 'PointsIntersectionCC') {
+    } else if (options.type === 'PointsIntersectionCC') {
       const circle1 = figure.elements.get(options.idCircle1) as Circle
       const circle2 = figure.elements.get(options.idCircle2) as Circle
       figure.create('PointsIntersectionCC', { circle1, circle2, ...options })
-    }
-    if (options.type === 'PointIntersectionLC') {
+    } else if (options.type === 'PointIntersectionLC') {
       const line = figure.elements.get(options.idLine) as Line
       const circle = figure.elements.get(options.idCircle) as Circle
       figure.create('PointIntersectionLC', { line, circle, ...options })
-    }
-    if (options.type === 'PointsIntersectionLC') {
+    } else if (options.type === 'PointsIntersectionLC') {
       const line = figure.elements.get(options.idLine) as Line
       const circle = figure.elements.get(options.idCircle) as Circle
       figure.create('PointsIntersectionLC', { line, circle, ...options })
-    }
-    if (options.type === 'Segment') {
+    } else if (options.type === 'Segment') {
       const point1 = figure.elements.get(options.idPoint1) as Point
       const point2 = figure.elements.get(options.idPoint2) as Point
       figure.create('Segment', { point1, point2, ...options })
-    }
-    if (options.type === 'Line') {
+    } else if (options.type === 'Line') {
       const point1 = figure.elements.get(options.idPoint1) as Point
       const point2 = figure.elements.get(options.idPoint2) as Point
       figure.create('Line', { point1, point2, ...options })
-    }
-    if (options.type === 'Ray') {
+    } else if (options.type === 'Ray') {
       const point1 = figure.elements.get(options.idPoint1) as Point
       const point2 = figure.elements.get(options.idPoint2) as Point
       figure.create('Ray', { point1, point2, ...options })
-    }
-    if (options.type === 'Circle') {
+    } else if (options.type === 'Circle') {
       const center = figure.elements.get(options.idCenter) as Point
       figure.create('Circle', { center, radius: options.radius, ...options })
-    }
-    if (options.type === 'CircleCenterPoint') {
+    } else if (options.type === 'CircleCenterPoint') {
       const center = figure.elements.get(options.idCenter) as Point
       const point = figure.elements.get(options.idPoint) as Point
       figure.create('CircleCenterPoint', { center, point, ...options })
-    }
-    if (options.type === 'CircleDynamicRadius') {
+    } else if (options.type === 'CircleDynamicRadius') {
       const center = figure.elements.get(options.idCenter) as Point
       const radius = figure.elements.get(options.idRadius) as Distance
       figure.create('CircleCenterDynamicRadius', { center, radius, ...options })
-    }
-    if (options.type === 'Distance') {
+    } else if (options.type === 'Distance') {
       const point1 = figure.elements.get(options.idPoint1) as Point
       const point2 = figure.elements.get(options.idPoint2) as Point
       figure.create('Distance', { point1, point2, ...options })
-    }
-    if (options.type === 'TextByPosition') {
+    } else if (options.type === 'TextByPosition') {
       figure.create('TextByPosition', { x: options.x, y: options.y, text: options.text, ...options })
-    }
-    if (options.type === 'TextByPoint') {
+    } else if (options.type === 'TextByPoint') {
       const point = figure.elements.get(options.idPoint) as Point
       figure.create('TextByPoint', { point, text: options.text, ...options })
-    }
-    if (options.type === 'TextDynamicByPosition') {
+    } else if (options.type === 'TextDynamicByPosition') {
       const dynamicNumber = figure.elements.get(options.idDynamicNumber) as DynamicNumber
       figure.create('TextDynamicByPosition', { dynamicNumber, ...options })
-    }
-    if (options.type === 'Vector') {
+    } else if (options.type === 'Vector') {
       const origin = figure.elements.get(options.idOrigin)
       figure.create('Vector', { origin, ...options })
-    }
-    if (options.type === 'VectorByPoints') {
+    } else if (options.type === 'VectorByPoints') {
       const origin = figure.elements.get(options.idOrigin)
       const point1 = figure.elements.get(options.idPoint1)
       const point2 = figure.elements.get(options.idPoint2)
       figure.create('VectorByPoints', { point1, point2, origin, ...options })
-    }
-    if (options.type === 'VectorPerpendicular') {
+    } else if (options.type === 'VectorPerpendicular') {
       const origin = figure.elements.get(options.idOrigin)
       const line = figure.elements.get(options.idLine)
       figure.create('VectorPerpendicular', { origin, line, ...options })
-    }
-    if (options.type === 'LineByPointVector') {
+    } else if (options.type === 'LineByPointVector') {
       const vector = figure.elements.get(options.idVector)
       const point = figure.elements.get(options.idPoint)
       figure.create('LineByPointVector', { vector, point, ...options })
-    }
-    if (options.type === 'LineParallel') {
+    } else if (options.type === 'LineParallel') {
       const line = figure.elements.get(options.idLine)
       const point = figure.elements.get(options.idPoint)
       figure.create('LineParallel', { line, point, ...options })
-    }
-    if (options.type === 'LinePerpendicular') {
+    } else if (options.type === 'LinePerpendicular') {
       const line = figure.elements.get(options.idLine)
       const point = figure.elements.get(options.idPoint)
       figure.create('LinePerpendicular', { line, point, ...options })
-    }
-    if (options.type === 'PerpendicularBissector') {
+    } else if (options.type === 'PerpendicularBissector') {
       const segment = figure.elements.get(options.idSegment)
       figure.create('PerpendicularBissector', { segment, ...options })
-    }
-    if (options.type === 'Polyline') {
+    } else if (options.type === 'Polyline') {
       const points = []
       for (const idPoint of options.idPoints) {
         points.push(figure.elements.get(idPoint))
       }
       figure.create('Polyline', { points, ...options })
-    }
-    if (options.type === 'Polygon') {
+    } else if (options.type === 'Polygon') {
       const points = []
       for (const idPoint of options.idPoints) {
         points.push(figure.elements.get(idPoint))
       }
       figure.create('Polygon', { points, ...options })
-    }
-    if (options.type === 'Graph') {
+    } else if (options.type === 'Graph') {
       figure.create('Graph', { ...options })
-    }
-    if (options.type === 'Grid') {
+    } else if (options.type === 'Grid') {
       figure.create('Grid', { ...options })
-    }
-    if (options.type === 'PointOnGraph') {
+    } else if (options.type === 'PointOnGraph') {
       const graph = figure.elements.get(options.idGraph)
       figure.create('PointOnGraph', { graph, ...options })
     }

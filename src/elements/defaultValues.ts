@@ -2,10 +2,14 @@
 export const defaultFontSize = '1em'
 
 // Taille des points
-export const defaultPointSize = 0.15
+export const defaultPointSize = 5
 
 // Épaisseur des tracés
 export const defaultThickness = 2
+
+// Pour le nom des points
+export const defaultLabelDxInPixels = 20
+export const defaultLabelDyInPixels = -20
 
 // Distance entre l'endroit où on clique et les élément
 export const defaultDistanceClick = 15

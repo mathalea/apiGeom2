@@ -1,5 +1,5 @@
 import type Figure from '../../Figure'
-import { defaultPointSize, defaultThickness } from '../defaultValues'
+import { defaultLabelDxInPixels, defaultLabelDyInPixels, defaultPointSize, defaultThickness } from '../defaultValues'
 import Element2D from '../Element2D'
 import type Line from '../lines/Line'
 import type Segment from '../lines/Segment'
@@ -16,7 +16,7 @@ class Point extends Element2D {
   /** Croix, rond ou rien */
   private _shape: 'x' | 'o' | '' | '|'
   /** Taille du point, correspond à ce qui est ajouté dans les 4 directions pour faire la croix ou au rayon du rond */
-  private _size: number
+  private _sizeInPixels: number
   /** Le point est-il librement déplaçable ? */
   isFree: boolean
   /** Elément SVG pour le premier trait de la croix */
@@ -28,17 +28,17 @@ class Point extends Element2D {
   /** Affichage du nom du point */
   elementTextLabel?: TextByPoint
   /** Décalage vertical pour le nom du point */
-  labelDx: number
+  labelDxInPixels: number
   /** Décalage horizontal pour le nom du point */
-  labelDy: number
-  constructor (figure: Figure, { x, y, shape, size, label, labelDx, labelDy, isFree = true, color, thickness, isChild, isVisible, id }:
+  labelDyInPixels: number
+  constructor (figure: Figure, { x, y, shape, sizeInPixels, label, labelDxInPixels, labelDyInPixels, isFree = true, color, thickness, isChild, isVisible, id }:
   { x: number
     y: number
     shape?: 'x' | 'o' | '' | '|'
-    size?: number
+    sizeInPixels?: number
     label?: string
-    labelDx?: number
-    labelDy?: number
+    labelDxInPixels?: number
+    labelDyInPixels?: number
     color?: string
     thickness?: number
     isChild?: boolean
@@ -48,10 +48,10 @@ class Point extends Element2D {
     super(figure, { color, thickness, isChild, id })
     this.type = 'Point'
     this._shape = shape ?? 'x'
-    this._size = size ?? defaultPointSize
+    this._sizeInPixels = sizeInPixels ?? defaultPointSize
     this._thickness = thickness ?? defaultThickness
-    this.labelDx = labelDx ?? 0.2
-    this.labelDy = labelDy ?? 0.2
+    this.labelDxInPixels = labelDxInPixels ?? defaultLabelDxInPixels
+    this.labelDyInPixels = labelDyInPixels ?? defaultLabelDyInPixels
     this._x = x
     this._y = y
     this._label = label
@@ -88,14 +88,14 @@ class Point extends Element2D {
       this.elementTextLabel?.hide()
     } else this.elementTextLabel?.show()
     if (this._shape === 'x') {
-      const x1Svg = this.figure.xToSx(this._x - this._size)
-      const x2Svg = this.figure.xToSx(this._x + this._size)
-      const x3Svg = this.figure.xToSx(this._x + this._size)
-      const x4Svg = this.figure.xToSx(this._x - this._size)
-      const y1Svg = this.figure.yToSy(this._y - this._size)
-      const y2Svg = this.figure.yToSy(this._y + this._size)
-      const y3Svg = this.figure.yToSy(this._y - this._size)
-      const y4Svg = this.figure.yToSy(this._y + this._size)
+      const x1Svg = this.figure.xToSx(this._x) - this._sizeInPixels
+      const x2Svg = this.figure.xToSx(this._x) + this._sizeInPixels
+      const x3Svg = this.figure.xToSx(this._x) + this._sizeInPixels
+      const x4Svg = this.figure.xToSx(this._x) - this._sizeInPixels
+      const y1Svg = this.figure.yToSy(this._y) - this._sizeInPixels
+      const y2Svg = this.figure.yToSy(this._y) + this._sizeInPixels
+      const y3Svg = this.figure.yToSy(this._y) - this._sizeInPixels
+      const y4Svg = this.figure.yToSy(this._y) + this._sizeInPixels
       this.svgLine1.setAttribute('x1', `${x1Svg}`)
       this.svgLine1.setAttribute('y1', `${y1Svg}`)
       this.svgLine1.setAttribute('x2', `${x2Svg}`)
@@ -110,7 +110,7 @@ class Point extends Element2D {
     } else if (this._shape === 'o') {
       const xSvg = this.figure.xToSx(this._x)
       const ySvg = this.figure.yToSy(this._y)
-      const rSvg = this.figure.pixelsPerUnit * this._size
+      const rSvg = this._sizeInPixels
       this.svgCircle.setAttribute('cx', `${xSvg}`)
       this.svgCircle.setAttribute('cy', `${ySvg}`)
       this.svgCircle.setAttribute('r', `${rSvg}`)
@@ -176,12 +176,12 @@ class Point extends Element2D {
     this.update()
   }
 
-  get size (): number {
-    return this._size
+  get sizeInPixels (): number {
+    return this._sizeInPixels
   }
 
-  set size (size) {
-    this._size = size
+  set sizeInPixels (size) {
+    this._sizeInPixels = size
     this.update()
   }
 
@@ -221,7 +221,7 @@ class Point extends Element2D {
 
   set label (label: string | undefined) {
     this._label = label
-    if (label !== undefined) this.elementTextLabel = this.figure.create('TextByPoint', { point: this, text: '$' + label + '$', isChild: true, dx: this.labelDx, dy: this.labelDy, id: this.id + '_label' })
+    if (label !== undefined) this.elementTextLabel = this.figure.create('TextByPoint', { point: this, text: '$' + label + '$', isChild: true, dxInPixels: this.labelDxInPixels, dyInPixels: this.labelDyInPixels, id: this.id + '_label' })
   }
 
   /** Déplace le point */
@@ -265,7 +265,7 @@ class Point extends Element2D {
       y: this.y,
       label: this.label,
       shape: this.shape,
-      size: this.size,
+      sizeInPixels: this.sizeInPixels,
       thickness: this.thickness,
       ...super.toJSON()
     }

@@ -36,7 +36,7 @@ const btnForward = document.querySelector('#btnForward')
 btnForward?.addEventListener('click', () => figure.goForward())
 
 // Création de la figure
-const A = figure.create('Point', { x: 0, y: 0, shape: 'o', label: 'A', labelDx: -0.6, labelDy: 0.3 })
+const A = figure.create('Point', { x: 0, y: 0, shape: 'o', label: 'A', labelDxInPixels: -0.6, labelDyInPixels: 0.3 })
 const B = figure.create('Point', { x: 7, y: 2, color: 'blue', label: 'B' })
 const AB = figure.create('Line', { point1: A, point2: B })
 const C = figure.create('Point', { x: 3, y: 5, label: 'C' })

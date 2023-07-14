@@ -28,8 +28,8 @@ export interface OptionsPoint extends OptionsElement2D {
   shape?: 'x' | 'o' | '' | '|'
   size?: number
   label?: string
-  labelDx?: number
-  labelDy?: number
+  labelDxInPixels?: number
+  labelDyInPixels?: number
   isFree: boolean
 }
 
@@ -37,8 +37,8 @@ export interface OptionsPointBy extends OptionsElement2D {
   shape?: 'x' | 'o' | '' | '|'
   size?: number
   label?: string
-  labelDx?: number
-  labelDy?: number
+  labelDxInPixels?: number
+  labelDyInPixels?: number
   isFree?: boolean
 }
 
@@ -49,8 +49,8 @@ export interface OptionsPointByTranslation extends OptionsElement2D {
   size?: number
   isChild?: boolean
   label?: string
-  labelDx?: number
-  labelDy?: number
+  labelDxInPixels?: number
+  labelDyInPixels?: number
 }
 export interface OptionsElementByTranslation extends OptionsElement2D {
   origin: Element2D
@@ -59,8 +59,8 @@ export interface OptionsElementByTranslation extends OptionsElement2D {
   size?: number
   isChild?: boolean
   label?: string
-  labelDx?: number
-  labelDy?: number
+  labelDxInPixels?: number
+  labelDyInPixels?: number
 }
 
 export interface OptionsMiddle extends OptionsElement2D {
@@ -70,8 +70,8 @@ export interface OptionsMiddle extends OptionsElement2D {
   size?: number
   isChild?: boolean
   label?: string
-  labelDx?: number
-  labelDy?: number
+  labelDxInPixels?: number
+  labelDyInPixels?: number
 }
 
 export interface OptionsIntersectionLL extends OptionsElement2D {
@@ -173,8 +173,8 @@ export interface OptionsDynamicText extends OptionsElement2D {
 
 export interface OptionsRestrictedText extends OptionsElement2D {
   point: Point
-  dx?: number
-  dy?: number
+  dxInPixels?: number
+  dyInPixels?: number
   text: string
 }
 

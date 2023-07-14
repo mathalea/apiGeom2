@@ -12,8 +12,8 @@ class PointOnGraph extends Point {
     shape?: 'x' | 'o' | '' | '|'
     size?: number
     label?: string
-    labelDx?: number
-    labelDy?: number
+    labelDxInPixels?: number
+    labelDyInPixels?: number
     color?: string
     thickness?: number
     isChild?: boolean
@@ -31,6 +31,7 @@ class PointOnGraph extends Point {
   }
 
   set x (x) {
+    if (x > this.figure.xMax || x < this.figure.xMin || this.graph.f(x) > this.figure.yMax || this.graph.f(x) < this.figure.yMin) return
     this._x = x
     this._y = this.graph.f(x)
     this.update()
@@ -54,7 +55,7 @@ class PointOnGraph extends Point {
       isChild: this.isChild,
       label: this.label,
       shape: this.shape,
-      size: this.size,
+      sizeInPixels: this.sizeInPixels,
       color: this.color,
       isDashed: this.isDashed
     }

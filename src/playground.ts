@@ -41,6 +41,7 @@ const graph = figure.create('Graph', { expression: f, thickness: 2, color: 'blue
 const M = figure.create('PointOnGraph', { graph, thickness: 2, color: 'red', label: 'M' })
 M.createSegmentToAxeX()
 M.createSegmentToAxeY()
+M.sizeInPixels = 10
 figure.create('Grid')
 figure.setContainer(div)
 figure.create('DynamicX', { point: M })

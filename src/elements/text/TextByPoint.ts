@@ -10,20 +10,20 @@ export class TextByPoint extends TextByPosition {
   /** Point sur lequel apparaitra le texte */
   point: Point
   /** Décalage vertical par rapport au point */
-  dx: number
+  dxInPixels: number
   /** Décalage vertical par rapport au point */
-  dy: number
-  constructor (figure: Figure, { point, text, dx = 0, dy = 0, color = 'back', isChild, id }: OptionsRestrictedText) {
-    super(figure, { x: point.x + dx, y: point.y + dy, text, color, isChild, id })
+  dyInPixels: number
+  constructor (figure: Figure, { point, text, dxInPixels = 0, dyInPixels = 0, color = 'back', isChild, id }: OptionsRestrictedText) {
+    super(figure, { x: point.x, y: point.y, text, color, isChild, id, dxInPixels, dyInPixels })
     this.type = 'TextByPoint'
-    this.dx = dx
-    this.dy = dy
+    this.dxInPixels = dxInPixels
+    this.dyInPixels = dyInPixels
     this.point = point
     this.point.subscribe(this)
   }
 
   update (): void {
-    if (this.point?.x !== undefined && this.point?.y !== undefined) this.moveTo(this.point?.x + this.dx, this.point.y + this.dy)
+    if (this.point?.x !== undefined && this.point?.y !== undefined) this.moveTo(this.point?.x, this.point.y)
     this.notify()
   }
 
