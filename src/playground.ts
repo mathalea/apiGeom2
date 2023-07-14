@@ -34,7 +34,6 @@ btnLoad?.addEventListener('click', () => {
     )
     .catch((error) => { console.log('Erreur avec le chargement', error) })
 })
-figure.setContainer(div)
 
 // Création de la figure
 const f = 'x^3/10 + x*sin(x)'
@@ -47,3 +46,4 @@ M.createSegmentToAxeX()
 M.createSegmentToAxeY()
 figure.create('Grid')
 figure.create('Graph2', { f: (x) => x * x })
+figure.setContainer(div)

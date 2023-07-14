@@ -144,8 +144,11 @@ export interface OptionsLinePerpendicular extends OptionsElement2D {
 export interface OptionsText extends OptionsElement2D {
   x: number
   y: number
+  size?: number
   dx?: number
   dy?: number
+  dxInPixels?: number
+  dyInPixels?: number
   text: string
   anchor?: 'topLeft' | 'topRight' | 'topCenter' | 'bottomLeft' | 'bottomRight' | 'bottomCenter' | 'middleLeft' | 'middleRight' | 'middleCenter'
 }

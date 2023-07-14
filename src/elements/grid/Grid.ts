@@ -167,26 +167,18 @@ class Grid extends Element2D {
     }
     if (this.labelX) {
       for (let x = 0; x <= this.figure.xMax; x += this.stepX) {
-        const label = this.figure.create('TextByPosition', { text: `$${x.toString()}$`, x, y: 0, isChild: true, anchor: 'topCenter' })
-        label.div.style.transform += 'translate(0px, 5px)'
-        label.div.style.fontSize = '10px'
+        this.figure.create('TextByPosition', { text: `$${x.toString()}$`, size: 10, x, y: 0, isChild: true, anchor: 'topCenter', dyInPixels: 8 })
       }
       for (let x = -this.stepX; x >= this.figure.xMin; x -= this.stepX) {
-        const label = this.figure.create('TextByPosition', { text: `$${x.toString()}$`, x, y: 0, isChild: true, anchor: 'topCenter' })
-        label.div.style.transform += 'translate(0px, 5px)'
-        label.div.style.fontSize = '10px'
+        this.figure.create('TextByPosition', { text: `$${x.toString()}$`, size: 10, x, y: 0, isChild: true, anchor: 'topCenter', dyInPixels: 8 })
       }
     }
     if (this.labelY) {
       for (let y = 0; y <= this.figure.yMax; y += this.stepY) {
-        const label = this.figure.create('TextByPosition', { text: `$${y.toString()}$`, x: 0, y, isChild: true, anchor: 'middleRight' })
-        label.div.style.transform += 'translate(-10px, 2px)'
-        label.div.style.fontSize = '10px'
+        this.figure.create('TextByPosition', { text: `$${y.toString()}$`, size: 10, x: 0, y, isChild: true, anchor: 'middleRight', dxInPixels: -10, dyInPixels: 2 })
       }
       for (let y = 0; y >= this.figure.yMin; y -= this.stepY) {
-        const label = this.figure.create('TextByPosition', { text: `$${y.toString()}$`, x: 0, y, isChild: true, anchor: 'middleRight' })
-        label.div.style.transform += 'translate(-10px, 2px)'
-        label.div.style.fontSize = '10px'
+        this.figure.create('TextByPosition', { text: `$${y.toString()}$`, size: 10, x: 0, y, isChild: true, anchor: 'middleRight', dxInPixels: -10, dyInPixels: 2 })
       }
     }
     this.setVisibilityColorThicknessAndDashed()

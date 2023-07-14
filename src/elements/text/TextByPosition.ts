@@ -11,6 +11,9 @@ import { type OptionsText } from '../interfaces'
 class TextByPosition extends Element2D {
   private _x!: number
   private _y!: number
+  dxInPixels: number
+  dyInPixels: number
+  size: number
   _color: string
   /** Détermine s'il faut utiliser KaTeX pour le rendu du texte */
   private _text!: string
@@ -18,11 +21,14 @@ class TextByPosition extends Element2D {
   div!: HTMLDivElement
   anchor: 'topLeft' | 'topRight' | 'topCenter' | 'bottomLeft' | 'bottomRight' | 'bottomCenter' | 'middleLeft' | 'middleRight' | 'middleCenter'
 
-  constructor (figure: Figure, { x, y, text, color = 'black', isChild = false, id, anchor = 'middleCenter' }: OptionsText) {
+  constructor (figure: Figure, { x, y, text, color = 'black', size = 12, isChild = false, id, anchor = 'middleCenter', dxInPixels = 0, dyInPixels = 0 }: OptionsText) {
     super(figure, { isChild, id })
     this.type = 'TextByPosition'
     this._x = x
     this._y = y
+    this.size = size
+    this.dxInPixels = dxInPixels
+    this.dyInPixels = dyInPixels
     this._text = text
     this._color = color
     this.anchor = anchor
@@ -78,8 +84,12 @@ class TextByPosition extends Element2D {
       this.div.style.right = this.figure.xToSx(-x + this.figure.xMax).toString() + 'px'
     } else if (this.anchor.includes('Center')) {
       this.div.style.left = this.figure.xToSx(x - this.figure.xMin).toString() + 'px'
-      this.div.style.transform = 'translateX(-50%)'
+      this.div.style.transform += 'translateX(-50%)'
     }
+    if (this.dxInPixels !== 0) {
+      this.div.style.transform += ` translate(${this.dxInPixels.toString()}px, 0px)`
+    }
+    this.div.style.fontSize = this.size.toString() + 'px'
     this._x = x
   }
 
@@ -94,8 +104,12 @@ class TextByPosition extends Element2D {
       this.div.style.bottom = this.figure.yToSy(-y + this.figure.yMin).toString() + 'px'
     } else if (this.anchor.includes('middle')) {
       this.div.style.top = this.figure.yToSy(y - this.figure.yMax).toString() + 'px'
-      this.div.style.transform = 'translateY(-50%)'
+      this.div.style.transform += 'translateY(-50%)'
     }
+    if (this.dyInPixels !== 0) {
+      this.div.style.transform += ` translate(0px, ${this.dyInPixels.toString()}px)`
+    }
+
     this._y = y
   }
 
