@@ -78,18 +78,23 @@ class TextByPosition extends Element2D {
   }
 
   set x (x: number) {
+    let styleTransform = ''
     if (this.anchor.includes('Left')) {
       this.div.style.left = this.figure.xToSx(x - this.figure.xMin).toString() + 'px'
     } else if (this.anchor.includes('Right')) {
       this.div.style.right = this.figure.xToSx(-x + this.figure.xMax).toString() + 'px'
     } else if (this.anchor.includes('Center')) {
       this.div.style.left = this.figure.xToSx(x - this.figure.xMin).toString() + 'px'
-      this.div.style.transform += 'translateX(-50%)'
+      styleTransform += 'translateX(-50%)'
     }
-    if (this.dxInPixels !== 0) {
-      this.div.style.transform += ` translate(${this.dxInPixels.toString()}px, 0px)`
+    if (this.anchor.includes('middle')) {
+      styleTransform += 'translateY(-50%)'
+    }
+    if (this.dxInPixels !== 0 || this.dyInPixels !== 0) {
+      styleTransform += ` translate(${this.dxInPixels.toString()}px, ${this.dyInPixels.toString()}px)`
     }
     this.div.style.fontSize = this.size.toString() + 'px'
+    this.div.style.transform = styleTransform
     this._x = x
   }
 

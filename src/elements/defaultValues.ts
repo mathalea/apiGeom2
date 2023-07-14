@@ -1,5 +1,5 @@
 // Taille des points
-export const defaultSize = 0.1
+export const defaultSize = 0.15
 
 // Épaisseur des tracés
 export const defaultThickness = 2
