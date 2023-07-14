@@ -202,4 +202,4 @@ export type typeElement2D = '' |
 'Vector' | 'VectorByPoints' | 'VectorPerpendicular' |
 'Arc' | 'ArcBy3PointsAndRadius' |
 'Distance' | 'Angle' | 'DynamicCalcul' |
-'Grid' | 'Graph'
+'Grid' | 'Graph' | 'Graph2'

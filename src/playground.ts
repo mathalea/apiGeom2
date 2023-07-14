@@ -46,3 +46,4 @@ const M = figure.create('PointOnGraph', { graph, thickness: 2, color: 'red', lab
 M.createSegmentToAxeX()
 M.createSegmentToAxeY()
 figure.create('Grid')
+figure.create('Graph2', { f: (x) => x * x })

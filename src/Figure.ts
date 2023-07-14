@@ -49,6 +49,7 @@ import DynamicCalcul from './dynamicNumbers/DynamicCalcul'
 import PointOnLineAtDistance from './elements/points/PointOnLineAtDistance'
 import PerpendicularBissector from './elements/lines/PerpendicularBissector'
 import Graph from './elements/calculus/Graph'
+import Graph2 from './elements/calculus/Graph2'
 import Grid from './elements/grid/Grid'
 
 /**
@@ -355,6 +356,7 @@ const classes = {
   VectorByPoints,
   VectorPerpendicular,
   Graph,
+  Graph2,
   Grid
 }
 
