@@ -18,6 +18,11 @@ class DynamicX extends DynamicNumber {
   update (): void {
     this.value = this.point.x
     this.dynamicText.x = this.point.x
+    if (this.point.y > 0) {
+      this.dynamicText.y = -1
+    } else {
+      this.dynamicText.y = 1
+    }
     this.notify()
   }
 }
