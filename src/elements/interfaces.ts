@@ -147,6 +147,7 @@ export interface OptionsText extends OptionsElement2D {
   dx?: number
   dy?: number
   text: string
+  anchor?: 'topLeft' | 'topRight' | 'topCenter' | 'bottomLeft' | 'bottomRight' | 'bottomCenter' | 'middleLeft' | 'middleRight' | 'middleCenter'
 }
 
 export interface OptionsDynamicNumber extends OptionsElement2D {

@@ -16,14 +16,16 @@ class TextByPosition extends Element2D {
   private _text!: string
   /** Le texte est mis dans un div qui s'affichera par dessus le SVG */
   div!: HTMLDivElement
+  anchor: 'topLeft' | 'topRight' | 'topCenter' | 'bottomLeft' | 'bottomRight' | 'bottomCenter' | 'middleLeft' | 'middleRight' | 'middleCenter'
 
-  constructor (figure: Figure, { x, y, text, color = 'black', isChild = false, id }: OptionsText) {
+  constructor (figure: Figure, { x, y, text, color = 'black', isChild = false, id, anchor = 'middleCenter' }: OptionsText) {
     super(figure, { isChild, id })
     this.type = 'TextByPosition'
     this._x = x
     this._y = y
     this._text = text
     this._color = color
+    this.anchor = anchor
   }
 
   draw (): void {
@@ -70,7 +72,14 @@ class TextByPosition extends Element2D {
   }
 
   set x (x: number) {
-    this.div.style.left = this.figure.xToSx(x - this.figure.xMin).toString() + 'px'
+    if (this.anchor.includes('Left')) {
+      this.div.style.left = this.figure.xToSx(x - this.figure.xMin).toString() + 'px'
+    } else if (this.anchor.includes('Right')) {
+      this.div.style.right = this.figure.xToSx(-x + this.figure.xMax).toString() + 'px'
+    } else if (this.anchor.includes('Center')) {
+      this.div.style.left = this.figure.xToSx(x - this.figure.xMin).toString() + 'px'
+      this.div.style.transform = 'translateX(-50%)'
+    }
     this._x = x
   }
 
@@ -79,7 +88,14 @@ class TextByPosition extends Element2D {
   }
 
   set y (y: number) {
-    this.div.style.bottom = this.figure.yToSy(-y + this.figure.yMin).toString() + 'px'
+    if (this.anchor.includes('top')) {
+      this.div.style.top = this.figure.yToSy(y - this.figure.yMax).toString() + 'px'
+    } else if (this.anchor.includes('bottom')) {
+      this.div.style.bottom = this.figure.yToSy(-y + this.figure.yMin).toString() + 'px'
+    } else if (this.anchor.includes('middle')) {
+      this.div.style.top = this.figure.yToSy(y - this.figure.yMax).toString() + 'px'
+      this.div.style.transform = 'translateY(-50%)'
+    }
     this._y = y
   }
 

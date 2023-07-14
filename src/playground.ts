@@ -2,11 +2,12 @@ import Figure from './Figure'
 import * as math from 'mathjs'
 
 // Créé un espace de travail pour une figure géométrique
-const figure = new Figure({ pixelsPerUnit: 50, xMin: -5, yMin: -3, xScale: 0.5 })
+const figure = new Figure()
 
 // On affiche le svg dans un div
 const div = document.querySelector('#app') as HTMLDivElement
 div.style.marginTop = '50px'
+div.style.marginLeft = '50px'
 
 // On affiche la sauvegarde au format json dans un div
 const divSave = document.querySelector('#save') as HTMLDivElement
@@ -39,9 +40,9 @@ figure.setContainer(div)
 const f = 'x^3/10 + x*sin(x)'
 const f2 = math.derivative(f, 'x').toString()
 
-const graph = figure.create('Graph', { expression: f, thickness: 2, color: 'blue', step: 0.1 })
-figure.create('Graph', { expression: f2, thickness: 2, color: 'green', step: 0.1 })
+const graph = figure.create('Graph', { expression: f, thickness: 2, color: 'blue' })
+figure.create('Graph', { expression: f2, thickness: 2, color: 'green' })
 const M = figure.create('PointOnGraph', { graph, thickness: 2, color: 'red', label: 'M' })
 M.createSegmentToAxeX()
 M.createSegmentToAxeY()
-figure.create('Grid', {})
+figure.create('Grid')

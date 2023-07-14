@@ -11,7 +11,8 @@ class Grid extends Element2D {
   labelY: boolean
   stepX: number
   stepY: number
-  constructor (figure: Figure, { axeX = true, axeY = true, grid = true, subGrid = false, labelX = false, labelY = false, stepX = 1, stepY = 1, ...options }: {
+  subGridDivisions: number
+  constructor (figure: Figure, { axeX = true, axeY = true, grid = true, subGrid = false, labelX = true, labelY = true, stepX = 1, stepY = 1, subGridDivisions = 5, ...options }: {
     axeX?: boolean
     axeY?: boolean
     grid?: boolean
@@ -20,6 +21,7 @@ class Grid extends Element2D {
     labelY?: boolean
     stepX?: number
     stepY?: number
+    subGridDivisions?: number
   } & OptionsElement2D = {}) {
     super(figure, { ...options })
     this.type = 'Grid'
@@ -31,6 +33,7 @@ class Grid extends Element2D {
     this.labelY = labelY
     this.stepX = stepX
     this.stepY = stepY
+    this.subGridDivisions = subGridDivisions
   }
 
   draw (): void {
@@ -42,6 +45,27 @@ class Grid extends Element2D {
       svgAxeX.setAttribute('y2', this.figure.yToSy(0).toString())
       svgAxeX.setAttribute('stroke', 'black')
       svgAxeX.setAttribute('stroke-width', '1')
+      // Thicks
+      for (let x = 0; x <= this.figure.xMax; x += this.stepX) {
+        const svgLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        svgLine.setAttribute('x1', this.figure.xToSx(x).toString())
+        svgLine.setAttribute('y1', this.figure.yToSy(-0.1).toString())
+        svgLine.setAttribute('x2', this.figure.xToSx(x).toString())
+        svgLine.setAttribute('y2', this.figure.yToSy(0.1).toString())
+        svgLine.setAttribute('stroke', 'black')
+        svgLine.setAttribute('stroke-width', '1')
+        this.groupSvg.appendChild(svgLine)
+      }
+      for (let x = 0; x >= this.figure.xMin; x -= this.stepX) {
+        const svgLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        svgLine.setAttribute('x1', this.figure.xToSx(x).toString())
+        svgLine.setAttribute('y1', this.figure.yToSy(-0.1).toString())
+        svgLine.setAttribute('x2', this.figure.xToSx(x).toString())
+        svgLine.setAttribute('y2', this.figure.yToSy(0.1).toString())
+        svgLine.setAttribute('stroke', 'black')
+        svgLine.setAttribute('stroke-width', '1')
+        this.groupSvg.appendChild(svgLine)
+      }
       this.groupSvg.appendChild(svgAxeX)
     }
     if (this.axeY) {
@@ -52,29 +76,117 @@ class Grid extends Element2D {
       svgAxeY.setAttribute('y2', this.figure.yToSy(this.figure.yMax).toString())
       svgAxeY.setAttribute('stroke', 'black')
       svgAxeY.setAttribute('stroke-width', '1')
+      // Thicks
+      for (let y = 0; y <= this.figure.yMax; y += this.stepY) {
+        const svgLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        svgLine.setAttribute('x1', this.figure.xToSx(-0.1).toString())
+        svgLine.setAttribute('y1', this.figure.yToSy(y).toString())
+        svgLine.setAttribute('x2', this.figure.xToSx(0.1).toString())
+        svgLine.setAttribute('y2', this.figure.yToSy(y).toString())
+        svgLine.setAttribute('stroke', 'black')
+        svgLine.setAttribute('stroke-width', '1')
+        this.groupSvg.appendChild(svgLine)
+      }
+      for (let y = 0; y >= this.figure.yMin; y -= this.stepY) {
+        const svgLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        svgLine.setAttribute('x1', this.figure.xToSx(-0.1).toString())
+        svgLine.setAttribute('y1', this.figure.yToSy(y).toString())
+        svgLine.setAttribute('x2', this.figure.xToSx(0.1).toString())
+        svgLine.setAttribute('y2', this.figure.yToSy(y).toString())
+        svgLine.setAttribute('stroke', 'black')
+        svgLine.setAttribute('stroke-width', '1')
+        this.groupSvg.appendChild(svgLine)
+      }
       this.groupSvg.appendChild(svgAxeY)
     }
     if (this.grid) {
       const svgGrid = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-      svgGrid.setAttribute('stroke', 'black')
-      svgGrid.setAttribute('stroke-width', '0.5')
-      svgGrid.setAttribute('stroke-dasharray', '1 1')
+      svgGrid.setAttribute('stroke', 'gray')
+      svgGrid.setAttribute('stroke-opacity', '0.5')
       this.groupSvg.appendChild(svgGrid)
-      for (let x = this.figure.xMin; x <= this.figure.xMax; x += this.stepX) {
+      for (let x = 0; x <= this.figure.xMax; x += this.stepX) {
         const svgLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
         svgLine.setAttribute('x1', this.figure.xToSx(x).toString())
         svgLine.setAttribute('y1', this.figure.yToSy(this.figure.yMin).toString())
         svgLine.setAttribute('x2', this.figure.xToSx(x).toString())
         svgLine.setAttribute('y2', this.figure.yToSy(this.figure.yMax).toString())
+        svgLine.setAttribute('stroke-width', '0.5')
         svgGrid.appendChild(svgLine)
       }
-      for (let y = this.figure.yMin; y <= this.figure.yMax; y += this.stepY) {
+      for (let x = 0; x >= this.figure.xMin; x -= this.stepX) {
+        const svgLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        svgLine.setAttribute('x1', this.figure.xToSx(x).toString())
+        svgLine.setAttribute('y1', this.figure.yToSy(this.figure.yMin).toString())
+        svgLine.setAttribute('x2', this.figure.xToSx(x).toString())
+        svgLine.setAttribute('y2', this.figure.yToSy(this.figure.yMax).toString())
+        svgLine.setAttribute('stroke-width', '0.5')
+        svgGrid.appendChild(svgLine)
+      }
+      for (let y = 0; y <= this.figure.yMax; y += this.stepY) {
         const svgLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
         svgLine.setAttribute('x1', this.figure.xToSx(this.figure.xMin).toString())
         svgLine.setAttribute('y1', this.figure.yToSy(y).toString())
         svgLine.setAttribute('x2', this.figure.xToSx(this.figure.xMax).toString())
         svgLine.setAttribute('y2', this.figure.yToSy(y).toString())
+        svgLine.setAttribute('stroke-width', '0.5')
         svgGrid.appendChild(svgLine)
+      }
+      for (let y = 0; y >= this.figure.yMin; y -= this.stepY) {
+        const svgLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        svgLine.setAttribute('x1', this.figure.xToSx(this.figure.xMin).toString())
+        svgLine.setAttribute('y1', this.figure.yToSy(y).toString())
+        svgLine.setAttribute('x2', this.figure.xToSx(this.figure.xMax).toString())
+        svgLine.setAttribute('y2', this.figure.yToSy(y).toString())
+        svgLine.setAttribute('stroke-width', '0.5')
+        svgGrid.appendChild(svgLine)
+      }
+    }
+    if (this.subGrid) {
+      const svgSubGrid = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+      svgSubGrid.setAttribute('stroke', 'gray')
+      svgSubGrid.setAttribute('stroke-opacity', '0.2')
+      this.groupSvg.appendChild(svgSubGrid)
+      for (let x = this.figure.xMin; x <= this.figure.xMax; x += this.stepX / this.subGridDivisions) {
+        const svgLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        svgLine.setAttribute('x1', this.figure.xToSx(x).toString())
+        svgLine.setAttribute('y1', this.figure.yToSy(this.figure.yMin).toString())
+        svgLine.setAttribute('x2', this.figure.xToSx(x).toString())
+        svgLine.setAttribute('y2', this.figure.yToSy(this.figure.yMax).toString())
+        svgLine.setAttribute('stroke-width', '0.25')
+        svgSubGrid.appendChild(svgLine)
+      }
+      for (let y = this.figure.yMin; y <= this.figure.yMax; y += this.stepY / this.subGridDivisions) {
+        const svgLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        svgLine.setAttribute('x1', this.figure.xToSx(this.figure.xMin).toString())
+        svgLine.setAttribute('y1', this.figure.yToSy(y).toString())
+        svgLine.setAttribute('x2', this.figure.xToSx(this.figure.xMax).toString())
+        svgLine.setAttribute('y2', this.figure.yToSy(y).toString())
+        svgLine.setAttribute('stroke-width', '0.25')
+        svgSubGrid.appendChild(svgLine)
+      }
+    }
+    if (this.labelX) {
+      for (let x = 0; x <= this.figure.xMax; x += this.stepX) {
+        const label = this.figure.create('TextByPosition', { text: `$${x.toString()}$`, x, y: 0, isChild: true, anchor: 'topCenter' })
+        label.div.style.transform += 'translate(0px, 5px)'
+        label.div.style.fontSize = '10px'
+      }
+      for (let x = -this.stepX; x >= this.figure.xMin; x -= this.stepX) {
+        const label = this.figure.create('TextByPosition', { text: `$${x.toString()}$`, x, y: 0, isChild: true, anchor: 'topCenter' })
+        label.div.style.transform += 'translate(0px, 5px)'
+        label.div.style.fontSize = '10px'
+      }
+    }
+    if (this.labelY) {
+      for (let y = 0; y <= this.figure.yMax; y += this.stepY) {
+        const label = this.figure.create('TextByPosition', { text: `$${y.toString()}$`, x: 0, y, isChild: true, anchor: 'middleRight' })
+        label.div.style.transform += 'translate(-10px, 2px)'
+        label.div.style.fontSize = '10px'
+      }
+      for (let y = 0; y >= this.figure.yMin; y -= this.stepY) {
+        const label = this.figure.create('TextByPosition', { text: `$${y.toString()}$`, x: 0, y, isChild: true, anchor: 'middleRight' })
+        label.div.style.transform += 'translate(-10px, 2px)'
+        label.div.style.fontSize = '10px'
       }
     }
     this.setVisibilityColorThicknessAndDashed()

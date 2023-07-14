@@ -64,3 +64,8 @@ Remarque : cette documentation utilise pnpm mais vous pouvez bien sûr conserver
 ## Documentation
 
 `npm doc` pour générer la documentation qu'il faut ensuite lire dans `./docs/index.html`
+
+## ToDo
+
+- Sauvegarder les paramètres de la figure (scale, xScale...) dans le JSON
+- Créer un export vers un script JS

@@ -150,7 +150,7 @@ class Figure {
   create<T extends keyof typeof classes>(
     typeStr: T,
     // Les constructeurs sont de type [figure, options], donc on récupère le type des deuxièmes arguments des constructeurs
-    options: ConstructorParameters<typeof classes[T]>[1]
+    options?: ConstructorParameters<typeof classes[T]>[1]
   ): InstanceType<typeof classes[T]> {
     // @ts-expect-error Typage très complexe
     const element = new classes[typeStr](this, { ...options })
@@ -284,8 +284,17 @@ class Figure {
     if (!(parentContainer instanceof HTMLElement)) throw Error('container doit être un HTMLElement')
     this.container = document.createElement('div')
     parentContainer.appendChild(this.container)
-    this.container.style.position = 'relative'
     this.container.appendChild(this.svg)
+    this.container.style.position = 'relative'
+    this.container.style.width = this.svg.getBoundingClientRect().width.toString() + 'px'
+    this.container.style.height = this.svg.getBoundingClientRect().height.toString() + 'px'
+    this.container.style.position = 'relative'
+    this.container.style.overflow = 'hidden'
+    this.container.style.display = 'inline-block'
+    this.container.style.margin = '0'
+    this.container.style.padding = '0'
+    this.container.style.boxSizing = 'border-box'
+    this.container.style.border = 'none'
     this.drawTexts()
   }
 
