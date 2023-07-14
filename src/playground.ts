@@ -1,5 +1,4 @@
 import Figure from './Figure'
-import * as math from 'mathjs'
 
 // Créé un espace de travail pour une figure géométrique
 const figure = new Figure()
@@ -37,14 +36,12 @@ btnLoad?.addEventListener('click', () => {
 
 // Création de la figure
 const f = 'x^3/10 + x*sin(x)'
-const f2 = math.derivative(f, 'x').toString()
 
 const graph = figure.create('Graph', { expression: f, thickness: 2, color: 'blue' })
-figure.create('Graph', { expression: f2, thickness: 2, color: 'green' })
 const M = figure.create('PointOnGraph', { graph, thickness: 2, color: 'red', label: 'M' })
 M.createSegmentToAxeX()
 M.createSegmentToAxeY()
-figure.create('Point', { x: -3, y: 2, label: 'A' })
 figure.create('Grid')
-figure.create('Graph2', { f: (x) => x * x })
 figure.setContainer(div)
+figure.create('DynamicX', { point: M })
+figure.create('DynamicY', { point: M })

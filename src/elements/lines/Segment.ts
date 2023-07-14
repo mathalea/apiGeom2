@@ -1,5 +1,5 @@
 import { similitudeCoord } from '../calculus/Coords'
-import { defaultSize } from '../defaultValues'
+import { defaultPointSize } from '../defaultValues'
 import type Figure from '../../Figure'
 import Element2D from '../Element2D'
 import { type Binome, type OptionsElement2D, type OptionsLine } from '../interfaces'
@@ -28,7 +28,7 @@ class Segment extends Element2D {
     this.point1 = point1
     this.point2 = point2
     this.shape = shape
-    this.borderSize = borderSize ?? defaultSize
+    this.borderSize = borderSize ?? defaultPointSize
     this.point1.subscribe(this)
     this.point2.subscribe(this)
   }

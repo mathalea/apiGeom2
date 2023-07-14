@@ -1,5 +1,8 @@
+// Taille de la police des textes
+export const defaultFontSize = '1em'
+
 // Taille des points
-export const defaultSize = 0.15
+export const defaultPointSize = 0.15
 
 // Épaisseur des tracés
 export const defaultThickness = 2

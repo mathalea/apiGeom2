@@ -144,7 +144,7 @@ export interface OptionsLinePerpendicular extends OptionsElement2D {
 export interface OptionsText extends OptionsElement2D {
   x: number
   y: number
-  size?: number
+  size?: string
   dx?: number
   dy?: number
   dxInPixels?: number
@@ -154,7 +154,7 @@ export interface OptionsText extends OptionsElement2D {
 }
 
 export interface OptionsDynamicNumber extends OptionsElement2D {
-  isChild: boolean
+  isChild?: boolean
   textBefore?: string
   textAfter?: string
 }
@@ -204,5 +204,5 @@ export type typeElement2D = '' |
 'TextByPosition' | 'TextByPoint' | 'DisplayDistance' | 'TextDynamicByPosition' |
 'Vector' | 'VectorByPoints' | 'VectorPerpendicular' |
 'Arc' | 'ArcBy3PointsAndRadius' |
-'Distance' | 'Angle' | 'DynamicCalcul' |
+'Distance' | 'Angle' | 'DynamicCalcul' | 'DynamicX' | 'DynamicY' |
 'Grid' | 'Graph' | 'Graph2'

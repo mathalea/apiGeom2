@@ -19,6 +19,8 @@ import { loadJson } from './actions/loadJson'
 import 'katex/dist/katex.min.css'
 import TextDynamicByPosition from './elements/text/TextDynamicByPosition'
 import Distance from './dynamicNumbers/Distance'
+import DynamicX from './dynamicNumbers/DynamicX'
+import DynamicY from './dynamicNumbers/DynamicY'
 import Vector from './elements/vector/Vector'
 import VectorByPoints from './elements/vector/VectorByPoints'
 import LineParallel from './elements/lines/LineParallel'
@@ -350,6 +352,8 @@ const classes = {
   TextByPosition,
   TextDynamicByPosition,
   Distance,
+  DynamicX,
+  DynamicY,
   Angle,
   DynamicCalcul,
   Vector,

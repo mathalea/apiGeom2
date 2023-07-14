@@ -1,5 +1,5 @@
 import type Figure from '../../Figure'
-import { defaultSize, defaultThickness } from '../defaultValues'
+import { defaultPointSize, defaultThickness } from '../defaultValues'
 import Element2D from '../Element2D'
 import type Line from '../lines/Line'
 import type Segment from '../lines/Segment'
@@ -48,7 +48,7 @@ class Point extends Element2D {
     super(figure, { color, thickness, isChild, id })
     this.type = 'Point'
     this._shape = shape ?? 'x'
-    this._size = size ?? defaultSize
+    this._size = size ?? defaultPointSize
     this._thickness = thickness ?? defaultThickness
     this.labelDx = labelDx ?? 0.2
     this.labelDy = labelDy ?? 0.2
