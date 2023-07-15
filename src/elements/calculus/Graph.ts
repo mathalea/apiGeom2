@@ -2,6 +2,11 @@ import type Figure from '../../Figure'
 import Element2D from '../Element2D'
 import type { OptionsElement2D } from '../interfaces'
 import * as math from 'mathjs'
+
+/**
+ * Trace la courbe représentative d'une fonction à partir de son expression.
+ * L'expression de la fonction est un string qui est analysé par mathjs
+ */
 class Graph extends Element2D {
   expression: string
   readonly f: (x: number) => number

@@ -1,6 +1,12 @@
 import type Figure from '../../Figure'
 import Element2D from '../Element2D'
 import type { OptionsElement2D } from '../interfaces'
+
+/**
+ * Trace la courbe représentative d'une fonction.
+ * La fonction numérique est défini en JS et ne peut donc pas être sauvegardée dans le JSON.
+ */
+
 class Graph2 extends Element2D {
   f: (x: number) => number
   xMin: number

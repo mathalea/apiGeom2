@@ -70,8 +70,8 @@ class PointOnLine extends PointByDilate {
       const a = { x: this.line.point1.x, y: this.line.point1.y }
       const o = { x: this._x, y: this._y }
       const l = Math.hypot(this.line.point1.x - this._x, this.line.point1.y - this._y)
-      const { x: x1, y: y1 } = similitudeCoord(a, o, (1 / l) * this.size, 90)
-      const { x: x2, y: y2 } = similitudeCoord(a, o, (1 / l) * this.size, -90)
+      const { x: x1, y: y1 } = similitudeCoord(a, o, (1 / l) * this.sizeInPixels / this.figure.pixelsPerUnit * Math.sqrt(2), 90)
+      const { x: x2, y: y2 } = similitudeCoord(a, o, (1 / l) * this.sizeInPixels / this.figure.pixelsPerUnit * Math.sqrt(2), -90)
       if (Number.isFinite(x1) && Number.isFinite(x2) && Number.isFinite(y1) && Number.isFinite(y2)) {
         const x1Svg = this.figure.xToSx(x1).toString()
         const x2Svg = this.figure.xToSx(x2).toString()
