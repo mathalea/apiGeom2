@@ -58,7 +58,7 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
   const point = getClickedElement(figure, pointerX, pointerY)
   const myEvent = new CustomEvent('clickLocation', { detail: { x: pointerX, y: pointerY, type: point?.type } })
   document.dispatchEvent(myEvent)
-  console.log(event.detail)
+  console.log(myEvent.detail)
   if (figure.pointerAction === 'drag' && point !== undefined) {
     if (point.isFree) {
       figure.pointInDrag = point
