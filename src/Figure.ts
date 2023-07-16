@@ -14,7 +14,7 @@ import CircleCenterDynamicRadius from './elements/lines/CircleCenterDyamicRadius
 import TextByPoint from './elements/text/TextByPoint'
 import TextByPosition from './elements/text/TextByPosition'
 
-import { getClickedElement } from './pointerActions/handlePointerAction'
+import handlePointerAction from './pointerActions/handlePointerAction'
 import { loadJson } from './actions/loadJson'
 import 'katex/dist/katex.min.css'
 import TextDynamicByPosition from './elements/text/TextDynamicByPosition'
@@ -106,7 +106,7 @@ class Figure {
   /** Ordonnée du pointeur dans le repère de la figure */
   pointerY: number | null
   /** Action du pointeur (par défaut drag) */
-  private readonly _pointerAction: string
+  private _pointerAction: string
 
   /**
    * @param __namedParameters width - Largeur en pixels du SVG
@@ -204,13 +204,7 @@ class Figure {
   listenPointer (): void {
     // On créé des listenners et on change leur attitude suivant l'action en cours sauvegardée dans this.pointerAction
     this.svg.addEventListener('pointerdown', (event: PointerEvent) => {
-      const [pointerX, pointerY] = this.getPointerCoord(event)
-      const point = getClickedElement(this, pointerX, pointerY)
-      if (point?.isFree === true) {
-        this.pointInDrag = point
-        if (this.container !== null) this.container.style.cursor = 'move'
-      }
-      // handlePointerAction(this, event)
+      handlePointerAction(this, event)
     })
 
     const stopDrag = (): void => {
@@ -232,6 +226,10 @@ class Figure {
 
   get pointerAction (): string {
     return this._pointerAction
+  }
+
+  set pointerAction (action) {
+    this._pointerAction = action
   }
 
   /** Sauvegarde la figure, met à jour l'historique et l'inscrit dans le div this.divSave */
