@@ -57,9 +57,8 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
   const [pointerX, pointerY] = figure.getPointerCoord(event)
   const point = getClickedElement(figure, pointerX, pointerY)
   if (figure.machine !== undefined) {
-    figure.machine.send('clickLocation', { detail: { x: pointerX, y: pointerY, type: point?.type } })
+    figure.machine.send('clickLocation', { detail: { x: pointerX, y: pointerY, type: point?.type, point } })
   }
-  console.log('clickLocation', { detail: { x: pointerX, y: pointerY, type: point?.type } })
   if (figure.pointerAction === 'drag' && point !== undefined) {
     if (point.isFree) {
       figure.pointInDrag = point
