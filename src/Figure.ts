@@ -61,6 +61,8 @@ import Grid from './elements/grid/Grid'
 class Figure {
   /** La clé est par défaut element0, element1, element2... ou le nom de l'élément et la valeur est l'élément géométrique (segment, point, polygone...) */
   elements: Map<string, (Element2D | DynamicNumber)>
+  /** Tableau d'éléments sélectionnés (utilisé dans l'interface graphique pour faire une construction à plusieurs entrées) */
+  selectedElements: Element2D[]
   /** Un tableau des différentes sauvegardes automatiques utilisé pour les undo ou redo */
   history: string[]
   /** Nombre négatif utilisé pour undo ou redo. Par défaut à -1 pour la dernière sauvegarde, -2 pour l'avant dernière... */
@@ -139,6 +141,7 @@ class Figure {
     this._pointerAction = 'drag'
     this.pointerX = null
     this.pointerY = null
+    this.selectedElements = []
 
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
     this.divSave = null
