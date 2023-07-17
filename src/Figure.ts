@@ -107,6 +107,7 @@ class Figure {
   pointerY: number | null
   /** Action du pointeur (par défaut drag) */
   private _pointerAction: string
+  machine?: { send: (e: string, { detail }: { detail: object }) => void }
 
   /**
    * @param __namedParameters width - Largeur en pixels du SVG
@@ -148,6 +149,7 @@ class Figure {
     // Pour éviter le scroll quand on manipule la figure sur un écran tactile
     this.svg.style.touchAction = 'none'
     this.clearHtml()
+    this.machine = undefined
   }
 
   create<T extends keyof typeof classes>(
