@@ -24,8 +24,6 @@ abstract class Element2D {
   observers: Array<Element2D | DynamicNumber>
   /** Les élément qui ont isChild à true sont ceux qui sont construits par d'autres et qui n'ont pas */
   readonly isChild: boolean
-  /** Nom de l'objet qui peut être affiché ou utilisé dans l'export LaTeX */
-  label?: string
   constructor (figure: Figure, { id, color, thickness, isDashed, isChild, isVisible }: OptionsElement2D) {
     this.figure = figure
     this.isChild = (isChild) ?? false

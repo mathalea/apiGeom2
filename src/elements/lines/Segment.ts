@@ -2,7 +2,7 @@ import { distance, orthogonalProjectionCoord, similitudeCoord } from '../calculu
 import { defaultPointSize } from '../defaultValues'
 import type Figure from '../../Figure'
 import Element2D from '../Element2D'
-import { type Binome, type OptionsElement2D, type OptionsLine } from '../interfaces'
+import { type Binome, type OptionsElement2D } from '../interfaces'
 import type Point from '../points/Point'
 import type Vector from '../vector/Vector'
 
@@ -22,13 +22,19 @@ class Segment extends Element2D {
   svgBorder1!: SVGElement
   svgBorder2!: SVGElement
   borderSize: number
-  constructor (figure: Figure, { point1, point2, shape, borderSize, ...options }: OptionsLine) {
+  constructor (figure: Figure, { point1, point2, shape, borderSize, color = figure.options.color, thickness = figure.options.thickness, isDashed = figure.options.isDashed, ...options }: { point1: Point
+    point2: Point
+    shape?: '' | '|-|' | '|-' | '-|'
+    borderSize?: number } & OptionsElement2D) {
     super(figure, options)
     this.type = 'Segment'
     this.point1 = point1
     this.point2 = point2
     this.shape = shape
     this.borderSize = borderSize ?? defaultPointSize
+    this.color = color
+    this.thickness = thickness
+    this.isDashed = isDashed
     this.point1.subscribe(this)
     this.point2.subscribe(this)
   }

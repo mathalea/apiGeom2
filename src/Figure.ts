@@ -1,4 +1,4 @@
-import { defaultHistorySize } from './elements/defaultValues'
+import defaultOptions, { defaultHistorySize } from './elements/defaultValues'
 import type Element2D from './elements/Element2D'
 import type DynamicNumber from './dynamicNumbers/DynamicNumber'
 import Point from './elements/points/Point'
@@ -113,6 +113,13 @@ class Figure {
   machine?: { send: (e: string, { detail }: { detail: object }) => void }
   /** Filtre utilisé sur les éléments pour savoir ceux qui réagissent au clic */
   filter?: (e: Element2D) => boolean
+  options: {
+    thickness: number
+    color: string
+    fontSize: string
+    pointSize: number
+    isDashed: boolean
+  }
 
   /**
    * @param __namedParameters width - Largeur en pixels du SVG
@@ -145,6 +152,7 @@ class Figure {
     this.pointerX = null
     this.pointerY = null
     this.selectedElements = []
+    this.options = defaultOptions
 
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
     this.divSave = null

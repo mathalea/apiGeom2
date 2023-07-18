@@ -31,7 +31,7 @@ class Point extends Element2D {
   labelDxInPixels: number
   /** Décalage horizontal pour le nom du point */
   labelDyInPixels: number
-  constructor (figure: Figure, { x, y, shape, sizeInPixels, label, labelDxInPixels, labelDyInPixels, isFree = true, color, thickness, isChild, isVisible, id }:
+  constructor (figure: Figure, { x, y, shape, sizeInPixels, label, labelDxInPixels, labelDyInPixels, isFree = true, color = figure.options.color, thickness = figure.options.thickness, isChild, isVisible, id }:
   { x: number
     y: number
     shape?: 'x' | 'o' | '' | '|'

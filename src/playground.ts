@@ -35,14 +35,12 @@ btnLoad?.addEventListener('click', () => {
 })
 
 // Création de la figure
-const f = 'x^3/10 + x*sin(x)'
 
-const graph = figure.create('Graph', { expression: f, thickness: 2, color: 'blue' })
-const M = figure.create('PointOnGraph', { graph, thickness: 2, color: 'red', label: 'M' })
-M.createSegmentToAxeX()
-M.createSegmentToAxeY()
-M.sizeInPixels = 10
-figure.create('Grid')
 figure.setContainer(div)
-figure.create('DynamicX', { point: M })
-figure.create('DynamicY', { point: M })
+const A = figure.create('Point', { x: -5, y: -1, label: 'A' })
+const B = figure.create('Point', { x: -10, y: 0, label: 'B' })
+const AB = figure.create('Segment', { point1: A, point2: B, label: 'AB' })
+figure.options.color = 'blue'
+const C = figure.create('Point', { x: 0, y: 0, label: 'C' })
+const D = figure.create('Point', { x: 7, y: -6, label: 'D' })
+const CD = figure.create('Ray', { point1: C, point2: D, label: 'CD' })

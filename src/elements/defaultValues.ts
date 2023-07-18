@@ -49,3 +49,13 @@ export const colors = {
   darkmode: '#2e2e2b',
   darkmodelight: '#363633'
 }
+
+const defaultOptions = {
+  fontSize: defaultFontSize,
+  pointSize: defaultPointSize,
+  thickness: defaultThickness,
+  color: 'black',
+  isDashed: false,
+}
+
+export default defaultOptions
