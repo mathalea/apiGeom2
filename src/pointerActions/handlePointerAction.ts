@@ -87,7 +87,6 @@ export function getClickedElement ({ figure, pointerX, pointerY, distanceInPixel
       else div.innerText = element.id
       div.addEventListener('click', () => {
         elementText.remove()
-        element.color = 'blue'
         return element
       })
       div.addEventListener('mouseenter', () => {
