@@ -109,7 +109,10 @@ class Figure {
   pointerY: number | null
   /** Action du pointeur (par défaut drag) */
   private _pointerAction: string
+  /** Machine qui gère l'état de l'interface utilisateur */
   machine?: { send: (e: string, { detail }: { detail: object }) => void }
+  /** Filtre utilisé sur les éléments pour savoir ceux qui réagissent au clic */
+  filter?: (e: Element2D) => boolean
 
   /**
    * @param __namedParameters width - Largeur en pixels du SVG
@@ -153,6 +156,7 @@ class Figure {
     this.svg.style.touchAction = 'none'
     this.clearHtml()
     this.machine = undefined
+    this.filter = e => e instanceof Point && e.isFree
   }
 
   create<T extends keyof typeof classes>(
