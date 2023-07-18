@@ -4,16 +4,17 @@ import { colors, defaultDeltaXModal, defaultDistanceClick } from '../elements/de
 import Point from '../elements/points/Point'
 import TextByPosition from '../elements/text/TextByPosition'
 
-export function getClickedElement ({ figure, pointerX, pointerY, distanceInPixels = defaultDistanceClick, filter }: { figure: Figure, pointerX: number, pointerY: number, distanceInPixels?: number, filter?: (e: Element2D) => boolean }): Element2D | undefined {
-  if (filter === undefined) {
-    filter = (e) => e instanceof Element2D
+export default function handlePointerAction (figure: Figure, event: PointerEvent): void {
+  const [pointerX, pointerY] = figure.getPointerCoord(event)
+  if (figure.filter === undefined) {
+    figure.filter = (e) => e instanceof Element2D
   }
   const possibleElements = []
   figure.modal?.remove()
   const elements = [...figure.elements.values()].filter(e => e instanceof Element2D) as Element2D[]
-  const elementsFiltered = elements.filter(filter)
+  const elementsFiltered = elements.filter(figure.filter)
   for (const element of elementsFiltered) {
-    if (element.distancePointer(pointerX, pointerY) * figure.pixelsPerUnit < distanceInPixels) {
+    if (element.distancePointer(pointerX, pointerY) * figure.pixelsPerUnit < defaultDistanceClick) {
       possibleElements.push(element)
     }
   }
@@ -22,7 +23,7 @@ export function getClickedElement ({ figure, pointerX, pointerY, distanceInPixel
       figure.pointInDrag = possibleElements[0]
       figure.container.style.cursor = 'move'
     }
-    return possibleElements[0]
+    sendToMachine(figure, { element: possibleElements[0] })
   } else if (possibleElements.length > 1) {
     const elementText = new TextByPosition(figure, { x: pointerX + defaultDeltaXModal, y: Math.min(pointerY, figure.yMax - 2), text: '' })
     elementText.draw()
@@ -46,7 +47,7 @@ export function getClickedElement ({ figure, pointerX, pointerY, distanceInPixel
           figure.pointInDrag = element
           figure.container.style.cursor = 'move'
         }
-        return element
+        sendToMachine(figure, { element })
       })
       div.addEventListener('mouseenter', () => {
         div.style.backgroundColor = colors.lightest
@@ -63,14 +64,13 @@ export function getClickedElement ({ figure, pointerX, pointerY, distanceInPixel
     for (const div of divs) {
       figure.modal.appendChild(div)
     }
-    return undefined
+    sendToMachine(figure, { element: undefined })
   }
+  sendToMachine(figure, { element: undefined })
 }
 
-export default function handlePointerAction (figure: Figure, event: PointerEvent): void {
-  const [pointerX, pointerY] = figure.getPointerCoord(event)
-  const element = getClickedElement({ figure, pointerX, pointerY, filter: figure.filter })
+function sendToMachine (figure: Figure, { element }: { element?: Element2D }): void {
   if (figure.machine !== undefined) {
-    figure.machine.send('clickLocation', { detail: { x: pointerX, y: pointerY, type: element?.type, element } })
+    figure.machine.send('clickLocation', { element })
   }
 }

@@ -110,7 +110,7 @@ class Figure {
   /** Action du pointeur (par défaut drag) */
   private _pointerAction: string
   /** Machine qui gère l'état de l'interface utilisateur */
-  machine?: { send: (e: string, { detail }: { detail: object }) => void }
+  machine?: { send: (e: string, { element }: { element?: Element2D }) => void }
   /** Filtre utilisé sur les éléments pour savoir ceux qui réagissent au clic */
   filter?: (e: Element2D) => boolean
   options: {
