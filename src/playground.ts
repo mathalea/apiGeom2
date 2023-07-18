@@ -39,8 +39,8 @@ btnLoad?.addEventListener('click', () => {
 figure.setContainer(div)
 const A = figure.create('Point', { x: -5, y: -1, label: 'A' })
 const B = figure.create('Point', { x: -10, y: 0, label: 'B' })
-const AB = figure.create('Segment', { point1: A, point2: B, label: 'AB' })
+figure.create('Segment', { point1: A, point2: B, label: 'AB' })
 figure.options.color = 'blue'
 const C = figure.create('Point', { x: 0, y: 0, label: 'C' })
 const D = figure.create('Point', { x: 7, y: -6, label: 'D' })
-const CD = figure.create('Ray', { point1: C, point2: D, label: 'CD' })
+figure.create('Ray', { point1: C, point2: D })
