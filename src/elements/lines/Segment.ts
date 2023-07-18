@@ -1,4 +1,4 @@
-import { similitudeCoord } from '../calculus/Coords'
+import { distance, orthogonalProjectionCoord, similitudeCoord } from '../calculus/Coords'
 import { defaultPointSize } from '../defaultValues'
 import type Figure from '../../Figure'
 import Element2D from '../Element2D'
@@ -157,6 +157,12 @@ class Segment extends Element2D {
       console.log('Erreur dans Line.directeur()', error)
       return { x: NaN, y: NaN }
     }
+  }
+
+  distancePointer (x: number, y: number): number {
+    const pointerCoords = { x, y }
+    const projectionCoords = orthogonalProjectionCoord(pointerCoords, this)
+    return distance(pointerCoords, projectionCoords)
   }
 
   toJSON (): object {
