@@ -6,6 +6,7 @@ import TextByPosition from '../elements/text/TextByPosition'
 
 export default function handlePointerAction (figure: Figure, event: PointerEvent): void {
   const [pointerX, pointerY] = figure.getPointerCoord(event)
+  const [x, y] = [pointerX, pointerY]
   if (figure.filter === undefined) {
     figure.filter = (e) => e instanceof Element2D
   }
@@ -23,7 +24,7 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
       figure.pointInDrag = possibleElements[0]
       figure.container.style.cursor = 'move'
     }
-    sendToMachine(figure, { element: possibleElements[0] })
+    sendToMachine(figure, { element: possibleElements[0], x, y })
   } else if (possibleElements.length > 1) {
     const elementText = new TextByPosition(figure, { x: pointerX + defaultDeltaXModal, y: Math.min(pointerY, figure.yMax - 2), text: '' })
     elementText.draw()
@@ -47,7 +48,7 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
           figure.pointInDrag = element
           figure.container.style.cursor = 'move'
         }
-        sendToMachine(figure, { element })
+        sendToMachine(figure, { element, x, y })
       })
       div.addEventListener('mouseenter', () => {
         div.style.backgroundColor = colors.lightest
@@ -64,13 +65,13 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
     for (const div of divs) {
       figure.modal.appendChild(div)
     }
-    sendToMachine(figure, { element: undefined })
+    sendToMachine(figure, { element: undefined, x, y })
   }
-  sendToMachine(figure, { element: undefined })
+  sendToMachine(figure, { element: undefined, x, y })
 }
 
-function sendToMachine (figure: Figure, { element }: { element?: Element2D }): void {
+function sendToMachine (figure: Figure, { element, x, y }: { element?: Element2D, x: number, y: number }): void {
   if (figure.machine !== undefined) {
-    figure.machine.send('clickLocation', { element })
+    figure.machine.send('clickLocation', { element, x, y })
   }
 }
