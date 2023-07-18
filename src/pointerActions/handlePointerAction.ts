@@ -67,8 +67,13 @@ export function getClickedElement ({ figure, pointerX, pointerY, distanceInPixel
       possibleElements.push(element)
     }
   }
-  if (possibleElements.length === 1) return possibleElements[0]
-  else if (possibleElements.length > 1) {
+  if (possibleElements.length === 1) {
+    if (figure.pointerAction === 'drag' && possibleElements[0] instanceof Point && figure.container !== null) {
+      figure.pointInDrag = possibleElements[0]
+      figure.container.style.cursor = 'move'
+    }
+    return possibleElements[0]
+  } else if (possibleElements.length > 1) {
     const elementText = new TextByPosition(figure, { x: pointerX + defaultDeltaXModal, y: Math.min(pointerY, figure.yMax - 2), text: '' })
     elementText.draw()
     figure.modal = elementText.div
@@ -87,6 +92,10 @@ export function getClickedElement ({ figure, pointerX, pointerY, distanceInPixel
       else div.innerText = element.id
       div.addEventListener('click', () => {
         elementText.remove()
+        if (figure.pointerAction === 'drag' && element instanceof Point && figure.container !== null) {
+          figure.pointInDrag = element
+          figure.container.style.cursor = 'move'
+        }
         return element
       })
       div.addEventListener('mouseenter', () => {
@@ -106,7 +115,6 @@ export function getClickedElement ({ figure, pointerX, pointerY, distanceInPixel
     }
     return undefined
   }
-  return undefined
 }
 
 export default function handlePointerAction (figure: Figure, event: PointerEvent): void {
@@ -114,11 +122,5 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
   const element = getClickedElement({ figure, pointerX, pointerY, filter: figure.filter })
   if (figure.machine !== undefined) {
     figure.machine.send('clickLocation', { detail: { x: pointerX, y: pointerY, type: element?.type, element } })
-  }
-  if (figure.pointerAction === 'drag') {
-    if (element !== undefined && element instanceof Point && figure.container !== null) {
-      figure.pointInDrag = element
-      figure.container.style.cursor = 'move'
-    }
   }
 }
