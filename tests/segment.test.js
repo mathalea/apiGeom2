@@ -1,12 +1,12 @@
 import { expect, test } from 'vitest'
 import Figure from '../src/Figure'
 
-const geo = new Figure()
-const A = geo.create('Point', { x: 4, y: 5 })
-const B = geo.create('Point', { x: 8, y: -12, shape: 'o' })
-const C = geo.create('Point', { x: 9, y: 6, id: 'C' })
-const sAB = geo.create('Segment', { point1: A, point2: B, color: 'blue' })
-const sAH = geo.create('Segment', { point1: A, point2: C })
+const figure = new Figure()
+const A = figure.create('Point', { x: 4, y: 5 })
+const B = figure.create('Point', { x: 8, y: -12, shape: 'o' })
+const C = figure.create('Point', { x: 9, y: 6, id: 'C' })
+const sAB = figure.create('Segment', { point1: A, point2: B, color: 'blue' })
+const sAH = figure.create('Segment', { point1: A, point2: C })
 sAH.thickness = 3
 
 test('Point - Segment - Couleur', () => {
@@ -19,5 +19,6 @@ test('Point - Segment - Couleur', () => {
   expect(sAH.thickness).toBe(3)
   const x = -5
   A.x = x
-  expect(sAB.groupSvg.getAttribute('x1')).toBe(geo.xToSx(x).toString())
+  console.log(sAB)
+  expect(sAB.groupSvg.children[0].getAttribute('x1')).toBe(figure.xToSx(x).toString())
 })
