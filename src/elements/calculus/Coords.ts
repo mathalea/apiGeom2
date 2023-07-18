@@ -134,7 +134,7 @@ export function intersectionLLCoord (line1: Line, line2: Line): Coords {
   }
 }
 
-export function distance (A: Point, B: Point): number {
+export function distance (A: Point | Coords, B: Point | Coords): number {
   return Math.hypot(A.x - B.x, A.y - B.y)
 }
 
@@ -243,7 +243,7 @@ export function intersectionLCCoord (D: Line, C: Circle, n: 1 | 2 = 1): Coords {
  * @returns { x, y } coordonnées du projeté orthogonale sur d
  * @author Jean-Claude Lhote
  */
-export function orthogonalProjectionCoord (origin: Point, line: Line): Coords {
+export function orthogonalProjectionCoord (origin: Coords | Point, line: Line): Coords {
   try {
     const [a, b, c] = line.equation
     const k = 1 / (a * a + b * b)
