@@ -67,7 +67,6 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
     }
     sendToMachine(figure, { element: undefined, x, y })
   }
-  sendToMachine(figure, { element: undefined, x, y })
 }
 
 function sendToMachine (figure: Figure, { element, x, y }: { element?: Element2D, x: number, y: number }): void {
