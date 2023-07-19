@@ -66,6 +66,8 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
       figure.modal.appendChild(div)
     }
     sendToMachine(figure, { element: undefined, x, y })
+  } else {
+    sendToMachine(figure, { element: undefined, x, y })
   }
 }
 
