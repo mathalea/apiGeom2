@@ -86,12 +86,13 @@ abstract class Element2D {
     }
   }
 
-  temp (): void {
+  temp (): Element2D {
     this.figure.tmpElement = this
     this.color = this.figure.options.tmpColor
     this.thickness = this.figure.options.tmpThickness
     if ('isDashed' in this) this.isDashed = this.figure.options.tmpIsDashed
     if ('fillColor' in this) this.fillColor = this.figure.options.tmpFillColor
+    return this
   }
 
   /** Créé ou met à jour le groupe SVG de l'élément */

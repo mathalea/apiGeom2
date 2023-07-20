@@ -45,7 +45,7 @@ const defaultOptions = {
   fillColor: 'blue',
   fillOpacity: 0.2,
   isDashed: false,
-  tmpThickness: 2,
+  tmpThickness: 1,
   tmpColor: 'gray',
   tmpFillColor: 'gray',
   tmpFillOpacity: 0.2,
