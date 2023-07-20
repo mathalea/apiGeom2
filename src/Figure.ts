@@ -176,7 +176,7 @@ class Figure {
     this.clearHtml()
     this.pointer = new Point(this, { x: 0, y: 0, isFree: false, isChild: true, shape: '' })
     this.machine = undefined
-    this.filter = e => e instanceof Point && e.isFree
+    this.filter = e => e instanceof Point && e.isFree && e !== this.pointer
   }
 
   create<T extends keyof typeof classes>(
