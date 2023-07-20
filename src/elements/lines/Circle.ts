@@ -90,7 +90,8 @@ class Circle extends Element2D {
   }
 
   translate ({ vector, ...options }: { vector: Vector } & OptionsElement2D): Circle {
-    const newCenter = this.figure.create('PointByTranslation', { origin: this.center, vector, shape: this.center.shape })
+    const shape = this.center.shape
+    const newCenter = this.figure.create('PointByTranslation', { origin: this.center, vector, shape })
     if (this.center.label !== undefined) newCenter.label = this.center.label + "'"
     const newCircle = this.figure.create('Circle', { center: newCenter, radius: this.radius, ...options })
     return newCircle

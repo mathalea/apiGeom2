@@ -1,5 +1,4 @@
 import type Figure from '../../Figure'
-import { defaultLabelDxInPixels, defaultLabelDyInPixels, defaultPointSize, defaultThickness } from '../defaultValues'
 import Element2D from '../Element2D'
 import type Line from '../lines/Line'
 import type Segment from '../lines/Segment'
@@ -48,10 +47,10 @@ class Point extends Element2D {
     super(figure, { color, thickness, isChild, id })
     this.type = 'Point'
     this._shape = shape ?? 'x'
-    this._sizeInPixels = sizeInPixels ?? defaultPointSize
-    this._thickness = thickness ?? defaultThickness
-    this.labelDxInPixels = labelDxInPixels ?? defaultLabelDxInPixels
-    this.labelDyInPixels = labelDyInPixels ?? defaultLabelDyInPixels
+    this._sizeInPixels = sizeInPixels ?? figure.options.pointSize
+    this._thickness = thickness ?? figure.options.thickness
+    this.labelDxInPixels = labelDxInPixels ?? figure.options.labelDxInPixels
+    this.labelDyInPixels = labelDyInPixels ?? figure.options.labelDyInPixels
     this._x = x
     this._y = y
     this._label = label

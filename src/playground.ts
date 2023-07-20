@@ -37,10 +37,8 @@ btnLoad?.addEventListener('click', () => {
 // Création de la figure
 
 figure.setContainer(div)
-const A = figure.create('Point', { x: -5, y: -1, label: 'A' })
-const B = figure.create('Point', { x: -10, y: 0, label: 'B' })
-figure.create('Segment', { point1: A, point2: B, label: 'AB' })
-figure.options.color = 'blue'
-const C = figure.create('Point', { x: 0, y: 0, label: 'C' })
-const D = figure.create('Point', { x: 7, y: -6, label: 'D' })
-figure.create('Ray', { point1: C, point2: D })
+const A = figure.create('Point', { x: 0, y: 0 })
+const B = figure.create('Point', { x: 5, y: 0 })
+const AB = figure.create('Line', { point1: A, point2: B })
+const C = figure.create('Point', { x: 10, y: 2 })
+figure.create('LineParallel', { line: AB, point: C })

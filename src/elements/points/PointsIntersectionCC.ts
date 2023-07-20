@@ -13,17 +13,17 @@ class PointsIntersectionCC extends Element2D {
   point1: Point
   /** Point d'intersection avec la plus petite ordonnée */
   point2: Point
-  shape?: '' | 'x' | 'o'
-  size?: number
-  constructor (figure: Figure, { circle1, circle2, shape, size, ...options }: OptionsIntersectionCC) {
+  shape: '' | 'x' | 'o' | '|'
+  sizeInPixels?: number
+  constructor (figure: Figure, { circle1, circle2, shape, sizeInPixels, ...options }: OptionsIntersectionCC) {
     super(figure, options)
     this.type = 'PointsIntersectionCC'
-    this.point1 = figure.create('PointIntersectionCC', { circle1, circle2, n: 1, isChild: true, shape, size, ...options })
-    this.point2 = figure.create('PointIntersectionCC', { circle1, circle2, n: 2, isChild: true, shape, size, ...options })
+    this.point1 = figure.create('PointIntersectionCC', { circle1, circle2, n: 1, isChild: true, shape, sizeInPixels, ...options })
+    this.point2 = figure.create('PointIntersectionCC', { circle1, circle2, n: 2, isChild: true, shape, sizeInPixels, ...options })
     this.circle1 = circle1
     this.circle2 = circle2
     this.shape = shape
-    this.size = size
+    this.sizeInPixels = sizeInPixels
   }
 
   draw (): void {
@@ -36,7 +36,7 @@ class PointsIntersectionCC extends Element2D {
       idCircle1: this.circle1.id,
       idCircle2: this.circle2.id,
       shape: this.shape,
-      size: this.size,
+      sizeInPixels: this.sizeInPixels,
       ...super.toJSON()
     }
   }

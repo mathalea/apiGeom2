@@ -25,8 +25,8 @@ export interface OptionsElement2D {
 export interface OptionsPoint extends OptionsElement2D {
   x: number
   y: number
-  shape?: 'x' | 'o' | '' | '|'
-  size?: number
+  shape: 'x' | 'o' | '' | '|'
+  sizeInPixels?: number
   label?: string
   labelDxInPixels?: number
   labelDyInPixels?: number
@@ -34,8 +34,8 @@ export interface OptionsPoint extends OptionsElement2D {
 }
 
 export interface OptionsPointBy extends OptionsElement2D {
-  shape?: 'x' | 'o' | '' | '|'
-  size?: number
+  shape: 'x' | 'o' | '' | '|'
+  sizeInPixels?: number
   label?: string
   labelDxInPixels?: number
   labelDyInPixels?: number
@@ -45,8 +45,8 @@ export interface OptionsPointBy extends OptionsElement2D {
 export interface OptionsPointByTranslation extends OptionsElement2D {
   origin: Point
   vector: Vector
-  shape?: 'x' | 'o' | ''
-  size?: number
+  shape: 'x' | 'o' | '' | '|'
+  sizeInPixels?: number
   isChild?: boolean
   label?: string
   labelDxInPixels?: number
@@ -55,8 +55,8 @@ export interface OptionsPointByTranslation extends OptionsElement2D {
 export interface OptionsElementByTranslation extends OptionsElement2D {
   origin: Element2D
   vector: Vector
-  shape?: 'x' | 'o' | ''
-  size?: number
+  shape: 'x' | 'o' | '' | '|'
+  sizeInPixels?: number
   isChild?: boolean
   label?: string
   labelDxInPixels?: number
@@ -66,8 +66,8 @@ export interface OptionsElementByTranslation extends OptionsElement2D {
 export interface OptionsMiddle extends OptionsElement2D {
   point1: Point
   point2: Point
-  shape?: 'x' | 'o' | ''
-  size?: number
+  shape: 'x' | 'o' | '' | '|'
+  sizeInPixels?: number
   isChild?: boolean
   label?: string
   labelDxInPixels?: number
@@ -77,24 +77,24 @@ export interface OptionsMiddle extends OptionsElement2D {
 export interface OptionsIntersectionLL extends OptionsElement2D {
   line1: Line
   line2: Line
-  shape?: 'x' | 'o' | ''
-  size?: number
+  shape: 'x' | 'o' | '' | '|'
+  InPixels?: number
 }
 
 export interface OptionsIntersectionCC extends OptionsElement2D {
   circle1: Circle
   circle2: Circle
   n?: 1 | 2
-  shape?: 'x' | 'o' | ''
-  size?: number
+  shape: 'x' | 'o' | '' | '|'
+  sizeInPixels?: number
 }
 
 export interface OptionsIntersectionLC extends OptionsElement2D {
   line: Line
   circle: Circle
   n?: 1 | 2
-  shape?: 'x' | 'o' | ''
-  size?: number
+  shape: 'x' | 'o' | '' | '|'
+  sizeInPixels: number
 }
 
 export interface OptionsCircle extends OptionsElement2D {
@@ -144,7 +144,7 @@ export interface OptionsLinePerpendicular extends OptionsElement2D {
 export interface OptionsText extends OptionsElement2D {
   x: number
   y: number
-  size?: string
+  fontSize?: string
   dx?: number
   dy?: number
   dxInPixels?: number

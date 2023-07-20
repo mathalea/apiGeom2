@@ -19,6 +19,5 @@ test('Point - Segment - Couleur', () => {
   expect(sAH.thickness).toBe(3)
   const x = -5
   A.x = x
-  console.log(sAB)
   expect(sAB.groupSvg.children[0].getAttribute('x1')).toBe(figure.xToSx(x).toString())
 })

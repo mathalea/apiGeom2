@@ -1,6 +1,5 @@
 import type Figure from '../Figure'
 import type DynamicNumber from '../dynamicNumbers/DynamicNumber'
-import { defaultThickness } from './defaultValues'
 import { type OptionsElement2D, type typeElement2D } from './interfaces'
 
 abstract class Element2D {
@@ -50,9 +49,9 @@ abstract class Element2D {
       this.id = id
     }
     this.figure.elements.set(this.id, this)
-    this._color = color ?? 'black'
-    this._thickness = thickness ?? defaultThickness
-    this._isDashed = isDashed ?? false
+    this._color = color ?? this.figure.options.color
+    this._thickness = thickness ?? this.figure.options.thickness
+    this._isDashed = isDashed ?? this.figure.options.isDashed
     this._isVisible = isVisible ?? true
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'g')
     this.observers = []
@@ -172,7 +171,9 @@ abstract class Element2D {
     this._isVisible = isVisible
   }
 
-  abstract distancePointer (x: number, y: number): number
+  distancePointer (_: number, __: number): number {
+    return Infinity
+  }
 
   /** Modifie la couleur et l'épaisseur de l'élément */
   setVisibilityColorThicknessAndDashed (): void {

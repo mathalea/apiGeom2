@@ -1,41 +1,41 @@
 import { expect, test } from 'vitest'
 import Figure from '../src/Figure'
 
-const geo = new Figure()
-const A = geo.create('Point', { x: 0, y: 0 })
-geo.refreshSave()
+const figure = new Figure()
+const A = figure.create('Point', { x: 0, y: 0 })
+figure.refreshSave()
 A.moveTo(1, 1)
-geo.refreshSave()
+figure.refreshSave()
 A.moveTo(2, 2)
-geo.refreshSave()
+figure.refreshSave()
 A.moveTo(3, 3)
-geo.refreshSave()
+figure.refreshSave()
 A.moveTo(4, 4)
-geo.refreshSave()
+figure.refreshSave()
 
 test('Point - Segment - Couleur', () => {
-  geo.historyGoBack() // 3
-  geo.historyGoBack() // 2
-  geo.historyGoBack() // 1
-  geo.historyGoForward() // 2
-  let newA = geo.elements.get(A.id)
+  figure.historyGoBack() // 3
+  figure.historyGoBack() // 2
+  figure.historyGoBack() // 1
+  figure.historyGoForward() // 2
+  let newA = figure.elements.get(A.id)
   expect(newA.x).toBe(2)
-  geo.historyGoBack() // 1
-  geo.historyGoBack() // 0
-  geo.historyGoBack() // 0
-  geo.historyGoBack() // 0
-  geo.historyGoBack() // 0
-  geo.historyGoBack() // 0
-  geo.historyGoForward() // 1
-  newA = geo.elements.get(A.id)
+  figure.historyGoBack() // 1
+  figure.historyGoBack() // 0
+  figure.historyGoBack() // 0
+  figure.historyGoBack() // 0
+  figure.historyGoBack() // 0
+  figure.historyGoBack() // 0
+  figure.historyGoForward() // 1
+  newA = figure.elements.get(A.id)
   expect(newA.x).toBe(1)
-  geo.historyGoForward() // 2
-  geo.historyGoForward() // 3
-  geo.historyGoForward() // 4
-  geo.historyGoForward() // 4
-  geo.historyGoForward() // 4
-  geo.historyGoForward() // 4
-  geo.historyGoBack() // 3
-  newA = geo.elements.get(A.id)
+  figure.historyGoForward() // 2
+  figure.historyGoForward() // 3
+  figure.historyGoForward() // 4
+  figure.historyGoForward() // 4
+  figure.historyGoForward() // 4
+  figure.historyGoForward() // 4
+  figure.historyGoBack() // 3
+  newA = figure.elements.get(A.id)
   expect(newA.x).toBe(3)
 })

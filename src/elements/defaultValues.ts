@@ -1,7 +1,3 @@
-// Pour le nom des points
-export const defaultLabelDxInPixels = 20
-export const defaultLabelDyInPixels = -20
-
 // Distance entre l'endroit où on clique et les élément
 export const defaultDistanceClick = 15
 
@@ -52,7 +48,9 @@ const defaultOptions = {
   tmpThickness: 2,
   tmpColor: 'gray',
   tmpFillColor: 'gray',
-  tmpFillOpacity: 0.2
+  tmpFillOpacity: 0.2,
+  labelDxInPixels: 20,
+  labelDyInPixels: -20
 }
 
 export default defaultOptions

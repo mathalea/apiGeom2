@@ -44,7 +44,7 @@ export class PointIntersectionLL extends Point {
       idLine2: this.line2.id,
       id: this.id,
       shape: this.shape,
-      size: this.size,
+      sizeInPixels: this.sizeInPixels,
       label: this.label,
       color: this.color,
       thickness: this.thickness,

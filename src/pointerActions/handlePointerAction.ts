@@ -40,8 +40,8 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
     const divs = []
     for (const element of possibleElements) {
       const div = document.createElement('div')
-      if (element?.label !== undefined) div.innerText = element.label
-      else div.innerText = element.id
+      if (element instanceof Point) div.innerText = element.label ?? `Point ${element.id}`
+      else div.innerText = element.type + ' - ' + element.id
       div.addEventListener('click', () => {
         elementText.remove()
         if (figure.pointerAction === 'drag' && element instanceof Point && figure.container !== null) {

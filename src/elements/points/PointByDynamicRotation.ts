@@ -28,7 +28,7 @@ class PointByDynamicRotation extends PointByRotation {
       isChild: this.isChild,
       label: this.label,
       shape: this.shape,
-      size: this.size,
+      sizeInPixels: this.sizeInPixels,
       color: this.color,
       isDashed: this.isDashed
     }

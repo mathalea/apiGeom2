@@ -15,6 +15,7 @@ abstract class DynamicNumber {
   isChild: boolean
   textBefore: string
   textAfter: string
+  private readonly _label?: string
   constructor (figure: Figure, { isChild = false, textBefore = '', textAfter = '' }: OptionsDynamicNumber) {
     this.figure = figure
     this.isChild = isChild
@@ -52,6 +53,10 @@ abstract class DynamicNumber {
 
   get string (): string {
     return this.textBefore + this.value.toString() + this.textAfter
+  }
+
+  get label (): string | undefined {
+    return this._label
   }
 
   update (): void {

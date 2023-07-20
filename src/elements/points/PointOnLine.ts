@@ -6,7 +6,7 @@ import PointByDilate from './PointByDilate'
 
 class PointOnLine extends PointByDilate {
   line: Line
-  constructor (figure: Figure, { line, k, ...options }: { line: Line, k?: number } & OptionsPointBy) {
+  constructor (figure: Figure, { line, k, shape, ...options }: { line: Line, k?: number } & OptionsPointBy) {
     if (k === undefined) k = Math.random()
     super(figure, { origin: line.point2, center: line.point1, k, shape: '|', ...options })
     this.type = 'PointOnLine'

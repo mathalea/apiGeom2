@@ -8,8 +8,8 @@ class LineByPointVector extends Line {
   point: Point
   vector: Vector
   constructor (figure: Figure, { point, vector, ...options }: { point: Point, vector: Vector } & OptionsElement2D) {
-    const point2 = figure.create('PointByTranslation', { origin: point, vector, isVisible: false, isChild: true })
-    super(figure, { point1: point, point2, ...options })
+    const point2 = figure.create('PointByTranslation', { origin: point, vector, isVisible: false, shape: point.shape, isChild: true })
+    super(figure, { point1: point, point2, shape: '', ...options })
     this.type = 'LineByPointVector'
     this.point = point
     this.vector = vector

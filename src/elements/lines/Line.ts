@@ -29,12 +29,12 @@ class Line extends Segment {
     if (this.shape?.at(0) === '|') {
       this.drawBorder1()
     } else {
-      this.svgBorder1.remove()
+      this.svgBorder1?.remove()
     }
     if (this.shape?.at(-1) === '|') {
       this.drawBorder2()
     } else {
-      this.svgBorder2.remove()
+      this.svgBorder2?.remove()
     }
     this.notify()
   }

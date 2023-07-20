@@ -1,5 +1,4 @@
 import { distance, orthogonalProjectionCoord, similitudeCoord } from '../calculus/Coords'
-import { defaultPointSize } from '../defaultValues'
 import type Figure from '../../Figure'
 import Element2D from '../Element2D'
 import { type Binome, type OptionsElement2D } from '../interfaces'
@@ -22,7 +21,7 @@ class Segment extends Element2D {
   svgBorder1!: SVGElement
   svgBorder2!: SVGElement
   borderSize: number
-  constructor (figure: Figure, { point1, point2, shape, borderSize, color = figure.options.color, thickness = figure.options.thickness, isDashed = figure.options.isDashed, ...options }: { point1: Point
+  constructor (figure: Figure, { point1, point2, shape = '', borderSize, color = figure.options.color, thickness = figure.options.thickness, isDashed = figure.options.isDashed, ...options }: { point1: Point
     point2: Point
     shape?: '' | '|-|' | '|-' | '-|'
     borderSize?: number } & OptionsElement2D) {
@@ -31,7 +30,7 @@ class Segment extends Element2D {
     this.point1 = point1
     this.point2 = point2
     this.shape = shape
-    this.borderSize = borderSize ?? defaultPointSize
+    this.borderSize = borderSize ?? figure.options.pointSize
     this.color = color
     this.thickness = thickness
     this.isDashed = isDashed
@@ -53,8 +52,8 @@ class Segment extends Element2D {
   }
 
   translate ({ vector, ...options }: { vector: Vector } & OptionsElement2D): Segment {
-    const newPoint1 = this.figure.create('PointByTranslation', { vector, origin: this.point1 })
-    const newPoint2 = this.figure.create('PointByTranslation', { vector, origin: this.point2 })
+    const newPoint1 = this.figure.create('PointByTranslation', { vector, origin: this.point1, shape: this.point1.shape })
+    const newPoint2 = this.figure.create('PointByTranslation', { vector, origin: this.point2, shape: this.point2.shape })
     const type = this.type as 'Line' | 'Segment' | 'Ray'
     const result = this.figure.create(type, { point1: newPoint1, point2: newPoint2, ...options }) as Segment
     return result
@@ -81,12 +80,12 @@ class Segment extends Element2D {
     if (this.shape?.at(0) === '|') {
       this.drawBorder1()
     } else {
-      this.svgBorder1.remove()
+      this.svgBorder1?.remove()
     }
     if (this.shape?.at(-1) === '|') {
       this.drawBorder2()
     } else {
-      this.svgBorder2.remove()
+      this.svgBorder2?.remove()
     }
   }
 

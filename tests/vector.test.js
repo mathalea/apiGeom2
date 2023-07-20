@@ -1,13 +1,13 @@
 import { expect, test } from 'vitest'
 import Figure from '../src/Figure'
 
-const geo = new Figure()
-const A = geo.create('Point', { x: -1, y: -1 })
-const B = geo.create('Point', { x: 5, y: -1 })
-const O = geo.create('Point', { x: -4, y: -7 })
-const v1 = geo.create('Vector', { x: 2, y: 2, origin: O })
-const v2 = geo.create('VectorByPoints', { point1: A, point2: B, origin: O })
-const v3 = geo.create('VectorByPoints', { point1: A, point2: B })
+const figure = new Figure()
+const A = figure.create('Point', { x: -1, y: -1 })
+const B = figure.create('Point', { x: 5, y: -1 })
+const O = figure.create('Point', { x: -4, y: -7 })
+const v1 = figure.create('Vector', { x: 2, y: 2, origin: O })
+const v2 = figure.create('VectorByPoints', { point1: A, point2: B, origin: O })
+const v3 = figure.create('VectorByPoints', { point1: A, point2: B })
 
 test('Vecteurs', () => {
   expect(v1.representation.point2.x).toBe(-2)

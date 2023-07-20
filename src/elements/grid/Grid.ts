@@ -167,18 +167,18 @@ class Grid extends Element2D {
     }
     if (this.labelX) {
       for (let x = 0; x <= this.figure.xMax; x += this.stepX) {
-        this.figure.create('TextByPosition', { text: `$${x.toString()}$`, size: '8pt', x, y: 0, isChild: true, anchor: 'topCenter', dyInPixels: 3 })
+        this.figure.create('TextByPosition', { text: `$${x.toString()}$`, fontSize: '8pt', x, y: 0, isChild: true, anchor: 'topCenter', dyInPixels: 3 })
       }
       for (let x = -this.stepX; x >= this.figure.xMin; x -= this.stepX) {
-        this.figure.create('TextByPosition', { text: `$${x.toString()}$`, size: '8pt', x, y: 0, isChild: true, anchor: 'topCenter', dyInPixels: 3 })
+        this.figure.create('TextByPosition', { text: `$${x.toString()}$`, fontSize: '8pt', x, y: 0, isChild: true, anchor: 'topCenter', dyInPixels: 3 })
       }
     }
     if (this.labelY) {
       for (let y = 0; y <= this.figure.yMax; y += this.stepY) {
-        this.figure.create('TextByPosition', { text: `$${y.toString()}$`, size: '8pt', x: 0, y, isChild: true, anchor: 'middleRight', dxInPixels: -10, dyInPixels: 2 })
+        this.figure.create('TextByPosition', { text: `$${y.toString()}$`, fontSize: '8pt', x: 0, y, isChild: true, anchor: 'middleRight', dxInPixels: -10, dyInPixels: 2 })
       }
       for (let y = 0; y >= this.figure.yMin; y -= this.stepY) {
-        this.figure.create('TextByPosition', { text: `$${y.toString()}$`, size: '8pt', x: 0, y, isChild: true, anchor: 'middleRight', dxInPixels: -10, dyInPixels: 2 })
+        this.figure.create('TextByPosition', { text: `$${y.toString()}$`, fontSize: '8pt', x: 0, y, isChild: true, anchor: 'middleRight', dxInPixels: -10, dyInPixels: 2 })
       }
     }
     this.setVisibilityColorThicknessAndDashed()

@@ -127,6 +127,9 @@ class Figure {
     tmpThickness: number
     tmpColor: string
     tmpFillColor: string
+    tmpFillOpacity: number
+    labelDxInPixels: number
+    labelDyInPixels: number
   }
 
   /**
