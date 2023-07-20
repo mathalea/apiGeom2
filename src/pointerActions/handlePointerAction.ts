@@ -13,7 +13,7 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
   const possibleElements = []
   figure.modal?.remove()
   const elements = [...figure.elements.values()].filter(e => e instanceof Element2D) as Element2D[]
-  const elementsFiltered = elements.filter(figure.filter)
+  const elementsFiltered = elements.filter(figure.filter).filter(e => e.type !== 'pointer')
   for (const element of elementsFiltered) {
     if (element.distancePointer(pointerX, pointerY) * figure.pixelsPerUnit < defaultDistanceClick) {
       possibleElements.push(element)

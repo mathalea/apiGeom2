@@ -175,8 +175,9 @@ class Figure {
     this.svg.style.touchAction = 'none'
     this.clearHtml()
     this.pointer = new Point(this, { x: 0, y: 0, isFree: false, isChild: true, shape: '' })
+    this.pointer.type = 'pointer'
     this.machine = undefined
-    this.filter = e => e instanceof Point && e.isFree && e !== this.pointer
+    this.filter = e => e instanceof Point && e.isFree
   }
 
   create<T extends keyof typeof classes>(
