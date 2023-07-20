@@ -63,6 +63,8 @@ class Figure {
   elements: Map<string, (Element2D | DynamicNumber)>
   /** Tableau d'éléments sélectionnés (utilisé dans l'interface graphique pour faire une construction à plusieurs entrées) */
   selectedElements: Element2D[]
+  /** Élément temporaire (utilisé dans l'interface graphique pour donner un aperçu de le construction en cours) */
+  tmpElement: Element2D | undefined
   /** Un tableau des différentes sauvegardes automatiques utilisé pour les undo ou redo */
   history: string[]
   /** Nombre négatif utilisé pour undo ou redo. Par défaut à -1 pour la dernière sauvegarde, -2 pour l'avant dernière... */
@@ -118,9 +120,13 @@ class Figure {
   options: {
     thickness: number
     color: string
+    fillColor: string
     fontSize: string
     pointSize: number
     isDashed: boolean
+    tmpThickness: number
+    tmpColor: string
+    tmpFillColor: string
   }
 
   /**

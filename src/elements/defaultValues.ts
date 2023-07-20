@@ -1,12 +1,3 @@
-// Taille de la police des textes
-export const defaultFontSize = '1em'
-
-// Taille des points
-export const defaultPointSize = 5
-
-// Épaisseur des tracés
-export const defaultThickness = 2
-
 // Pour le nom des points
 export const defaultLabelDxInPixels = 20
 export const defaultLabelDyInPixels = -20
@@ -51,11 +42,17 @@ export const colors = {
 }
 
 const defaultOptions = {
-  fontSize: defaultFontSize,
-  pointSize: defaultPointSize,
-  thickness: defaultThickness,
+  fontSize: '1em',
+  pointSize: 5,
+  thickness: 2,
   color: 'black',
+  fillColor: 'blue',
+  fillOpacity: 0.2,
   isDashed: false,
+  tmpThickness: 2,
+  tmpColor: 'gray',
+  tmpFillColor: 'gray',
+  tmpFillOpacity: 0.2
 }
 
 export default defaultOptions
