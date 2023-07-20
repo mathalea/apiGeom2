@@ -2,7 +2,7 @@
   "name": "apigeom",
   "description": "Géométrie dynamique",
   "private": true,
-  "version": "0.0.22",
+  "version": "0.0.23",
   "keywords": [
     "geometry",
     "dynamic",
