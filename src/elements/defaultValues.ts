@@ -49,6 +49,7 @@ const defaultOptions = {
   tmpColor: 'gray',
   tmpFillColor: 'gray',
   tmpFillOpacity: 0.2,
+  tmpIsDashed: true,
   labelDxInPixels: 20,
   labelDyInPixels: -20
 }

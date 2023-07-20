@@ -128,6 +128,7 @@ class Figure {
     tmpColor: string
     tmpFillColor: string
     tmpFillOpacity: number
+    tmpIsDashed: boolean
     labelDxInPixels: number
     labelDyInPixels: number
   }
