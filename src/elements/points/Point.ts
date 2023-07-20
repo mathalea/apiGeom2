@@ -118,9 +118,9 @@ class Point extends Element2D {
       this.svgLine2.remove()
       this.groupSvg.appendChild(this.svgCircle)
     } else if (this._shape === '') {
-      this.svgLine1.remove()
-      this.svgLine2.remove()
-      this.svgCircle.remove()
+      this.svgLine1?.remove()
+      this.svgLine2?.remove()
+      this.svgCircle?.remove()
     }
   }
 

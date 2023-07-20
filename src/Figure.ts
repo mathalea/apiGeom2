@@ -107,6 +107,8 @@ class Figure {
   pointerX: number | null
   /** Ordonnée du pointeur dans le repère de la figure */
   pointerY: number | null
+  /** Point virtuel qui suit le pointer */
+  pointer: Point
   /** Action du pointeur (par défaut drag) */
   private _pointerAction: string
   /** Machine qui gère l'état de l'interface utilisateur */
@@ -163,6 +165,7 @@ class Figure {
     // Pour éviter le scroll quand on manipule la figure sur un écran tactile
     this.svg.style.touchAction = 'none'
     this.clearHtml()
+    this.pointer = new Point(this, { x: 0, y: 0, isFree: false, isChild: true, shape: '' })
     this.machine = undefined
     this.filter = e => e instanceof Point && e.isFree
   }
@@ -235,8 +238,9 @@ class Figure {
     this.svg.addEventListener('pointerleave', stopDrag)
 
     this.svg.addEventListener('pointermove', (event) => {
-      if (this.pointInDrag === undefined) return
       const [pointerX, pointerY] = this.getPointerCoord(event)
+      this.pointer.moveTo(pointerX, pointerY)
+      if (this.pointInDrag === undefined) return
       this.pointInDrag.moveTo(pointerX, pointerY)
     })
   }
