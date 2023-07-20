@@ -13,10 +13,13 @@ class Polygon extends Element2D {
   points: Point[]
   /** Liste des côtés */
   readonly segments: Segment[]
-  constructor (figure: Figure, { points, ...options }: { points: Point[] }) {
+  /** Forme des sommets */
+  shape: 'x' | 'o' | ''
+  constructor (figure: Figure, { points, shape = '', ...options }: { points: Point[], shape?: 'x' | 'o' | '' } & OptionsElement2D) {
     super(figure, options)
     this.type = 'Polygon'
     this.points = points
+    this.shape = shape
     this.segments = []
     for (const point of points) {
       point.subscribe(this)
@@ -26,6 +29,7 @@ class Polygon extends Element2D {
   draw (): void {
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'polygon')
     this.groupSvg.setAttribute('fill', 'none')
+    this.points.forEach((point) => { point.shape = this.shape })
     this.setVisibilityColorThicknessAndDashed()
     this.createSegments()
     this.update()
