@@ -53,6 +53,7 @@ import PerpendicularBissector from './elements/lines/PerpendicularBissector'
 import Graph from './elements/calculus/Graph'
 import Graph2 from './elements/calculus/Graph2'
 import Grid from './elements/grid/Grid'
+import type { eventMachine } from './uiMachine'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -114,7 +115,7 @@ class Figure {
   /** Action du pointeur (par défaut drag) */
   private _pointerAction: string
   /** Machine qui gère l'état de l'interface utilisateur */
-  machine?: { send: (e: string, { element, x, y }: { element?: Element2D, x: number, y: number }) => void }
+  machine?: { send: (e: eventMachine) => void }
   /** Filtre utilisé sur les éléments pour savoir ceux qui réagissent au clic */
   filter?: (e: Element2D) => boolean
   options: {

@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "katex": "^0.16.8",
-    "mathjs": "^11.8.2"
+    "mathjs": "^11.8.2",
+    "xstate": "^4.38.1"
   }
 }
