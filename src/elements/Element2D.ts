@@ -79,6 +79,8 @@ abstract class Element2D {
   }
 
   remove (): void {
+    const element = this.figure.elements.get(this.id)
+    element?.observers.forEach(observer => { observer.remove() })
     this.figure.elements.delete(this.id)
     this.groupSvg.remove()
     for (const element of this.observers) {
@@ -87,11 +89,12 @@ abstract class Element2D {
   }
 
   temp (): Element2D {
-    this.figure.tmpElement = this
+    this.figure.tmpElements.push(this)
     this.color = this.figure.options.tmpColor
     this.thickness = this.figure.options.tmpThickness
     if ('isDashed' in this) this.isDashed = this.figure.options.tmpIsDashed
     if ('fillColor' in this) this.fillColor = this.figure.options.tmpFillColor
+    if ('fillOpacity' in this) this.fillOpacity = this.figure.options.tmpFillOpacity
     return this
   }
 

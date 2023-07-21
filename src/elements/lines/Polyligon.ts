@@ -15,12 +15,16 @@ class Polygon extends Element2D {
   readonly segments: Segment[]
   /** Forme des sommets */
   shape: 'x' | 'o' | ''
-  constructor (figure: Figure, { points, shape = '', ...options }: { points: Point[], shape?: 'x' | 'o' | '' } & OptionsElement2D) {
+  fillColor = 'none'
+  fillOpacity = 0.5
+  constructor (figure: Figure, { points, shape = '', fillColor = 'none', fillOpacity = figure.options.fillOpacity, ...options }: { points: Point[], fillColor?: string, fillOpacity?: number, shape?: 'x' | 'o' | '' } & OptionsElement2D) {
     super(figure, options)
     this.type = 'Polygon'
     this.points = points
     this.shape = shape
     this.segments = []
+    this.fillColor = fillColor
+    this.fillOpacity = fillOpacity
     for (const point of points) {
       point.subscribe(this)
     }
@@ -28,8 +32,8 @@ class Polygon extends Element2D {
 
   draw (): void {
     this.groupSvg = document.createElementNS('http://www.w3.org/2000/svg', 'polygon')
-    this.groupSvg.setAttribute('fill', 'none')
-    this.points.forEach((point) => { point.shape = this.shape })
+    this.groupSvg.setAttribute('fill', this.fillColor ?? 'none')
+    this.groupSvg.setAttribute('fill-opacity', this.fillOpacity.toString())
     this.setVisibilityColorThicknessAndDashed()
     this.createSegments()
     this.update()

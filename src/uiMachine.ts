@@ -102,10 +102,10 @@ const ui = createMachine({
               actions: (context, event) => {
                 context.figure.selectedElements[0] =
                   getExisitingPointOrCreatedPoint(context, event)
-                context.figure.create('Segment', {
+                context.figure.tempCreate('Segment', {
                   point1: context.figure.selectedElements[0] as Point,
                   point2: context.figure.pointer
-                }).temp()
+                })
               }
             }
           }
@@ -123,7 +123,7 @@ const ui = createMachine({
                   Point
                 ]
                 context.figure.create('Segment', { point1, point2 })
-                if (context.figure.tmpElement !== undefined) context.figure.tmpElement.remove()
+                context.figure.tmpElements?.forEach(e => { e.remove() })
               }
             }
           }
@@ -293,7 +293,7 @@ const ui = createMachine({
         },
         waitingElement: {
           exit: (context) => {
-            if (context.figure.tmpElement !== undefined) { context.figure.tmpElement.remove() }
+            context.figure.tmpElements?.forEach(e => { e.remove() })
           },
           on: {
             clickLocation: [
@@ -302,17 +302,18 @@ const ui = createMachine({
                 actions: (context, event) => {
                   context.figure.selectedElements.push(event.element)
                   if (context.figure.selectedElements.length === 0) {
-                    context.figure.create(
+                    context.figure.tempCreate(
                       'Segment',
                       {
                         point1: context.figure.selectedElements[0] as Point,
-                        point2: context.figure.pointer
+                        point2: context.figure.pointer,
+                        isChild: true
                       }
-                    ).temp()
+                    )
                   } else {
                     const points = [...context.figure.selectedElements, context.figure.pointer] as Point[]
-                    context.figure.create('Polygon', { points }
-                    ).temp()
+                    context.figure.tempCreate('Polygon', { points, isChild: true }
+                    )
                   }
                   if (context.figure.selectedElements.length > 2) {
                     sendStopIsHidden(false)
@@ -349,8 +350,7 @@ const ui = createMachine({
           },
           entry: (context) => {
             context.figure.create('Polygon', {
-              points: context.figure.selectedElements as Point[],
-              color: 'blue'
+              points: context.figure.selectedElements as Point[]
             })
             context.figure.selectedElements = []
             sendStopIsHidden(true)

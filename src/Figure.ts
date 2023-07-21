@@ -65,7 +65,7 @@ class Figure {
   /** Tableau d'éléments sélectionnés (utilisé dans l'interface graphique pour faire une construction à plusieurs entrées) */
   selectedElements: Element2D[]
   /** Élément temporaire (utilisé dans l'interface graphique pour donner un aperçu de le construction en cours) */
-  tmpElement: Element2D | undefined
+  tmpElements: Element2D[]
   /** Un tableau des différentes sauvegardes automatiques utilisé pour les undo ou redo */
   history: string[]
   /** Nombre négatif utilisé pour undo ou redo. Par défaut à -1 pour la dernière sauvegarde, -2 pour l'avant dernière... */
@@ -122,6 +122,7 @@ class Figure {
     thickness: number
     color: string
     fillColor: string
+    fillOpacity: number
     fontSize: string
     pointSize: number
     isDashed: boolean
@@ -165,6 +166,7 @@ class Figure {
     this.pointerX = null
     this.pointerY = null
     this.selectedElements = []
+    this.tmpElements = []
     this.options = defaultOptions
 
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
@@ -190,8 +192,20 @@ class Figure {
     // @ts-expect-error Typage très complexe
     const element = new classes[typeStr](this, { ...options })
     element.draw()
+    this.refreshSave()
     // @ts-expect-error Typage très complexe
     return element
+  }
+
+  tempCreate (typeStr: string, options?: ConstructorParameters<typeof classes[keyof typeof classes]>[1]): void {
+    // @ts-expect-error Typage très complexe
+    const element = this.create(typeStr, { isChild: true, ...options }) as Element2D
+    element.color = this.options.tmpColor
+    element.thickness = this.options.tmpThickness
+    if ('isDashed' in element) element.isDashed = this.options.tmpIsDashed
+    if ('fillColor' in element) element.fillColor = this.options.tmpFillColor
+    if ('fillOpacity' in element) element.fillOpacity = this.options.tmpFillOpacity
+    this.tmpElements.push(element)
   }
 
   clearHtml (): void {
