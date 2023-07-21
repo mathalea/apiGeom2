@@ -2,14 +2,15 @@ import type Figure from './Figure'
 import Segment from './elements/lines/Segment'
 import Point from './elements/points/Point'
 import { isStopHidden } from './store'
-import { createMachine } from 'xstate'
+import { type AnyEventObject, createMachine } from 'xstate'
+import type Element2D from './elements/Element2D'
 
 interface MyContext {
   figure: Figure
 }
 
-export type eventMachine =
-  | { type: 'clickLocation', x: number, y: number, element: Element | undefined }
+export type eventName =
+  | 'clickLocation'
   | 'POINT'
   | 'LINE'
   | 'SEGMENT'
@@ -17,16 +18,25 @@ export type eventMachine =
   | 'PERPENDICULAR'
   | 'PARALLEL'
   | 'POLYGON'
-  | { type: 'COLOR', text: string }
+  | 'COLOR'
 
-export const uiMachine = createMachine({
-  /** @xstate-layout N4IgpgJg5mDOIC5QEMAOBLA4mA9gWwFUBJAYgAUB5IgOQBUBtABgF1FRUdZ0AXdHAOzYgAHogAsAJgA0IAJ6IAzAEZGAOjEB2AGwBWABxidOrUoCcGnQF9LMtFlyFSAGRoBRJqyQgOXXgKGiCJIy8ggmYqqmjFoSGnFKGqamEqbWthjY+MQkAMqumACyrnQeQj48fIJegcFyiKYJqsoSOhJiCgoaCqZGaSB2mY4kACIASgCCmKVe5X5VoDXSdQhKEkpaTYxrCYwqsUp6fQMO2WSuo2fUw0QAwgRO46PT7JwV-tXiS6FKhhKqWhozB0FIYtoCjhkTqQyI9xk4nK4nM9vK85gFPiFEAkjKpGBo9AkkloxJIkhD7FloRQnABNTAUajI2aVdFBL6ICQpDZiAySRjGUxaYnkwbZG7UihPFhlVEsj5szErRgRHSMNUqXb6HSmAkiqGqMaTEgAYwANuhjQBrJw4Y3IOZM2XvBYcmJNBQSLZCrRqxjJRUqHWqCS6YnmQU6DqHGz9SGU1SUGi0VQAd2QFX4UAAYjgAE42u1zE3mq0F+2VR2+OUuhCenSqAlabo-SQ6MTmBSKhSMBSqVXqmJRZQkvXxvKFYrJtMZ7N5rPoXOwbiuU1gPBgfjcYsW6228sCStveYicQKDZtTkKbVRDQ9sSKwVKBurVpaUyGPR6fSjxyqcdFOhU3TXhMxzXMcjAY0BAgFc1w3LczR3MsHWlGYnWPGoz2DSQJCvJI8TvRU9F0JptTEZU-VaTpUhjY54xcahXCAmcwPnRdl1XddN23Us9xQzwXirZ0TwQbp6wOCwrxaWJok7ZZdFMdRogkPQexDHkPR-YhVAYpjpxA2dwMg6DYK4hCS13QsK1QwSj1ZMTVAkyNWlaW8m0VYw-h6ZQdA0TR9CvBQtKIBNzkua47geUZmIM1iFyXUz4J4yz934Q80XlHkNHUNYh2UPRuxJOTvnbbKEiBbVnOxYLQouYoIvuR4YvQUC8wgqD+BgziksQ3irIPGyUSEjDxD0bLJDMHt8sK9oA3ItRAU-JRlC2YjzBqmEJnhRFmta3M2IS7ruN6lL+JlYbWXaDYDGops1KvNsA0SRTfIJPQWg0FJPQkDbYW2pxdsM9qTKO8ykL46yBKGuzMqwm7Ejuj0HvvZYdl7F9+XMTlYhaDbqTpBlcloCgyEoWl6UZQbmWEwI2hVd6ewCgExuJRVOQKyJeTrN8hTPPHyYZQHEuOizkMh86YZrT1sq0MadASWIDEBdzlk9fk+2UbsmzEdYLB+2i41-MmCeoIXQeSsWDyUKHqZGoJNAbT1Nd0VUVJR0I1ibYMQR1gxvtifmTb-YnSfximSHS6sRLu3ElGMH48VMBQCp0NmlDj1QuhJXCXb0BprBjfgcAgOAhDoxwJYymsAFotEVWuasNTBK6jwIfmyrkWZ7Mb+Vqb4zEUxa4nUxb1jxpMW5prFk-UBPfO0WWendrE31xX11i-K9yI6cfAP0lrDMt49bdZA5uTnuIhTzx7lnIiJvOWhpyMFXCav-SdJ7t9Y1Dzgx44BIqydFRxGyl+d8PYEiAmUEoN++QAJTmAgfOK7FhbcE-qyT0egGw6kMCYAB7QgHLDGlgvWTZ8TRCSIYWBE496IL2sDTqqD0Hykqv8OWstux+TGqYIiBJgyvhSNEBIHpozpApL+XSzCazp0UvDIwpISQxFTrfCw6hIxxxdsPAwNVdKA2QYdOCm4pEiV1g2doFg2wpEUS0Dy2gmhiCbEkJOKlnI6LcHotqxlGGg2MYEeR-wREAgFO2PEtisEGEcUkERriDbiO0mcOqVxbiNVGL4jkqxcT4lWCCHoyp2jLxWJrYMBwCRrCVjEURsY4khQSeFZJUUPH7XihxQxaC0IXXlCGNQeJSk5NVEVApPwfiOVWN3ChZ4RyxNFDUsK9V6lNX3vQrxXVWlpIQICP48i-IqD8jrDoc11j-FGcncZxIxC-S2giJwaz1hPn7LsYkz0LEBhMPWJR-JPzKnWL0KZ+pNpwiuY0g6LSzJrM9C9dejykjPNRsrPsBw3ayxZp9C5AKdqLKBssph7TJbRxMJEBeIJMY+0GYCRSux3oRM-NoFFvz4zGwpjc7UbCLAK3xJodYxUsQNCwRA7slirwcMDhTM2qycVVxEnTPsDMrwFWZtoApaxoic2zg0ZISNhWCxyCHBlDI1mfXEpqHkxFVhjQ0GnSQmcfZxyWnyIKdLfziicJKJlHcQTJ0SKCC8yjQh8PuXiTQt5IzRALpYIAA */
+export type eventOptions =
+  | { x: number, y: number, element?: Element2D }
+  | { text: string }
+
+interface MyEvent extends AnyEventObject {
+  x?: number
+  y?: number
+  element?: Element2D
+  text?: string
+}
+
+const ui = createMachine({
   predictableActionArguments: true,
   id: 'apiGeomUI',
   initial: 'DRAG',
-  context: {
-    figure: {} as Figure
-  },
+  /* eslint-disable-next-line @typescript-eslint/consistent-type-assertions */
+  context: {} as { figure: Figure },
   on: {
     POINT: 'POINT',
     LINE: 'LINE',
@@ -40,7 +50,7 @@ export const uiMachine = createMachine({
   states: {
     DRAG: {
       entry: (context) => {
-        if (context.figure.elements.size > 0) {
+        if (context.figure.elements.size > 1) {
           userMessage('Cliquer sur point pour le déplacer.')
         } else {
           userMessage('')
@@ -301,7 +311,7 @@ export const uiMachine = createMachine({
                     ).temp()
                   } else {
                     const points = [...context.figure.selectedElements, context.figure.pointer] as Point[]
-                    context.figure.create('Polygon', { points, shape: points[0].shape }
+                    context.figure.create('Polygon', { points }
                     ).temp()
                   }
                   if (context.figure.selectedElements.length > 2) {
@@ -356,11 +366,12 @@ export const uiMachine = createMachine({
   }
 })
 
-function getExisitingPointOrCreatedPoint (context: MyContext, event: Event): Point {
+function getExisitingPointOrCreatedPoint (context: MyContext, event: MyEvent): Point {
   if (event.element instanceof Point) {
     return event.element
   }
-  return context.figure.create('Point', { x: event.x, y: event.y })
+  const [x, y] = [event.x as number, event.y as number]
+  return context.figure.create('Point', { x, y })
 }
 
 function userMessage (text: string): void {
@@ -371,3 +382,5 @@ function userMessage (text: string): void {
 function sendStopIsHidden (e: boolean): void {
   isStopHidden.set(e)
 }
+
+export default ui

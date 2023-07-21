@@ -72,7 +72,7 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
 }
 
 function sendToMachine (figure: Figure, { element, x, y }: { element?: Element2D, x: number, y: number }): void {
-  if (figure.machine !== undefined) {
-    figure.machine.send('clickLocation', { element, x, y })
+  if (figure.ui !== undefined) {
+    figure.ui.send('clickLocation', { element, x, y })
   }
 }

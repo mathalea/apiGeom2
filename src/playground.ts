@@ -1,12 +1,12 @@
 import Figure from './Figure'
 import { interpret } from 'xstate'
-import { uiMachine } from './uiMachine'
+import ui from './uiMachine'
 
 // Créé un espace de travail pour une figure géométrique
 const figure = new Figure()
 
-const machineWithContext = uiMachine.withContext({ figure })
-figure.machine = interpret(machineWithContext).start()
+const machineWithContext = ui.withContext({ figure })
+figure.ui = interpret(machineWithContext).start()
 
 // On affiche le svg dans un div
 const div = document.querySelector('#app') as HTMLDivElement
@@ -40,23 +40,18 @@ btnLoad?.addEventListener('click', () => {
 })
 
 const btnPoint = document.querySelector('#btnPoint')
-btnPoint?.addEventListener('click', () => { figure.machine?.send('POINT') })
+btnPoint?.addEventListener('click', () => { figure.ui?.send('POINT') })
 const btnDrag = document.querySelector('#btnDrag')
-btnDrag?.addEventListener('click', () => { figure.machine?.send('DRAG') })
+btnDrag?.addEventListener('click', () => { figure.ui?.send('DRAG') })
 const btnLine = document.querySelector('#btnLine')
-btnLine?.addEventListener('click', () => { figure.machine?.send('LINE') })
+btnLine?.addEventListener('click', () => { figure.ui?.send('LINE') })
 const btnParallel = document.querySelector('#btnParallel')
-btnParallel?.addEventListener('click', () => { figure.machine?.send('PARALLEL') })
+btnParallel?.addEventListener('click', () => { figure.ui?.send('PARALLEL') })
 const btnPerpendicular = document.querySelector('#btnPerpendicular')
-btnPerpendicular?.addEventListener('click', () => { figure.machine?.send('PERPENDICULAR') })
-
+btnPerpendicular?.addEventListener('click', () => { figure.ui?.send('PERPENDICULAR') })
+const btnPolygon = document.querySelector('#btnPolygon')
+btnPolygon?.addEventListener('click', () => { figure.ui?.send('POLYGON') })
 
 // Création de la figure
 
 figure.setContainer(div)
-const A = figure.create('Point', { x: 0, y: 0 })
-const B = figure.create('Point', { x: 5, y: 0 })
-const AB = figure.create('Line', { point1: A, point2: B })
-const C = figure.create('Point', { x: 10, y: 2 })
-figure.create('LineParallel', { line: AB, point: C })
-figure.create('Polygon', { points: [A, B, C], color: 'blue', thickness: 4 })

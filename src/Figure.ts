@@ -53,7 +53,7 @@ import PerpendicularBissector from './elements/lines/PerpendicularBissector'
 import Graph from './elements/calculus/Graph'
 import Graph2 from './elements/calculus/Graph2'
 import Grid from './elements/grid/Grid'
-import type { eventMachine } from './uiMachine'
+import type { eventName, eventOptions } from './uiMachine'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -115,7 +115,7 @@ class Figure {
   /** Action du pointeur (par défaut drag) */
   private _pointerAction: string
   /** Machine qui gère l'état de l'interface utilisateur */
-  machine?: { send: (e: eventMachine) => void }
+  ui?: { send: (e: eventName, opt?: eventOptions) => void }
   /** Filtre utilisé sur les éléments pour savoir ceux qui réagissent au clic */
   filter?: (e: Element2D) => boolean
   options: {
@@ -178,7 +178,7 @@ class Figure {
     this.clearHtml()
     this.pointer = new Point(this, { x: 0, y: 0, isFree: false, isChild: true, shape: '' })
     this.pointer.type = 'pointer'
-    this.machine = undefined
+    this.ui = undefined
     this.filter = e => e instanceof Point && e.isFree
   }
 
