@@ -1,5 +1,6 @@
 import type Figure from '../../Figure'
 import Element2D from '../Element2D'
+import { distance } from '../calculus/Coords'
 import { type OptionsCircle, type OptionsElement2D } from '../interfaces'
 import type Point from '../points/Point'
 import type Vector from '../vector/Vector'
@@ -95,6 +96,12 @@ class Circle extends Element2D {
     if (this.center.label !== undefined) newCenter.label = this.center.label + "'"
     const newCircle = this.figure.create('Circle', { center: newCenter, radius: this.radius, ...options })
     return newCircle
+  }
+
+  distancePointer (x: number, y: number): number {
+    const pointerCoords = { x, y }
+    const distanceToCenter = distance(pointerCoords, this.center)
+    return Math.abs(distanceToCenter - this.radius)
   }
 
   toJSON (): object {

@@ -87,7 +87,7 @@ abstract class Element2D {
   remove (): void {
     const element = this.figure.elements.get(this.id)
     element?.observers.forEach(observer => { observer.remove() })
-    this.figure.elements.delete(this.id)
+    if (element !== undefined) this.figure.elements.delete(this.id)
     this.groupSvg.remove()
     for (const element of this.observers) {
       element.remove()

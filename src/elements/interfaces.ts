@@ -35,7 +35,7 @@ export interface OptionsPoint extends OptionsElement2D {
 }
 
 export interface OptionsPointBy extends OptionsElement2D {
-  shape: 'x' | 'o' | '' | '|'
+  shape?: 'x' | 'o' | '' | '|'
   sizeInPixels?: number
   label?: string
   labelDxInPixels?: number
@@ -78,7 +78,7 @@ export interface OptionsMiddle extends OptionsElement2D {
 export interface OptionsIntersectionLL extends OptionsElement2D {
   line1: Line
   line2: Line
-  shape: 'x' | 'o' | '' | '|'
+  shape?: 'x' | 'o' | '' | '|'
   InPixels?: number
 }
 

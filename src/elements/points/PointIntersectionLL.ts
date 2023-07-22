@@ -15,7 +15,7 @@ export class PointIntersectionLL extends Point {
   line2: Segment
   constructor (figure: Figure, { line1, line2, ...options }: OptionsIntersectionLL) {
     const coords = intersectionLLCoord(line1, line2)
-    super(figure, { x: coords.x, y: coords.y, ...options })
+    super(figure, { x: coords.x, y: coords.y, isFree: false, ...options })
     this.type = 'PointIntersectionLL'
     this.line1 = line1
     this.line2 = line2

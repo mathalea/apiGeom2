@@ -57,6 +57,10 @@ const btnPolygon = document.querySelector('#btnPolygon')
 btnPolygon?.addEventListener('click', () => { figure.ui?.send('POLYGON') })
 const btnCircle = document.querySelector('#btnCircle')
 btnCircle?.addEventListener('click', () => { figure.ui?.send('CIRCLE') })
+const btnIntersection = document.querySelector('#btnIntersection')
+btnIntersection?.addEventListener('click', () => { figure.ui?.send('INTERSECTION') })
+const btnPointOn = document.querySelector('#btnPointOn')
+btnPointOn?.addEventListener('click', () => { figure.ui?.send('POINT_ON') })
 
 // Création de la figure
 

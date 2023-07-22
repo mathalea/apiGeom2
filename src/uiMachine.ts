@@ -4,6 +4,8 @@ import Point from './elements/points/Point'
 import { isStopHidden } from './store'
 import { type AnyEventObject, createMachine } from 'xstate'
 import type Element2D from './elements/Element2D'
+import Circle from './elements/lines/Circle'
+import { distance } from './elements/calculus/Coords'
 
 interface MyContext {
   figure: Figure
@@ -21,6 +23,8 @@ export type eventName =
   | 'POLYGON'
   | 'CIRCLE'
   | 'COLOR'
+  | 'INTERSECTION'
+  | 'POINT_ON'
 
 export type eventOptions =
   | { x: number, y: number, element?: Element2D }
@@ -49,7 +53,9 @@ const ui = createMachine({
     POLYGON: 'POLYGON',
     CIRCLE: 'CIRCLE',
     COLOR: 'COLOR',
-    PERPENDICULAR_BISSECTOR: 'PERPENDICULAR_BISSECTOR'
+    PERPENDICULAR_BISSECTOR: 'PERPENDICULAR_BISSECTOR',
+    INTERSECTION: 'INTERSECTION',
+    POINT_ON: 'POINT_ON'
   },
   states: {
     DRAG: {
@@ -157,11 +163,14 @@ const ui = createMachine({
           }
         },
         waitingForPoint: {
-          entry: () => { userMessage('Cliquer sur un point du cercle.') },
+          entry: () => {
+            userMessage('Cliquer sur un point du cercle.')
+          },
           on: {
             clickLocation: {
               target: 'waitingForCenter',
               actions: (context, event) => {
+                context.figure.eraseTempElements()
                 context.figure.selectedElements[1] =
                   getExisitingPointOrCreatedPoint(context, event)
                 const [center, point] = context.figure.selectedElements as [
@@ -169,7 +178,6 @@ const ui = createMachine({
                   Point
                 ]
                 context.figure.create('CircleCenterPoint', { center, point })
-                context.figure.tmpElements?.forEach(e => { e.remove() })
               }
             }
           }
@@ -388,7 +396,7 @@ const ui = createMachine({
               {
                 target: 'waitingElement',
                 actions: (context, event) => {
-                  context.figure.selectedElements.push(event.element)
+                  if (event.element instanceof Point) context.figure.selectedElements.push(event.element)
                   if (context.figure.selectedElements.length === 0) {
                     context.figure.tempCreate(
                       'Segment',
@@ -424,6 +432,7 @@ const ui = createMachine({
                 target: 'STOPPOLYGON',
                 cond: (context, event) => {
                   return (
+                    event.element !== undefined &&
                     context.figure.selectedElements[0] !== undefined &&
                     context.figure.selectedElements[0].id === event.element.id
                   )
@@ -442,6 +451,60 @@ const ui = createMachine({
             })
             context.figure.selectedElements = []
             sendStopIsHidden(true)
+          }
+        }
+      }
+    },
+    INTERSECTION: {
+      entry: (context) => {
+        context.figure.filter = (e) => e instanceof Segment || e instanceof Circle
+      },
+      initial: 'waitingForFirstElement',
+      states: {
+        waitingForFirstElement: {
+          entry: () => { userMessage('Cliquer sur une droite, une demi-droite, un segment ou un cercle.') },
+          on: {
+            clickLocation: {
+              target: 'waitingForSecondElement',
+              actions: (context, event) => {
+                context.figure.selectedElements[0] = event.element
+              }
+            }
+          }
+        },
+        waitingForSecondElement: {
+          on: {
+            clickLocation: {
+              target: 'waitingForFirstElement',
+              actions: (context, event) => {
+                context.figure.selectedElements[1] = event.element
+                const [element1, element2] = context.figure.selectedElements
+                if (element1 instanceof Segment && element2 instanceof Segment) {
+                  context.figure.create('PointIntersectionLL', { line1: element1, line2: element2 })
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    POINT_ON: {
+      entry: (context) => {
+        context.figure.filter = (e) => e instanceof Segment || e instanceof Circle
+        userMessage('Cliquer sur un segment ou un cercle.')
+      },
+      on: {
+        clickLocation: {
+          target: 'POINT_ON',
+          actions: (context, event) => {
+            context.figure.selectedElements[0] = event.element
+            if (event.element instanceof Segment) {
+              const [point1, point2] = [event.element.point1, event.element.point2]
+              const k = ((event.x - point1.x) * (point2.x - point1.x) + (event.y - point1.y) * (point2.y - point1.y)) / (distance(point1, point2) ** 2)
+              context.figure.create('PointOnLine', { line: event.element, k })
+            } else {
+              // context.figure.create('POINT_ONCircle', { circle: event.element })
+            }
           }
         }
       }
