@@ -19,6 +19,7 @@ export type eventName =
   | 'PARALLEL'
   | 'PERPENDICULAR_BISSECTOR'
   | 'POLYGON'
+  | 'CIRCLE'
   | 'COLOR'
 
 export type eventOptions =
@@ -46,6 +47,7 @@ const ui = createMachine({
     PERPENDICULAR: 'PERPENDICULAR',
     PARALLEL: 'PARALLEL',
     POLYGON: 'POLYGON',
+    CIRCLE: 'CIRCLE',
     COLOR: 'COLOR',
     PERPENDICULAR_BISSECTOR: 'PERPENDICULAR_BISSECTOR'
   },
@@ -125,6 +127,48 @@ const ui = createMachine({
                   Point
                 ]
                 context.figure.create('Segment', { point1, point2 })
+                context.figure.tmpElements?.forEach(e => { e.remove() })
+              }
+            }
+          }
+        }
+      }
+    },
+    CIRCLE: {
+      initial: 'waitingForCenter',
+      states: {
+        waitingForCenter: {
+          entry: (context) => {
+            userMessage('Cliquer sur le centre du cercle.')
+            context.figure.filter = (e) => e instanceof Point
+          },
+          on: {
+            clickLocation: {
+              target: 'waitingForPoint',
+              actions: (context, event) => {
+                context.figure.selectedElements[0] =
+                  getExisitingPointOrCreatedPoint(context, event)
+                context.figure.tempCreate('CircleCenterPoint', {
+                  center: context.figure.selectedElements[0] as Point,
+                  point: context.figure.pointer
+                })
+              }
+            }
+          }
+        },
+        waitingForPoint: {
+          entry: () => { userMessage('Cliquer sur un point du cercle.') },
+          on: {
+            clickLocation: {
+              target: 'waitingForCenter',
+              actions: (context, event) => {
+                context.figure.selectedElements[1] =
+                  getExisitingPointOrCreatedPoint(context, event)
+                const [center, point] = context.figure.selectedElements as [
+                  Point,
+                  Point
+                ]
+                context.figure.create('CircleCenterPoint', { center, point })
                 context.figure.tmpElements?.forEach(e => { e.remove() })
               }
             }

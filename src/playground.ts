@@ -55,6 +55,8 @@ const btnPerpendicularBissector = document.querySelector('#btnPerpendicularBisse
 btnPerpendicularBissector?.addEventListener('click', () => { figure.ui?.send('PERPENDICULAR_BISSECTOR') })
 const btnPolygon = document.querySelector('#btnPolygon')
 btnPolygon?.addEventListener('click', () => { figure.ui?.send('POLYGON') })
+const btnCircle = document.querySelector('#btnCircle')
+btnCircle?.addEventListener('click', () => { figure.ui?.send('CIRCLE') })
 
 // Création de la figure
 
