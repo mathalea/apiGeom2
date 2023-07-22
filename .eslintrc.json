@@ -17,6 +17,7 @@
     ],
     "ignorePatterns": [
         "**/*.test.js",
-        "docs/*"
+        "docs/*",
+        "index.html"
       ]
 }

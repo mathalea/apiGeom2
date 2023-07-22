@@ -17,6 +17,7 @@ export type eventName =
   | 'DRAG'
   | 'PERPENDICULAR'
   | 'PARALLEL'
+  | 'PERPENDICULAR_BISSECTOR'
   | 'POLYGON'
   | 'COLOR'
 
@@ -45,7 +46,8 @@ const ui = createMachine({
     PERPENDICULAR: 'PERPENDICULAR',
     PARALLEL: 'PARALLEL',
     POLYGON: 'POLYGON',
-    COLOR: 'COLOR'
+    COLOR: 'COLOR',
+    PERPENDICULAR_BISSECTOR: 'PERPENDICULAR_BISSECTOR'
   },
   states: {
     DRAG: {
@@ -94,7 +96,7 @@ const ui = createMachine({
         waitingForFirstElement: {
           entry: (context) => {
             userMessage('Cliquer sur la première extrémité du segment.')
-            context.figure.filter = (e) => e instanceof Point && e.isFree
+            context.figure.filter = (e) => e instanceof Point
           },
           on: {
             clickLocation: {
@@ -269,6 +271,47 @@ const ui = createMachine({
                 context.figure.create('LineParallel', { line, point })
               },
               cond: (_, event) => event.element !== undefined
+            }
+          }
+        }
+      }
+    },
+    PERPENDICULAR_BISSECTOR: {
+      initial: 'waitingForFirstElement',
+      states: {
+        waitingForFirstElement: {
+          entry: (context) => {
+            userMessage('Cliquer sur la première extrémité du segment.')
+            context.figure.filter = (e) => e instanceof Point
+          },
+          on: {
+            clickLocation: {
+              target: 'waitingForSecondElement',
+              actions: (context, event) => {
+                context.figure.selectedElements[0] = event.element
+                context.figure.tempCreate('PerpendicularBissectorByPoints', {
+                  point1: context.figure.selectedElements[0] as Point,
+                  point2: context.figure.pointer
+                })
+              },
+              cond: (_, event) => event.element !== undefined
+            }
+          }
+        },
+        waitingForSecondElement: {
+          entry: () => { userMessage('Cliquer sur la deuxième extrémité du segment.') },
+          on: {
+            clickLocation: {
+              target: 'waitingForFirstElement',
+              actions: (context, event) => {
+                context.figure.selectedElements[1] = event.element
+                const [point1, point2] = context.figure.selectedElements as [
+                  Point,
+                  Point
+                ]
+                context.figure.create('PerpendicularBissectorByPoints', { point1, point2 })
+                context.figure.tmpElements?.forEach(e => { e.remove() })
+              }
             }
           }
         }

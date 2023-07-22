@@ -50,6 +50,7 @@ import PointByDynamicDilate from './elements/points/PointByDynamicDilate'
 import DynamicCalcul from './dynamicNumbers/DynamicCalcul'
 import PointOnLineAtDistance from './elements/points/PointOnLineAtDistance'
 import PerpendicularBissector from './elements/lines/PerpendicularBissector'
+import PerpendicularBissectorByPoints from './elements/lines/PerpendicularBissectorByPoints'
 import Graph from './elements/calculus/Graph'
 import Graph2 from './elements/calculus/Graph2'
 import Grid from './elements/grid/Grid'
@@ -178,7 +179,7 @@ class Figure {
     // Pour éviter le scroll quand on manipule la figure sur un écran tactile
     this.svg.style.touchAction = 'none'
     this.clearHtml()
-    this.pointer = new Point(this, { x: 0, y: 0, isFree: false, isChild: true, shape: '' })
+    this.pointer = new Point(this, { x: 0, y: 0, isFree: false, isChild: true, isVisible: false, shape: '' })
     this.pointer.type = 'pointer'
     this.ui = undefined
     this.filter = e => e instanceof Point && e.isFree
@@ -197,7 +198,7 @@ class Figure {
     return element
   }
 
-  tempCreate (typeStr: string, options?: ConstructorParameters<typeof classes[keyof typeof classes]>[1]): void {
+  tempCreate (typeStr: string, options?: ConstructorParameters<typeof classes[keyof typeof classes]>[1]): Element2D {
     // @ts-expect-error Typage très complexe
     const element = this.create(typeStr, { isChild: true, ...options }) as Element2D
     element.color = this.options.tmpColor
@@ -206,6 +207,7 @@ class Figure {
     if ('fillColor' in element) element.fillColor = this.options.tmpFillColor
     if ('fillOpacity' in element) element.fillOpacity = this.options.tmpFillOpacity
     this.tmpElements.push(element)
+    return element
   }
 
   clearHtml (): void {
@@ -386,6 +388,7 @@ const classes = {
   LineParallel,
   LinePerpendicular,
   PerpendicularBissector,
+  PerpendicularBissectorByPoints,
   Segment,
   Ray,
   Polyline,

@@ -23,8 +23,8 @@ class Vector extends Element2D {
   draw (): void {
     if (this.origin !== undefined) {
       this.origin.subscribe(this)
-      this.end = this.figure.create('Point', { x: this.origin.x + this.x, y: this.origin.y + this.y, shape: '', isFree: false, isChild: true })
-      this.representation = this.figure.create('Segment', { point1: this.origin, point2: this.end, isChild: true, color: this.color, thickness: this.thickness, isDashed: this.isDashed, isVisible: this.isVisible })
+      this.end = this.figure.create('Point', { x: this.origin.x + this.x, y: this.origin.y + this.y, shape: '', isFree: false, isChild: true, isSelectable: true, isVisible: this.isVisible })
+      this.representation = this.figure.create('Segment', { point1: this.origin, point2: this.end, isChild: true, isSelectable: true, color: this.color, thickness: this.thickness, isDashed: this.isDashed, isVisible: this.isVisible })
     }
   }
 

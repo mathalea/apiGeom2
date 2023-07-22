@@ -19,6 +19,7 @@ export interface OptionsElement2D {
   thickness?: number
   isDashed?: boolean
   isChild?: boolean
+  isSelectable?: boolean
   isVisible?: boolean
 }
 
@@ -198,7 +199,7 @@ export type typeElement2D = '' |
 'Point' | 'PointIntersectionLL' | 'PointIntersectionCC' | 'PointsIntersectionCC' | 'PointIntersectionLC' | 'PointsIntersectionLC' | 'Middle' | 'PointOnLine' |
 'PointByTranslation' | 'PointByRotation' | 'PointByDynamicRotation' | 'PointByDilate' | 'PointByDynamicDilate' | 'PointByProjection' | 'PointByProjectionOnAxisX' | 'PointByProjectionOnAxisY' | 'PointByReflectOverLine' | 'PointBySimilarity' |
 'PointOnLineAtDistance' | 'PointOnGraph' |
-'Segment' | 'Line' | 'Ray' | 'LineParallel' | 'LinePerpendicular' | 'LineByPointVector' | 'PerpendicularBissector' |
+'Segment' | 'Line' | 'Ray' | 'LineParallel' | 'LinePerpendicular' | 'LineByPointVector' | 'PerpendicularBissector' | 'PerpendicularBissectorByPoints' |
 'Polyline' | 'Polygon' |
 'Circle' | 'CircleDynamicRadius' | 'CircleCenterPoint' |
 'TextByPosition' | 'TextByPoint' | 'DisplayDistance' | 'TextDynamicByPosition' |

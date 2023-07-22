@@ -10,7 +10,7 @@ class LinePerpendicular extends LineByPointVector {
   /** Point par lequel passe cette droite */
   point: Point
   constructor (figure: Figure, { line, point, ...options }: OptionsLinePerpendicular) {
-    const vector = figure.create('VectorPerpendicular', { origin: point, line, isChild: true, isVisible: false })
+    const vector = figure.create('VectorPerpendicular', { origin: point, line, isChild: true, isSelectable: true, isVisible: false })
     super(figure, { point, vector, ...options })
     this.type = 'LinePerpendicular'
     this.line = line

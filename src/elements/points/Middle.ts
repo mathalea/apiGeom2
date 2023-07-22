@@ -15,6 +15,8 @@ class Middle extends Point {
     shape?: 'x' | 'o' | ''
     size?: number
     isChild?: boolean
+    isVisible?: boolean
+    isSelectable?: boolean
     label?: string
     labelDxInPixels?: number
     labelDyInPixels?: number

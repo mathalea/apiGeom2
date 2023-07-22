@@ -44,7 +44,7 @@ class Polygon extends Element2D {
     for (let i = 0; i < this.points.length; i++) {
       const point1 = this.points.at(i % this.points.length) as Point
       const point2 = this.points.at((i + 1) % this.points.length) as Point
-      this.segments.push(this.figure.create('Segment', { point1, point2, isChild: true, isVisible: false, id: this.id + '_segment' + i.toString() }))
+      this.segments.push(this.figure.create('Segment', { point1, point2, isChild: true, id: this.id + '_segment' + i.toString() }))
     }
   }
 

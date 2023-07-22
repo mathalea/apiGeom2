@@ -13,7 +13,7 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
   const possibleElements = []
   figure.modal?.remove()
   const elements = [...figure.elements.values()].filter(e => e instanceof Element2D) as Element2D[]
-  const elementsFiltered = elements.filter(figure.filter).filter(e => e.type !== 'pointer')
+  const elementsFiltered = elements.filter(figure.filter).filter(e => e.type !== 'pointer' && e.isVisible && e.isSelectable)
   for (const element of elementsFiltered) {
     if (element.distancePointer(pointerX, pointerY) * figure.pixelsPerUnit < defaultDistanceClick) {
       possibleElements.push(element)
@@ -41,7 +41,7 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
     for (const element of possibleElements) {
       const div = document.createElement('div')
       if (element instanceof Point) div.innerText = element.label ?? `Point ${element.id}`
-      else div.innerText = element.type + ' - ' + element.id
+      else div.innerText = element.type + ' ' + element.id
       div.addEventListener('click', () => {
         elementText.remove()
         if (figure.pointerAction === 'drag' && element instanceof Point && figure.container !== null) {

@@ -30,7 +30,7 @@ class Point extends Element2D {
   labelDxInPixels: number
   /** Décalage horizontal pour le nom du point */
   labelDyInPixels: number
-  constructor (figure: Figure, { x, y, shape, sizeInPixels, label, labelDxInPixels, labelDyInPixels, isFree = true, color = figure.options.color, thickness = figure.options.thickness, isChild, isVisible, id }:
+  constructor (figure: Figure, { x, y, shape, sizeInPixels, label, labelDxInPixels, labelDyInPixels, isFree = true, color = figure.options.color, thickness = figure.options.thickness, isChild, isVisible, isSelectable, id }:
   { x: number
     y: number
     shape?: 'x' | 'o' | '' | '|'
@@ -43,8 +43,9 @@ class Point extends Element2D {
     isChild?: boolean
     isFree?: boolean
     isVisible?: boolean
+    isSelectable?: boolean
     id?: string }) {
-    super(figure, { color, thickness, isChild, id })
+    super(figure, { color, thickness, isChild, isSelectable, id })
     this.type = 'Point'
     this._shape = shape ?? 'x'
     this._sizeInPixels = sizeInPixels ?? figure.options.pointSize
@@ -220,7 +221,7 @@ class Point extends Element2D {
 
   set label (label: string | undefined) {
     this._label = label
-    if (label !== undefined) this.elementTextLabel = this.figure.create('TextByPoint', { point: this, text: '$' + label + '$', isChild: true, dxInPixels: this.labelDxInPixels, dyInPixels: this.labelDyInPixels, id: this.id + '_label' })
+    if (label !== undefined) this.elementTextLabel = this.figure.create('TextByPoint', { point: this, text: '$' + label + '$', isChild: true, isSelectable: true, dxInPixels: this.labelDxInPixels, dyInPixels: this.labelDyInPixels, id: this.id + '_label' })
   }
 
   /** Déplace le point */

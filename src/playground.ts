@@ -51,6 +51,8 @@ const btnParallel = document.querySelector('#btnParallel')
 btnParallel?.addEventListener('click', () => { figure.ui?.send('PARALLEL') })
 const btnPerpendicular = document.querySelector('#btnPerpendicular')
 btnPerpendicular?.addEventListener('click', () => { figure.ui?.send('PERPENDICULAR') })
+const btnPerpendicularBissector = document.querySelector('#btnPerpendicularBissector')
+btnPerpendicularBissector?.addEventListener('click', () => { figure.ui?.send('PERPENDICULAR_BISSECTOR') })
 const btnPolygon = document.querySelector('#btnPolygon')
 btnPolygon?.addEventListener('click', () => { figure.ui?.send('POLYGON') })
 

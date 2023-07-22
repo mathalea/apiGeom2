@@ -21,11 +21,14 @@ abstract class Element2D {
   protected _isVisible: boolean
   /** Liste des enfants à notifier à chaque fois que l'élément est déplacé */
   observers: Array<Element2D | DynamicNumber>
-  /** Les élément qui ont isChild à true sont ceux qui sont construits par d'autres et qui n'ont pas */
+  /** Les élément qui ont isChild à true sont ceux qui sont construits par d'autres et qui n'ont pas à être dans la sauvegarde */
   readonly isChild: boolean
-  constructor (figure: Figure, { id, color, thickness, isDashed, isChild, isVisible }: OptionsElement2D) {
+  /** Pour l'interface graphique, détermine si un élément apparaitra ou pas dans la liste */
+  readonly isSelectable: boolean
+  constructor (figure: Figure, { id, color, thickness, isDashed, isChild, isSelectable, isVisible }: OptionsElement2D) {
     this.figure = figure
     this.isChild = (isChild) ?? false
+    this.isSelectable = isSelectable ?? true
     /** Certains éléments sont construits par d'autres (codages, points temporaires, labels...)
      *  on les nomme elementTmpX, on met this.child à true et on ne les sauvegarde pas dans le Json
      *  mais ils sont bien présents dans figure.elements
