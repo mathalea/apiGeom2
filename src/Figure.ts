@@ -90,6 +90,8 @@ class Figure {
   yMin: number
   /** Ordonnée du point en haut à droite */
   yMax: number
+  /** Si l'option snapGrid est active, le point sera aimanté */
+  snapGrid: boolean
   /** Si l'option snapGrid est active, cela détermine la distance horizontale entre deux lieux de dépot du point */
   dx: number
   /** Si l'option snapGrid est active, cela détermine la distance verticale entre deux lieux de dépot du point */
@@ -147,7 +149,7 @@ class Figure {
    * @param dx - Si l'option snapGrid est activée, cela correspond à la distance horizontale du quadrillage sur lequel les points peuvent être déposés
    * @param dy - Si l'option snapGrid est activée, cela correspond à la distance verticale du quadrillage sur lequel les points peuvent être déposés
    */
-  constructor ({ width = 600, height = 400, pixelsPerUnit = 30, xMin = -10, yMin = -6, isDynamic = true, dx = 1, dy = 1, xScale = 1, yScale = 1, scale = 1 }: { width?: number, height?: number, pixelsPerUnit?: number, xMin?: number, yMin?: number, isDynamic?: boolean, dx?: number, dy?: number, xScale?: number, yScale?: number, scale?: number } = {}) {
+  constructor ({ width = 600, height = 400, pixelsPerUnit = 30, xMin = -10, yMin = -6, isDynamic = true, dx = 1, dy = 1, xScale = 1, yScale = 1, scale = 1, snapGrid = false }: { width?: number, height?: number, pixelsPerUnit?: number, xMin?: number, yMin?: number, isDynamic?: boolean, dx?: number, dy?: number, xScale?: number, yScale?: number, scale?: number, snapGrid?: boolean } = {}) {
     this.elements = new Map()
     this.history = []
     this.historyIndex = -1 // dernier item de l'historique
@@ -170,6 +172,7 @@ class Figure {
     this.selectedElements = []
     this.tmpElements = []
     this.options = defaultOptions
+    this.snapGrid = snapGrid
 
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
     this.divSave = null

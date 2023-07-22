@@ -52,8 +52,13 @@ class Point extends Element2D {
     this._thickness = thickness ?? figure.options.thickness
     this.labelDxInPixels = labelDxInPixels ?? figure.options.labelDxInPixels
     this.labelDyInPixels = labelDyInPixels ?? figure.options.labelDyInPixels
-    this._x = x
-    this._y = y
+    if (this.figure.snapGrid) {
+      this._x = Math.round(x / this.figure.dx) * this.figure.dx
+      this._y = Math.round(y / this.figure.dx) * this.figure.dx
+    } else {
+      this._x = x
+      this._y = y
+    }
     this._label = label
     this.isFree = isFree
     this._isVisible = isVisible ?? true
@@ -202,7 +207,11 @@ class Point extends Element2D {
   }
 
   set x (x) {
-    this._x = x
+    if (this.figure.snapGrid) {
+      this._x = Math.round(x / this.figure.dx) * this.figure.dx
+    } else {
+      this._x = x
+    }
     this.update()
   }
 
@@ -211,7 +220,11 @@ class Point extends Element2D {
   }
 
   set y (y) {
-    this._y = y
+    if (this.figure.snapGrid) {
+      this._y = Math.round(y / this.figure.dx) * this.figure.dx
+    } else {
+      this._y = y
+    }
     this.update()
   }
 
