@@ -356,7 +356,7 @@ const ui = createMachine({
                     )
                   } else {
                     const points = [...context.figure.selectedElements, context.figure.pointer] as Point[]
-                    context.figure.tempCreate('Polygon', { points, isChild: true }
+                    context.figure.tempCreate('Polygon', { points, isChild: true, isBuiltWithSegments: false }
                     )
                   }
                   if (context.figure.selectedElements.length > 2) {

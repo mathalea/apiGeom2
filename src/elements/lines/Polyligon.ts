@@ -15,9 +15,10 @@ class Polygon extends Element2D {
   readonly segments: Segment[]
   /** Forme des sommets */
   shape: 'x' | 'o' | ''
-  fillColor = 'none'
-  fillOpacity = 0.5
-  constructor (figure: Figure, { points, shape = '', fillColor = 'none', fillOpacity = figure.options.fillOpacity, ...options }: { points: Point[], fillColor?: string, fillOpacity?: number, shape?: 'x' | 'o' | '' } & OptionsElement2D) {
+  _fillColor = 'none'
+  _fillOpacity = 0.5
+  isBuiltWithSegments: boolean
+  constructor (figure: Figure, { points, shape = '', fillColor = 'none', fillOpacity = figure.options.fillOpacity, isBuiltWithSegments = true, ...options }: { points: Point[], fillColor?: string, fillOpacity?: number, shape?: 'x' | 'o' | '', isBuiltWithSegments?: boolean } & OptionsElement2D) {
     super(figure, options)
     this.type = 'Polygon'
     this.points = points
@@ -25,6 +26,7 @@ class Polygon extends Element2D {
     this.segments = []
     this.fillColor = fillColor
     this.fillOpacity = fillOpacity
+    this.isBuiltWithSegments = isBuiltWithSegments
     for (const point of points) {
       point.subscribe(this)
     }
@@ -35,7 +37,9 @@ class Polygon extends Element2D {
     this.groupSvg.setAttribute('fill', this.fillColor ?? 'none')
     this.groupSvg.setAttribute('fill-opacity', this.fillOpacity.toString())
     this.setVisibilityColorThicknessAndDashed()
-    this.createSegments()
+    if (this.isBuiltWithSegments) {
+      this.createSegments()
+    }
     this.update()
   }
 
@@ -59,6 +63,28 @@ class Polygon extends Element2D {
       }
       this.groupSvg.setAttribute('points', pointsCoords)
     }
+  }
+
+  /** Couleur de remplissage au format HTML */
+  get fillColor (): string {
+    return this._fillColor
+  }
+
+  /** Change la couleur des tracés de l'élément */
+  set fillColor (color: string) {
+    this._fillColor = color
+    this.groupSvg.setAttribute('fill', this._fillColor)
+  }
+
+  /** Couleur de remplissage au format HTML */
+  get fillOpacity (): number {
+    return this._fillOpacity ?? this.figure.options.fillOpacity
+  }
+
+  /** Change la couleur des tracés de l'élément */
+  set fillOpacity (opacity: number) {
+    this._fillOpacity = opacity
+    if (opacity !== undefined) this.groupSvg.setAttribute('fill-opacity', opacity.toString())
   }
 
   toJSON (): object {
