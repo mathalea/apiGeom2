@@ -348,6 +348,11 @@ class Figure {
     texts.forEach(text => { text.draw() })
   }
 
+  eraseTempElements (): void {
+    this.tmpElements.forEach(e => { e.remove() })
+    this.tmpElements = []
+  }
+
   /** Efface la figure actuelle et charge une nouvelle figure à partir du code généré par this.json  */
   loadJson (json: object, eraseHistory?: boolean): void {
     loadJson(this, json, eraseHistory)

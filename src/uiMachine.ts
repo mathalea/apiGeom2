@@ -134,6 +134,7 @@ const ui = createMachine({
     },
     LINE: {
       initial: 'waitingForFirstElement',
+      entry: (context) => { context.figure.filter = (e) => e instanceof Point },
       states: {
         waitingForFirstElement: {
           entry: () => { userMessage('Cliquer sur un premier point de la droite.') },
@@ -141,8 +142,8 @@ const ui = createMachine({
             clickLocation: {
               target: 'waitingForSecondElement',
               actions: (context, event) => {
-                context.figure.selectedElements[0] =
-                  getExisitingPointOrCreatedPoint(context, event)
+                context.figure.selectedElements[0] = getExisitingPointOrCreatedPoint(context, event)
+                context.figure.tempCreate('Line', { point1: context.figure.selectedElements[0] as Point, point2: context.figure.pointer })
               }
             }
           }
@@ -160,6 +161,7 @@ const ui = createMachine({
                   Point
                 ]
                 context.figure.create('Line', { point1, point2 })
+                context.figure.eraseTempElements()
               }
             }
           }

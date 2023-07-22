@@ -1,4 +1,5 @@
 import type Figure from '../../Figure'
+import { distance, orthogonalProjectionCoord } from '../calculus/Coords'
 import { defaultMaxSlope, defaultMinSlope } from '../defaultValues'
 import { type OptionsLine } from '../interfaces'
 import type Point from '../points/Point'
@@ -37,6 +38,12 @@ class Line extends Segment {
       this.svgBorder2?.remove()
     }
     this.notify()
+  }
+
+  distancePointer (x: number, y: number): number {
+    const pointerCoords = { x, y }
+    const projectionCoords = orthogonalProjectionCoord(pointerCoords, this)
+    return distance(pointerCoords, projectionCoords)
   }
 }
 
