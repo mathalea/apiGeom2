@@ -37,6 +37,8 @@ export const colors = {
   darkmodelight: '#363633'
 }
 
+export const orangeMathalea = '#F15929'
+
 const defaultOptions = {
   fontSize: '1em',
   pointSize: 5,

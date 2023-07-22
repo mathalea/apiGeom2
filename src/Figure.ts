@@ -55,6 +55,7 @@ import Graph from './elements/calculus/Graph'
 import Graph2 from './elements/calculus/Graph2'
 import Grid from './elements/grid/Grid'
 import type { eventName, eventOptions } from './uiMachine'
+import handleHover from './pointerActions/handleHover'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -118,7 +119,7 @@ class Figure {
   /** Machine qui gère l'état de l'interface utilisateur */
   ui?: { send: (e: eventName, opt?: eventOptions) => void }
   /** Filtre utilisé sur les éléments pour savoir ceux qui réagissent au clic */
-  filter?: (e: Element2D) => boolean
+  filter: (e: Element2D) => boolean
   options: {
     thickness: number
     color: string
@@ -268,6 +269,7 @@ class Figure {
     this.svg.addEventListener('pointermove', (event) => {
       const [pointerX, pointerY] = this.getPointerCoord(event)
       this.pointer.moveTo(pointerX, pointerY)
+      handleHover(this, pointerX, pointerY)
       if (this.pointInDrag === undefined) return
       this.pointInDrag.moveTo(pointerX, pointerY)
     })

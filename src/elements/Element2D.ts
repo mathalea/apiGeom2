@@ -1,5 +1,6 @@
 import type Figure from '../Figure'
 import type DynamicNumber from '../dynamicNumbers/DynamicNumber'
+import { orangeMathalea } from './defaultValues'
 import { type OptionsElement2D, type typeElement2D } from './interfaces'
 
 abstract class Element2D {
@@ -19,6 +20,8 @@ abstract class Element2D {
   protected _isDashed: boolean
   /** Visible ? */
   protected _isVisible: boolean
+  /** Est-ce que le pointeur est au dessus de l'élément ? */
+  protected _isHover: boolean = false
   /** Liste des enfants à notifier à chaque fois que l'élément est déplacé */
   observers: Array<Element2D | DynamicNumber>
   /** Les élément qui ont isChild à true sont ceux qui sont construits par d'autres et qui n'ont pas à être dans la sauvegarde */
@@ -28,11 +31,11 @@ abstract class Element2D {
   constructor (figure: Figure, { id, color, thickness, isDashed, isChild, isSelectable, isVisible }: OptionsElement2D) {
     this.figure = figure
     this.isChild = (isChild) ?? false
-    this.isSelectable = isSelectable ?? true
     /** Certains éléments sont construits par d'autres (codages, points temporaires, labels...)
      *  on les nomme elementTmpX, on met this.child à true et on ne les sauvegarde pas dans le Json
      *  mais ils sont bien présents dans figure.elements
     */
+    this.isSelectable = isSelectable ?? true
     if (id == null || this.figure.elements.has(id)) {
       if (id != null && this.figure.elements.has(id)) throw Error(`id ${id} déjà utilisé`)
       if (this.isChild) {
@@ -106,6 +109,21 @@ abstract class Element2D {
 
   draw (): void {}
 
+  set isHover (isHover: boolean) {
+    if (isHover) {
+      changeColor(this, orangeMathalea)
+      changeThickness(this, this._thickness + 2)
+    } else {
+      changeColor(this, this._color)
+      changeThickness(this, this._thickness)
+    }
+    this._isHover = isHover
+  }
+
+  get isHover (): boolean {
+    return this._isHover
+  }
+
   /** Personnalise la sortie JSON de l'élément pour la sauvegarde */
   toJSON (): object {
     return {
@@ -132,13 +150,7 @@ abstract class Element2D {
   /** Change la couleur des tracés de l'élément */
   set color (color: string) {
     this._color = color
-    if (this.groupSvg.children.length > 0) {
-      for (const line of Array.from(this.groupSvg.children)) {
-        line.setAttribute('stroke', color)
-      }
-    } else { // Le segment ou le cercle ne sont pas des groupes, ce sont des éléments uniques sans children
-      this.groupSvg.setAttribute('stroke', color)
-    }
+    changeColor(this, color)
   }
 
   /** Épaisseur des tracés */
@@ -148,14 +160,8 @@ abstract class Element2D {
 
   /** Change l'épaisseur des tracés */
   set thickness (thickness: number) {
+    changeThickness(this, thickness)
     this._thickness = thickness
-    if (this.groupSvg.children.length > 0) {
-      for (const line of Array.from(this.groupSvg.children)) {
-        line.setAttribute('stroke-width', `${thickness}`)
-      }
-    } else { // Le segment par exemple n'est pas un groupe mais un élément unique sans children
-      this.groupSvg.setAttribute('stroke-width', `${thickness}`)
-    }
   }
 
   /** Pointillés */
@@ -199,4 +205,23 @@ abstract class Element2D {
   }
 }
 
+function changeColor (element: Element2D, color: string): void {
+  if (element.groupSvg.children.length > 0) {
+    for (const line of Array.from(element.groupSvg.children)) {
+      line.setAttribute('stroke', color)
+    }
+  } else { // Le segment ou le cercle ne sont pas des groupes, ce sont des éléments uniques sans children
+    element.groupSvg.setAttribute('stroke', color)
+  }
+}
+
+function changeThickness (element: Element2D, thickness: number): void {
+  if (element.groupSvg.children.length > 0) {
+    for (const line of Array.from(element.groupSvg.children)) {
+      line.setAttribute('stroke-width', `${thickness}`)
+    }
+  } else { // Le segment par exemple n'est pas un groupe mais un élément unique sans children
+    element.groupSvg.setAttribute('stroke-width', `${thickness}`)
+  }
+}
 export default Element2D

@@ -7,9 +7,6 @@ import TextByPosition from '../elements/text/TextByPosition'
 export default function handlePointerAction (figure: Figure, event: PointerEvent): void {
   const [pointerX, pointerY] = figure.getPointerCoord(event)
   const [x, y] = [pointerX, pointerY]
-  if (figure.filter === undefined) {
-    figure.filter = (e) => e instanceof Element2D
-  }
   const possibleElements = []
   figure.modal?.remove()
   const elements = [...figure.elements.values()].filter(e => e instanceof Element2D) as Element2D[]
