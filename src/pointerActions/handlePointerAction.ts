@@ -17,10 +17,6 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
     }
   }
   if (possibleElements.length === 1) {
-    if (figure.pointerAction === 'drag' && possibleElements[0] instanceof Point && figure.container !== null) {
-      figure.pointInDrag = possibleElements[0]
-      figure.container.style.cursor = 'move'
-    }
     sendToMachine(figure, { element: possibleElements[0], x, y })
   } else if (possibleElements.length > 1) {
     const elementText = new TextByPosition(figure, { x: pointerX + defaultDeltaXModal, y: Math.min(pointerY, figure.yMax - 2), text: '' })
@@ -41,10 +37,6 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
       else div.innerText = element.type + ' ' + element.id
       div.addEventListener('click', () => {
         elementText.remove()
-        if (figure.pointerAction === 'drag' && element instanceof Point && figure.container !== null) {
-          figure.pointInDrag = element
-          figure.container.style.cursor = 'move'
-        }
         sendToMachine(figure, { element, x, y })
       })
       div.addEventListener('mouseenter', () => {

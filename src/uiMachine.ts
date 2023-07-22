@@ -58,18 +58,18 @@ const ui = createMachine({
           userMessage('')
         }
         context.figure.filter = (e) => e instanceof Point && e.isFree
-        context.figure.pointerAction = 'drag'
       },
       on: {
         clickLocation: {
           target: 'DRAG',
           actions: (context, event) => {
             context.figure.pointInDrag = event.element
+            context.figure.container.style.cursor = 'move'
           }
         }
       },
       exit: (context) => {
-        context.figure.pointerAction = ''
+        context.figure.container.style.cursor = 'default'
         context.figure.pointInDrag = undefined
       }
     },
@@ -329,7 +329,6 @@ const ui = createMachine({
           entry: (context) => {
             context.figure.selectedElements = []
             sendStopIsHidden(true)
-            context.figure.pointerAction = 'polygon'
             userMessage('Cliquer sur un sommet.')
             context.figure.filter = (e) => e instanceof Point
           }

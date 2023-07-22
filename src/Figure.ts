@@ -116,8 +116,6 @@ class Figure {
   pointerY: number | null
   /** Point virtuel qui suit le pointer */
   pointer: Point
-  /** Action du pointeur (par défaut drag) */
-  private _pointerAction: string
   /** Machine qui gère l'état de l'interface utilisateur */
   ui?: { send: (e: eventName, opt?: eventOptions) => void }
   /** Filtre utilisé sur les éléments pour savoir ceux qui réagissent au clic */
@@ -166,7 +164,6 @@ class Figure {
     this.yScale = yScale
     this.scale = scale
     this.isDynamic = isDynamic
-    this._pointerAction = 'drag'
     this.pointerX = null
     this.pointerY = null
     this.selectedElements = []
@@ -276,14 +273,6 @@ class Figure {
       if (this.pointInDrag === undefined) return
       this.pointInDrag.moveTo(pointerX, pointerY)
     })
-  }
-
-  get pointerAction (): string {
-    return this._pointerAction
-  }
-
-  set pointerAction (action) {
-    this._pointerAction = action
   }
 
   /** Sauvegarde la figure, met à jour l'historique et l'inscrit dans le div this.divSave */
