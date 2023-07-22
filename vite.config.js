@@ -45,7 +45,6 @@ export default defineConfig({
     //   actions: resolve(srcDir, 'actions'),
     //   dynamicNumbers: resolve(srcDir, 'dynamicNumbers'),
     //   elements: resolve(srcDir, 'elements'),
-    //   pointerActions: resolve(srcDir, 'pointerActions'),
     //   transformations: resolve(srcDir, 'transformations')
     // }
   },

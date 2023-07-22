@@ -251,7 +251,7 @@ class Figure {
 
   /** Démarre les listenners sur la figure lorsqu'elle est dynamique */
   listenPointer (): void {
-    // On créé des listenners et on change leur attitude suivant l'action en cours sauvegardée dans this.pointerAction
+    // On créé des listenners pour envoyer les information à la machine à états this.ui
     this.svg.addEventListener('pointerdown', (event: PointerEvent) => {
       handlePointerAction(this, event)
     })

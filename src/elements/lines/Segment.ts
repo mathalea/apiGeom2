@@ -1,4 +1,4 @@
-import { distance, orthogonalProjectionCoord, similitudeCoord } from '../calculus/Coords'
+import { distance, similitudeCoord } from '../calculus/Coords'
 import type Figure from '../../Figure'
 import Element2D from '../Element2D'
 import { type Binome, type OptionsElement2D } from '../interfaces'
@@ -166,8 +166,25 @@ class Segment extends Element2D {
 
   distancePointer (x: number, y: number): number {
     const pointerCoords = { x, y }
-    const projectionCoords = orthogonalProjectionCoord(pointerCoords, this)
-    return distance(pointerCoords, projectionCoords)
+    // Calculer la distance entre le point donné et les extrémités du segment
+    const distanceToP1 = distance(pointerCoords, this.point1)
+    const distanceToP2 = distance(pointerCoords, this.point2)
+
+    // Trouver la projection du point sur le segment
+    const segmentLength = distance(this.point1, this.point2)
+    const projection = ((x - this.point1.x) * (this.point2.x - this.point1.x) + (y - this.point1.y) * (this.point2.y - this.point1.y)) / (segmentLength ** 2)
+    // La distance minimale est la distance à l'une des extrémités si la projection est en dehors du segment
+    if (projection < 0) {
+      return distanceToP1
+    } else if (projection > 1) {
+      return distanceToP2
+    } else {
+      // Calculer la distance verticale entre le point et le segment
+      const closestX = this.point1.x + projection * (this.point2.x - this.point1.x)
+      const closestY = this.point1.y + projection * (this.point2.y - this.point1.y)
+      const closest = { x: closestX, y: closestY }
+      return distance(pointerCoords, closest)
+    }
   }
 
   toJSON (): object {

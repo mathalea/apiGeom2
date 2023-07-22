@@ -19,7 +19,6 @@
     //   "actions/*": ["src/actions/*"],
     //   "dynamicNumbers/*": ["src/dynamicNumbers/*"],
     //   "elements/*": ["src/elements/*"],
-    //   "pointerActions/*": ["src/pointerActions/*"],
     //   "transformations/*": ["src/transformations*"]
     // }
   },
