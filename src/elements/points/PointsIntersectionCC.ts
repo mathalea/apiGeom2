@@ -18,21 +18,21 @@ class PointsIntersectionCC extends Element2D {
   constructor (figure: Figure, { circle1, circle2, shape, sizeInPixels, ...options }: OptionsIntersectionCC) {
     super(figure, options)
     this.type = 'PointsIntersectionCC'
-    this.point1 = figure.create('PointIntersectionCC', { circle1, circle2, n: 1, isChild: true, shape, sizeInPixels, ...options })
-    this.point2 = figure.create('PointIntersectionCC', { circle1, circle2, n: 2, isChild: true, shape, sizeInPixels, ...options })
     this.circle1 = circle1
     this.circle2 = circle2
-    this.shape = shape
+    this.point1 = figure.create('PointIntersectionCC', { circle1, circle2, n: 1, isChild: true, shape, sizeInPixels, ...options })
+    this.point2 = figure.create('PointIntersectionCC', { circle1, circle2, n: 2, isChild: true, shape, sizeInPixels, ...options })
+    this.shape = shape ?? 'x'
     this.sizeInPixels = sizeInPixels
   }
 
   draw (): void {
-    this.point1.draw()
-    this.point2.draw()
   }
 
   toJSON (): object {
     return {
+      type: this.type,
+      id: this.id,
       idCircle1: this.circle1.id,
       idCircle2: this.circle2.id,
       shape: this.shape,

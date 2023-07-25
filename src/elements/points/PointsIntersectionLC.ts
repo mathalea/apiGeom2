@@ -19,28 +19,28 @@ class PointsIntersectionLC extends Element2D {
   constructor (figure: Figure, { line, circle, shape = 'x', sizeInPixels, ...options }: {
     line: Line
     circle: Circle
-    shape: 'x' | 'o' | ''
-    sizeInPixels: number
+    shape?: 'x' | 'o' | ''
+    sizeInPixels?: number
   } & OptionsElement2D) {
     super(figure, options)
     this.type = 'PointsIntersectionLC'
-    this.point1 = figure.create('PointIntersectionLC', { line, circle, n: 1, isChild: true, shape, sizeInPixels, ...options })
-    this.point2 = figure.create('PointIntersectionLC', { line, circle, n: 2, isChild: true, shape, sizeInPixels, ...options })
+    sizeInPixels = sizeInPixels ?? figure.options.pointSize
     this.line = line
     this.circle = circle
+    this.point1 = figure.create('PointIntersectionLC', { line, circle, n: 1, isChild: true, shape, sizeInPixels, ...options })
+    this.point2 = figure.create('PointIntersectionLC', { line, circle, n: 2, isChild: true, shape, sizeInPixels, ...options })
     this.shape = shape
     this.sizeInPixels = sizeInPixels
   }
 
   draw (): void {
-    this.point1.draw()
-    this.point2.draw()
   }
 
   toJSON (): object {
     return {
-      idLine: this.line.id,
+      type: this.type,
       id: this.id,
+      idLine: this.line.id,
       idCircle: this.circle.id,
       shape: this.shape,
       sizeInPixels: this.sizeInPixels,

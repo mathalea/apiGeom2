@@ -17,8 +17,8 @@ export class PointIntersectionLC extends Point {
   n: 1 | 2
   constructor (figure: Figure, { circle, line, n, ...options }: OptionsIntersectionLC) {
     const coords = intersectionLCCoord(line, circle, n)
-    super(figure, { x: coords.x, y: coords.y, ...options })
-    this.type = 'PointIntersectionCC'
+    super(figure, { x: coords.x, y: coords.y, isFree: false, ...options })
+    this.type = 'PointIntersectionLC'
     this.line = line
     this.circle = circle
     this.n = n ?? 1

@@ -86,7 +86,7 @@ export interface OptionsIntersectionCC extends OptionsElement2D {
   circle1: Circle
   circle2: Circle
   n?: 1 | 2
-  shape: 'x' | 'o' | '' | '|'
+  shape?: 'x' | 'o' | '' | '|'
   sizeInPixels?: number
 }
 
@@ -94,8 +94,8 @@ export interface OptionsIntersectionLC extends OptionsElement2D {
   line: Line
   circle: Circle
   n?: 1 | 2
-  shape: 'x' | 'o' | '' | '|'
-  sizeInPixels: number
+  shape?: 'x' | 'o' | '' | '|'
+  sizeInPixels?: number
 }
 
 export interface OptionsCircle extends OptionsElement2D {

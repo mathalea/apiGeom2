@@ -479,8 +479,20 @@ const ui = createMachine({
               actions: (context, event) => {
                 context.figure.selectedElements[1] = event.element
                 const [element1, element2] = context.figure.selectedElements
-                if (element1 instanceof Segment && element2 instanceof Segment) {
-                  context.figure.create('PointIntersectionLL', { line1: element1, line2: element2 })
+                if (element1 instanceof Segment) {
+                  if (element2 instanceof Segment) {
+                    context.figure.create('PointIntersectionLL', { line1: element1, line2: element2 })
+                  }
+                  if (element2 instanceof Circle) {
+                    context.figure.create('PointsIntersectionLC', { line: element1, circle: element2 })
+                  }
+                } else if (element1 instanceof Circle) {
+                  if (element2 instanceof Segment) {
+                    context.figure.create('PointsIntersectionLC', { line: element2, circle: element1 })
+                  }
+                  if (element2 instanceof Circle) {
+                    context.figure.create('PointsIntersectionCC', { circle1: element1, circle2: element2 })
+                  }
                 }
               }
             }
