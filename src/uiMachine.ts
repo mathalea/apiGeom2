@@ -38,6 +38,7 @@ interface MyEvent extends AnyEventObject {
 }
 
 const ui = createMachine({
+  /** @xstate-layout N4IgpgJg5mDOIC5QEMAOBLA4mA9gWwFUBJAYgAUB5IgOQBUBtABgF1FRUdZ0AXdHAOzYgAHogAsAJgA0IAJ7iAjBIB0CgMwB2BQA4NAVgC+BmWiy5CpADI0Aok1ZIQHLrwFDRCSTPkINYxsoSemKahsYgptj4xCQAyjaYALI2dPZCzjx8go4eXnKICowAbEXKYoVFQUYmGFEWJAAiAEoAgphpjhmu2aC50vkI6kV6ysOMEozaatMzEtURteYxZDZNK9QNRADCBJYtTR3snJluOeL9PgpF46piYTVm0aRk+y2WljaWh07H3e7n3gKAE5GGJlNpGEp7gtHvVKJYAJqYCjUb5dLL-TwXRASCRA0qaIGheaRJakLZEJpbD5o34Ys5YwEIIISUraCTlEpcrnaEmLJ4kLYUSwUA4sdJ0069AEDCQaNQBEG4oFXblFXnhUkClZrFKbHZ7JoAfQAQkRYvEtrRRbSXPTpYzZUSwUCIZy1eq+bCYjRaKtLbQiCjbSceiIZT41KyFKo1B7uRqHnVllQ6Ebg+LOpKw30mQoVcpIWINCr4xovcmiMpmm0SABjAA26DrAGtLDg68huiG-gy1HoRkENNooXmORoytpdNCtRZlJRfcoAO7ITL8KAAMRwACd253uvWm62912sj37eHmYxB9oQZU9Ez-CNGK6oRWycp4kkUrRl6veOuW7bhu6DbrA3A2A2YB4GA-DcIezZth2p4COeUqXiEKhiNoIT6HmCiFMoKrFFUmr8nOX7JHQf5rpuO6xGAdYCBAkHQbB8GNohJ7dpmRx2uhuRRpOuEPgMhQKGC0ykUmH4UlSHw0QBdHbls7FgNuCHHshPEOHxoaYpoMZ3Goo6ynoWjKFG7oeomMKVsocnUjYinoIBO5kDgrkcUeSH7mevE-PxOaIIZZR6CZQRMuOYJ+Nc1k8u+TzKNY1DOSutFASBYEQVBMFwZpvkofwaHBQgahAioI6RQMELaIEwTEmR3pVilaX-q5ykMUx-Asbl7EFdx-m6YF+l9hV4KmT4WgxkUGj3olc46us+q7PsLlucBoHgaxeXeVx2lDRKQWYthYISDoeFiUUYilNdM7kcQ86rMt2yrU062dYxzE7f1nFaX5qEBeiAniDhgQXaJlwDgExTqvoC2PS8rTvJ8H2ZVtOVsflf2FTpR2jQ6ISSSJeZAmIQKWZC0l2R+SNvB8lho-RX09T92M+YNgPDcDpVE5ZJNidoegqBoEgRfdzVPbqGyvYaprmgGopM5t2Vs3t-1FSVmLmaUKr+PeUVAiWk6gqqaq2bOiPPXqsv7PLFo2FaSvpUpQFdd9fXs-tAPFUD2aYtdahEXNegG7KU4qEqeJmwlTX2fCSIonE1pkAnyKon7x0MhMpTmVVkM4hIUzgiWjUyUlacosork8CQWsMgOMYh2HPjncbuhEvDce08KifUB9asDQdXP472DpTDFagC63Vx1VcJYx7H5eLb36cD576u42eCjc-7Dd6E3wwt4XegBCWcWL8MCNVpX-exCnt915nBOXo3yjN9VrcKjGeIXx6Ev2V9P6R2gYq4uw6ujVWG8h4+3roTIoFNyokQLmVKMFMhjxhKBbB6VYgFNADEGfu4CNru1ZtAnGnNfa7yzvAxBd5P4hTFioAcQt4pYOvvOVMtB0zUBgZrZ+Y9Lz9kHHnSaiARzKGFkYcI-AcAQDgEIS2RBR4Xg8AAWiKEyNRIxXSMD0fogxeixAcJrJgFRINBg3SIudaceYp4U1htODhC46DmNKuoOe+sGHMg0AEPQr5qZKM4YuYhylKFuMxDoUoElkFMlPrdOagScGfgSFRWgESGQKH8aMKM+cmQVTZFGABH5KI-mVllbaG8MkOgmBOIouSxGDHGBOYc7Jo5qnLN3JKpTqKhLdizXqWNuDVNfiCVQ3jCgKkCBHdp3JOnL0eo5D4IyPAxMpjdWxso1C6ECDdU2NkOFLLahlHcqk4LqRWQUKc6y4YoI5NciYCgNC+KmDMaYhzKROWVh5LylyEDCwcZ3O55Mz6QmeZMN57yulzlan8giFN8QvlCHE55qhEnFKSq1cpGM1ZwtmkRa4QKmSixGOofMC8PQcKxX05m3VBm7T+dDMK4tiVyhyeS0sapnHWxlgafYfzzoxjjFoTZlwbrMKwV3BZN8eUrUNNiqBQyBXZOFRDPMocg7C1ZPsuZ3LpZyrWjS7cpD6XsT+S86xaqxKh1KOMbVbD5k0wrq8FGlg8VGQqlay4IdAhizfNCxGLqGYKsqUqrMNDLwTApuTGxl1LjaBKGiqcwRF6OqCXTV1ysTW4vDS-DwwwHEbLjVc9UoxWkpo6Xql6fLjRmgdk7JofyFRglibKEsIx-DKkvtgyWS0bY1vtord6RqKmYwZbmwRHh+wqFba3W8BI9AQgmK8t5Vb+1vUHSA527USEDJzXpSd4jISjCeV6nEt46pCyXRCyFzjV4ojhYuyRw5Gk5wnB3MuTqV6IjXjXYZE7VEhR2fKaeOIskjEJJ+9N96iE7qgPukah6EC6CwuULxdzWQU1ijqhMd6f1V3vhQVOMGm0SNPaKwu1wS5Ao4XgghD6AMWPzLnJBx8yovjqteVh3baN0GAVaQhIax1msY6VDkYJwr0JQVGTQ-M5o4fYQG3BfH8EgME0a7NVTRMBzZYwFlAwozXVUBCIFhi1B3t9DwuFZGRXFsGMXDjShyZAhc65nt9khQikbdpzJodLUUZ8YwCcUdOW4ekUAA */
   predictableActionArguments: true,
   id: 'apiGeomUI',
   initial: 'DRAG',
@@ -468,8 +469,12 @@ const ui = createMachine({
               target: 'waitingForSecondElement',
               actions: (context, event) => {
                 context.figure.selectedElements[0] = event.element
+                event.element.isSelected = true
               }
             }
+          },
+          exit: (context) => {
+            context.figure.selectedElements[0].isSelected = false
           }
         },
         waitingForSecondElement: {
@@ -496,6 +501,9 @@ const ui = createMachine({
                 }
               }
             }
+          },
+          exit: (context) => {
+            context.figure.selectedElements.forEach(e => { e.isSelected = false })
           }
         }
       }

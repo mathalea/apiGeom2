@@ -22,6 +22,8 @@ abstract class Element2D {
   protected _isVisible: boolean
   /** Est-ce que le pointeur est au dessus de l'élément ? */
   protected _isHover: boolean = false
+  /** Est-ce que l'élément est sélectionné ? */
+  protected _isSelected: boolean = false
   /** Liste des enfants à notifier à chaque fois que l'élément est déplacé */
   observers: Array<Element2D | DynamicNumber>
   /** Les élément qui ont isChild à true sont ceux qui sont construits par d'autres et qui n'ont pas à être dans la sauvegarde */
@@ -113,7 +115,7 @@ abstract class Element2D {
     if (isHover) {
       changeColor(this, orangeMathalea)
       changeThickness(this, this._thickness + 2)
-    } else {
+    } else if (!this._isSelected) {
       changeColor(this, this._color)
       changeThickness(this, this._thickness)
     }
@@ -122,6 +124,21 @@ abstract class Element2D {
 
   get isHover (): boolean {
     return this._isHover
+  }
+
+  set isSelected (isSelected: boolean) {
+    if (isSelected) {
+      changeColor(this, orangeMathalea)
+      changeThickness(this, this._thickness + 2)
+    } else if (!this._isHover) {
+      changeColor(this, this._color)
+      changeThickness(this, this._thickness)
+    }
+    this._isSelected = isSelected
+  }
+
+  get isSelected (): boolean {
+    return this._isSelected
   }
 
   /** Personnalise la sortie JSON de l'élément pour la sauvegarde */
