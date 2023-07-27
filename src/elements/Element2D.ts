@@ -51,7 +51,7 @@ abstract class Element2D {
         while (this.figure.elements.has('element' + cpt.toString())) {
           cpt++
         }
-        this.id = 'element' + (cpt).toString()
+        this.id = 'element' + cpt.toString()
       }
     } else {
       this.id = id
@@ -91,9 +91,6 @@ abstract class Element2D {
     element?.observers.forEach(observer => { observer.remove() })
     if (element !== undefined) this.figure.elements.delete(this.id)
     this.groupSvg.remove()
-    for (const element of this.observers) {
-      element.remove()
-    }
   }
 
   temp (): Element2D {

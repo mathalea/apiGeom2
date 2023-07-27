@@ -61,7 +61,15 @@ const btnIntersection = document.querySelector('#btnIntersection')
 btnIntersection?.addEventListener('click', () => { figure.ui?.send('INTERSECTION') })
 const btnPointOn = document.querySelector('#btnPointOn')
 btnPointOn?.addEventListener('click', () => { figure.ui?.send('POINT_ON') })
+const btnCircleRadius = document.querySelector('#btnCircleRadius')
+btnCircleRadius?.addEventListener('click', () => { figure.ui?.send('CIRCLE_RADIUS') })
 
 // Création de la figure
 
 figure.setContainer(div)
+
+const A = figure.create('Point', { x: 0, y: 0, label: 'A' })
+const B = figure.create('Point', { x: 2, y: 0, label: 'B' })
+const c1 = figure.create('CircleCenterPoint', { center: A, point: B })
+const c2 = figure.create('CircleCenterPoint', { center: B, point: A })
+figure.create('PointsIntersectionCC', { circle1: c1, circle2: c2 })

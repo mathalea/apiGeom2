@@ -14,9 +14,9 @@ export class PointIntersectionCC extends Point {
   circle2: Circle
   /** Numéro de l'intersection */
   n: 1 | 2
-  constructor (figure: Figure, { circle1, circle2, n, ...options }: OptionsIntersectionCC) {
+  constructor (figure: Figure, { circle1, circle2, n, isChild, ...options }: OptionsIntersectionCC) {
     const coords = intersectionCCCoord(circle1, circle2, n)
-    super(figure, { x: coords.x, y: coords.y, isFree: false, ...options })
+    super(figure, { x: coords.x, y: coords.y, isChild, isFree: false, ...options })
     this.type = 'PointIntersectionCC'
     this.circle1 = circle1
     this.circle2 = circle2

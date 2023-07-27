@@ -33,6 +33,12 @@ class Distance extends DynamicNumber {
     this.notify()
   }
 
+  remove (): void {
+    const element = this.figure.elements.get(this.id)
+    element?.observers.forEach(observer => { observer.remove() })
+    if (element !== undefined) this.figure.elements.delete(this.id)
+  }
+
   toJSON (): object {
     return {
       type: this.type,

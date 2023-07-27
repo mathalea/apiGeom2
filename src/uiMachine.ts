@@ -6,6 +6,7 @@ import { type AnyEventObject, createMachine } from 'xstate'
 import type Element2D from './elements/Element2D'
 import Circle from './elements/lines/Circle'
 import { distance } from './elements/calculus/Coords'
+import { createDialoxBoxRadius } from './userInterface/handleDialog'
 
 interface MyContext {
   figure: Figure
@@ -22,6 +23,8 @@ export type eventName =
   | 'PERPENDICULAR_BISSECTOR'
   | 'POLYGON'
   | 'CIRCLE'
+  | 'CIRCLE_RADIUS'
+  | 'RADIUS'
   | 'COLOR'
   | 'INTERSECTION'
   | 'POINT_ON'
@@ -29,6 +32,7 @@ export type eventName =
 export type eventOptions =
   | { x: number, y: number, element?: Element2D }
   | { text: string }
+  | { radius: number }
 
 interface MyEvent extends AnyEventObject {
   x?: number
@@ -53,6 +57,7 @@ const ui = createMachine({
     PARALLEL: 'PARALLEL',
     POLYGON: 'POLYGON',
     CIRCLE: 'CIRCLE',
+    CIRCLE_RADIUS: 'CIRCLE_RADIUS',
     COLOR: 'COLOR',
     PERPENDICULAR_BISSECTOR: 'PERPENDICULAR_BISSECTOR',
     INTERSECTION: 'INTERSECTION',
@@ -185,6 +190,41 @@ const ui = createMachine({
         }
       }
     },
+    CIRCLE_RADIUS: {
+      initial: 'waitingForCenter',
+      states: {
+        waitingForCenter: {
+          entry: (context) => {
+            userMessage('Cliquer sur le centre du cercle.')
+            context.figure.filter = (e) => e instanceof Point
+          },
+          on: {
+            clickLocation: {
+              target: 'waitingForRadius',
+              actions: (context, event) => {
+                context.figure.selectedElements[0] = getExisitingPointOrCreatedPoint(context, event)
+                const dialog = createDialoxBoxRadius(context.figure.ui)
+                dialog.showModal()
+              }
+            }
+          }
+        },
+        waitingForRadius: {
+          on: {
+            RADIUS: {
+              target: 'waitingForCenter',
+              actions: (context, event) => {
+                const radius = event.radius
+                const center = context.figure.selectedElements[0] as Point
+                if (radius > 0) {
+                  context.figure.create('Circle', { center, radius })
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     LINE: {
       initial: 'waitingForFirstElement',
       entry: (context) => { context.figure.filter = (e) => e instanceof Point },
@@ -213,8 +253,9 @@ const ui = createMachine({
                   Point,
                   Point
                 ]
-                context.figure.create('Line', { point1, point2 })
+                console.log(point1, point2)
                 context.figure.eraseTempElements()
+                context.figure.create('Line', { point1, point2 })
               }
             }
           }
