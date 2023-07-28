@@ -567,8 +567,9 @@ const ui = createMachine({
               const [point1, point2] = [event.element.point1, event.element.point2]
               const k = ((event.x - point1.x) * (point2.x - point1.x) + (event.y - point1.y) * (point2.y - point1.y)) / (distance(point1, point2) ** 2)
               context.figure.create('PointOnLine', { line: event.element, k })
-            } else {
-              // context.figure.create('POINT_ONCircle', { circle: event.element })
+            } else if (event.element instanceof Circle) {
+              const angleWithHorizontal = Math.atan2(event.y - event.element.center.y, event.x - event.element.center.x)
+              context.figure.create('PointOnCircle', { circle: event.element, angleWithHorizontal })
             }
           }
         }

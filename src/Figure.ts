@@ -43,6 +43,7 @@ import PointByProjectionOnAxisY from './elements/points/PointByProjectionOnAxisY
 import PointByReflectOverLine from './elements/points/PointByReflectOverLine'
 import PointBySimilarity from './elements/points/PointBySimilarity'
 import PointOnLine from './elements/points/PointOnLine'
+import PointOnCircle from './elements/points/PointOnCircle'
 import Arc from './elements/lines/Arc'
 import Angle from './dynamicNumbers/Angle'
 import ArcBy3PointsAndRadius from './elements/lines/ArcBy3PointsAndRadius'
@@ -362,6 +363,7 @@ class Figure {
 const classes = {
   Point,
   PointOnLine,
+  PointOnCircle,
   PointOnGraph,
   PointOnLineAtDistance,
   PointIntersectionLL,
