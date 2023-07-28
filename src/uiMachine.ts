@@ -14,6 +14,8 @@ interface MyContext {
 
 export type eventName =
   | 'clickLocation'
+  | 'REMOVE'
+  | 'HIDE'
   | 'POINT'
   | 'LINE'
   | 'SEGMENT'
@@ -61,7 +63,9 @@ const ui = createMachine({
     COLOR: 'COLOR',
     PERPENDICULAR_BISSECTOR: 'PERPENDICULAR_BISSECTOR',
     INTERSECTION: 'INTERSECTION',
-    POINT_ON: 'POINT_ON'
+    POINT_ON: 'POINT_ON',
+    REMOVE: 'REMOVE',
+    HIDE: 'HIDE'
   },
   states: {
     DRAG: {
@@ -566,6 +570,34 @@ const ui = createMachine({
             } else {
               // context.figure.create('POINT_ONCircle', { circle: event.element })
             }
+          }
+        }
+      }
+    },
+    HIDE: {
+      entry: (context) => {
+        userMessage('Cliquer sur l\'élément à cacher.')
+        context.figure.filter = (e) => e.isVisible
+      },
+      on: {
+        clickLocation: {
+          target: 'REMOVE',
+          actions: (_, event) => {
+            event.element.hide()
+          }
+        }
+      }
+    },
+    REMOVE: {
+      entry: (context) => {
+        userMessage('Cliquer sur l\'élément à supprimer.')
+        context.figure.filter = (e) => e.isVisible
+      },
+      on: {
+        clickLocation: {
+          target: 'REMOVE',
+          actions: (_, event) => {
+            event.element.remove()
           }
         }
       }

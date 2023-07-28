@@ -24,6 +24,8 @@ abstract class Element2D {
   protected _isHover: boolean = false
   /** Est-ce que l'élément est sélectionné ? */
   protected _isSelected: boolean = false
+  /** Est-ce qu'un élément est caché ? */
+  protected _isHidden: boolean = false
   /** Liste des enfants à notifier à chaque fois que l'élément est déplacé */
   observers: Array<Element2D | DynamicNumber>
   /** Les élément qui ont isChild à true sont ceux qui sont construits par d'autres et qui n'ont pas à être dans la sauvegarde */
@@ -136,6 +138,16 @@ abstract class Element2D {
 
   get isSelected (): boolean {
     return this._isSelected
+  }
+
+  hide (): void {
+    this._isHidden = true
+    this.groupSvg.style.display = 'none'
+  }
+
+  show (): void {
+    this._isHidden = false
+    this.groupSvg.style.display = 'block'
   }
 
   /** Personnalise la sortie JSON de l'élément pour la sauvegarde */

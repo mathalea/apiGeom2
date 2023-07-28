@@ -63,6 +63,10 @@ const btnPointOn = document.querySelector('#btnPointOn')
 btnPointOn?.addEventListener('click', () => { figure.ui?.send('POINT_ON') })
 const btnCircleRadius = document.querySelector('#btnCircleRadius')
 btnCircleRadius?.addEventListener('click', () => { figure.ui?.send('CIRCLE_RADIUS') })
+const btnRemove = document.querySelector('#btnRemove')
+btnRemove?.addEventListener('click', () => { figure.ui?.send('REMOVE') })
+const btnHide = document.querySelector('#btnHide')
+btnHide?.addEventListener('click', () => { figure.ui?.send('HIDE') })
 
 // Création de la figure
 
