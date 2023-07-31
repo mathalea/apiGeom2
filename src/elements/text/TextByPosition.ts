@@ -19,7 +19,10 @@ class TextByPosition extends Element2D {
   private _text!: string
   /** Le texte est mis dans un div qui s'affichera par dessus le SVG */
   div!: HTMLDivElement
+  /** Ancrage du texte */
   anchor: 'topLeft' | 'topRight' | 'topCenter' | 'bottomLeft' | 'bottomRight' | 'bottomCenter' | 'middleLeft' | 'middleRight' | 'middleCenter'
+  /** Angle avec l'horizontal exprimé en degrés */
+  _angleWithHorizontalInDegres = 0
 
   constructor (figure: Figure, { x, y, text, color = 'black', fontSize = figure.options.fontSize, isChild = false, id, anchor = 'middleCenter', dxInPixels = 0, dyInPixels = 0 }: OptionsText) {
     super(figure, { isChild, id })
@@ -111,6 +114,15 @@ class TextByPosition extends Element2D {
       this.div.style.top = this.figure.yToSy(y - this.figure.yMax).toString() + 'px'
     }
     this._y = y
+  }
+
+  set angleWithHorizontalInDegres (angle: number) {
+    this._angleWithHorizontalInDegres = angle
+    this.div.style.transform = `rotate(${angle}deg)`
+  }
+
+  get angleWithHorizontalInDegres (): number {
+    return this._angleWithHorizontalInDegres
   }
 
   /** Déplace le texte aux coordonnées données */

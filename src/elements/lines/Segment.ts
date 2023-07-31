@@ -187,6 +187,12 @@ class Segment extends Element2D {
     }
   }
 
+  get angleWithHorizontalInDegres (): number {
+    const [a, b] = this.equation
+    const angle = Math.atan2(-a, b)
+    return angle * 180 / Math.PI
+  }
+
   toJSON (): object {
     return {
       type: this.type,

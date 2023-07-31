@@ -35,6 +35,7 @@ import PointsIntersectionCC from './elements/points/PointsIntersectionCC'
 import PointsIntersectionLC from './elements/points/PointsIntersectionLC'
 import LineByPointVector from './elements/lines/LineByPointVector'
 import PointByRotation from './elements/points/PointByRotation'
+import MarkSegment from './elements/text/MarkSegment'
 import PointByDynamicRotation from './elements/points/PointByDynamicRotation'
 import PointByDilate from './elements/points/PointByDilate'
 import PointByProjection from './elements/points/PointByProjection'
@@ -400,6 +401,7 @@ const classes = {
   TextByPoint,
   TextByPosition,
   TextDynamicByPosition,
+  MarkSegment,
   Distance,
   DynamicX,
   DynamicY,

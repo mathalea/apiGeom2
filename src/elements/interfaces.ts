@@ -202,7 +202,7 @@ export type typeElement2D = '' |
 'Segment' | 'Line' | 'Ray' | 'LineParallel' | 'LinePerpendicular' | 'LineByPointVector' | 'PerpendicularBissector' | 'PerpendicularBissectorByPoints' |
 'Polyline' | 'Polygon' |
 'Circle' | 'CircleDynamicRadius' | 'CircleCenterPoint' |
-'TextByPosition' | 'TextByPoint' | 'DisplayDistance' | 'TextDynamicByPosition' |
+'TextByPosition' | 'TextByPoint' | 'DisplayDistance' | 'TextDynamicByPosition' | 'MarkSegment' |
 'Vector' | 'VectorByPoints' | 'VectorPerpendicular' |
 'Arc' | 'ArcBy3PointsAndRadius' |
 'Distance' | 'Angle' | 'DynamicCalcul' | 'DynamicX' | 'DynamicY' |
