@@ -147,9 +147,9 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const line = figure.elements.get(options.idLine)
       const point = figure.elements.get(options.idPoint)
       figure.create('LinePerpendicular', { line, point, ...options })
-    } else if (options.type === 'PerpendicularBissector') {
+    } else if (options.type === 'PerpendicularBisector') {
       const segment = figure.elements.get(options.idSegment)
-      figure.create('PerpendicularBissector', { segment, ...options })
+      figure.create('PerpendicularBisector', { segment, ...options })
     } else if (options.type === 'Polyline') {
       const points = []
       for (const idPoint of options.idPoints) {

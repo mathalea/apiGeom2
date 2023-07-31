@@ -6,30 +6,38 @@
     <title>ApiGeom</title>
   </head>
   <body>
-    <button id="btnRemove">Supprimer</button>
-    <button id="btnHide">Cacher</button>
-    <button id="btnBack">Undo</button>
-    <button id="btnForward">Redo</button>
-    <button id="btnSave">Sauvegarde dans le presse-papier</button>
-    <button id="btnLoad">Charge presse-papier</button>
-    <button id="btnDrag">Drag</button>
-    <button id="btnPoint">Point</button>
-    <button id="btnSegment">Segment</button>
-    <button id="btnLine">Droite</button>
-    <button id="btnParallel">Parallèle</button>
-    <button id="btnPerpendicular">Perpendiculaire</button>
-    <button id="btnPerpendicularBissector">Médiatrice</button>
-    <button id="btnPolygon">Polygone</button>
-    <button id="btnCircle">Cercle-point</button>
-    <button id="btnCircleRadius">Cercle-rayon</button>
-    <button id="btnIntersection">Intersection</button>
-    <button id="btnPointOn">Point sur</button>
-    
     <div id="userMessage"></div>
     <section>
-      <div id="app"></div>
-      <pre id="save"></pre>
+      <div id="buttons"></div>
+      
+      <div id="app">
+      </div>
     </section>
+    <pre id="save"></pre>
     <script type="module" src="./src/playground.ts"></script>
   </body>
+  <style>
+    section {
+    display: flex;
+    gap: 10px;
+  }
+  
+  #buttons {
+    width: 200px;
+  }
+  
+  #app {
+    width: 100%;
+  }
+
+  #userMessage {
+    height: 50px;
+    font-size: large;
+  }
+
+  #save {
+    margin-top: 50px;
+  }
+  </style>
 </html>
+

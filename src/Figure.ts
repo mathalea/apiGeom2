@@ -17,6 +17,7 @@ import TextByPosition from './elements/text/TextByPosition'
 import handlePointerAction from './pointerActions/handlePointerAction'
 import { loadJson } from './actions/loadJson'
 import 'katex/dist/katex.min.css'
+import BisectorByPoints from './elements/lines/BisectorByPoints'
 import TextDynamicByPosition from './elements/text/TextDynamicByPosition'
 import Distance from './dynamicNumbers/Distance'
 import DynamicX from './dynamicNumbers/DynamicX'
@@ -51,13 +52,14 @@ import ArcBy3PointsAndRadius from './elements/lines/ArcBy3PointsAndRadius'
 import PointByDynamicDilate from './elements/points/PointByDynamicDilate'
 import DynamicCalcul from './dynamicNumbers/DynamicCalcul'
 import PointOnLineAtDistance from './elements/points/PointOnLineAtDistance'
-import PerpendicularBissector from './elements/lines/PerpendicularBissector'
-import PerpendicularBissectorByPoints from './elements/lines/PerpendicularBissectorByPoints'
+import PerpendicularBisector from './elements/lines/PerpendicularBisector'
+import PerpendicularBisectorByPoints from './elements/lines/PerpendicularBisectorByPoints'
 import Graph from './elements/calculus/Graph'
 import Graph2 from './elements/calculus/Graph2'
 import Grid from './elements/grid/Grid'
 import type { eventName, eventOptions } from './uiMachine'
 import handleHover from './pointerActions/handleHover'
+import addButtons from './userInterface/addButtons'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -122,6 +124,9 @@ class Figure {
   ui?: { send: (e: eventName, opt?: eventOptions) => void }
   /** Filtre utilisé sur les éléments pour savoir ceux qui réagissent au clic */
   filter: (e: Element2D) => boolean
+  /** Boutons qui interagissent avec la figure */
+  buttons: Map<string, HTMLDivElement> = new Map<string, HTMLDivElement>()
+  /** Options courante pour tous les tracés */
   options: {
     thickness: number
     color: string
@@ -344,7 +349,10 @@ class Figure {
     this.drawTexts()
   }
 
-  // Les texts ont besoin d'un container
+  /**
+   * Les textes ont besoin d'un conteneur.
+   * Il faut donc relancer cette méthode après avoir initialisé le conteneur
+   */
   drawTexts (): void {
     const texts = [...this.elements.values()].filter(e => e.type.includes('Text'))
     texts.forEach(text => { text.draw() })
@@ -359,10 +367,15 @@ class Figure {
   loadJson (json: object, eraseHistory?: boolean): void {
     loadJson(this, json, eraseHistory)
   }
+
+  addButtons (buttons: string): HTMLDivElement {
+    return addButtons(buttons, this)
+  }
 }
 
 const classes = {
   Point,
+  BisectorByPoints,
   PointOnLine,
   PointOnCircle,
   PointOnGraph,
@@ -389,8 +402,8 @@ const classes = {
   LineByPointVector,
   LineParallel,
   LinePerpendicular,
-  PerpendicularBissector,
-  PerpendicularBissectorByPoints,
+  PerpendicularBisector,
+  PerpendicularBisectorByPoints,
   Segment,
   Ray,
   Polyline,

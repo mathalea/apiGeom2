@@ -38,6 +38,7 @@ export const colors = {
 }
 
 export const orangeMathalea = '#F15929'
+export const orangeMathaleaLight = 'rgba(241, 89, 41, 0.5)'
 
 const defaultOptions = {
   fontSize: '1em',

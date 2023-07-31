@@ -7,6 +7,7 @@ import type Element2D from './elements/Element2D'
 import Circle from './elements/lines/Circle'
 import { distance } from './elements/calculus/Coords'
 import { createDialoxBoxRadius } from './userInterface/handleDialog'
+import { orangeMathaleaLight } from './elements/defaultValues'
 
 interface MyContext {
   figure: Figure
@@ -14,22 +15,28 @@ interface MyContext {
 
 export type eventName =
   | 'clickLocation'
-  | 'REMOVE'
-  | 'HIDE'
-  | 'POINT'
-  | 'LINE'
-  | 'SEGMENT'
-  | 'DRAG'
-  | 'PERPENDICULAR'
-  | 'PARALLEL'
-  | 'PERPENDICULAR_BISSECTOR'
-  | 'POLYGON'
-  | 'CIRCLE'
+  | 'BISSECTOR_BY_POINTS'
+  | 'CIRCLE_CENTER_POINT'
   | 'CIRCLE_RADIUS'
-  | 'RADIUS'
   | 'COLOR'
-  | 'INTERSECTION'
+  | 'DRAG'
+  | 'HIDE'
+  | 'POINT_INTERSECTION'
+  | 'LINE'
+  | 'LINE_PARALLEL'
+  | 'MIDDLE'
+  | 'POINT'
   | 'POINT_ON'
+  | 'LINE_PERPENDICULAR'
+  | 'PERPENDICULAR_BISECTOR'
+  | 'POLYGON'
+  | 'RADIUS'
+  | 'RAY'
+  | 'REDO'
+  | 'REMOVE'
+  | 'SAVE'
+  | 'SEGMENT'
+  | 'UNDO'
 
 export type eventOptions =
   | { x: number, y: number, element?: Element2D }
@@ -47,110 +54,86 @@ const ui = createMachine({
   /** @xstate-layout N4IgpgJg5mDOIC5QEMAOBLA4mA9gWwFUBJAYgAUB5IgOQBUBtABgF1FRUdZ0AXdHAOzYgAHogAsAJgA0IAJ7iAjBIB0CgMwB2BQA4NAVgC+BmWiy5CpADI0Aok1ZIQHLrwFDRCSTPkINYxsoSemKahsYgptj4xCQAyjaYALI2dPZCzjx8go4eXnKICowAbEXKYoVFQUYmGFEWJAAiAEoAgphpjhmu2aC50vkI6kV6ysOMEozaatMzEtURteYxZDZNK9QNRADCBJYtTR3snJluOeL9PgpF46piYTVm0aRk+y2WljaWh07H3e7n3gKAE5GGJlNpGEp7gtHvVKJYAJqYCjUb5dLL-TwXRASCRA0qaIGheaRJakLZEJpbD5o34Ys5YwEIIISUraCTlEpcrnaEmLJ4kLYUSwUA4sdJ0069AEDCQaNQBEG4oFXblFXnhUkClZrFKbHZ7JoAfQAQkRYvEtrRRbSXPTpYzZUSwUCIZy1eq+bCYjRaKtLbQiCjbSceiIZT41KyFKo1B7uRqHnVllQ6Ebg+LOpKw30mQoVcpIWINCr4xovcmiMpmm0SABjAA26DrAGtLDg68huiG-gy1HoRkENNooXmORoytpdNCtRZlJRfcoAO7ITL8KAAMRwACd253uvWm62912sj37eHmYxB9oQZU9Ez-CNGK6oRWycp4kkUrRl6veOuW7bhu6DbrA3A2A2YB4GA-DcIezZth2p4COeUqXiEKhiNoIT6HmCiFMoKrFFUmr8nOX7JHQf5rpuO6xGAdYCBAkHQbB8GNohJ7dpmRx2uhuRRpOuEPgMhQKGC0ykUmH4UlSHw0QBdHbls7FgNuCHHshPEOHxoaYpoMZ3Goo6ynoWjKFG7oeomMKVsocnUjYinoIBO5kDgrkcUeSH7mevE-PxOaIIZZR6CZQRMuOYJ+Nc1k8u+TzKNY1DOSutFASBYEQVBMFwZpvkofwaHBQgahAioI6RQMELaIEwTEmR3pVilaX-q5ykMUx-Asbl7EFdx-m6YF+l9hV4KmT4WgxkUGj3olc46us+q7PsLlucBoHgaxeXeVx2lDRKQWYthYISDoeFiUUYilNdM7kcQ86rMt2yrU062dYxzE7f1nFaX5qEBeiAniDhgQXaJlwDgExTqvoC2PS8rTvJ8H2ZVtOVsflf2FTpR2jQ6ISSSJeZAmIQKWZC0l2R+SNvB8lho-RX09T92M+YNgPDcDpVE5ZJNidoegqBoEgRfdzVPbqGyvYaprmgGopM5t2Vs3t-1FSVmLmaUKr+PeUVAiWk6gqqaq2bOiPPXqsv7PLFo2FaSvpUpQFdd9fXs-tAPFUD2aYtdahEXNegG7KU4qEqeJmwlTX2fCSIonE1pkAnyKon7x0MhMpTmVVkM4hIUzgiWjUyUlacosork8CQWsMgOMYh2HPjncbuhEvDce08KifUB9asDQdXP472DpTDFagC63Vx1VcJYx7H5eLb36cD576u42eCjc-7Dd6E3wwt4XegBCWcWL8MCNVpX-exCnt915nBOXo3yjN9VrcKjGeIXx6Ev2V9P6R2gYq4uw6ujVWG8h4+3roTIoFNyokQLmVKMFMhjxhKBbB6VYgFNADEGfu4CNru1ZtAnGnNfa7yzvAxBd5P4hTFioAcQt4pYOvvOVMtB0zUBgZrZ+Y9Lz9kHHnSaiARzKGFkYcI-AcAQDgEIS2RBR4Xg8AAWiKEyNRIxXSMD0fogxeixAcJrJgFRINBg3SIudaceYp4U1htODhC46DmNKuoOe+sGHMg0AEPQr5qZKM4YuYhylKFuMxDoUoElkFMlPrdOagScGfgSFRWgESGQKH8aMKM+cmQVTZFGABH5KI-mVllbaG8MkOgmBOIouSxGDHGBOYc7Jo5qnLN3JKpTqKhLdizXqWNuDVNfiCVQ3jCgKkCBHdp3JOnL0eo5D4IyPAxMpjdWxso1C6ECDdU2NkOFLLahlHcqk4LqRWQUKc6y4YoI5NciYCgNC+KmDMaYhzKROWVh5LylyEDCwcZ3O55Mz6QmeZMN57yulzlan8giFN8QvlCHE55qhEnFKSq1cpGM1ZwtmkRa4QKmSixGOofMC8PQcKxX05m3VBm7T+dDMK4tiVyhyeS0sapnHWxlgafYfzzoxjjFoTZlwbrMKwV3BZN8eUrUNNiqBQyBXZOFRDPMocg7C1ZPsuZ3LpZyrWjS7cpD6XsT+S86xaqxKh1KOMbVbD5k0wrq8FGlg8VGQqlay4IdAhizfNCxGLqGYKsqUqrMNDLwTApuTGxl1LjaBKGiqcwRF6OqCXTV1ysTW4vDS-DwwwHEbLjVc9UoxWkpo6Xql6fLjRmgdk7JofyFRglibKEsIx-DKkvtgyWS0bY1vtord6RqKmYwZbmwRHh+wqFba3W8BI9AQgmK8t5Vb+1vUHSA527USEDJzXpSd4jISjCeV6nEt46pCyXRCyFzjV4ojhYuyRw5Gk5wnB3MuTqV6IjXjXYZE7VEhR2fKaeOIskjEJJ+9N96iE7qgPukah6EC6CwuULxdzWQU1ijqhMd6f1V3vhQVOMGm0SNPaKwu1wS5Ao4XgghD6AMWPzLnJBx8yovjqteVh3baN0GAVaQhIax1msY6VDkYJwr0JQVGTQ-M5o4fYQG3BfH8EgME0a7NVTRMBzZYwFlAwozXVUBCIFhi1B3t9DwuFZGRXFsGMXDjShyZAhc65nt9khQikbdpzJodLUUZ8YwCcUdOW4ekUAA */
   predictableActionArguments: true,
   id: 'apiGeomUI',
-  initial: 'DRAG',
+  initial: 'INIT',
   /* eslint-disable-next-line @typescript-eslint/consistent-type-assertions */
   context: {} as { figure: Figure },
   on: {
+    BISECTOR_BY_POINTS: 'BISECTOR_BY_POINTS',
     POINT: 'POINT',
     LINE: 'LINE',
     SEGMENT: 'SEGMENT',
     DRAG: 'DRAG',
-    PERPENDICULAR: 'PERPENDICULAR',
-    PARALLEL: 'PARALLEL',
+    LINE_PERPENDICULAR: 'LINE_PERPENDICULAR',
+    LINE_PARALLEL: 'LINE_PARALLEL',
     POLYGON: 'POLYGON',
-    CIRCLE: 'CIRCLE',
+    CIRCLE_CENTER_POINT: 'CIRCLE_CENTER_POINT',
     CIRCLE_RADIUS: 'CIRCLE_RADIUS',
     COLOR: 'COLOR',
-    PERPENDICULAR_BISSECTOR: 'PERPENDICULAR_BISSECTOR',
-    INTERSECTION: 'INTERSECTION',
+    MIDDLE: 'MIDDLE',
+    PERPENDICULAR_BISECTOR: 'PERPENDICULAR_BISECTOR',
+    POINT_INTERSECTION: 'POINT_INTERSECTION',
     POINT_ON: 'POINT_ON',
     REMOVE: 'REMOVE',
-    HIDE: 'HIDE'
+    UNDO: 'UNDO',
+    RAY: 'RAY',
+    REDO: 'REDO',
+    HIDE: 'HIDE',
+    SAVE: 'SAVE'
   },
+  entry: 'highlightButton',
   states: {
-    DRAG: {
-      entry: (context) => {
-        if (context.figure.elements.size > 1) {
-          userMessage('Cliquer sur point pour le déplacer.')
-        } else {
-          userMessage('')
-        }
-        context.figure.filter = (e) => e instanceof Point && e.isFree
-      },
-      on: {
-        clickLocation: {
-          target: 'DRAG',
-          actions: (context, event) => {
-            context.figure.pointInDrag = event.element
-            context.figure.container.style.cursor = 'move'
-          }
-        }
-      },
-      exit: (context) => {
-        context.figure.container.style.cursor = 'default'
-        context.figure.pointInDrag = undefined
+    INIT: {
+      after: {
+        1000: 'POINT'
       }
     },
-    POINT: {
-      initial: 'waitingForLocation',
-      entry: () => { userMessage('Cliquer pour créer un point.') },
-      states: {
-        waitingForLocation: {
-          on: {
-            clickLocation: {
-              target: 'waitingForLocation',
-              actions: (context, event) => {
-                const { x, y } = event
-                context.figure.create('Point', { x, y })
-              }
-            }
-          }
-        }
-      }
-    },
-    SEGMENT: {
+    BISECTOR_BY_POINTS: {
       initial: 'waitingForFirstElement',
       states: {
         waitingForFirstElement: {
           entry: (context) => {
-            userMessage('Cliquer sur la première extrémité du segment.')
+            userMessage('Cliquer sur un premier point (autre que le sommet de l\'angle).')
             context.figure.filter = (e) => e instanceof Point
           },
           on: {
             clickLocation: {
               target: 'waitingForSecondElement',
               actions: (context, event) => {
-                context.figure.selectedElements[0] =
-                  getExisitingPointOrCreatedPoint(context, event)
-                context.figure.tempCreate('Segment', {
-                  point1: context.figure.selectedElements[0] as Point,
-                  point2: context.figure.pointer
-                })
-              }
+                context.figure.selectedElements[0] = event.element as Point
+              },
+              cond: (_, event) => event.element !== undefined
             }
           }
         },
         waitingForSecondElement: {
-          entry: () => { userMessage('Cliquer sur la deuxième extrémité du segment.') },
+          entry: () => { userMessage('Cliquer sur le sommet de l\'angle.') },
+          on: {
+            clickLocation: {
+              target: 'waitingForThirdElement',
+              actions: (context, event) => {
+                context.figure.selectedElements[1] = event.element as Point
+              },
+              cond: (_, event) => event.element !== undefined
+            }
+          }
+        },
+        waitingForThirdElement: {
+          entry: () => { userMessage('Cliquer sur un troisième point.') },
           on: {
             clickLocation: {
               target: 'waitingForFirstElement',
               actions: (context, event) => {
-                context.figure.selectedElements[1] =
-                  getExisitingPointOrCreatedPoint(context, event)
-                const [point1, point2] = context.figure.selectedElements as [
-                  Point,
-                  Point
-                ]
-                context.figure.create('Segment', { point1, point2 })
-                context.figure.tmpElements?.forEach(e => { e.remove() })
-              }
+                context.figure.selectedElements[2] = event.element as Point
+                const [pointOnSide1, origin, pointOnSide2] = context.figure.selectedElements as Point[]
+                context.figure.create('BisectorByPoints', { pointOnSide1, pointOnSide2, origin })
+              },
+              cond: (_, event) => event.element !== undefined
             }
           }
         }
       }
     },
-    CIRCLE: {
+    CIRCLE_CENTER_POINT: {
       initial: 'waitingForCenter',
       states: {
         waitingForCenter: {
@@ -229,6 +212,29 @@ const ui = createMachine({
         }
       }
     },
+    DRAG: {
+      entry: (context) => {
+        if (context.figure.elements.size > 1) {
+          userMessage('Cliquer sur point pour le déplacer.')
+        } else {
+          userMessage('')
+        }
+        context.figure.filter = (e) => e instanceof Point && e.isFree
+      },
+      on: {
+        clickLocation: {
+          target: 'DRAG',
+          actions: (context, event) => {
+            context.figure.pointInDrag = event.element
+            context.figure.container.style.cursor = 'move'
+          }
+        }
+      },
+      exit: (context) => {
+        context.figure.container.style.cursor = 'default'
+        context.figure.pointInDrag = undefined
+      }
+    },
     LINE: {
       initial: 'waitingForFirstElement',
       entry: (context) => { context.figure.filter = (e) => e instanceof Point },
@@ -257,7 +263,6 @@ const ui = createMachine({
                   Point,
                   Point
                 ]
-                console.log(point1, point2)
                 context.figure.eraseTempElements()
                 context.figure.create('Line', { point1, point2 })
               }
@@ -266,7 +271,7 @@ const ui = createMachine({
         }
       }
     },
-    PERPENDICULAR: {
+    LINE_PERPENDICULAR: {
       initial: 'waitingForFirstElement',
       states: {
         waitingForFirstElement: {
@@ -321,7 +326,7 @@ const ui = createMachine({
         }
       }
     },
-    PARALLEL: {
+    LINE_PARALLEL: {
       initial: 'waitingForFirstElement',
       states: {
         waitingForFirstElement: {
@@ -376,7 +381,7 @@ const ui = createMachine({
         }
       }
     },
-    PERPENDICULAR_BISSECTOR: {
+    PERPENDICULAR_BISECTOR: {
       initial: 'waitingForFirstElement',
       states: {
         waitingForFirstElement: {
@@ -389,7 +394,7 @@ const ui = createMachine({
               target: 'waitingForSecondElement',
               actions: (context, event) => {
                 context.figure.selectedElements[0] = event.element
-                context.figure.tempCreate('PerpendicularBissectorByPoints', {
+                context.figure.tempCreate('PerpendicularBisectorByPoints', {
                   point1: context.figure.selectedElements[0] as Point,
                   point2: context.figure.pointer
                 })
@@ -409,7 +414,7 @@ const ui = createMachine({
                   Point,
                   Point
                 ]
-                context.figure.create('PerpendicularBissectorByPoints', { point1, point2 })
+                context.figure.create('PerpendicularBisectorByPoints', { point1, point2 })
                 context.figure.tmpElements?.forEach(e => { e.remove() })
               }
             }
@@ -442,6 +447,7 @@ const ui = createMachine({
               {
                 target: 'waitingElement',
                 actions: (context, event) => {
+                  userMessage('Cliquer sur un nouveau sommet ou sur le premier sommet pour terminer.')
                   if (event.element instanceof Point) context.figure.selectedElements.push(event.element)
                   if (context.figure.selectedElements.length === 0) {
                     context.figure.tempCreate(
@@ -501,7 +507,7 @@ const ui = createMachine({
         }
       }
     },
-    INTERSECTION: {
+    POINT_INTERSECTION: {
       entry: (context) => {
         context.figure.filter = (e) => e instanceof Segment || e instanceof Circle
       },
@@ -575,6 +581,173 @@ const ui = createMachine({
         }
       }
     },
+    POINT: {
+      initial: 'waitingForLocation',
+      entry: () => { userMessage('Cliquer pour créer un point.') },
+      states: {
+        waitingForLocation: {
+          on: {
+            clickLocation: {
+              target: 'waitingForLocation',
+              actions: (context, event) => {
+                const { x, y } = event
+                context.figure.create('Point', { x, y })
+              }
+            }
+          }
+        }
+      }
+    },
+    SAVE: {
+      entry: (context) => {
+        const jsonContent = context.figure.json
+        const blob = new Blob([jsonContent], { type: 'text/plain' })
+        const url = window.URL.createObjectURL(blob)
+
+        const a = document.createElement('a')
+        a.style.display = 'none'
+        a.href = url
+        a.download = 'figure.json'
+        document.body.appendChild(a)
+        a.click()
+        window.URL.revokeObjectURL(url)
+        document.body.removeChild(a)
+        context.figure.buttons.get('DRAG')?.click()
+      }
+    },
+    UNDO: {
+      entry: (context) => {
+        context.figure.historyGoBack()
+        context.figure.buttons.get('DRAG')?.click()
+      }
+    },
+    REDO: {
+      entry: (context) => {
+        context.figure.historyGoForward()
+        context.figure.buttons.get('DRAG')?.click()
+      }
+    },
+    SEGMENT: {
+      initial: 'waitingForFirstElement',
+      states: {
+        waitingForFirstElement: {
+          entry: (context) => {
+            userMessage('Cliquer sur la première extrémité du segment.')
+            context.figure.filter = (e) => e instanceof Point
+          },
+          on: {
+            clickLocation: {
+              target: 'waitingForSecondElement',
+              actions: (context, event) => {
+                context.figure.selectedElements[0] =
+                  getExisitingPointOrCreatedPoint(context, event)
+                context.figure.tempCreate('Segment', {
+                  point1: context.figure.selectedElements[0] as Point,
+                  point2: context.figure.pointer
+                })
+              }
+            }
+          }
+        },
+        waitingForSecondElement: {
+          entry: () => { userMessage('Cliquer sur la deuxième extrémité du segment.') },
+          on: {
+            clickLocation: {
+              target: 'waitingForFirstElement',
+              actions: (context, event) => {
+                context.figure.selectedElements[1] =
+                  getExisitingPointOrCreatedPoint(context, event)
+                const [point1, point2] = context.figure.selectedElements as [
+                  Point,
+                  Point
+                ]
+                context.figure.create('Segment', { point1, point2 })
+                context.figure.tmpElements?.forEach(e => { e.remove() })
+              }
+            }
+          }
+        }
+      }
+    },
+    RAY: {
+      initial: 'waitingForFirstElement',
+      states: {
+        waitingForFirstElement: {
+          entry: (context) => {
+            userMessage('Cliquer sur l\'origine de la demi-droite.')
+            context.figure.filter = (e) => e instanceof Point
+          },
+          on: {
+            clickLocation: {
+              target: 'waitingForSecondElement',
+              actions: (context, event) => {
+                context.figure.selectedElements[0] =
+                  getExisitingPointOrCreatedPoint(context, event)
+                context.figure.tempCreate('Ray', {
+                  point1: context.figure.selectedElements[0] as Point,
+                  point2: context.figure.pointer
+                })
+              }
+            }
+          }
+        },
+        waitingForSecondElement: {
+          entry: () => { userMessage('Cliquer un point de la demi-droite.') },
+          on: {
+            clickLocation: {
+              target: 'waitingForFirstElement',
+              actions: (context, event) => {
+                context.figure.selectedElements[1] =
+                  getExisitingPointOrCreatedPoint(context, event)
+                const [point1, point2] = context.figure.selectedElements as [
+                  Point,
+                  Point
+                ]
+                context.figure.create('Ray', { point1, point2 })
+                context.figure.tmpElements?.forEach(e => { e.remove() })
+              }
+            }
+          }
+        }
+      }
+    },
+    MIDDLE: {
+      initial: 'waitingForFirstElement',
+      states: {
+        waitingForFirstElement: {
+          entry: (context) => {
+            userMessage('Cliquer sur la première extrémité du segment.')
+            context.figure.filter = (e) => e instanceof Point
+          },
+          on: {
+            clickLocation: {
+              target: 'waitingForSecondElement',
+              actions: (context, event) => {
+                context.figure.selectedElements[0] = event.element
+              },
+              cond: (_, event) => event.element !== undefined
+            }
+          }
+        },
+        waitingForSecondElement: {
+          entry: () => { userMessage('Cliquer sur la deuxième extrémité du segment.') },
+          on: {
+            clickLocation: {
+              target: 'waitingForFirstElement',
+              actions: (context, event) => {
+                context.figure.selectedElements[1] = event.element
+                const [point1, point2] = context.figure.selectedElements as [
+                  Point,
+                  Point
+                ]
+                context.figure.create('Middle', { point1, point2 })
+              },
+              cond: (_, event) => event.element !== undefined
+            }
+          }
+        }
+      }
+    },
     HIDE: {
       entry: (context) => {
         userMessage('Cliquer sur l\'élément à cacher.')
@@ -582,10 +755,11 @@ const ui = createMachine({
       },
       on: {
         clickLocation: {
-          target: 'REMOVE',
+          target: 'HIDE',
           actions: (_, event) => {
             event.element.hide()
-          }
+          },
+          cond: (_, event) => event.element !== undefined
         }
       }
     },
@@ -599,7 +773,9 @@ const ui = createMachine({
           target: 'REMOVE',
           actions: (_, event) => {
             event.element.remove()
-          }
+          },
+          cond: (_, event) => event.element !== undefined
+
         }
       }
     },
@@ -609,7 +785,24 @@ const ui = createMachine({
       }
     }
   }
-})
+},
+{
+  actions: {
+    highlightButton: (context, event) => {
+      const button = context.figure.buttons.get(event.type)
+      if (button !== undefined) {
+        button.style.backgroundColor = orangeMathaleaLight
+      }
+      context.figure.buttons.forEach((value, key) => {
+        if (key !== event.type) {
+          value.style.backgroundColor = 'white'
+        }
+      })
+    }
+  }
+
+}
+)
 
 function getExisitingPointOrCreatedPoint (context: MyContext, event: MyEvent): Point {
   if (event.element instanceof Point) {

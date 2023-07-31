@@ -1,13 +1,13 @@
 import { type OptionsElement2D } from '../interfaces'
 import type Figure from '../../Figure'
-import PerpendicularBissector from './PerpendicularBissector'
+import PerpendicularBisector from './PerpendicularBisector'
 import type Point from '../points/Point'
 
-class PerpendicularBissectorByPoints extends PerpendicularBissector {
+class PerpendicularBisectorByPoints extends PerpendicularBisector {
   constructor (figure: Figure, { point1, point2, ...options }: { point1: Point, point2: Point } & OptionsElement2D) {
     const segment = figure.create('Segment', { point1, point2, isChild: true, isSelectable: true, isVisible: false })
     super(figure, { segment, ...options })
-    this.type = 'PerpendicularBissectorByPoints'
+    this.type = 'PerpendicularBisectorByPoints'
   }
 
   toJSON (): object {
@@ -23,4 +23,4 @@ class PerpendicularBissectorByPoints extends PerpendicularBissector {
   }
 }
 
-export default PerpendicularBissectorByPoints
+export default PerpendicularBisectorByPoints
