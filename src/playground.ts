@@ -39,7 +39,3 @@ divButtons.appendChild(figure.addButtons('CIRCLE_CENTER_POINT CIRCLE_RADIUS'))
 // Création de la figure
 
 figure.setContainer(div)
-
-figure.create('Point', { x: 0, y: 0, label: 'A' })
-figure.create('Point', { x: 3, y: 0, label: 'B' })
-figure.create('Point', { x: 0, y: 3, label: 'C' })

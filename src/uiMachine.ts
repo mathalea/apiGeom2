@@ -39,7 +39,7 @@ export type eventName =
   | 'UNDO'
 
 export type eventOptions =
-  | { x: number, y: number, element?: Element2D }
+  | { x: number, y: number, element?: Element2D, waitingWithModal?: boolean }
   | { text: string }
   | { radius: number }
 
@@ -48,6 +48,7 @@ interface MyEvent extends AnyEventObject {
   y?: number
   element?: Element2D
   text?: string
+  waitingWithModal?: boolean
 }
 
 const ui = createMachine({
@@ -81,6 +82,10 @@ const ui = createMachine({
     SAVE: 'SAVE'
   },
   entry: 'highlightButton',
+  exit: (context) => {
+    context.figure.selectedElements = []
+    context.figure.tmpElements = []
+  },
   states: {
     INIT: {
       after: {
@@ -145,12 +150,18 @@ const ui = createMachine({
             clickLocation: {
               target: 'waitingForPoint',
               actions: (context, event) => {
-                context.figure.selectedElements[0] =
-                  getExisitingPointOrCreatedPoint(context, event)
-                context.figure.tempCreate('CircleCenterPoint', {
-                  center: context.figure.selectedElements[0] as Point,
-                  point: context.figure.pointer
-                })
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                if (newPoint !== undefined) {
+                  context.figure.selectedElements[0] = newPoint
+                  context.figure.tempCreate('CircleCenterPoint', {
+                    center: context.figure.selectedElements[0] as Point,
+                    point: context.figure.pointer
+                  })
+                }
+              },
+              cond: (context, event) => {
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                return newPoint !== undefined
               }
             }
           }
@@ -164,13 +175,19 @@ const ui = createMachine({
               target: 'waitingForCenter',
               actions: (context, event) => {
                 context.figure.eraseTempElements()
-                context.figure.selectedElements[1] =
-                  getExisitingPointOrCreatedPoint(context, event)
-                const [center, point] = context.figure.selectedElements as [
-                  Point,
-                  Point
-                ]
-                context.figure.create('CircleCenterPoint', { center, point })
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                if (newPoint !== undefined) {
+                  context.figure.selectedElements[1] = newPoint
+                  const [center, point] = context.figure.selectedElements as [
+                    Point,
+                    Point
+                  ]
+                  context.figure.create('CircleCenterPoint', { center, point })
+                }
+              },
+              cond: (context, event) => {
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                return newPoint !== undefined
               }
             }
           }
@@ -189,9 +206,16 @@ const ui = createMachine({
             clickLocation: {
               target: 'waitingForRadius',
               actions: (context, event) => {
-                context.figure.selectedElements[0] = getExisitingPointOrCreatedPoint(context, event)
-                const dialog = createDialoxBoxRadius(context.figure.ui)
-                dialog.showModal()
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                if (newPoint !== undefined) {
+                  context.figure.selectedElements[0] = newPoint
+                  const dialog = createDialoxBoxRadius(context.figure.ui)
+                  dialog.showModal()
+                }
+              },
+              cond: (_, event) => {
+                const newPoint = getExisitingPointOrCreatedPoint(_, event)
+                return newPoint !== undefined
               }
             }
           }
@@ -227,7 +251,8 @@ const ui = createMachine({
           actions: (context, event) => {
             context.figure.pointInDrag = event.element
             context.figure.container.style.cursor = 'move'
-          }
+          },
+          cond: (_, event) => event.element !== undefined
         }
       },
       exit: (context) => {
@@ -245,8 +270,15 @@ const ui = createMachine({
             clickLocation: {
               target: 'waitingForSecondElement',
               actions: (context, event) => {
-                context.figure.selectedElements[0] = getExisitingPointOrCreatedPoint(context, event)
-                context.figure.tempCreate('Line', { point1: context.figure.selectedElements[0] as Point, point2: context.figure.pointer })
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                if (newPoint !== undefined) {
+                  context.figure.selectedElements[0] = newPoint
+                  context.figure.tempCreate('Line', { point1: context.figure.selectedElements[0] as Point, point2: context.figure.pointer })
+                }
+              },
+              cond: (context, event) => {
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                return newPoint !== undefined
               }
             }
           }
@@ -257,14 +289,20 @@ const ui = createMachine({
             clickLocation: {
               target: 'waitingForFirstElement',
               actions: (context, event) => {
-                context.figure.selectedElements[1] =
-                  getExisitingPointOrCreatedPoint(context, event)
-                const [point1, point2] = context.figure.selectedElements as [
-                  Point,
-                  Point
-                ]
-                context.figure.eraseTempElements()
-                context.figure.create('Line', { point1, point2 })
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                if (newPoint !== undefined) {
+                  context.figure.selectedElements[1] = newPoint
+                  const [point1, point2] = context.figure.selectedElements as [
+                    Point,
+                    Point
+                  ]
+                  context.figure.eraseTempElements()
+                  context.figure.create('Line', { point1, point2 })
+                }
+              },
+              cond: (context, event) => {
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                return newPoint !== undefined
               }
             }
           }
@@ -521,11 +559,12 @@ const ui = createMachine({
               actions: (context, event) => {
                 context.figure.selectedElements[0] = event.element
                 event.element.isSelected = true
-              }
+              },
+              cond: (_, event) => event.element !== undefined
             }
           },
           exit: (context) => {
-            context.figure.selectedElements[0].isSelected = false
+            if (context.figure.selectedElements[0]?.isSelected) context.figure.selectedElements[0].isSelected = false
           }
         },
         waitingForSecondElement: {
@@ -550,7 +589,8 @@ const ui = createMachine({
                     context.figure.create('PointsIntersectionCC', { circle1: element1, circle2: element2 })
                   }
                 }
-              }
+              },
+              cond: (_, event) => event.element !== undefined
             }
           },
           exit: (context) => {
@@ -639,12 +679,18 @@ const ui = createMachine({
             clickLocation: {
               target: 'waitingForSecondElement',
               actions: (context, event) => {
-                context.figure.selectedElements[0] =
-                  getExisitingPointOrCreatedPoint(context, event)
-                context.figure.tempCreate('Segment', {
-                  point1: context.figure.selectedElements[0] as Point,
-                  point2: context.figure.pointer
-                })
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                if (newPoint !== undefined) {
+                  context.figure.selectedElements[0] = newPoint
+                  context.figure.tempCreate('Segment', {
+                    point1: context.figure.selectedElements[0] as Point,
+                    point2: context.figure.pointer
+                  })
+                }
+              },
+              cond: (context, event) => {
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                return newPoint !== undefined
               }
             }
           }
@@ -655,14 +701,20 @@ const ui = createMachine({
             clickLocation: {
               target: 'waitingForFirstElement',
               actions: (context, event) => {
-                context.figure.selectedElements[1] =
-                  getExisitingPointOrCreatedPoint(context, event)
-                const [point1, point2] = context.figure.selectedElements as [
-                  Point,
-                  Point
-                ]
-                context.figure.create('Segment', { point1, point2 })
-                context.figure.tmpElements?.forEach(e => { e.remove() })
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                if (newPoint !== undefined) {
+                  context.figure.selectedElements[1] = newPoint
+                  const [point1, point2] = context.figure.selectedElements as [
+                    Point,
+                    Point
+                  ]
+                  context.figure.create('Segment', { point1, point2 })
+                  context.figure.tmpElements?.forEach(e => { e.remove() })
+                }
+              },
+              cond: (context, event) => {
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                return newPoint !== undefined
               }
             }
           }
@@ -681,12 +733,18 @@ const ui = createMachine({
             clickLocation: {
               target: 'waitingForSecondElement',
               actions: (context, event) => {
-                context.figure.selectedElements[0] =
-                  getExisitingPointOrCreatedPoint(context, event)
-                context.figure.tempCreate('Ray', {
-                  point1: context.figure.selectedElements[0] as Point,
-                  point2: context.figure.pointer
-                })
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                if (newPoint !== undefined) {
+                  context.figure.selectedElements[0] = newPoint
+                  context.figure.tempCreate('Ray', {
+                    point1: context.figure.selectedElements[0] as Point,
+                    point2: context.figure.pointer
+                  })
+                }
+              },
+              cond: (context, event) => {
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                return newPoint !== undefined
               }
             }
           }
@@ -697,14 +755,20 @@ const ui = createMachine({
             clickLocation: {
               target: 'waitingForFirstElement',
               actions: (context, event) => {
-                context.figure.selectedElements[1] =
-                  getExisitingPointOrCreatedPoint(context, event)
-                const [point1, point2] = context.figure.selectedElements as [
-                  Point,
-                  Point
-                ]
-                context.figure.create('Ray', { point1, point2 })
-                context.figure.tmpElements?.forEach(e => { e.remove() })
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                if (newPoint !== undefined) {
+                  context.figure.selectedElements[1] = newPoint
+                  const [point1, point2] = context.figure.selectedElements as [
+                    Point,
+                    Point
+                  ]
+                  context.figure.create('Ray', { point1, point2 })
+                  context.figure.tmpElements?.forEach(e => { e.remove() })
+                }
+              },
+              cond: (context, event) => {
+                const newPoint = getExisitingPointOrCreatedPoint(context, event)
+                return newPoint !== undefined
               }
             }
           }
@@ -804,11 +868,13 @@ const ui = createMachine({
 }
 )
 
-function getExisitingPointOrCreatedPoint (context: MyContext, event: MyEvent): Point {
+function getExisitingPointOrCreatedPoint (context: MyContext, event: MyEvent): Point | undefined {
+  console.log(event)
   if (event.element instanceof Point) {
     return event.element
   }
   const [x, y] = [event.x as number, event.y as number]
+  if (event.waitingWithModal === true) return undefined
   return context.figure.create('Point', { x, y })
 }
 

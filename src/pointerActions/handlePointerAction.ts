@@ -19,7 +19,7 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
   if (possibleElements.length === 1) {
     sendToMachine(figure, { element: possibleElements[0], x, y })
   } else if (possibleElements.length > 1) {
-    const elementText = new TextByPosition(figure, { x: pointerX + defaultDeltaXModal, y: Math.min(pointerY, figure.yMax - 2), text: '' })
+    const elementText = new TextByPosition(figure, { x: pointerX + defaultDeltaXModal, y: Math.min(pointerY, figure.yMax - 2), text: '', isChild: true, isSelectable: false })
     elementText.draw()
     figure.modal = elementText.div
     figure.modal.style.pointerEvents = 'auto'
@@ -54,14 +54,14 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
     for (const div of divs) {
       figure.modal.appendChild(div)
     }
-    sendToMachine(figure, { element: undefined, x, y })
+    sendToMachine(figure, { element: undefined, x, y, waitingWithModal: true })
   } else {
     sendToMachine(figure, { element: undefined, x, y })
   }
 }
 
-function sendToMachine (figure: Figure, { element, x, y }: { element?: Element2D, x: number, y: number }): void {
+function sendToMachine (figure: Figure, { element, x, y, waitingWithModal }: { element?: Element2D, x: number, y: number, waitingWithModal?: boolean }): void {
   if (figure.ui !== undefined) {
-    figure.ui.send('clickLocation', { element, x, y })
+    figure.ui.send('clickLocation', { element, x, y, waitingWithModal })
   }
 }
