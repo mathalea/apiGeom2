@@ -50,7 +50,7 @@ const defaultOptions = {
   isDashed: false,
   tmpThickness: 1,
   tmpColor: 'gray',
-  tmpFillColor: 'gray',
+  tmpFillColor: orangeMathaleaLight,
   tmpFillOpacity: 0.2,
   tmpIsDashed: true,
   labelDxInPixels: 20,

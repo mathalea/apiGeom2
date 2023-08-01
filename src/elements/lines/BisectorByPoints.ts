@@ -26,7 +26,6 @@ class BisectorByPoints extends Ray {
 
   update (): void {
     let angle = Math.atan2(this.pointOnSide2.y - this.point1.y, this.pointOnSide2.x - this.point1.x) - Math.atan2(this.pointOnSide1.y - this.point1.y, this.pointOnSide1.x - this.point1.x)
-    console.log(angle)
     if (angle > Math.PI) angle -= 2 * Math.PI
     if (angle < -Math.PI) angle += 2 * Math.PI
     const x = this.point1.x + Math.cos(angle / 2) * (this.pointOnSide1.x - this.point1.x) - Math.sin(angle / 2) * (this.pointOnSide1.y - this.point1.y)

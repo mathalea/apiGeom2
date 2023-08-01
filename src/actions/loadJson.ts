@@ -23,12 +23,65 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
   if (figure.container != null) figure.container.innerHTML = ''
   figure.clearHtml()
   figure.container?.appendChild(figure.svg)
+  figure.pointer = figure.create('Point', { x: 0, y: 0, isFree: false, isChild: true, isVisible: false, shape: '' })
+  figure.pointer.type = 'pointer'
   for (const options of Object.values(json)) {
     if (options.type === 'Point') {
       figure.create('Point', { x: options.x, y: options.y, ...options })
+    } else if (options.type === 'BisectorByPoints') {
+      const origin = figure.elements.get(options.idOrigin) as Point
+      const pointOnSide1 = figure.elements.get(options.idPointOnSide1) as Point
+      const pointOnSide2 = figure.elements.get(options.idPointOnSide2) as Point
+      figure.create('BisectorByPoints', { origin, pointOnSide1, pointOnSide2, ...options })
+    } else if (options.type === 'Circle') {
+      const center = figure.elements.get(options.idCenter) as Point
+      figure.create('Circle', { center, radius: options.radius, ...options })
+    } else if (options.type === 'CircleCenterPoint') {
+      const center = figure.elements.get(options.idCenter) as Point
+      const point = figure.elements.get(options.idPoint) as Point
+      figure.create('CircleCenterPoint', { center, point, ...options })
+    } else if (options.type === 'CircleDynamicRadius') {
+      const center = figure.elements.get(options.idCenter) as Point
+      const radius = figure.elements.get(options.idRadius) as Distance
+      figure.create('CircleCenterDynamicRadius', { center, radius, ...options })
+    } else if (options.type === 'Distance') {
+      const point1 = figure.elements.get(options.idPoint1) as Point
+      const point2 = figure.elements.get(options.idPoint2) as Point
+      figure.create('Distance', { point1, point2, ...options })
     } else if (options.type === 'PointOnLine') {
       const line = figure.elements.get(options.idLine) as Line
       figure.create('PointOnLine', { line, ...options })
+    } else if (options.type === 'Graph') {
+      figure.create('Graph', { ...options })
+    } else if (options.type === 'Grid') {
+      figure.create('Grid', { ...options })
+    } else if (options.type === 'Line') {
+      const point1 = figure.elements.get(options.idPoint1) as Point
+      const point2 = figure.elements.get(options.idPoint2) as Point
+      figure.create('Line', { point1, point2, ...options })
+    } else if (options.type === 'Middle') {
+      const point1 = figure.elements.get(options.idPoint1) as Point
+      const point2 = figure.elements.get(options.idPoint2) as Point
+      figure.create('Middle', { point1, point2, ...options })
+    } else if (options.type === 'LineByPointVector') {
+      const vector = figure.elements.get(options.idVector)
+      const point = figure.elements.get(options.idPoint)
+      figure.create('LineByPointVector', { vector, point, ...options })
+    } else if (options.type === 'LineParallel') {
+      const line = figure.elements.get(options.idLine)
+      const point = figure.elements.get(options.idPoint)
+      figure.create('LineParallel', { line, point, ...options })
+    } else if (options.type === 'LinePerpendicular') {
+      const line = figure.elements.get(options.idLine)
+      const point = figure.elements.get(options.idPoint)
+      figure.create('LinePerpendicular', { line, point, ...options })
+    } else if (options.type === 'PerpendicularBisector') {
+      const segment = figure.elements.get(options.idSegment)
+      figure.create('PerpendicularBisector', { segment, ...options })
+    } else if (options.type === 'PerpendicularBisectorByPoints') {
+      const point1 = figure.elements.get(options.idPoint1) as Point
+      const point2 = figure.elements.get(options.idPoint2) as Point
+      figure.create('PerpendicularBisectorByPoints', { point1, point2, ...options })
     } else if (options.type === 'PointByTranslation') {
       const origin = figure.elements.get(options.idOrigin) as Point
       const vector = figure.elements.get(options.idVector) as Vector
@@ -37,6 +90,11 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const origin = figure.elements.get(options.idOrigin) as Point
       const center = figure.elements.get(options.idCenter) as Point
       figure.create('PointByDilate', { origin, center, ...options })
+    } else if (options.type === 'PointByDynamicRotation') {
+      const origin = figure.elements.get(options.idOrigin) as Point
+      const center = figure.elements.get(options.idCenter) as Point
+      const dynamicAngle = figure.elements.get(options.idDynamicAngle) as Point
+      figure.create('PointByDynamicRotation', { origin, center, dynamicAngle, ...options })
     } else if (options.type === 'PointByProjection') {
       const origin = figure.elements.get(options.idOrigin) as Point
       const line = figure.elements.get(options.idLine) as Segment
@@ -59,15 +117,6 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const origin = figure.elements.get(options.idOrigin) as Point
       const center = figure.elements.get(options.idCenter) as Point
       figure.create('PointByRotation', { origin, center, ...options })
-    } else if (options.type === 'PointByDynamicRotation') {
-      const origin = figure.elements.get(options.idOrigin) as Point
-      const center = figure.elements.get(options.idCenter) as Point
-      const dynamicAngle = figure.elements.get(options.idDynamicAngle) as Point
-      figure.create('PointByDynamicRotation', { origin, center, dynamicAngle, ...options })
-    } else if (options.type === 'Middle') {
-      const point1 = figure.elements.get(options.idPoint1) as Point
-      const point2 = figure.elements.get(options.idPoint2) as Point
-      figure.create('Middle', { point1, point2, ...options })
     } else if (options.type === 'PointIntersectionLL') {
       const line1 = figure.elements.get(options.idLine1) as Line
       const line2 = figure.elements.get(options.idLine2) as Line
@@ -88,33 +137,29 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const line = figure.elements.get(options.idLine) as Line
       const circle = figure.elements.get(options.idCircle) as Circle
       figure.create('PointsIntersectionLC', { line, circle, ...options })
+    } else if (options.type === 'PointOnGraph') {
+      const graph = figure.elements.get(options.idGraph)
+      figure.create('PointOnGraph', { graph, ...options })
     } else if (options.type === 'Segment') {
       const point1 = figure.elements.get(options.idPoint1) as Point
       const point2 = figure.elements.get(options.idPoint2) as Point
       figure.create('Segment', { point1, point2, ...options })
-    } else if (options.type === 'Line') {
-      const point1 = figure.elements.get(options.idPoint1) as Point
-      const point2 = figure.elements.get(options.idPoint2) as Point
-      figure.create('Line', { point1, point2, ...options })
+    } else if (options.type === 'Polyline') {
+      const points = []
+      for (const idPoint of options.idPoints) {
+        points.push(figure.elements.get(idPoint))
+      }
+      figure.create('Polyline', { points, ...options })
+    } else if (options.type === 'Polygon') {
+      const points = []
+      for (const idPoint of options.idPoints) {
+        points.push(figure.elements.get(idPoint))
+      }
+      figure.create('Polygon', { points, ...options })
     } else if (options.type === 'Ray') {
       const point1 = figure.elements.get(options.idPoint1) as Point
       const point2 = figure.elements.get(options.idPoint2) as Point
       figure.create('Ray', { point1, point2, ...options })
-    } else if (options.type === 'Circle') {
-      const center = figure.elements.get(options.idCenter) as Point
-      figure.create('Circle', { center, radius: options.radius, ...options })
-    } else if (options.type === 'CircleCenterPoint') {
-      const center = figure.elements.get(options.idCenter) as Point
-      const point = figure.elements.get(options.idPoint) as Point
-      figure.create('CircleCenterPoint', { center, point, ...options })
-    } else if (options.type === 'CircleDynamicRadius') {
-      const center = figure.elements.get(options.idCenter) as Point
-      const radius = figure.elements.get(options.idRadius) as Distance
-      figure.create('CircleCenterDynamicRadius', { center, radius, ...options })
-    } else if (options.type === 'Distance') {
-      const point1 = figure.elements.get(options.idPoint1) as Point
-      const point2 = figure.elements.get(options.idPoint2) as Point
-      figure.create('Distance', { point1, point2, ...options })
     } else if (options.type === 'TextByPosition') {
       figure.create('TextByPosition', { x: options.x, y: options.y, text: options.text, ...options })
     } else if (options.type === 'TextByPoint') {
@@ -135,40 +180,6 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const origin = figure.elements.get(options.idOrigin)
       const line = figure.elements.get(options.idLine)
       figure.create('VectorPerpendicular', { origin, line, ...options })
-    } else if (options.type === 'LineByPointVector') {
-      const vector = figure.elements.get(options.idVector)
-      const point = figure.elements.get(options.idPoint)
-      figure.create('LineByPointVector', { vector, point, ...options })
-    } else if (options.type === 'LineParallel') {
-      const line = figure.elements.get(options.idLine)
-      const point = figure.elements.get(options.idPoint)
-      figure.create('LineParallel', { line, point, ...options })
-    } else if (options.type === 'LinePerpendicular') {
-      const line = figure.elements.get(options.idLine)
-      const point = figure.elements.get(options.idPoint)
-      figure.create('LinePerpendicular', { line, point, ...options })
-    } else if (options.type === 'PerpendicularBisector') {
-      const segment = figure.elements.get(options.idSegment)
-      figure.create('PerpendicularBisector', { segment, ...options })
-    } else if (options.type === 'Polyline') {
-      const points = []
-      for (const idPoint of options.idPoints) {
-        points.push(figure.elements.get(idPoint))
-      }
-      figure.create('Polyline', { points, ...options })
-    } else if (options.type === 'Polygon') {
-      const points = []
-      for (const idPoint of options.idPoints) {
-        points.push(figure.elements.get(idPoint))
-      }
-      figure.create('Polygon', { points, ...options })
-    } else if (options.type === 'Graph') {
-      figure.create('Graph', { ...options })
-    } else if (options.type === 'Grid') {
-      figure.create('Grid', { ...options })
-    } else if (options.type === 'PointOnGraph') {
-      const graph = figure.elements.get(options.idGraph)
-      figure.create('PointOnGraph', { graph, ...options })
     }
   }
   // Pour la navigation dans l'historique on ne sauvegarde que le premier chargement

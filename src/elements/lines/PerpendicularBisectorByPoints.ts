@@ -14,8 +14,9 @@ class PerpendicularBisectorByPoints extends PerpendicularBisector {
     return {
       type: this.type,
       id: this.id,
+      idPoint1: this.line.point1.id,
+      idPoint2: this.line.point2.id,
       isChild: this.isChild,
-      idSegment: this.line.id,
       color: this.color,
       thickness: this.thickness,
       isDashed: this.isDashed

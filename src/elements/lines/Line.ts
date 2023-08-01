@@ -76,7 +76,7 @@ function getCoordsOut (A: Point, B: Point): [number, number, number, number] {
     }
     return [xOutLeft, yOutLeft, xOutRight, yOutRight]
   } catch (error) {
-    console.log('Erreur dans Line.getCoordsOut', error)
+    console.error('Erreur dans Line.getCoordsOut', error)
     return [NaN, NaN, NaN, NaN]
   }
 }

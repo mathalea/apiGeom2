@@ -60,7 +60,7 @@ class PointOnLine extends PointByDilate {
         else this.k = Math.hypot(x - this.line.point1.x, y - this.line.point1.y) / Math.hypot(this.line.point2.x - this.line.point1.x, this.line.point2.y - this.line.point1.y)
       }
     } catch (error) {
-      console.log('Erreur dans PointOnLine')
+      console.error('Erreur dans PointOnLine')
     }
     this.update()
   }

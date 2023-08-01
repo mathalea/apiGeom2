@@ -187,6 +187,7 @@ class Figure {
     // Pour éviter le scroll quand on manipule la figure sur un écran tactile
     this.svg.style.touchAction = 'none'
     this.clearHtml()
+    if (this.isDynamic) this.listenPointer()
     this.pointer = new Point(this, { x: 0, y: 0, isFree: false, isChild: true, isVisible: false, shape: '' })
     this.pointer.type = 'pointer'
     this.ui = undefined
@@ -224,7 +225,6 @@ class Figure {
     this.svg.appendChild(style)
     style.type = 'text/css'
     style.innerHTML = '.onlyOver:hover { opacity: 1; }'
-    if (this.isDynamic) this.listenPointer()
   }
 
   /** Abscisse dans nos coordonnées converti en abscisse du SVG */

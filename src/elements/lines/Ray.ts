@@ -105,7 +105,7 @@ function getRayCoordsOut (A: Point, B: Point): [number, number, number, number] 
       return [A.x, A.y, xOutLeft, yOutLeft]
     }
   } catch (error) {
-    console.log('Erreur dans Ray.getRayCoordsOut', error)
+    console.error('Erreur dans Ray.getRayCoordsOut', error)
     return [NaN, NaN, NaN, NaN]
   }
 }

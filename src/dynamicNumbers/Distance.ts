@@ -27,7 +27,7 @@ class Distance extends DynamicNumber {
     try {
       this.value = Math.hypot(this.point1.x - this.point2.x, this.point1.y - this.point2.y)
     } catch (error) {
-      console.log('Erreur dans Distance.update()', error)
+      console.error('Erreur dans Distance.update()', error)
       // this.exist = false
     }
     this.notify()

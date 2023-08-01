@@ -129,7 +129,7 @@ export function intersectionLLCoord (line1: Line, line2: Line): Coords {
     }
     return new Coords(x, y)
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return new Coords(NaN, NaN)
   }
 }

@@ -132,7 +132,7 @@ class Segment extends Element2D {
       const c = (this.point1.x - this.point2.x) * this.point1.y + (this.point2.y - this.point1.y) * this.point1.x
       return [a, b, c]
     } catch (error) {
-      console.log('Erreur dans Line.equation()', error)
+      console.error('Erreur dans Line.equation()', error)
       // this.exist = false
       return [NaN, NaN, NaN]
     }
@@ -146,7 +146,7 @@ class Segment extends Element2D {
       const [a, b] = this.equation
       return { x: b, y: -a }
     } catch (error) {
-      console.log('Erreur dans Line.normal()', error)
+      console.error('Erreur dans Line.normal()', error)
       return { x: NaN, y: NaN }
     }
   }
@@ -159,7 +159,7 @@ class Segment extends Element2D {
       const [a, b] = this.equation
       return { x: a, y: b }
     } catch (error) {
-      console.log('Erreur dans Line.directeur()', error)
+      console.error('Erreur dans Line.directeur()', error)
       return { x: NaN, y: NaN }
     }
   }

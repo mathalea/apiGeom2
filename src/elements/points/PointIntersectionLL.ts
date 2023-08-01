@@ -31,7 +31,7 @@ export class PointIntersectionLL extends Point {
       this._y = coords.y
       super.update()
     } catch (error) {
-      console.log('Erreur dans PointIntersectionLL.update()', error)
+      console.error('Erreur dans PointIntersectionLL.update()', error)
     }
     this.notify()
   }

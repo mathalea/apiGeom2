@@ -38,7 +38,7 @@ export class PointIntersectionLC extends Point {
       }
       super.update()
     } catch (error) {
-      console.log('Erreur dans PointIntersectionLL.update()', error)
+      console.error('Erreur dans PointIntersectionLL.update()', error)
     }
     this.notify()
   }

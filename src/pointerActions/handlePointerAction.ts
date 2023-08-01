@@ -62,6 +62,6 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
 
 function sendToMachine (figure: Figure, { element, x, y, waitingWithModal }: { element?: Element2D, x: number, y: number, waitingWithModal?: boolean }): void {
   if (figure.ui !== undefined) {
-    figure.ui.send('clickLocation', { element, x, y, waitingWithModal })
+    figure.ui.send('clickLocation', { element, x, y, waitingWithModal: waitingWithModal ?? false })
   }
 }

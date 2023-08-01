@@ -19,6 +19,7 @@ import mesureAngle from '../assets/svg/mesureAngle.svg'
 import mesureSegment from '../assets/svg/mesureSegment.svg'
 import middle from '../assets/svg/middle.svg'
 import namePoint from '../assets/svg/namePoint.svg'
+import open from '../assets/svg/open.svg'
 import perpendicularBisector from '../assets/svg/perpendicularBisector.svg'
 import point from '../assets/svg/point.svg'
 import pointIntersection from '../assets/svg/pointIntersection.svg'
@@ -54,6 +55,7 @@ const availableIcons = new Map([
   ['MESURE_SEGMENT', mesureSegment],
   ['MIDDLE', middle],
   ['NAME_POINT', namePoint],
+  ['OPEN', open],
   ['PERPENDICULAR_BISECTOR', perpendicularBisector],
   ['POINT', point],
   ['POINT_INTERSECTION', pointIntersection],
