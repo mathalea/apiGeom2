@@ -429,6 +429,7 @@ const ui = createMachine({
           }
         }
         input.click()
+        context.figure.buttons.get('DRAG')?.click()
       }
     },
     PERPENDICULAR_BISECTOR: {

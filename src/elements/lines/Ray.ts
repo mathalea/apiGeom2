@@ -58,11 +58,11 @@ class Ray extends Segment {
     const projection = (normalizedRayDirection.x * (x - this.point1.x) + normalizedRayDirection.y * (y - this.point1.y)) / rayLength
     // La distance minimale est la distance au point d'origine si la projection est négative
     if (projection < 0) {
-      return Math.sqrt((x - this.point1.x) ** 2 + (y - this.point1.y) ** 2)
+      return distance(pointerCoords, this.point1)
     } else {
       // Calculer les coordonnées du point le plus proche sur la demi-droite
-      const closestX = this.point1.x + normalizedRayDirection.x * projection
-      const closestY = this.point1.y + normalizedRayDirection.y * projection
+      const closestX = this.point1.x + rayDirection.x * projection
+      const closestY = this.point1.y + rayDirection.y * projection
       const closest = { x: closestX, y: closestY }
       return distance(pointerCoords, closest)
     }

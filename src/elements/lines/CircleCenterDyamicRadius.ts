@@ -28,7 +28,7 @@ class CircleCenterDynamicRadius extends Circle {
     this._radius = this.radiusDynamic.value
     this.groupSvg.setAttribute('cx', `${xSvg}`)
     this.groupSvg.setAttribute('cy', `${ySvg}`)
-    this.groupSvg.setAttribute('r', `${rSvg}`)
+    if (Number.isFinite(rSvg)) this.groupSvg.setAttribute('r', `${rSvg}`)
     this.notify()
   }
 

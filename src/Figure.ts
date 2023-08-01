@@ -192,6 +192,8 @@ class Figure {
     this.pointer.type = 'pointer'
     this.ui = undefined
     this.filter = e => e instanceof Point && e.isFree
+    // Les boutons n'existe pas encore
+    setTimeout(() => { this.handleUndoRedoButtons() }, 100 )
   }
 
   create<T extends keyof typeof classes>(
@@ -290,6 +292,18 @@ class Figure {
     }
     this.stackUndo.push(save)
     if (this.stackUndo.length > defaultHistorySize) this.stackUndo = this.stackUndo.slice(-defaultHistorySize)
+    this.handleUndoRedoButtons()
+  }
+
+  handleUndoRedoButtons (): void {
+    const btnRedo = this.buttons.get('REDO')
+    const btnUndo = this.buttons.get('UNDO')
+    if (btnRedo !== undefined) {
+      btnRedo.style.opacity = (this.stackRedo.length === 0) ? '0.5' : '1'
+    }
+    if (btnUndo !== undefined) {
+      btnUndo.style.opacity = (this.stackUndo.length === 0) ? '0.5' : '1'
+    }
   }
 
   /** Charge la figure stockée dans stackUndo */
