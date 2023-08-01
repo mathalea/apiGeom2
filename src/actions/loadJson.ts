@@ -16,8 +16,8 @@ import type Segment from '../elements/lines/Segment'
  */
 export function loadJson (figure: Figure, json: object, eraseHistory = false): void {
   if (eraseHistory) {
-    figure.history = []
-    figure.historyIndex = -1
+    figure.stackUndo = []
+    figure.stackRedo = []
   }
   figure.elements.clear()
   if (figure.container != null) figure.container.innerHTML = ''
@@ -184,5 +184,5 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
   }
   // Pour la navigation dans l'historique on ne sauvegarde que le premier chargement
   // les autres chargements proviennent de goBack() ou de goForward()
-  if (figure.history.length === 0) figure.history.push(figure.json)
+  if (figure.stackUndo.length === 0) figure.stackUndo.push(figure.json)
 }

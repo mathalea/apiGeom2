@@ -669,13 +669,13 @@ const ui = createMachine({
     },
     UNDO: {
       entry: (context) => {
-        context.figure.historyGoBack()
+        context.figure.undo()
         context.figure.buttons.get('DRAG')?.click()
       }
     },
     REDO: {
       entry: (context) => {
-        context.figure.historyGoForward()
+        context.figure.redo()
         context.figure.buttons.get('DRAG')?.click()
       }
     },

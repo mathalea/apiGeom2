@@ -72,10 +72,10 @@ class Figure {
   selectedElements: Element2D[]
   /** Élément temporaire (utilisé dans l'interface graphique pour donner un aperçu de le construction en cours) */
   tmpElements: Element2D[]
-  /** Un tableau des différentes sauvegardes automatiques utilisé pour les undo ou redo */
-  history: string[]
-  /** Nombre négatif utilisé pour undo ou redo. Par défaut à -1 pour la dernière sauvegarde, -2 pour l'avant dernière... */
-  historyIndex: number // -1 correspond à la dernière sauvegarde
+  /** Un tableau des différentes sauvegardes automatiques utilisé pour les undo */
+  stackUndo: string[]
+  /** Un tableau des différentes sauvegardes automatiques utilisé pour les redo */
+  stackRedo: string[]
   /** Largeur en pixels du SVG */
   width: number
   /** Hauteur en pixels du SVG */
@@ -156,8 +156,8 @@ class Figure {
    */
   constructor ({ width = 600, height = 400, pixelsPerUnit = 30, xMin = -10, yMin = -6, isDynamic = true, dx = 1, dy = 1, xScale = 1, yScale = 1, scale = 1, snapGrid = false }: { width?: number, height?: number, pixelsPerUnit?: number, xMin?: number, yMin?: number, isDynamic?: boolean, dx?: number, dy?: number, xScale?: number, yScale?: number, scale?: number, snapGrid?: boolean } = {}) {
     this.elements = new Map()
-    this.history = []
-    this.historyIndex = -1 // dernier item de l'historique
+    this.stackUndo = []
+    this.stackRedo = []
     this.width = width
     this.height = height
     this.pixelsPerUnit = pixelsPerUnit
@@ -288,22 +288,28 @@ class Figure {
     if (this.divSave !== null) {
       this.divSave.textContent = save
     }
-    this.history.push(save)
-    if (this.history.length > defaultHistorySize) this.history = this.history.slice(-defaultHistorySize)
+    this.stackUndo.push(save)
+    if (this.stackUndo.length > defaultHistorySize) this.stackUndo = this.stackUndo.slice(-defaultHistorySize)
   }
 
-  /** Charge la figure stockée dans l'avant-dernière étape de l'historique */
-  historyGoBack (): void {
-    if (-this.historyIndex < this.history.length) this.historyIndex--
-    const previous = this.history.at(this.historyIndex)
-    if (previous !== undefined) this.loadJson(JSON.parse(previous))
+  /** Charge la figure stockée dans stackUndo */
+  undo (): void {
+    const lastUndo = this.stackUndo.at(-2)
+    if (lastUndo !== undefined) {
+      this.stackRedo.push(this.stackUndo.at(-1) as string)
+      this.stackUndo.pop()
+      this.loadJson(JSON.parse(lastUndo))
+    }
   }
 
-  /** Reharge la figure stockée un rang plus haut dans l'historique   */
-  historyGoForward (): void {
-    if (this.historyIndex < -1) this.historyIndex++
-    const next = this.history.at(this.historyIndex)
-    if (next !== undefined) this.loadJson(JSON.parse(next))
+  /** Reharge la figure stockée redoStack   */
+  redo (): void {
+    const lastRedo = this.stackRedo.at(-1)
+    if (lastRedo !== undefined) {
+      this.stackUndo.push(lastRedo)
+      this.stackRedo.pop()
+      this.loadJson(JSON.parse(lastRedo))
+    }
   }
 
   /** Génère le code LaTeX de la figure */
