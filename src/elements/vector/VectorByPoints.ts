@@ -40,7 +40,8 @@ class VectorByPoints extends Vector {
       color: this.color,
       thickness: this.thickness,
       isDashed: this.isDashed,
-      isVisible: this.isVisible
+      isVisible: this.isVisible,
+      ...this.jsonOptions(),
     }
   }
 }

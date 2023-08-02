@@ -45,18 +45,12 @@ export class PointIntersectionLC extends Point {
 
   toJSON (): object {
     return {
-      type: this.type,
-      isChild: this.isChild,
+      ...this.jsonOptions(),
       idLine: this.line.id,
       idCircle: this.circle.id,
       n: this.n,
-      id: this.id,
       shape: this.shape,
-      label: this.label,
-      color: this.color,
-      thickness: this.thickness,
-      isDashed: this.isDashed,
-      isVisible: this.isVisible
+      label: this.label
     }
   }
 }

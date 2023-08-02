@@ -29,12 +29,9 @@ export class TextByPoint extends TextByPosition {
 
   toJSON (): object {
     return {
-      type: this.type,
-      isChild: this.isChild,
+      ...this.jsonOptions(),
       point: this.point.id,
-      text: this.text,
-      id: this.id,
-      color: this.color
+      text: this.text
     }
   }
 }

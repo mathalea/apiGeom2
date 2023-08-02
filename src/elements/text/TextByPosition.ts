@@ -148,7 +148,8 @@ class TextByPosition extends Element2D {
       y: this.y,
       text: this.text,
       name: this.id,
-      color: this.color
+      color: this.color,
+      ...this.jsonOptions(),
     }
   }
 }

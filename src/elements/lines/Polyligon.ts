@@ -93,11 +93,8 @@ class Polygon extends Element2D {
       idPoints.push(point.id)
     }
     return {
-      type: this.type,
-      idPoints,
-      isChild: this.isChild,
-      id: this.id,
-      ...super.toJSON()
+      ...this.jsonOptions(),
+      idPoints
     }
   }
 

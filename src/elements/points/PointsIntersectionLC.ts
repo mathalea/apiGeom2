@@ -38,13 +38,11 @@ class PointsIntersectionLC extends Element2D {
 
   toJSON (): object {
     return {
-      type: this.type,
-      id: this.id,
+      ...this.jsonOptions(),
       idLine: this.line.id,
       idCircle: this.circle.id,
       shape: this.shape,
-      sizeInPixels: this.sizeInPixels,
-      ...super.toJSON()
+      sizeInPixels: this.sizeInPixels
     }
   }
 }

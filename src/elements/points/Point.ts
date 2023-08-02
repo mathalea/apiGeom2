@@ -279,8 +279,7 @@ class Point extends Element2D {
       label: this.label,
       shape: this.shape,
       sizeInPixels: this.sizeInPixels,
-      thickness: this.thickness,
-      ...super.toJSON()
+      thickness: this.thickness
     }
   }
 }

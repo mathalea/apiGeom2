@@ -91,7 +91,7 @@ class PointOnLine extends PointByDilate {
     return {
       idLine: this.line.id,
       k: this.k,
-      ...super.toJSON()
+      ...this.jsonOptions(),
     }
   }
 }

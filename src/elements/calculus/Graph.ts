@@ -41,12 +41,9 @@ class Graph extends Element2D {
 
   toJSON (): object {
     return {
-      type: this.type,
-      id: this.id,
       expression: this.expression,
       isChild: this.isChild,
-      thickness: this.thickness,
-      ...super.toJSON()
+      ...this.jsonOptions()
     }
   }
 }

@@ -12,13 +12,8 @@ class PerpendicularBisector extends LinePerpendicular {
 
   toJSON (): object {
     return {
-      type: this.type,
-      id: this.id,
-      isChild: this.isChild,
-      idSegment: this.line.id,
-      color: this.color,
-      thickness: this.thickness,
-      isDashed: this.isDashed
+      ...this.jsonOptions(),
+      idSegment: this.line.id
     }
   }
 }

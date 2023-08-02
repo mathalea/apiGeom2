@@ -36,15 +36,11 @@ class BisectorByPoints extends Ray {
 
   toJSON (): object {
     return {
-      type: this.type,
-      id: this.id,
+      ...this.jsonOptions(),
       isChild: this.isChild,
       idPointOnSide1: this.pointOnSide1.id,
       idPointOnSide2: this.pointOnSide2.id,
-      idOrigin: this.point1.id,
-      color: this.color,
-      thickness: this.thickness,
-      isDashed: this.isDashed
+      idOrigin: this.point1.id
     }
   }
 }

@@ -27,7 +27,8 @@ class PointByProjectionOnAxisY extends Point {
       shape: this.shape,
       sizeInPixels: this.sizeInPixels,
       color: this.color,
-      isDashed: this.isDashed
+      isDashed: this.isDashed,
+      ...this.jsonOptions(),
     }
   }
 }

@@ -141,17 +141,21 @@ abstract class Element2D {
   }
 
   hide (): void {
-    this._isHidden = true
-    this.groupSvg.style.display = 'none'
+    this.isVisible = false
   }
 
   show (): void {
-    this._isHidden = false
-    this.groupSvg.style.display = 'block'
+    this.isVisible = true
   }
 
   /** Personnalise la sortie JSON de l'élément pour la sauvegarde */
   toJSON (): object {
+    return {
+      ...this.jsonOptions
+    }
+  }
+
+  jsonOptions (): object {
     return {
       type: this.type,
       id: this.id,

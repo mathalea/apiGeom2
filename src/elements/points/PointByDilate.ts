@@ -26,18 +26,13 @@ class PointByDilate extends Point {
 
   toJSON (): object {
     return {
-      type: this.type,
+      ...this.jsonOptions(),
       idCenter: this.center.id,
       idOrigin: this.origin.id,
       k: this.k,
-      id: this.id,
-      isChild: this.isChild,
       label: this.label,
       shape: this.shape,
-      sizeInPixels: this.sizeInPixels,
-      color: this.color,
-      isDashed: this.isDashed,
-      thickness: this.thickness
+      sizeInPixels: this.sizeInPixels
     }
   }
 }

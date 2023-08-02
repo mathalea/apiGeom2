@@ -187,8 +187,7 @@ class Grid extends Element2D {
 
   toJSON (): object {
     return {
-      type: this.type,
-      id: this.id,
+      ...this.jsonOptions(),
       axeX: this.axeX,
       axeY: this.axeY,
       grid: this.grid,
@@ -196,8 +195,7 @@ class Grid extends Element2D {
       labelX: this.labelX,
       labelY: this.labelY,
       stepX: this.stepX,
-      stepY: this.stepY,
-      ...super.toJSON()
+      stepY: this.stepY
     }
   }
 }

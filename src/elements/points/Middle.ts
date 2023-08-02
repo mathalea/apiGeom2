@@ -45,12 +45,9 @@ class Middle extends Point {
 
   toJSON (): object {
     return {
-      type: this.type,
-      id: this.id,
-      isChild: this.isChild,
+      ...this.jsonOptions(),
       idPoint1: this.point1.id,
-      idPoint2: this.point2.id,
-      ...super.toJSON()
+      idPoint2: this.point2.id
     }
   }
 }

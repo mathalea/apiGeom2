@@ -12,14 +12,9 @@ class PerpendicularBisectorByPoints extends PerpendicularBisector {
 
   toJSON (): object {
     return {
-      type: this.type,
-      id: this.id,
+      ...this.jsonOptions(),
       idPoint1: this.line.point1.id,
-      idPoint2: this.line.point2.id,
-      isChild: this.isChild,
-      color: this.color,
-      thickness: this.thickness,
-      isDashed: this.isDashed
+      idPoint2: this.line.point2.id
     }
   }
 }

@@ -21,14 +21,9 @@ class LineParallel extends LineByPointVector {
 
   toJSON (): object {
     return {
-      type: this.type,
-      id: this.id,
-      isChild: this.isChild,
+      ...this.jsonOptions(),
       idLine: this.line.id,
-      idPoint: this.point.id,
-      color: this.color,
-      thickness: this.thickness,
-      isDashed: this.isDashed
+      idPoint: this.point.id
     }
   }
 }

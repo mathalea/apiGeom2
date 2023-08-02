@@ -26,6 +26,9 @@ class Angle extends DynamicNumber {
 
   toJSON (): object {
     return {
+      type: this.type,
+      id: this.id,
+      isChild: this.isChild,
       idStart: this.start.id,
       idCenter: this.center.id,
       idEnd: this.end.id

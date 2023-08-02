@@ -41,17 +41,11 @@ class CircleCenterDynamicRadius extends Circle {
 
   toJSON (): object {
     return {
-      type: this.type,
-      id: this.id,
-      isChild: this.isChild,
+      ...this.jsonOptions(),
       idCenter: this.center.id,
       idRadius: this.radiusDynamic.id,
-      color: this.color,
-      thickness: this.thickness,
       fillColor: this.fillColor,
-      fillOpacity: this.fillOpacity,
-      isDashed: this.isDashed,
-      isVisible: this.isVisible
+      fillOpacity: this.fillOpacity
     }
   }
 }

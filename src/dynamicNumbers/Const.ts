@@ -12,6 +12,7 @@ class Const extends DynamicNumber {
     return {
       type: this.type,
       id: this.id,
+      isChild: this.isChild,
       value: this.value
     }
   }

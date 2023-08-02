@@ -48,16 +48,12 @@ class PointOnGraph extends Point {
 
   toJSON (): object {
     return {
-      type: this.type,
+      ...this.jsonOptions(),
       idGraph: this.graph.id,
       x: this.x,
-      id: this.id,
-      isChild: this.isChild,
       label: this.label,
       shape: this.shape,
-      sizeInPixels: this.sizeInPixels,
-      color: this.color,
-      isDashed: this.isDashed
+      sizeInPixels: this.sizeInPixels
     }
   }
 }

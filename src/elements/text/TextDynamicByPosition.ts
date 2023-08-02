@@ -43,7 +43,7 @@ class TextDynamicByPosition extends TextByPosition {
       textAfter: this.textAfter,
       minimumFractionDigits: this.minimumFractionDigits,
       maximumFractionDigits: this.maximumFractionDigits,
-      color: this.color
+      color: this.color,
     }
   }
 }

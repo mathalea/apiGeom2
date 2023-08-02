@@ -31,13 +31,11 @@ class PointsIntersectionCC extends Element2D {
 
   toJSON (): object {
     return {
-      type: this.type,
-      id: this.id,
+      ...this.jsonOptions(),
       idCircle1: this.circle1.id,
       idCircle2: this.circle2.id,
       shape: this.shape,
-      sizeInPixels: this.sizeInPixels,
-      ...super.toJSON()
+      sizeInPixels: this.sizeInPixels
     }
   }
 }
