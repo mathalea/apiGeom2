@@ -20,18 +20,13 @@ class PointByDynamicRotation extends PointByRotation {
 
   toJSON (): object {
     return {
-      type: this.type,
+      ...this.jsonOptions(),
       idCenter: this.center.id,
       idOrigin: this.origin.id,
       idDynamicAngle: this.dynamicAngle.id,
-      id: this.id,
-      isChild: this.isChild,
       label: this.label,
       shape: this.shape,
-      sizeInPixels: this.sizeInPixels,
-      color: this.color,
-      isDashed: this.isDashed,
-      ...this.jsonOptions(),
+      sizeInPixels: this.sizeInPixels
     }
   }
 }

@@ -19,16 +19,11 @@ class PointByProjectionOnAxisY extends Point {
 
   toJSON (): object {
     return {
-      type: this.type,
+      ...this.jsonOptions(),
       idOrigin: this.origin.id,
-      id: this.id,
-      isChild: this.isChild,
       label: this.label,
       shape: this.shape,
-      sizeInPixels: this.sizeInPixels,
-      color: this.color,
-      isDashed: this.isDashed,
-      ...this.jsonOptions(),
+      sizeInPixels: this.sizeInPixels
     }
   }
 }

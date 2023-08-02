@@ -1,6 +1,6 @@
 import type Figure from '../../Figure'
 import Distance from '../../dynamicNumbers/Distance'
-import { OptionsElement2D } from '../interfaces'
+import type { OptionsElement2D } from '../interfaces'
 import type Point from '../points/Point'
 import CircleCenterDynamicRadius from './CircleCenterDyamicRadius'
 

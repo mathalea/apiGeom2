@@ -33,17 +33,14 @@ class TextDynamicByPosition extends TextByPosition {
 
   toJSON (): object {
     return {
-      type: this.type,
-      id: this.id,
-      isChild: this.isChild,
+      ...this.jsonOptions(),
       x: this.x,
       y: this.y,
       idDynamicNumber: this.dynamicNumber.id,
       textBefore: this.textBefore,
       textAfter: this.textAfter,
       minimumFractionDigits: this.minimumFractionDigits,
-      maximumFractionDigits: this.maximumFractionDigits,
-      color: this.color,
+      maximumFractionDigits: this.maximumFractionDigits
     }
   }
 }

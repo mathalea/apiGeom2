@@ -141,15 +141,12 @@ class TextByPosition extends Element2D {
 
   toJSON (): object {
     return {
-      type: this.type,
-      id: this.id,
-      isChild: this.isChild,
+      ...this.jsonOptions(),
       x: this.x,
       y: this.y,
       text: this.text,
       name: this.id,
-      color: this.color,
-      ...this.jsonOptions(),
+      color: this.color
     }
   }
 }
