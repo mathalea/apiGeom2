@@ -1,8 +1,10 @@
 import { similitudeCoord } from '../calculus/Coords'
 import { type OptionsPointBy } from '../interfaces'
-import type Line from '../lines/Line'
 import type Figure from '../../Figure'
 import PointByDilate from './PointByDilate'
+import Line from '../lines/Line'
+import Segment from '../lines/Segment'
+import Ray from '../lines/Ray'
 
 class PointOnLine extends PointByDilate {
   line: Line
@@ -39,25 +41,31 @@ class PointOnLine extends PointByDilate {
           y = k * (-a * b * origin.x + a * a * origin.y + (a * a * c) / b) - c / b
         }
       }
-      if (this.line.type === 'Segment') {
-        if (x < Math.min(this.line.point1.x, this.line.point2.x)) this.k = (this.line.point1.x < this.line.point2.x) ? 0 : 1
-        else if (x > Math.max(this.line.point1.x, this.line.point2.x)) this.k = (this.line.point1.x < this.line.point2.x) ? 1 : 0
-        else if (y < Math.min(this.line.point1.y, this.line.point2.y)) this.k = (this.line.point1.y < this.line.point2.y) ? 0 : 1
-        else if (y > Math.max(this.line.point1.y, this.line.point2.y)) this.k = (this.line.point1.y < this.line.point2.y) ? 1 : 0
-        else this.k = Math.hypot(x - this.line.point1.x, y - this.line.point1.y) / Math.hypot(this.line.point2.x - this.line.point1.x, this.line.point2.y - this.line.point1.y)
-      } else if (this.line.type === 'Line') {
-        let isPositive = 1
-        if (this.line.point1.x < this.line.point2.x && x < this.line.point1.x) isPositive = -1
-        else if (this.line.point1.x > this.line.point2.x && x > this.line.point1.x) isPositive = -1
-        else if (this.line.point1.y < this.line.point2.y && y < this.line.point1.y) isPositive = -1
-        else if (this.line.point1.y > this.line.point2.y && y > this.line.point1.y) isPositive = -1
-        this.k = isPositive * Math.hypot(x - this.line.point1.x, y - this.line.point1.y) / Math.hypot(this.line.point2.x - this.line.point1.x, this.line.point2.y - this.line.point1.y)
-      } else if (this.line.type === 'Ray') {
-        if (this.line.point1.x < this.line.point2.x && x < this.line.point1.x) this.k = 0
-        else if (this.line.point1.x > this.line.point2.x && x > this.line.point1.x) this.k = 0
-        else if (this.line.point1.y < this.line.point2.y && y < this.line.point1.y) this.k = 0
-        else if (this.line.point1.y > this.line.point2.y && y > this.line.point1.y) this.k = 0
-        else this.k = Math.hypot(x - this.line.point1.x, y - this.line.point1.y) / Math.hypot(this.line.point2.x - this.line.point1.x, this.line.point2.y - this.line.point1.y)
+      if (this.line instanceof Segment) {
+        const line = this.line as any
+        if (this.line instanceof Line) {
+          let isPositive = 1
+          if (this.line.point1.x < this.line.point2.x && x < this.line.point1.x) isPositive = -1
+          else if (this.line.point1.x > this.line.point2.x && x > this.line.point1.x) isPositive = -1
+          else if (this.line.point1.y < this.line.point2.y && y < this.line.point1.y) isPositive = -1
+          else if (this.line.point1.y > this.line.point2.y && y > this.line.point1.y) isPositive = -1
+          this.k = isPositive * Math.hypot(x - this.line.point1.x, y - this.line.point1.y) / Math.hypot(this.line.point2.x - this.line.point1.x, this.line.point2.y - this.line.point1.y)
+        //
+        } else if (line instanceof Ray) {
+          const ray = this.line as Ray
+          if (ray.point1.x < ray.point2.x && x < ray.point1.x) this.k = 0
+          else if (ray.point1.x > ray.point2.x && x > ray.point1.x) this.k = 0
+          else if (ray.point1.y < ray.point2.y && y < ray.point1.y) this.k = 0
+          else if (ray.point1.y > ray.point2.y && y > ray.point1.y) this.k = 0
+          else this.k = Math.hypot(x - ray.point1.x, y - ray.point1.y) / Math.hypot(ray.point2.x - ray.point1.x, ray.point2.y - ray.point1.y)
+        } else if (line instanceof Segment) {
+          const segment = this.line as Segment
+          if (x < Math.min(segment.point1.x, segment.point2.x)) this.k = (segment.point1.x < segment.point2.x) ? 0 : 1
+          else if (x > Math.max(segment.point1.x, segment.point2.x)) this.k = (segment.point1.x < segment.point2.x) ? 1 : 0
+          else if (y < Math.min(segment.point1.y, segment.point2.y)) this.k = (segment.point1.y < segment.point2.y) ? 0 : 1
+          else if (y > Math.max(segment.point1.y, segment.point2.y)) this.k = (segment.point1.y < segment.point2.y) ? 1 : 0
+          else this.k = Math.hypot(x - segment.point1.x, y - segment.point1.y) / Math.hypot(segment.point2.x - segment.point1.x, segment.point2.y - segment.point1.y)
+        }
       }
     } catch (error) {
       console.error('Erreur dans PointOnLine')
@@ -89,9 +97,9 @@ class PointOnLine extends PointByDilate {
 
   toJSON (): object {
     return {
-      idLine: this.line.id,
-      k: this.k,
       ...this.jsonOptions(),
+      idLine: this.line.id,
+      k: this.k
     }
   }
 }

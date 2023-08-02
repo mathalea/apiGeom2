@@ -78,3 +78,8 @@ Remarque : cette documentation utilise pnpm mais vous pouvez bien sûr conserver
 - Sauvegarder les paramètres de la figure (scale, xScale...) dans le JSON
 - Créer un export vers un script JS
 - Gérer l'export LaTeX
+- Titre sous les outils ?
+
+## Bugs
+
+- Couleur par défaut et Undo

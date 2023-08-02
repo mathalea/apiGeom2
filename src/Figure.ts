@@ -374,6 +374,16 @@ class Figure {
     this.container.style.padding = '0'
     this.container.style.boxSizing = 'border-box'
     this.container.style.border = 'none'
+    const divUserMessage = document.createElement('div')
+    divUserMessage.style.position = 'absolute'
+    divUserMessage.style.top = '0'
+    divUserMessage.style.right = '0'
+    divUserMessage.style.color = 'blue'
+    divUserMessage.style.margin = '3px'
+    divUserMessage.style.padding = '0.5em'
+    divUserMessage.style.fontSize = '1.5em'
+    divUserMessage.id = 'userMessage'
+    this.container.appendChild(divUserMessage)
     this.drawTexts()
   }
 
