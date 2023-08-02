@@ -1,5 +1,6 @@
 import type Figure from '../../Figure'
 import Distance from '../../dynamicNumbers/Distance'
+import { OptionsElement2D } from '../interfaces'
 import type Point from '../points/Point'
 import CircleCenterDynamicRadius from './CircleCenterDyamicRadius'
 
@@ -9,7 +10,7 @@ import CircleCenterDynamicRadius from './CircleCenterDyamicRadius'
  */
 class CircleCenterPoint extends CircleCenterDynamicRadius {
   point: Point
-  constructor (figure: Figure, { center, point, ...options }: { center: Point, point: Point }) {
+  constructor (figure: Figure, { center, point, ...options }: { center: Point, point: Point } & OptionsElement2D) {
     const radius = new Distance(figure, { point1: center, point2: point, isChild: true })
     super(figure, { center, radius, ...options })
     this.type = 'CircleCenterPoint'
@@ -19,9 +20,11 @@ class CircleCenterPoint extends CircleCenterDynamicRadius {
 
   toJSON (): object {
     return {
+      ...this.jsonOptions(),
       idCenter: this.center.id,
       idPoint: this.point.id,
-      ...this.jsonOptions()
+      fillColor: this.fillColor,
+      fillOpacity: this.fillOpacity
     }
   }
 }
