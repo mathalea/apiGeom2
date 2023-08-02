@@ -35,52 +35,59 @@ import undo from '../assets/svg/undo.svg'
 
 import type Figure from '../Figure'
 
-const availableIcons = new Map([
-  ['BISECTOR_BY_POINTS', bisectorByPoints],
-  ['CIRCLE_RADIUS', circle],
-  ['CIRCLE_COMPASS', circleCompass],
-  ['CIRCLE_CENTER_POINT', circlePoint],
-  ['CURSOR', cursor],
-  ['DILATE', dilate],
-  ['DRAG', drag],
-  ['DRAG_ALL', dragAll],
-  ['GRID', grid],
-  ['HIDE', hide],
-  ['LATEX', latex],
-  ['LINE', line],
-  ['LINE_PARALLEL', lineParallel],
-  ['LINE_PERPENDICULAR', linePerpendicular],
-  ['MARK_ANGLE', markAngle],
-  ['MARK_SEGMENT', matkSegment],
-  ['MESURE_ANGLE', mesureAngle],
-  ['MESURE_SEGMENT', mesureSegment],
-  ['MIDDLE', middle],
-  ['NAME_POINT', namePoint],
-  ['OPEN', open],
-  ['PERPENDICULAR_BISECTOR', perpendicularBisector],
-  ['POINT', point],
-  ['POINT_INTERSECTION', pointIntersection],
-  ['POINT_ON', pointOn],
-  ['POLYGON', polygon],
-  ['RAY', ray],
-  ['REDO', redo],
-  ['REMOVE', remove],
-  ['SAVE', save],
-  ['SEGMENT', segment],
-  ['SET_OPTIONS', setOptions],
-  ['UNDO', undo]
+const availableIcons = new Map<string, { url: string, tooltip: string }>([
+  ['BISECTOR_BY_POINTS', { url: bisectorByPoints, tooltip: 'Bissectrice' }],
+  ['CIRCLE_RADIUS', { url: circle, tooltip: 'Cercle centre-rayon' }],
+  ['CIRCLE_COMPASS', { url: circleCompass, tooltip: 'Cercle par report de longueur' }],
+  ['CIRCLE_CENTER_POINT', { url: circlePoint, tooltip: 'Cercle centre-point' }],
+  ['CURSOR', { url: cursor, tooltip: 'Curseur' }],
+  ['DILATE', { url: dilate, tooltip: 'Homothétie' }],
+  ['DRAG', { url: drag, tooltip: 'Déplacer les points' }],
+  ['DRAG_ALL', { url: dragAll, tooltip: 'Déplacer la figure' }],
+  ['GRID', { url: grid, tooltip: 'Afficher le repère' }],
+  ['HIDE', { url: hide, tooltip: 'Masquer un élément' }],
+  ['LATEX', { url: latex, tooltip: 'Export LaTeX' }],
+  ['LINE', { url: line, tooltip: 'Droite' }],
+  ['LINE_PARALLEL', { url: lineParallel, tooltip: 'Droite parallèle' }],
+  ['LINE_PERPENDICULAR', { url: linePerpendicular, tooltip: 'Droite perpendiculaire' }],
+  ['MARK_ANGLE', { url: markAngle, tooltip: 'Coder un angle' }],
+  ['MARK_SEGMENT', { url: matkSegment, tooltip: 'Coder un segment' }],
+  ['MESURE_ANGLE', { url: mesureAngle, tooltip: 'Mesurer un angle' }],
+  ['MESURE_SEGMENT', { url: mesureSegment, tooltip: 'Mesurer une distance' }],
+  ['MIDDLE', { url: middle, tooltip: 'Milieu' }],
+  ['NAME_POINT', { url: namePoint, tooltip: 'Renommer un point' }],
+  ['OPEN', { url: open, tooltip: 'Charger un fichier' }],
+  ['PERPENDICULAR_BISECTOR', { url: perpendicularBisector, tooltip: 'Médiatrice' }],
+  ['POINT', { url: point, tooltip: 'Point' }],
+  ['POINT_INTERSECTION', { url: pointIntersection, tooltip: 'Point à l\'intersection' }],
+  ['POINT_ON', { url: pointOn, tooltip: 'Point sur' }],
+  ['POLYGON', { url: polygon, tooltip: 'Polygone' }],
+  ['RAY', { url: ray, tooltip: 'Demi-droite' }],
+  ['REDO', { url: redo, tooltip: 'Rétablir' }],
+  ['REMOVE', { url: remove, tooltip: 'Supprimer' }],
+  ['SAVE', { url: save, tooltip: 'Sauvegarder' }],
+  ['SEGMENT', { url: segment, tooltip: 'Segment' }],
+  ['SET_OPTIONS', { url: setOptions, tooltip: 'Modifier le style' }],
+  ['UNDO', { url: undo, tooltip: 'Annuler la dernière action' }]
 ])
 
 export default function addButtons (list: string, figure: Figure): HTMLDivElement {
   const div = document.createElement('div')
   const buttons = list.split(' ')
-  for (const button of buttons) {
+  for (const key of buttons) {
+    const button = key.toUpperCase()
     if (!availableIcons.has(button)) {
       console.error(`Le bouton ${button} n'existe pas`)
       continue
     }
     const img = document.createElement('img')
-    img.src = availableIcons.get(button) as string
+    const icon = availableIcons.get(button)
+    if (icon == null) {
+      console.error(`L'icône pour le bouton ${button} n'existe pas`)
+      continue
+    }
+    img.src = icon.url
+    img.title = icon.tooltip
     img.style.width = '40px'
     img.style.height = '40px'
     img.style.margin = '4px'
