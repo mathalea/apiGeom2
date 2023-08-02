@@ -17,6 +17,8 @@ divButtons.appendChild(figure.addButtons('SEGMENT LINE RAY POLYGON'))
 divButtons.appendChild(figure.addButtons('LINE_PARALLEL LINE_PERPENDICULAR'))
 divButtons.appendChild(figure.addButtons('PERPENDICULAR_BISECTOR BISECTOR_BY_POINTS'))
 divButtons.appendChild(figure.addButtons('CIRCLE_CENTER_POINT CIRCLE_RADIUS'))
+divButtons.appendChild(figure.addColorPalette(['black', 'blue', 'red']))
+divButtons.appendChild(figure.addColorPalette(['green', 'orange', 'purple']))
 
 // Création de la figure
 figure.setContainer(div)

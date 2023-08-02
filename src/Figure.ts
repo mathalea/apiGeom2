@@ -60,6 +60,7 @@ import Grid from './elements/grid/Grid'
 import type { eventName, eventOptions } from './uiMachine'
 import handleHover from './pointerActions/handleHover'
 import addButtons from './userInterface/addButtons'
+import addColorPalette from './userInterface/addColorPalette'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -392,6 +393,10 @@ class Figure {
 
   addButtons (buttons: string): HTMLDivElement {
     return addButtons(buttons, this)
+  }
+
+  addColorPalette (colors: string[]): HTMLDivElement {
+    return addColorPalette(colors, this)
   }
 }
 
