@@ -8,67 +8,32 @@ import Figure from 'src/Figure'
  */
 const save = {
   apiGeomVersion: 0.1,
+  element0: {
+    type: 'Point',
+    id: 'element0',
+    x: 0,
+    y: -3,
+    shape: 'x',
+    sizeInPixels: 5,
+    thickness: 2
+  },
   element1: {
     type: 'Point',
     id: 'element1',
     x: 4,
     y: 1,
-    label: 'B',
     shape: 'x',
-    sizeInPixels: 0.1,
-    color: 'blue',
-    thickness: 1,
-    isDashed: false,
-    isVisible: true
+    sizeInPixels: 5,
+    thickness: 2
   },
   element2: {
     type: 'Point',
     id: 'element2',
     x: 2,
     y: 4,
-    label: 'C',
     shape: 'x',
-    sizeInPixels: 0.1,
-    color: 'blue',
-    thickness: 1,
-    isDashed: false,
-    isVisible: true
-  },
-  element4: {
-    type: 'VectorByPoints',
-    id: 'element4',
-    idPoint1: 'element1',
-    idPoint2: 'element2',
-    color: 'black',
-    thickness: 1,
-    isDashed: false,
-    isVisible: true
-  },
-  element0: {
-    type: 'Point',
-    id: 'element0',
-    x: 0,
-    y: 0,
-    label: 'M',
-    shape: 'x',
-    sizeInPixels: 0.1,
-    color: 'black',
-    thickness: 1,
-    isDashed: false,
-    isVisible: true
-  },
-  element3: {
-    type: 'Polygon',
-    idPoints: [
-      'element0',
-      'element1',
-      'element2'
-    ],
-    id: 'element3',
-    color: 'black',
-    thickness: 1,
-    isDashed: false,
-    isVisible: true
+    sizeInPixels: 5,
+    thickness: 2
   }
 }
 
