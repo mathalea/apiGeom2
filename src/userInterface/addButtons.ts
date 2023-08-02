@@ -30,6 +30,7 @@ import redo from '../assets/svg/redo.svg'
 import remove from '../assets/svg/remove.svg'
 import save from '../assets/svg/save.svg'
 import segment from '../assets/svg/segment.svg'
+import setOptions from '../assets/svg/setOptions.svg'
 import undo from '../assets/svg/undo.svg'
 
 import type Figure from '../Figure'
@@ -66,6 +67,7 @@ const availableIcons = new Map([
   ['REMOVE', remove],
   ['SAVE', save],
   ['SEGMENT', segment],
+  ['SET_OPTIONS', setOptions],
   ['UNDO', undo]
 ])
 

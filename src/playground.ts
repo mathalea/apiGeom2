@@ -11,7 +11,7 @@ figure.ui = interpret(machineWithContext).start()
 // On ajoute les boutons
 const divButtons = document.querySelector('#buttons') as HTMLDivElement
 divButtons.appendChild(figure.addButtons('SAVE OPEN UNDO REDO'))
-divButtons.appendChild(figure.addButtons('DRAG HIDE REMOVE'))
+divButtons.appendChild(figure.addButtons('DRAG SET_OPTIONS HIDE REMOVE'))
 divButtons.appendChild(figure.addButtons('POINT POINT_ON POINT_INTERSECTION MIDDLE'))
 divButtons.appendChild(figure.addButtons('SEGMENT LINE RAY POLYGON'))
 divButtons.appendChild(figure.addButtons('LINE_PARALLEL LINE_PERPENDICULAR'))

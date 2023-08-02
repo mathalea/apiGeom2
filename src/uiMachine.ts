@@ -3,7 +3,7 @@ import Segment from './elements/lines/Segment'
 import Point from './elements/points/Point'
 import { isStopHidden } from './store'
 import { type AnyEventObject, createMachine } from 'xstate'
-import type Element2D from './elements/Element2D'
+import Element2D from './elements/Element2D'
 import Circle from './elements/lines/Circle'
 import { distance } from './elements/calculus/Coords'
 import { createDialoxBoxRadius } from './userInterface/handleDialog'
@@ -37,6 +37,7 @@ export type eventName =
   | 'REMOVE'
   | 'SAVE'
   | 'SEGMENT'
+  | 'SET_OPTIONS'
   | 'UNDO'
 
 export type eventOptions =
@@ -80,6 +81,7 @@ const ui = createMachine({
     UNDO: 'UNDO',
     RAY: 'RAY',
     REDO: 'REDO',
+    SET_OPTIONS: 'SET_OPTIONS',
     HIDE: 'HIDE',
     SAVE: 'SAVE'
   },
@@ -674,6 +676,25 @@ const ui = createMachine({
         window.URL.revokeObjectURL(url)
         document.body.removeChild(a)
         context.figure.buttons.get('DRAG')?.click()
+      }
+    },
+    SET_OPTIONS: {
+      entry: (context) => {
+        context.figure.filter = (e) => e instanceof Element2D
+      },
+      on: {
+        clickLocation: {
+          actions: (context, event) => {
+            const element = event.element
+            if (element !== undefined) {
+              element.color = context.figure.options.color
+              element.thickness = context.figure.options.thickness
+              if ('isDashed' in element) element.isDashed = context.figure.options.isDashed
+              if ('fillColor' in element) element.fillColor = context.figure.options.fillColor
+              if ('fillOpacity' in element) element.fillOpacity = context.figure.options.fillOpacity
+            }
+          }
+        }
       }
     },
     UNDO: {
