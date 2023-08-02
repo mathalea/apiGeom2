@@ -192,8 +192,9 @@ class Figure {
     this.pointer.type = 'pointer'
     this.ui = undefined
     this.filter = e => e instanceof Point && e.isFree
+    this.saveState()
     // Les boutons n'existe pas encore
-    setTimeout(() => { this.handleUndoRedoButtons() }, 100 )
+    setTimeout(() => { this.handleUndoRedoButtons() }, 100)
   }
 
   create<T extends keyof typeof classes>(
@@ -204,7 +205,6 @@ class Figure {
     // @ts-expect-error Typage très complexe
     const element = new classes[typeStr](this, { ...options })
     element.draw()
-    this.refreshSave()
     // @ts-expect-error Typage très complexe
     return element
   }
@@ -269,7 +269,7 @@ class Figure {
       if (this.pointInDrag !== undefined) {
         this.pointInDrag = undefined
         if (this.container !== null) this.container.style.cursor = 'auto'
-        this.refreshSave()
+        this.saveState()
       }
     }
     this.svg.addEventListener('pointerup', stopDrag)
@@ -284,15 +284,20 @@ class Figure {
     })
   }
 
-  /** Sauvegarde la figure, met à jour l'historique et l'inscrit dans le div this.divSave */
-  refreshSave (): void {
+  /**  - Sauvegarde la figure
+   *   - Met à jour l'historique et l'inscrit dans le div this.divSave
+   *   - Réinitialise les éléments temporaires */
+  saveState (): void {
     const save = this.json
     if (this.divSave !== null) {
       this.divSave.textContent = save
     }
     this.stackUndo.push(save)
+    this.stackRedo = []
     if (this.stackUndo.length > defaultHistorySize) this.stackUndo = this.stackUndo.slice(-defaultHistorySize)
     this.handleUndoRedoButtons()
+    this.tmpElements.forEach(e => { e.remove() })
+    this.tmpElements = []
   }
 
   handleUndoRedoButtons (): void {
@@ -302,7 +307,7 @@ class Figure {
       btnRedo.style.opacity = (this.stackRedo.length === 0) ? '0.5' : '1'
     }
     if (btnUndo !== undefined) {
-      btnUndo.style.opacity = (this.stackUndo.length === 0) ? '0.5' : '1'
+      btnUndo.style.opacity = (this.stackUndo.length < 2) ? '0.5' : '1'
     }
   }
 
@@ -313,6 +318,7 @@ class Figure {
       this.stackRedo.push(this.stackUndo.at(-1) as string)
       this.stackUndo.pop()
       this.loadJson(JSON.parse(lastUndo))
+      this.handleUndoRedoButtons()
     }
   }
 
@@ -323,6 +329,7 @@ class Figure {
       this.stackUndo.push(lastRedo)
       this.stackRedo.pop()
       this.loadJson(JSON.parse(lastRedo))
+      this.handleUndoRedoButtons()
     }
   }
 
@@ -376,11 +383,6 @@ class Figure {
   drawTexts (): void {
     const texts = [...this.elements.values()].filter(e => e.type.includes('Text'))
     texts.forEach(text => { text.draw() })
-  }
-
-  eraseTempElements (): void {
-    this.tmpElements.forEach(e => { e.remove() })
-    this.tmpElements = []
   }
 
   /** Efface la figure actuelle et charge une nouvelle figure à partir du code généré par this.json  */

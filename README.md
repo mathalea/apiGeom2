@@ -5,7 +5,7 @@ apiGeom est un logiciel de géométrie dynamique simple et léger avec les fonct
 - Création de constructions géométriques à la souris
 - Création de constructions géométriques en Javascript
 - Sauvegarde de la figure dans un fichier json éditable
-- Export de la figure en LaTeX (Tikz ou Pstricks)
+- Export de la figure en LaTeX (Tikz ou Pstricks à venir)
 - Création d'une figure statique
 - Interaction avec la figure en Javascript (pour modifier ou tester une construction)
 
@@ -16,24 +16,32 @@ apiGeom est beaucoup plus léger et aura moins de fonctionnalités. Sa particula
 ## Exemple d'utilisation
 
 ```js
+// On importe la classe principale d'apiGeom
 import Figure from './Figure'
+// On importe xState et la machine à états finis qui gère l'interface graphique
+import { interpret } from 'xstate'
+import ui from './uiMachine'
 
-// Créé un espace de travail pour une figure géométrique
-const figure = new Figure()
+// On créé notre figure et on l'attache à la machine à états
+const figure = new Figure({ width: 0.95 * (document.documentElement.clientWidth - 200), height: 0.8 * window.innerHeight })
+const machineWithContext = ui.withContext({ figure })
+figure.ui = interpret(machineWithContext).start()
 
-// On affiche le svg dans un div
+// On précise le div où se placera la figure
 const div = document.querySelector('#app') as HTMLDivElement
 figure.setContainer(div)
 
-// On affiche la sauvegarde au format json dans un div
-const divSave = document.querySelector('#save') as HTMLDivElement
-figure.divSave = divSave
 
-// Gestion des boutons de navigation
-const btnBack = document.querySelector('#btnBack')
-btnBack?.addEventListener('click', () => figure.goBack())
-const btnForward = document.querySelector('#btnForward')
-btnForward?.addEventListener('click', () => figure.goForward())
+// On ajoute les boutons
+const divButtons = document.querySelector('#buttons') as HTMLDivElement
+divButtons.appendChild(figure.addButtons('SAVE OPEN UNDO REDO'))
+divButtons.appendChild(figure.addButtons('DRAG HIDE REMOVE'))
+divButtons.appendChild(figure.addButtons('POINT POINT_ON POINT_INTERSECTION MIDDLE'))
+divButtons.appendChild(figure.addButtons('SEGMENT LINE RAY POLYGON'))
+divButtons.appendChild(figure.addButtons('LINE_PARALLEL LINE_PERPENDICULAR'))
+divButtons.appendChild(figure.addButtons('PERPENDICULAR_BISECTOR BISECTOR_BY_POINTS'))
+divButtons.appendChild(figure.addButtons('CIRCLE_CENTER_POINT CIRCLE_RADIUS'))
+
 
 // Création de la figure
 const A = figure.create('Point', { x: 0, y: 0, shape: 'o', label: 'A', labelDxInPixels: -0.6, labelDyInPixels: 0.3 })
@@ -44,7 +52,7 @@ figure.create('LineParallel', { line: AB, point: C, color: 'blue', thickness: 2 
 
 
 // Sauvegarde de la figure et affichage de cette sauvegarde
-figure.refreshSave()
+figure.saveState()
 ```
 
 Toutes les constructions se font à l'aide de la méthode `create` d'une instance de `Figure`.
@@ -69,3 +77,4 @@ Remarque : cette documentation utilise pnpm mais vous pouvez bien sûr conserver
 
 - Sauvegarder les paramètres de la figure (scale, xScale...) dans le JSON
 - Créer un export vers un script JS
+- Gérer l'export LaTeX

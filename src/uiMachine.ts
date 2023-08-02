@@ -86,7 +86,6 @@ const ui = createMachine({
   entry: 'highlightButton',
   exit: (context) => {
     context.figure.selectedElements = []
-    context.figure.tmpElements = []
   },
   states: {
     INIT: {
@@ -133,6 +132,7 @@ const ui = createMachine({
                 context.figure.selectedElements[2] = event.element as Point
                 const [pointOnSide1, origin, pointOnSide2] = context.figure.selectedElements as Point[]
                 context.figure.create('BisectorByPoints', { pointOnSide1, pointOnSide2, origin })
+                context.figure.saveState()
               },
               cond: (_, event) => event.element !== undefined
             }
@@ -173,7 +173,6 @@ const ui = createMachine({
             clickLocation: {
               target: 'waitingForCenter',
               actions: (context, event) => {
-                context.figure.eraseTempElements()
                 const newPoint = getExistingPointOrCreatedPoint(context, event)
                 if (newPoint !== undefined) {
                   context.figure.selectedElements[1] = newPoint
@@ -182,6 +181,7 @@ const ui = createMachine({
                     Point
                   ]
                   context.figure.create('CircleCenterPoint', { center, point })
+                  context.figure.saveState()
                 }
               },
               cond: (_, event) => getExistingPointOrCreatetPoindWasASuccess(event)
@@ -225,6 +225,7 @@ const ui = createMachine({
                 const center = context.figure.selectedElements[0] as Point
                 if (radius > 0) {
                   context.figure.create('Circle', { center, radius })
+                  context.figure.saveState()
                 }
               }
             }
@@ -289,8 +290,8 @@ const ui = createMachine({
                     Point,
                     Point
                   ]
-                  context.figure.eraseTempElements()
                   context.figure.create('Line', { point1, point2 })
+                  context.figure.saveState()
                 }
               },
               cond: (_, event) => getExistingPointOrCreatetPoindWasASuccess(event)
@@ -347,6 +348,7 @@ const ui = createMachine({
                   ]
                 }
                 context.figure.create('LinePerpendicular', { line, point })
+                context.figure.saveState()
               },
               cond: (_, event) => event.element !== undefined
             }
@@ -402,6 +404,7 @@ const ui = createMachine({
                   ]
                 }
                 context.figure.create('LineParallel', { line, point })
+                context.figure.saveState()
               },
               cond: (_, event) => event.element !== undefined
             }
@@ -424,7 +427,7 @@ const ui = createMachine({
           reader.onload = (readerEvent: ProgressEvent<FileReader>) => {
             const content = (readerEvent?.target?.result as string | null) ?? ''
             if (typeof content === 'string' && content !== '') {
-              context.figure.loadJson(JSON.parse(content), true)
+              context.figure.loadJson(JSON.parse(content))
             }
           }
         }
@@ -466,7 +469,7 @@ const ui = createMachine({
                   Point
                 ]
                 context.figure.create('PerpendicularBisectorByPoints', { point1, point2 })
-                context.figure.tmpElements?.forEach(e => { e.remove() })
+                context.figure.saveState()
               }
             }
           }
@@ -552,7 +555,7 @@ const ui = createMachine({
             context.figure.create('Polygon', {
               points: context.figure.selectedElements as Point[]
             })
-            context.figure.selectedElements = []
+            context.figure.saveState()
             sendStopIsHidden(true)
           }
         }
@@ -594,6 +597,7 @@ const ui = createMachine({
                   if (element2 instanceof Circle) {
                     context.figure.create('PointsIntersectionLC', { line: element1, circle: element2 })
                   }
+                  context.figure.saveState()
                 } else if (element1 instanceof Circle) {
                   if (element2 instanceof Segment) {
                     context.figure.create('PointsIntersectionLC', { line: element2, circle: element1 })
@@ -601,6 +605,7 @@ const ui = createMachine({
                   if (element2 instanceof Circle) {
                     context.figure.create('PointsIntersectionCC', { circle1: element1, circle2: element2 })
                   }
+                  context.figure.saveState()
                 }
               },
               cond: (_, event) => event.element !== undefined
@@ -626,9 +631,11 @@ const ui = createMachine({
               const [point1, point2] = [event.element.point1, event.element.point2]
               const k = ((event.x - point1.x) * (point2.x - point1.x) + (event.y - point1.y) * (point2.y - point1.y)) / (distance(point1, point2) ** 2)
               context.figure.create('PointOnLine', { line: event.element, k })
+              context.figure.saveState()
             } else if (event.element instanceof Circle) {
               const angleWithHorizontal = Math.atan2(event.y - event.element.center.y, event.x - event.element.center.x)
               context.figure.create('PointOnCircle', { circle: event.element, angleWithHorizontal })
+              context.figure.saveState()
             }
           }
         }
@@ -645,6 +652,7 @@ const ui = createMachine({
               actions: (context, event) => {
                 const { x, y } = event
                 context.figure.create('Point', { x, y })
+                context.figure.saveState()
               }
             }
           }
@@ -719,7 +727,7 @@ const ui = createMachine({
                     Point
                   ]
                   context.figure.create('Segment', { point1, point2 })
-                  context.figure.tmpElements?.forEach(e => { e.remove() })
+                  context.figure.saveState()
                 }
               },
               cond: (_, event) => getExistingPointOrCreatetPoindWasASuccess(event)
@@ -767,7 +775,7 @@ const ui = createMachine({
                     Point
                   ]
                   context.figure.create('Ray', { point1, point2 })
-                  context.figure.tmpElements?.forEach(e => { e.remove() })
+                  context.figure.saveState()
                 }
               },
               cond: (_, event) => getExistingPointOrCreatetPoindWasASuccess(event)
@@ -806,6 +814,7 @@ const ui = createMachine({
                   Point
                 ]
                 context.figure.create('Middle', { point1, point2 })
+                context.figure.saveState()
               },
               cond: (_, event) => event.element !== undefined
             }
