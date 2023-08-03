@@ -86,9 +86,6 @@ const ui = createMachine({
     SAVE: 'SAVE'
   },
   entry: 'highlightButton',
-  exit: (context) => {
-    context.figure.selectedElements = []
-  },
   states: {
     INIT: {
       after: {
@@ -488,7 +485,6 @@ const ui = createMachine({
         init: {
           always: 'waitingElement',
           entry: (context) => {
-            context.figure.selectedElements = []
             sendStopIsHidden(true)
             userMessage('Cliquer sur un sommet.')
             context.figure.filter = (e) => e instanceof Point
