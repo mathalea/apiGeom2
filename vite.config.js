@@ -17,7 +17,7 @@ export default defineConfig({
   root: __dirname,
   // ça c'est important, le mettre en relatif (./) va permettre de copier le dossier docroot n'importe où, mais ne permettra pas l'usage en cross-domain
   // pour charger un js en cross-domain, il faut préciser ici le chemin absolu où seront déployés les js (https://xxx)
-  base: './', // https://vitejs.dev/config/shared-options.html#base
+  base: '/apigeom/', // https://vitejs.dev/config/shared-options.html#base
   build: {
     outDir: 'docroot/build', // https://vitejs.dev/config/build-options.html#build-outdir
     emptyOutDir: true, // https://vitejs.dev/config/build-options.html#build-emptyoutdir
