@@ -13,6 +13,8 @@ export default function addDashedChoice (figure: Figure): HTMLDivElement {
     img.style.width = '30px'
     img.style.height = '30px'
     img.style.margin = '10px'
+    img.style.marginLeft = '4px'
+    img.style.marginTop = '30px'
     img.style.cursor = 'pointer'
     img.style.borderRadius = '5px'
     img.style.border = '1px solid black'

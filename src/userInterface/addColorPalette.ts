@@ -9,7 +9,9 @@ export default function addColorPalette (colors: string[], figure: Figure): HTML
     button.style.backgroundColor = color
     button.style.width = '30px'
     button.style.height = '30px'
-    button.style.margin = '10px'
+    button.style.marginRight = '10px'
+    button.style.marginLeft = '4px'
+    button.style.marginTop = '10px'
     button.style.cursor = 'pointer'
     button.style.borderRadius = '5px'
     button.style.backgroundColor = color

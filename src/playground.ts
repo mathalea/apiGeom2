@@ -20,6 +20,7 @@ divButtons.appendChild(figure.addButtons('CIRCLE_CENTER_POINT CIRCLE_RADIUS'))
 divButtons.appendChild(figure.addColorPalette(['black', 'blue', 'red']))
 divButtons.appendChild(figure.addColorPalette(['green', 'orange', 'purple']))
 divButtons.appendChild(figure.addDashedChoice())
+divButtons.appendChild(figure.addThicknessChoice())
 
 // Création de la figure
 figure.setContainer(div)

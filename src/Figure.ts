@@ -62,6 +62,7 @@ import handleHover from './pointerActions/handleHover'
 import addButtons from './userInterface/addButtons'
 import addColorPalette from './userInterface/addColorPalette'
 import addDashedChoice from './userInterface/addDashedChoice'
+import addThicknessChoice from './userInterface/addThicknessChoice'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -413,6 +414,10 @@ class Figure {
 
   addDashedChoice (): HTMLDivElement {
     return addDashedChoice(this)
+  }
+
+  addThicknessChoice (): HTMLDivElement {
+    return addThicknessChoice(this)
   }
 }
 
