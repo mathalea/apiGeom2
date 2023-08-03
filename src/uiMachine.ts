@@ -484,7 +484,7 @@ const ui = createMachine({
         init: {
           always: 'waitingElement',
           entry: (context) => {
-            userMessage('Cliquer sur un sommet.')
+            userMessage('Cliquer sur un sommet du polygone.')
             context.figure.filter = (e) => e instanceof Point
           }
         },
@@ -497,7 +497,11 @@ const ui = createMachine({
               {
                 target: 'waitingElement',
                 actions: (context, event) => {
-                  userMessage('Cliquer sur un nouveau sommet ou sur le premier sommet pour terminer.')
+                  if (context.figure.selectedElements.length > 0) {
+                    userMessage('Cliquer sur un nouveau sommet ou sur le premier sommet pour terminer.')
+                  } else {
+                    userMessage('Cliquer sur un sommet du polygone.')
+                  }
                   const newPoint = getExistingPointOrCreatedPoint(context, event)
                   if (newPoint !== undefined) {
                     context.figure.selectedElements.push(newPoint)
@@ -537,6 +541,7 @@ const ui = createMachine({
             context.figure.create('Polygon', {
               points: context.figure.selectedElements as Point[]
             })
+            userMessage('Cliquer sur un sommet pour créer un autre polygone.')
             context.figure.saveState()
           }
         }
