@@ -196,10 +196,16 @@ class Point extends Element2D {
 
   set color (color) {
     this._color = color
-    this.svgCircle.setAttribute('fill', color)
-    this.svgLine1.setAttribute('stroke', color)
-    this.svgLine2.setAttribute('stroke', color)
-    this.svgCircle.setAttribute('stroke', color)
+    if (this.svgCircle !== undefined) {
+      this.svgCircle.setAttribute('fill', color)
+      this.svgCircle.setAttribute('stroke', color)
+    }
+    if (this.svgLine1 !== undefined) {
+      this.svgLine1.setAttribute('stroke', color)
+    }
+    if (this.svgLine2 !== undefined) {
+      this.svgLine2.setAttribute('stroke', color)
+    }
   }
 
   get x (): number {
