@@ -2,6 +2,7 @@ import type Figure from '../Figure'
 import type DynamicNumber from '../dynamicNumbers/DynamicNumber'
 import { orangeMathalea } from './defaultValues'
 import { type OptionsElement2D, type typeElement2D } from './interfaces'
+import type Segment from './lines/Segment'
 
 abstract class Element2D {
   /** Espace de travail dans lequel l'élément sera représenté */
@@ -112,10 +113,10 @@ abstract class Element2D {
 
   set isHover (isHover: boolean) {
     if (isHover) {
-      changeColor(this, orangeMathalea)
+      this.changeColor(this, orangeMathalea)
       changeThickness(this, this._thickness + 2)
     } else if (!this._isSelected) {
-      changeColor(this, this._color)
+      this.changeColor(this, this._color)
       changeThickness(this, this._thickness)
     }
     this._isHover = isHover
@@ -127,10 +128,10 @@ abstract class Element2D {
 
   set isSelected (isSelected: boolean) {
     if (isSelected) {
-      changeColor(this, orangeMathalea)
+      this.changeColor(this, orangeMathalea)
       changeThickness(this, this._thickness + 2)
     } else if (!this._isHover) {
-      changeColor(this, this._color)
+      this.changeColor(this, this._color)
       changeThickness(this, this._thickness)
     }
     this._isSelected = isSelected
@@ -179,8 +180,15 @@ abstract class Element2D {
 
   /** Change la couleur des tracés de l'élément */
   set color (color: string) {
+    const temp = this as unknown
+    const segment = temp as Segment
+    if (segment?.createdBy !== undefined) {
+      const polygon = segment.createdBy
+      polygon.color = color
+      return
+    }
     this._color = color
-    changeColor(this, color)
+    this.changeColor(this, color)
   }
 
   /** Épaisseur des tracés */
@@ -233,15 +241,15 @@ abstract class Element2D {
     this.thickness = this._thickness
     this.isDashed = this._isDashed
   }
-}
 
-function changeColor (element: Element2D, color: string): void {
-  if (element.groupSvg.children.length > 0) {
-    for (const line of Array.from(element.groupSvg.children)) {
-      line.setAttribute('stroke', color)
+  changeColor (element: Element2D, color: string): void {
+    if (element.groupSvg.children.length > 0) {
+      for (const line of Array.from(element.groupSvg.children)) {
+        line.setAttribute('stroke', color)
+      }
+    } else { // Le segment ou le cercle ne sont pas des groupes, ce sont des éléments uniques sans children
+      element.groupSvg.setAttribute('stroke', color)
     }
-  } else { // Le segment ou le cercle ne sont pas des groupes, ce sont des éléments uniques sans children
-    element.groupSvg.setAttribute('stroke', color)
   }
 }
 

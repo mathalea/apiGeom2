@@ -21,6 +21,8 @@ class Segment extends Element2D {
   svgBorder1!: SVGElement
   svgBorder2!: SVGElement
   borderSize: number
+  /** Élément parent avec lequel il est lié pour le changement de style (comme les côtés d'un polygone) */
+  createdBy?: Element2D
   constructor (figure: Figure, { point1, point2, shape = '', borderSize, color = figure.options.color, thickness = figure.options.thickness, isDashed = figure.options.isDashed, ...options }: { point1: Point
     point2: Point
     shape?: '' | '|-|' | '|-' | '-|'

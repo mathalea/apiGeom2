@@ -299,6 +299,7 @@ class Figure {
     this.handleUndoRedoButtons()
     this.tmpElements.forEach(e => { e.remove() })
     this.tmpElements = []
+    this.selectedElements = []
   }
 
   handleUndoRedoButtons (): void {

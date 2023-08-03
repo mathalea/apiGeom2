@@ -17,6 +17,7 @@ class Polygon extends Element2D {
   shape: 'x' | 'o' | ''
   _fillColor = 'none'
   _fillOpacity = 0.5
+  /** Est-ce qu'on créé un segment pour chaque côté ? */
   isBuiltWithSegments: boolean
   constructor (figure: Figure, { points, shape = '', fillColor = 'none', fillOpacity = figure.options.fillOpacity, isBuiltWithSegments = true, ...options }: { points: Point[], fillColor?: string, fillOpacity?: number, shape?: 'x' | 'o' | '', isBuiltWithSegments?: boolean } & OptionsElement2D) {
     super(figure, options)
@@ -27,7 +28,6 @@ class Polygon extends Element2D {
     this.fillColor = fillColor
     this.fillOpacity = fillOpacity
     this.isBuiltWithSegments = isBuiltWithSegments
-    console.log(this)
     for (const point of points) {
       point.subscribe(this)
       if (!this.isChild) point.color = ''
@@ -50,9 +50,12 @@ class Polygon extends Element2D {
     for (let i = 0; i < this.points.length; i++) {
       const point1 = this.points.at(i % this.points.length) as Point
       const point2 = this.points.at((i + 1) % this.points.length) as Point
-      this.segments.push(this.figure.create('Segment', { point1, point2, isChild: true, id: this.id + '_segment' + i.toString(), color: '' }))
+      const segment = this.figure.create('Segment', { point1, point2, isChild: true, id: this.id + '_segment' + i.toString(), color: '' })
+      this.segments.push(segment)
     }
-    console.log(this.figure.elements)
+    for (const segment of this.segments) {
+      segment.createdBy = this
+    }
   }
 
   update (): void {
