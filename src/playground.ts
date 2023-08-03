@@ -19,6 +19,7 @@ divButtons.appendChild(figure.addButtons('PERPENDICULAR_BISECTOR BISECTOR_BY_POI
 divButtons.appendChild(figure.addButtons('CIRCLE_CENTER_POINT CIRCLE_RADIUS'))
 divButtons.appendChild(figure.addColorPalette(['black', 'blue', 'red']))
 divButtons.appendChild(figure.addColorPalette(['green', 'orange', 'purple']))
+divButtons.appendChild(figure.addDashedChoice())
 
 // Création de la figure
 figure.setContainer(div)

@@ -668,6 +668,7 @@ const ui = createMachine({
             if (element !== undefined) {
               element.color = context.figure.options.color
               element.thickness = context.figure.options.thickness
+              console.log(element, context.figure.options.isDashed)
               if ('isDashed' in element) element.isDashed = context.figure.options.isDashed
               if ('fillColor' in element) element.fillColor = context.figure.options.fillColor
               if ('fillOpacity' in element) element.fillOpacity = context.figure.options.fillOpacity

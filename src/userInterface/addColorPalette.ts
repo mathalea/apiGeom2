@@ -15,12 +15,6 @@ export default function addColorPalette (colors: string[], figure: Figure): HTML
     button.style.backgroundColor = color
     button.style.border = '1px solid black'
     button.style.padding = '2px'
-    // button.onmouseover = () => {
-    //   button.style.boxShadow = '0px 0px 5px 0px rgba(0,0,0,0.75)'
-    // }
-    // button.onmouseout = () => {
-    //   button.style.boxShadow = ''
-    // }
     button.addEventListener('click', () => {
       figure.options.color = color
       showSelectedColor(figure)

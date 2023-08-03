@@ -61,6 +61,7 @@ import type { eventName, eventOptions } from './uiMachine'
 import handleHover from './pointerActions/handleHover'
 import addButtons from './userInterface/addButtons'
 import addColorPalette from './userInterface/addColorPalette'
+import addDashedChoice from './userInterface/addDashedChoice'
 
 /**
  * Créé un espace de travail dans lequel on peut
@@ -408,6 +409,10 @@ class Figure {
 
   addColorPalette (colors: string[]): HTMLDivElement {
     return addColorPalette(colors, this)
+  }
+
+  addDashedChoice (): HTMLDivElement {
+    return addDashedChoice(this)
   }
 }
 

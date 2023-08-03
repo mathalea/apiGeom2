@@ -198,8 +198,15 @@ abstract class Element2D {
 
   /** Change l'épaisseur des tracés */
   set thickness (thickness: number) {
-    changeThickness(this, thickness)
+    const temp = this as unknown
+    const segment = temp as Segment
+    if (segment?.createdBy !== undefined) {
+      const polygon = segment.createdBy
+      polygon.thickness = thickness
+      return
+    }
     this._thickness = thickness
+    changeThickness(this, thickness)
   }
 
   /** Pointillés */
@@ -208,6 +215,17 @@ abstract class Element2D {
   }
 
   set isDashed (isDashed) {
+    const temp = this as unknown
+    const segment = temp as Segment
+    if (segment?.createdBy !== undefined) {
+      const polygon = segment.createdBy
+      if (isDashed) {
+        polygon.groupSvg.setAttribute('stroke-dasharray', '4 3')
+      } else {
+        polygon.groupSvg.removeAttribute('stroke-dasharray')
+      }
+      return
+    }
     if (isDashed) {
       this.groupSvg.setAttribute('stroke-dasharray', '4 3')
     } else {
