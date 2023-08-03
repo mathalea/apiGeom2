@@ -1,7 +1,6 @@
 import type Figure from './Figure'
 import Segment from './elements/lines/Segment'
 import Point from './elements/points/Point'
-import { isStopHidden } from './store'
 import { type AnyEventObject, createMachine } from 'xstate'
 import Element2D from './elements/Element2D'
 import Circle from './elements/lines/Circle'
@@ -485,7 +484,6 @@ const ui = createMachine({
         init: {
           always: 'waitingElement',
           entry: (context) => {
-            sendStopIsHidden(true)
             userMessage('Cliquer sur un sommet.')
             context.figure.filter = (e) => e instanceof Point
           }
@@ -500,46 +498,32 @@ const ui = createMachine({
                 target: 'waitingElement',
                 actions: (context, event) => {
                   userMessage('Cliquer sur un nouveau sommet ou sur le premier sommet pour terminer.')
-                  if (event.element instanceof Point) context.figure.selectedElements.push(event.element)
-                  if (context.figure.selectedElements.length === 0) {
-                    context.figure.tempCreate(
-                      'Segment',
-                      {
-                        point1: context.figure.selectedElements[0] as Point,
-                        point2: context.figure.pointer,
-                        isChild: true
-                      }
-                    )
-                  } else {
+                  const newPoint = getExistingPointOrCreatedPoint(context, event)
+                  if (newPoint !== undefined) {
+                    context.figure.selectedElements.push(newPoint)
                     const points = [...context.figure.selectedElements, context.figure.pointer] as Point[]
-                    context.figure.tempCreate('Polygon', { points, isChild: true, isBuiltWithSegments: false }
-                    )
-                  }
-                  if (context.figure.selectedElements.length > 2) {
-                    sendStopIsHidden(false)
-                  } else {
-                    sendStopIsHidden(true)
+                    context.figure.tempCreate('Polygon', { points, isChild: true, isBuiltWithSegments: false })
                   }
                 },
                 cond: (context, event) => {
-                  if (context.figure.selectedElements.length === 0) {
-                    return event.element !== undefined
-                  } else {
-                    return (
-                      event.element !== undefined &&
-                      context.figure.selectedElements[0].id !== event.element.id
-                    )
+                  if (context.figure.selectedElements.length < 2) {
+                    return getExistingPointOrCreatetPoindWasASuccess(event)
                   }
+                  const last = event.element as Point
+                  const first = context.figure.selectedElements[0] as Point
+                  const isClickOnFirstPoint = last?.id === first?.id
+                  return getExistingPointOrCreatetPoindWasASuccess(event) && !isClickOnFirstPoint
                 }
               },
               {
                 target: 'STOPPOLYGON',
                 cond: (context, event) => {
-                  return (
-                    event.element !== undefined &&
-                    context.figure.selectedElements[0] !== undefined &&
-                    context.figure.selectedElements[0].id === event.element.id
-                  )
+                  if (context.figure.selectedElements.length > 1) {
+                    const last = event.element as Point
+                    const first = context.figure.selectedElements[0] as Point
+                    return last?.id === first?.id
+                  }
+                  return false
                 }
               }
             ]
@@ -554,7 +538,6 @@ const ui = createMachine({
               points: context.figure.selectedElements as Point[]
             })
             context.figure.saveState()
-            sendStopIsHidden(true)
           }
         }
       }
@@ -911,10 +894,6 @@ function getExistingPointOrCreatetPoindWasASuccess (event: MyEvent): boolean {
 function userMessage (text: string): void {
   const div = document.querySelector('#userMessage')
   if (div != null) div.innerHTML = text
-}
-
-function sendStopIsHidden (e: boolean): void {
-  isStopHidden.set(e)
 }
 
 export default ui
