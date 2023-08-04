@@ -117,7 +117,7 @@ class Figure {
   /** div dans lequel sera écrit la dernière sauvegarde automatique au format JSON */
   divSave: HTMLDivElement | null
   /** Eventuel div dans lequel on attend une réponse de l'utilisateur */
-  modal!: HTMLDivElement
+  modal?: HTMLDivElement
   /** Abscisse du pointeur dans le repère de la figure */
   pointerX: number | null
   /** Ordonnée du pointeur dans le repère de la figure */
@@ -471,7 +471,7 @@ class Figure {
         direction.x *= 10
         direction.y *= 10
       }
-      if (direction.x !== 0 || direction.y !== 0) {
+      if (this.modal === null && (direction.x !== 0 || direction.y !== 0)) {
         e.preventDefault()
         this.xMin += direction.x
         this.yMax += direction.y

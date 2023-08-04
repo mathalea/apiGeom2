@@ -30,6 +30,7 @@ import redo from '../assets/svg/redo.svg'
 import reflection from '../assets/svg/reflection.svg'
 import reflectionOverLine from '../assets/svg/reflectionOverLine.svg'
 import remove from '../assets/svg/remove.svg'
+import rotate from '../assets/svg/rotate.svg'
 import save from '../assets/svg/save.svg'
 import segment from '../assets/svg/segment.svg'
 import setOptions from '../assets/svg/setOptions.svg'
@@ -69,6 +70,7 @@ const availableIcons = new Map<string, { url: string, tooltip: string }>([
   ['REFLECTION', { url: reflection, tooltip: 'Symétrie centrale' }],
   ['REFLECTION_OVER_LINE', { url: reflectionOverLine, tooltip: 'Symétrie axiale' }],
   ['REMOVE', { url: remove, tooltip: 'Supprimer' }],
+  ['ROTATE', { url: rotate, tooltip: 'Rotation' }],
   ['SAVE', { url: save, tooltip: 'Sauvegarder' }],
   ['SEGMENT', { url: segment, tooltip: 'Segment' }],
   ['SET_OPTIONS', { url: setOptions, tooltip: 'Modifier le style' }],

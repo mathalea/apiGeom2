@@ -1,11 +1,11 @@
-import type Figure from './Figure'
+import Figure from './Figure'
 import Segment from './elements/lines/Segment'
 import Point from './elements/points/Point'
 import { type AnyEventObject, createMachine } from 'xstate'
 import Element2D from './elements/Element2D'
 import Circle from './elements/lines/Circle'
 import { distance } from './elements/calculus/Coords'
-import { createDialoxBoxRadius } from './userInterface/handleDialog'
+import { createDialoxBoxAngle, createDialoxBoxRadius } from './userInterface/handleDialog'
 import { orangeMathaleaLight } from './elements/defaultValues'
 
 interface MyContext {
@@ -13,6 +13,7 @@ interface MyContext {
 }
 
 export type eventName =
+  | 'ANGLE'
   | 'clickLocation'
   | 'BISSECTOR_BY_POINTS'
   | 'CIRCLE_CENTER_POINT'
@@ -36,6 +37,7 @@ export type eventName =
   | 'REFLECTION'
   | 'REFLECTION_OVER_LINE'
   | 'REMOVE'
+  | 'ROTATE'
   | 'SAVE'
   | 'SEGMENT'
   | 'SET_OPTIONS'
@@ -45,6 +47,7 @@ export type eventOptions =
   | { x: number, y: number, element?: Element2D, waitingWithModal: boolean }
   | { text: string }
   | { radius: number }
+  | { angle: number }
 
 interface MyEvent extends AnyEventObject {
   x?: number
@@ -54,13 +57,21 @@ interface MyEvent extends AnyEventObject {
   waitingWithModal?: boolean
 }
 
-const ui = createMachine({
+interface Context {
+  figure: Figure
+  temp?: {
+    values?: number[]
+    element?: Element2D[]
+  }
+}
+
+const ui = createMachine<Context>({
   /** @xstate-layout N4IgpgJg5mDOIC5QEMAOBLA4mA9gWwFUBJAYgAUB5IgOQBUBtABgF1FRUdZ0AXdHAOzYgAHogAsAJgA0IAJ7iAjBIB0CgMwB2BQA4NAVgC+BmWiy5CpADI0Aok1ZIQHLrwFDRCSTPkINYxsoSemKahsYgptj4xCQAyjaYALI2dPZCzjx8go4eXnKICowAbEXKYoVFQUYmGFEWJAAiAEoAgphpjhmu2aC50vkI6kV6ysOMEozaatMzEtURteYxZDZNK9QNRADCBJYtTR3snJluOeL9PgpF46piYTVm0aRk+y2WljaWh07H3e7n3gKAE5GGJlNpGEp7gtHvVKJYAJqYCjUb5dLL-TwXRASCRA0qaIGheaRJakLZEJpbD5o34Ys5YwEIIISUraCTlEpcrnaEmLJ4kLYUSwUA4sdJ0069AEDCQaNQBEG4oFXblFXnhUkClZrFKbHZ7JoAfQAQkRYvEtrRRbSXPTpYzZUSwUCIZy1eq+bCYjRaKtLbQiCjbSceiIZT41KyFKo1B7uRqHnVllQ6Ebg+LOpKw30mQoVcpIWINCr4xovcmiMpmm0SABjAA26DrAGtLDg68huiG-gy1HoRkENNooXmORoytpdNCtRZlJRfcoAO7ITL8KAAMRwACd253uvWm62912sj37eHmYxB9oQZU9Ez-CNGK6oRWycp4kkUrRl6veOuW7bhu6DbrA3A2A2YB4GA-DcIezZth2p4COeUqXiEKhiNoIT6HmCiFMoKrFFUmr8nOX7JHQf5rpuO6xGAdYCBAkHQbB8GNohJ7dpmRx2uhuRRpOuEPgMhQKGC0ykUmH4UlSHw0QBdHbls7FgNuCHHshPEOHxoaYpoMZ3Goo6ynoWjKFG7oeomMKVsocnUjYinoIBO5kDgrkcUeSH7mevE-PxOaIIZZR6CZQRMuOYJ+Nc1k8u+TzKNY1DOSutFASBYEQVBMFwZpvkofwaHBQgahAioI6RQMELaIEwTEmR3pVilaX-q5ykMUx-Asbl7EFdx-m6YF+l9hV4KmT4WgxkUGj3olc46us+q7PsLlucBoHgaxeXeVx2lDRKQWYthYISDoeFiUUYilNdM7kcQ86rMt2yrU062dYxzE7f1nFaX5qEBeiAniDhgQXaJlwDgExTqvoC2PS8rTvJ8H2ZVtOVsflf2FTpR2jQ6ISSSJeZAmIQKWZC0l2R+SNvB8lho-RX09T92M+YNgPDcDpVE5ZJNidoegqBoEgRfdzVPbqGyvYaprmgGopM5t2Vs3t-1FSVmLmaUKr+PeUVAiWk6gqqaq2bOiPPXqsv7PLFo2FaSvpUpQFdd9fXs-tAPFUD2aYtdahEXNegG7KU4qEqeJmwlTX2fCSIonE1pkAnyKon7x0MhMpTmVVkM4hIUzgiWjUyUlacosork8CQWsMgOMYh2HPjncbuhEvDce08KifUB9asDQdXP472DpTDFagC63Vx1VcJYx7H5eLb36cD576u42eCjc-7Dd6E3wwt4XegBCWcWL8MCNVpX-exCnt915nBOXo3yjN9VrcKjGeIXx6Ev2V9P6R2gYq4uw6ujVWG8h4+3roTIoFNyokQLmVKMFMhjxhKBbB6VYgFNADEGfu4CNru1ZtAnGnNfa7yzvAxBd5P4hTFioAcQt4pYOvvOVMtB0zUBgZrZ+Y9Lz9kHHnSaiARzKGFkYcI-AcAQDgEIS2RBR4Xg8AAWiKEyNRIxXSMD0fogxeixAcJrJgFRINBg3SIudaceYp4U1htODhC46DmNKuoOe+sGHMg0AEPQr5qZKM4YuYhylKFuMxDoUoElkFMlPrdOagScGfgSFRWgESGQKH8aMKM+cmQVTZFGABH5KI-mVllbaG8MkOgmBOIouSxGDHGBOYc7Jo5qnLN3JKpTqKhLdizXqWNuDVNfiCVQ3jCgKkCBHdp3JOnL0eo5D4IyPAxMpjdWxso1C6ECDdU2NkOFLLahlHcqk4LqRWQUKc6y4YoI5NciYCgNC+KmDMaYhzKROWVh5LylyEDCwcZ3O55Mz6QmeZMN57yulzlan8giFN8QvlCHE55qhEnFKSq1cpGM1ZwtmkRa4QKmSixGOofMC8PQcKxX05m3VBm7T+dDMK4tiVyhyeS0sapnHWxlgafYfzzoxjjFoTZlwbrMKwV3BZN8eUrUNNiqBQyBXZOFRDPMocg7C1ZPsuZ3LpZyrWjS7cpD6XsT+S86xaqxKh1KOMbVbD5k0wrq8FGlg8VGQqlay4IdAhizfNCxGLqGYKsqUqrMNDLwTApuTGxl1LjaBKGiqcwRF6OqCXTV1ysTW4vDS-DwwwHEbLjVc9UoxWkpo6Xql6fLjRmgdk7JofyFRglibKEsIx-DKkvtgyWS0bY1vtord6RqKmYwZbmwRHh+wqFba3W8BI9AQgmK8t5Vb+1vUHSA527USEDJzXpSd4jISjCeV6nEt46pCyXRCyFzjV4ojhYuyRw5Gk5wnB3MuTqV6IjXjXYZE7VEhR2fKaeOIskjEJJ+9N96iE7qgPukah6EC6CwuULxdzWQU1ijqhMd6f1V3vhQVOMGm0SNPaKwu1wS5Ao4XgghD6AMWPzLnJBx8yovjqteVh3baN0GAVaQhIax1msY6VDkYJwr0JQVGTQ-M5o4fYQG3BfH8EgME0a7NVTRMBzZYwFlAwozXVUBCIFhi1B3t9DwuFZGRXFsGMXDjShyZAhc65nt9khQikbdpzJodLUUZ8YwCcUdOW4ekUAA */
   predictableActionArguments: true,
   id: 'apiGeomUI',
   initial: 'INIT',
   /* eslint-disable-next-line @typescript-eslint/consistent-type-assertions */
-  context: {} as { figure: Figure },
+  context: { figure: {} as Figure, temp: {} },
   on: {
     BISECTOR_BY_POINTS: 'BISECTOR_BY_POINTS',
     POINT: 'POINT',
@@ -84,6 +95,7 @@ const ui = createMachine({
     REDO: 'REDO',
     REFLECTION: 'REFLECTION',
     REFLECTION_OVER_LINE: 'REFLECTION_OVER_LINE',
+    ROTATE: 'ROTATE',
     SET_OPTIONS: 'SET_OPTIONS',
     HIDE: 'HIDE',
     SAVE: 'SAVE'
@@ -207,14 +219,11 @@ const ui = createMachine({
                 const newPoint = getExistingPointOrCreatedPoint(context, event)
                 if (newPoint !== undefined) {
                   context.figure.selectedElements[0] = newPoint
-                  const dialog = createDialoxBoxRadius(context.figure.ui)
+                  const dialog = createDialoxBoxRadius(context.figure)
                   dialog.showModal()
                 }
               },
-              cond: (_, event) => {
-                const newPoint = getExistingPointOrCreatedPoint(_, event)
-                return newPoint !== undefined
-              }
+              cond: (_, event) => getExistingPointOrCreatetPoindWasASuccess(event)
             }
           }
         },
@@ -644,6 +653,72 @@ const ui = createMachine({
                 context.figure.create('Point', { x, y })
                 context.figure.saveState()
               }
+            }
+          }
+        }
+      }
+    },
+    ROTATE: {
+      entry: (context) => {
+        context.figure.filter = (e) => e instanceof Point
+      },
+      exit: (context) => {
+        context.figure.selectedElements.forEach(e => { e.isSelected = false })
+        context.figure.selectedElements = []
+        context.figure.tmpElements = []
+      },
+      initial: 'waitingForCenter',
+      states: {
+        waitingForCenter: {
+          entry: () => { userMessage('Cliquer sur le centre de rotation.') },
+          on: {
+            clickLocation: {
+              target: 'waitingForAngle',
+              actions: (context, event) => {
+                const newPoint = getExistingPointOrCreatedPoint(context, event)
+                if (newPoint !== undefined) {
+                  context.figure.selectedElements[0] = newPoint
+                  const dialog = createDialoxBoxAngle(context.figure)
+                  dialog.showModal()
+                }
+              },
+              cond: (_, event) => getExistingPointOrCreatetPoindWasASuccess(event)
+            }
+          }
+        },
+        waitingForAngle: {
+          on: {
+            ANGLE: {
+              target: 'waitingForPoint',
+              actions: (context, event) => {
+                const angle = event.angle
+                context.temp = { values: [angle] }
+              }
+            }
+          }
+        },
+        waitingForPoint: {
+          entry: (context) => {
+            const center = context.figure.selectedElements[0] as Point
+            const angle = context?.temp?.values?.at(0) ?? 90
+            context.figure.tempCreate('PointByRotation', { origin: context.figure.pointer, angle, center })
+            userMessage('Cliquer sur un point.')
+          },
+          exit: (context) => {
+            context.figure.tmpElements.forEach(e => { e.remove() })
+          },
+          on: {
+            clickLocation: {
+              target: 'waitingForPoint',
+              actions: (context, event) => {
+                const center = context.figure.selectedElements[0] as Point
+                const origin = event.element as Point
+                const angle = context?.temp?.values?.at(0) ?? 90
+                context.figure.create('PointByRotation', { origin, angle, center })
+                context.figure.saveState()
+                context.figure.selectedElements[0] = center
+              },
+              cond: (_, event) => event.element instanceof Point
             }
           }
         }
