@@ -1,5 +1,5 @@
-import defaultOptions, { defaultHistorySize } from './elements/defaultValues'
-import type Element2D from './elements/Element2D'
+import defaultOptions, { defaultButtonsWidth, defaultFooterHeight, defaultHistorySize, defaultMinHeight, defaultMinWidth } from './elements/defaultValues'
+import Element2D from './elements/Element2D'
 import type DynamicNumber from './dynamicNumbers/DynamicNumber'
 import Point from './elements/points/Point'
 import PointOnGraph from './elements/points/PoinrOnGraph'
@@ -157,7 +157,7 @@ class Figure {
    * @param dx - Si l'option snapGrid est activée, cela correspond à la distance horizontale du quadrillage sur lequel les points peuvent être déposés
    * @param dy - Si l'option snapGrid est activée, cela correspond à la distance verticale du quadrillage sur lequel les points peuvent être déposés
    */
-  constructor ({ width = 600, height = 400, pixelsPerUnit = 30, xMin = -10, yMin = -6, isDynamic = true, dx = 1, dy = 1, xScale = 1, yScale = 1, scale = 1, snapGrid = false }: { width?: number, height?: number, pixelsPerUnit?: number, xMin?: number, yMin?: number, isDynamic?: boolean, dx?: number, dy?: number, xScale?: number, yScale?: number, scale?: number, snapGrid?: boolean } = {}) {
+  constructor ({ width = document.documentElement.clientWidth - defaultButtonsWidth, height = document.documentElement.clientHeight - defaultFooterHeight, pixelsPerUnit = 30, xMin = -10, yMin = -6, isDynamic = true, dx = 1, dy = 1, xScale = 1, yScale = 1, scale = 1, snapGrid = false, border = false }: { width?: number, height?: number, pixelsPerUnit?: number, xMin?: number, yMin?: number, isDynamic?: boolean, dx?: number, dy?: number, xScale?: number, yScale?: number, scale?: number, snapGrid?: boolean, border?: boolean } = {}) {
     this.elements = new Map()
     this.stackUndo = []
     this.stackRedo = []
@@ -183,10 +183,7 @@ class Figure {
 
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
     this.divSave = null
-    this.svg.style.width = `${this.width}px`
-    this.svg.style.height = `${this.height}px`
-    this.svg.setAttribute('viewBox', `${this.xToSx(this.xMin)} ${this.yToSy(this.yMax)} ${this.width} ${this.height}`)
-    this.svg.style.border = 'solid'
+    if (border) this.svg.style.border = 'solid'
     // Pour éviter le scroll quand on manipule la figure sur un écran tactile
     this.svg.style.touchAction = 'none'
     this.clearHtml()
@@ -368,8 +365,6 @@ class Figure {
     parentContainer.appendChild(this.container)
     this.container.appendChild(this.svg)
     this.container.style.position = 'relative'
-    this.container.style.width = this.svg.getBoundingClientRect().width.toString() + 'px'
-    this.container.style.height = this.svg.getBoundingClientRect().height.toString() + 'px'
     this.container.style.position = 'relative'
     this.container.style.overflow = 'hidden'
     this.container.style.display = 'inline-block'
@@ -387,6 +382,7 @@ class Figure {
     divUserMessage.style.fontSize = '1.5em'
     divUserMessage.id = 'userMessage'
     this.container.appendChild(divUserMessage)
+    this.adjustSize()
     this.drawTexts()
   }
 
@@ -418,6 +414,35 @@ class Figure {
 
   addThicknessChoice (): HTMLDivElement {
     return addThicknessChoice(this)
+  }
+
+  adjustSize (): void {
+    this.width = document.documentElement.clientWidth - defaultButtonsWidth
+    this.height = document.documentElement.clientHeight - defaultFooterHeight
+    if (this.width < defaultMinWidth) this.width = defaultMinWidth
+    if (this.height < defaultMinHeight) this.height = defaultMinHeight
+    if (this.container !== null && this.svg !== null) {
+      this.container.style.width = this.width.toString() + 'px'
+      this.container.style.height = this.height.toString() + 'px'
+      this.svg.setAttribute('width', (this.width).toString())
+      this.svg.setAttribute('height', (this.height).toString())
+      this.svg.setAttribute('viewBox', `${this.xToSx(this.xMin)} ${this.yToSy(this.yMax)} ${this.width} ${this.height}`)
+    }
+    for (const e of this.elements) {
+      if (e instanceof Element2D) e.update()
+    }
+  }
+
+  autoAdjustSize (): void {
+    window.addEventListener('resize', () => {
+      this.adjustSize()
+    })
+    window.addEventListener('orientationchange', () => {
+      this.adjustSize()
+    })
+    window.addEventListener('fullscreenchange', () => {
+      this.adjustSize()
+    })
   }
 }
 

@@ -16,6 +16,18 @@ export const defaultMinSlope = 10 ** -4
 // Ecart entre le lieu du clic et la position de la fenêtre modale en unité de la figure
 export const defaultDeltaXModal = 1
 
+// Espace horizontal laissé pour les boutons
+export const defaultButtonsWidth = 300
+
+// Espace vertical laissé pour le footer
+export const defaultFooterHeight = 30
+
+// Largeur minimale du svg
+export const defaultMinWidth = 200
+
+// Hauteur minimale du svg
+export const defaultMinHeight = 200
+
 // Couleurs
 export const colors = {
   DEFAULT: '#F15929',

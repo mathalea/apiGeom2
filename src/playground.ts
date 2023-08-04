@@ -4,7 +4,7 @@ import ui from './uiMachine'
 
 // On créé le svg dans un div
 const div = document.querySelector('#app') as HTMLDivElement
-const figure = new Figure({ width: 0.95 * (document.documentElement.clientWidth - 200), height: 0.8 * window.innerHeight })
+const figure = new Figure()
 const machineWithContext = ui.withContext({ figure })
 figure.ui = interpret(machineWithContext).start()
 
@@ -24,3 +24,4 @@ divButtons.appendChild(figure.addThicknessChoice())
 
 // Création de la figure
 figure.setContainer(div)
+figure.autoAdjustSize()
