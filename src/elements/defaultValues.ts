@@ -28,6 +28,9 @@ export const defaultMinWidth = 200
 // Hauteur minimale du svg
 export const defaultMinHeight = 200
 
+// Déplacement en unités lors du dragAll
+export const defaultDragAllDelta = 0.1
+
 // Couleurs
 export const colors = {
   DEFAULT: '#F15929',

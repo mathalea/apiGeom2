@@ -1,4 +1,4 @@
-import defaultOptions, { defaultButtonsWidth, defaultFooterHeight, defaultHistorySize, defaultMinHeight, defaultMinWidth } from './elements/defaultValues'
+import defaultOptions, { defaultButtonsWidth, defaultDragAllDelta, defaultFooterHeight, defaultHistorySize, defaultMinHeight, defaultMinWidth } from './elements/defaultValues'
 import Element2D from './elements/Element2D'
 import type DynamicNumber from './dynamicNumbers/DynamicNumber'
 import Point from './elements/points/Point'
@@ -193,6 +193,7 @@ class Figure {
     this.ui = undefined
     this.filter = e => e instanceof Point && e.isFree
     this.saveState()
+    this.handleDragAll()
     // Les boutons n'existe pas encore
     setTimeout(() => { this.handleUndoRedoButtons() }, 100)
   }
@@ -416,6 +417,7 @@ class Figure {
     return addThicknessChoice(this)
   }
 
+  /** Ajuste la taille pour être la plus grande possible en tenant compte d'une barre d'outils sur le côté et un footer en dessous */
   adjustSize (): void {
     this.width = document.documentElement.clientWidth - defaultButtonsWidth
     this.height = document.documentElement.clientHeight - defaultFooterHeight
@@ -433,6 +435,7 @@ class Figure {
     }
   }
 
+  /** Met à jour la taille de l'espace de travail en cas de changements sur la fenêtre du navigateur */
   autoAdjustSize (): void {
     window.addEventListener('resize', () => {
       this.adjustSize()
@@ -442,6 +445,37 @@ class Figure {
     })
     window.addEventListener('fullscreenchange', () => {
       this.adjustSize()
+    })
+  }
+
+  /** Déplace le repère de la figure à l'aide des flèches */
+  handleDragAll (): void {
+    window.addEventListener('keydown', (e) => {
+      const direction = { x: 0, y: 0 }
+      const step = defaultDragAllDelta
+      if (e.key === 'ArrowLeft') {
+        direction.x = step
+      }
+      if (e.key === 'ArrowRight') {
+        direction.x = -step
+      }
+      if (e.key === 'ArrowUp') {
+        direction.y = -step
+      }
+      if (e.key === 'ArrowDown') {
+        direction.y = +step
+      }
+      // Shift + flèche => 10x plus rapide
+      if (e.shiftKey) {
+        direction.x *= 10
+        direction.y *= 10
+      }
+      if (direction.x !== 0 || direction.y !== 0) {
+        e.preventDefault()
+        this.xMin += direction.x
+        this.yMax += direction.y
+        this.adjustSize()
+      }
     })
   }
 }
