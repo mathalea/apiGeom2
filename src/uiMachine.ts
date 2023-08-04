@@ -33,6 +33,7 @@ export type eventName =
   | 'RADIUS'
   | 'RAY'
   | 'REDO'
+  | 'REFLECTION'
   | 'REMOVE'
   | 'SAVE'
   | 'SEGMENT'
@@ -80,6 +81,7 @@ const ui = createMachine({
     UNDO: 'UNDO',
     RAY: 'RAY',
     REDO: 'REDO',
+    REFLECTION: 'REFLECTION',
     SET_OPTIONS: 'SET_OPTIONS',
     HIDE: 'HIDE',
     SAVE: 'SAVE'
@@ -691,6 +693,55 @@ const ui = createMachine({
       entry: (context) => {
         context.figure.redo()
         context.figure.buttons.get('DRAG')?.click()
+      }
+    },
+    REFLECTION: {
+      initial: 'waitingForCenter',
+      entry: (context) => {
+        userMessage('Cliquer sur le centre de la symétrie.')
+        context.figure.filter = (e) => e instanceof Point
+      },
+      exit: (context) => {
+        context.figure.selectedElements = []
+        context.figure.tmpElements.forEach(e => { e.remove() })
+      },
+      states: {
+        waitingForCenter: {
+          on: {
+            clickLocation: {
+              target: 'waitingForPoint',
+              actions: (context, event) => {
+                context.figure.selectedElements[0] = event.element
+              },
+              cond: (_, event) => event.element !== undefined
+            }
+          }
+        },
+        waitingForPoint: {
+          entry: (context) => {
+            userMessage('Cliquer sur le point.')
+            const center = context.figure.selectedElements[0] as Point
+            if (center !== undefined) {
+              context.figure.selectedElements[0] = center
+              context.figure.tempCreate('PointByReflection', { center, origin: context.figure.pointer })
+            }
+          },
+          on: {
+            clickLocation: {
+              target: 'waitingForPoint',
+              actions: (context, event) => {
+                const origin = event.element
+                const center = context.figure.selectedElements[0] as Point
+                if (origin !== undefined) {
+                  context.figure.create('PointByReflection', { center, origin })
+                  context.figure.saveState()
+                  // Le saveState initialise selectedElements à []
+                  context.figure.selectedElements[0] = center
+                }
+              }
+            }
+          }
+        }
       }
     },
     SEGMENT: {

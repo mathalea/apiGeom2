@@ -90,6 +90,10 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const origin = figure.elements.get(options.idOrigin) as Point
       const center = figure.elements.get(options.idCenter) as Point
       figure.create('PointByDilate', { origin, center, ...options })
+    } else if (options.type === 'PointByReflection') {
+      const origin = figure.elements.get(options.idOrigin) as Point
+      const center = figure.elements.get(options.idCenter) as Point
+      figure.create('PointByReflection', { origin, center, ...options })
     } else if (options.type === 'PointByDynamicRotation') {
       const origin = figure.elements.get(options.idOrigin) as Point
       const center = figure.elements.get(options.idCenter) as Point

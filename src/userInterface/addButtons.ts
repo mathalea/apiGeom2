@@ -27,6 +27,7 @@ import pointOn from '../assets/svg/pointOn.svg'
 import polygon from '../assets/svg/polygon.svg'
 import ray from '../assets/svg/ray.svg'
 import redo from '../assets/svg/redo.svg'
+import reflection from '../assets/svg/reflection.svg'
 import remove from '../assets/svg/remove.svg'
 import save from '../assets/svg/save.svg'
 import segment from '../assets/svg/segment.svg'
@@ -64,6 +65,7 @@ const availableIcons = new Map<string, { url: string, tooltip: string }>([
   ['POLYGON', { url: polygon, tooltip: 'Polygone' }],
   ['RAY', { url: ray, tooltip: 'Demi-droite' }],
   ['REDO', { url: redo, tooltip: 'Rétablir' }],
+  ['REFLECTION', { url: reflection, tooltip: 'Symétrie centrale' }],
   ['REMOVE', { url: remove, tooltip: 'Supprimer' }],
   ['SAVE', { url: save, tooltip: 'Sauvegarder' }],
   ['SEGMENT', { url: segment, tooltip: 'Segment' }],

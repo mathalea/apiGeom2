@@ -42,6 +42,7 @@ import PointByDilate from './elements/points/PointByDilate'
 import PointByProjection from './elements/points/PointByProjection'
 import PointByProjectionOnAxisX from './elements/points/PointByProjectionOnAxisX'
 import PointByProjectionOnAxisY from './elements/points/PointByProjectionOnAxisY'
+import PointByReflection from './elements/points/PointByReflection'
 import PointByReflectOverLine from './elements/points/PointByReflectOverLine'
 import PointBySimilarity from './elements/points/PointBySimilarity'
 import PointOnLine from './elements/points/PointOnLine'
@@ -215,7 +216,7 @@ class Figure {
     const element = this.create(typeStr, { isChild: true, ...options }) as Element2D
     element.color = this.options.tmpColor
     element.thickness = this.options.tmpThickness
-    if ('isDashed' in element) element.isDashed = this.options.tmpIsDashed
+    if ('isDashed' in element && !(element instanceof Point)) element.isDashed = this.options.tmpIsDashed
     if ('fillColor' in element) element.fillColor = this.options.tmpFillColor
     if ('fillOpacity' in element) element.fillOpacity = this.options.tmpFillOpacity
     this.tmpElements.push(element)
@@ -503,6 +504,7 @@ const classes = {
   PointByProjection,
   PointByProjectionOnAxisX,
   PointByProjectionOnAxisY,
+  PointByReflection,
   Arc,
   ArcBy3PointsAndRadius,
   Line,
