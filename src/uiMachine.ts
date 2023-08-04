@@ -5,8 +5,9 @@ import { type AnyEventObject, createMachine } from 'xstate'
 import Element2D from './elements/Element2D'
 import Circle from './elements/lines/Circle'
 import { distance } from './elements/calculus/Coords'
-import { createDialoxBoxAngle, createDialoxBoxRadius } from './userInterface/handleDialog'
+import { createDialoxBoxAngle, createDialoxBoxK, createDialoxBoxRadius } from './userInterface/handleDialog'
 import { orangeMathaleaLight } from './elements/defaultValues'
+import { or } from 'mathjs'
 
 interface MyContext {
   figure: Figure
@@ -19,6 +20,8 @@ export type eventName =
   | 'CIRCLE_CENTER_POINT'
   | 'CIRCLE_RADIUS'
   | 'COLOR'
+  | 'DILATE'
+  | 'DILATE_COEF'
   | 'DRAG'
   | 'HIDE'
   | 'POINT_INTERSECTION'
@@ -48,6 +51,7 @@ export type eventOptions =
   | { x: number, y: number, element?: Element2D, waitingWithModal: boolean }
   | { text: string }
   | { radius: number }
+  | { coefficient: number }
   | { angle: number }
 
 interface MyEvent extends AnyEventObject {
@@ -85,6 +89,7 @@ const ui = createMachine<Context>({
     CIRCLE_CENTER_POINT: 'CIRCLE_CENTER_POINT',
     CIRCLE_RADIUS: 'CIRCLE_RADIUS',
     COLOR: 'COLOR',
+    DILATE: 'DILATE',
     MIDDLE: 'MIDDLE',
     OPEN: 'OPEN',
     PERPENDICULAR_BISECTOR: 'PERPENDICULAR_BISECTOR',
@@ -241,6 +246,71 @@ const ui = createMachine<Context>({
                   context.figure.saveState()
                 }
               }
+            }
+          }
+        }
+      }
+    },
+    DILATE: {
+      entry: (context) => {
+        context.figure.filter = (e) => e instanceof Point
+      },
+      exit: (context) => {
+        context.figure.selectedElements.forEach(e => { e.isSelected = false })
+        context.figure.selectedElements = []
+        context.figure.tmpElements = []
+      },
+      initial: 'waitingForCenter',
+      states: {
+        waitingForCenter: {
+          entry: () => { userMessage('Cliquer sur le centre de l\'homothétie.') },
+          on: {
+            clickLocation: {
+              target: 'waitingForCoefficient',
+              actions: (context, event) => {
+                const newPoint = getExistingPointOrCreatedPoint(context, event)
+                if (newPoint !== undefined) {
+                  context.figure.selectedElements[0] = newPoint
+                  const dialog = createDialoxBoxK(context.figure)
+                  dialog.showModal()
+                }
+              },
+              cond: (_, event) => getExistingPointOrCreatetPoindWasASuccess(event)
+            }
+          }
+        },
+        waitingForCoefficient: {
+          on: {
+            DILATE_COEF: {
+              target: 'waitingForPoint',
+              actions: (context, event) => {
+                context.temp.values[0] = event.coefficient
+              }
+            }
+          }
+        },
+        waitingForPoint: {
+          entry: (context) => {
+            const center = context.figure.selectedElements[0] as Point
+            const k = context.temp.values[0]
+            context.figure.tempCreate('PointByDilate', { origin: context.figure.pointer, k, center })
+            userMessage('Cliquer sur un point.')
+          },
+          exit: (context) => {
+            context.figure.tmpElements.forEach(e => { e.remove() })
+          },
+          on: {
+            clickLocation: {
+              target: 'waitingForPoint',
+              actions: (context, event) => {
+                const center = context.figure.selectedElements[0] as Point
+                const origin = event.element as Point
+                const k = context.temp.values[0]
+                context.figure.create('PointByDilate', { origin, k, center })
+                context.figure.saveState()
+                context.figure.selectedElements[0] = center
+              },
+              cond: (_, event) => event.element instanceof Point
             }
           }
         }

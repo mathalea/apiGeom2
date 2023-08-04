@@ -33,6 +33,43 @@ export function createDialoxBoxRadius (figure: Figure): HTMLDialogElement {
   })
   return dialog
 }
+
+export function createDialoxBoxK (figure: Figure): HTMLDialogElement {
+  const dialog = document.createElement('dialog')
+  dialog.style.border = '1px solid black'
+  dialog.style.backgroundColor = 'white'
+  dialog.style.padding = '20px'
+  const label = document.createElement('label')
+  label.innerHTML = 'Coefficient de l\'homothétie : '
+  const input = document.createElement('input')
+  input.type = 'number'
+  input.min = '-10'
+  input.max = '10'
+  input.style.marginLeft = '10px'
+  const button = document.createElement('button')
+  button.innerHTML = 'Valider'
+  button.style.marginLeft = '10px'
+  dialog.appendChild(label)
+  dialog.appendChild(input)
+  dialog.appendChild(button)
+  document.body.appendChild(dialog)
+  dialog.addEventListener('close', () => {
+    if (figure.ui != null) {
+      figure.ui.send('DILATE_COEF', { coefficient: Number(input.value) })
+    }
+  })
+  button.addEventListener('click', () => {
+    dialog.close()
+  })
+  input.addEventListener('keyup', e => {
+    if (e.key === 'Enter' || e.key === 'Escape') {
+      e.preventDefault()
+      dialog.close()
+    }
+  })
+  return dialog
+}
+
 export function createDialoxBoxAngle (figure: Figure): HTMLDialogElement {
   const dialog = document.createElement('dialog')
   dialog.style.border = '1px solid black'
