@@ -34,6 +34,7 @@ export type eventName =
   | 'RAY'
   | 'REDO'
   | 'REFLECTION'
+  | 'REFLECTION_OVER_LINE'
   | 'REMOVE'
   | 'SAVE'
   | 'SEGMENT'
@@ -82,6 +83,7 @@ const ui = createMachine({
     RAY: 'RAY',
     REDO: 'REDO',
     REFLECTION: 'REFLECTION',
+    REFLECTION_OVER_LINE: 'REFLECTION_OVER_LINE',
     SET_OPTIONS: 'SET_OPTIONS',
     HIDE: 'HIDE',
     SAVE: 'SAVE'
@@ -737,6 +739,56 @@ const ui = createMachine({
                   context.figure.saveState()
                   // Le saveState initialise selectedElements à []
                   context.figure.selectedElements[0] = center
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    REFLECTION_OVER_LINE: {
+      initial: 'waitingForAxis',
+      entry: (context) => {
+        userMessage('Cliquer sur l\'axe de la symétrie.')
+        context.figure.filter = (e) => e instanceof Segment
+      },
+      exit: (context) => {
+        context.figure.selectedElements = []
+        context.figure.tmpElements.forEach(e => { e.remove() })
+      },
+      states: {
+        waitingForAxis: {
+          on: {
+            clickLocation: {
+              target: 'waitingForPoint',
+              actions: (context, event) => {
+                context.figure.selectedElements[0] = event.element
+              },
+              cond: (_, event) => event.element !== undefined
+            }
+          }
+        },
+        waitingForPoint: {
+          entry: (context) => {
+            userMessage('Cliquer sur le point.')
+            context.figure.filter = (e) => e instanceof Point
+            const line = context.figure.selectedElements[0] as Segment
+            if (line !== undefined) {
+              context.figure.selectedElements[0] = line
+              context.figure.tempCreate('PointByReflectOverLine', { line, origin: context.figure.pointer })
+            }
+          },
+          on: {
+            clickLocation: {
+              target: 'waitingForPoint',
+              actions: (context, event) => {
+                const origin = event.element
+                const line = context.figure.selectedElements[0] as Segment
+                if (origin !== undefined) {
+                  context.figure.create('PointByReflectOverLine', { line, origin })
+                  context.figure.saveState()
+                  // Le saveState initialise selectedElements à []
+                  context.figure.selectedElements[0] = line
                 }
               }
             }

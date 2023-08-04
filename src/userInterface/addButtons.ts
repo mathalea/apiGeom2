@@ -28,6 +28,7 @@ import polygon from '../assets/svg/polygon.svg'
 import ray from '../assets/svg/ray.svg'
 import redo from '../assets/svg/redo.svg'
 import reflection from '../assets/svg/reflection.svg'
+import reflectionOverLine from '../assets/svg/reflectionOverLine.svg'
 import remove from '../assets/svg/remove.svg'
 import save from '../assets/svg/save.svg'
 import segment from '../assets/svg/segment.svg'
@@ -66,6 +67,7 @@ const availableIcons = new Map<string, { url: string, tooltip: string }>([
   ['RAY', { url: ray, tooltip: 'Demi-droite' }],
   ['REDO', { url: redo, tooltip: 'Rétablir' }],
   ['REFLECTION', { url: reflection, tooltip: 'Symétrie centrale' }],
+  ['REFLECTION_OVER_LINE', { url: reflectionOverLine, tooltip: 'Symétrie axiale' }],
   ['REMOVE', { url: remove, tooltip: 'Supprimer' }],
   ['SAVE', { url: save, tooltip: 'Sauvegarder' }],
   ['SEGMENT', { url: segment, tooltip: 'Segment' }],
