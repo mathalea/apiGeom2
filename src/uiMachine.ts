@@ -694,7 +694,7 @@ const ui = createMachine<Context>({
               target: 'waitingForPoint',
               actions: (context, event) => {
                 const angle = event.angle
-                context.temp.values = angle
+                context.temp.values[0] = angle
               }
             }
           }
@@ -702,7 +702,7 @@ const ui = createMachine<Context>({
         waitingForPoint: {
           entry: (context) => {
             const center = context.figure.selectedElements[0] as Point
-            const angle = context?.temp?.values?.at(0) ?? 90
+            const angle = context.temp.values[0]
             context.figure.tempCreate('PointByRotation', { origin: context.figure.pointer, angle, center })
             userMessage('Cliquer sur un point.')
           },
@@ -715,7 +715,7 @@ const ui = createMachine<Context>({
               actions: (context, event) => {
                 const center = context.figure.selectedElements[0] as Point
                 const origin = event.element as Point
-                const angle = context?.temp?.values?.at(0) ?? 90
+                const angle = context.temp.values[0]
                 context.figure.create('PointByRotation', { origin, angle, center })
                 context.figure.saveState()
                 context.figure.selectedElements[0] = center
