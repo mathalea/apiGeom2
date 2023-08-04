@@ -7,7 +7,6 @@ import Circle from './elements/lines/Circle'
 import { distance } from './elements/calculus/Coords'
 import { createDialoxBoxAngle, createDialoxBoxK, createDialoxBoxRadius } from './userInterface/handleDialog'
 import { orangeMathaleaLight } from './elements/defaultValues'
-import { or } from 'mathjs'
 
 interface MyContext {
   figure: Figure

@@ -72,8 +72,8 @@ class Vector extends Element2D {
   toJSON (): object {
     return {
       ...this.jsonOptions(),
-      x: this.x,
-      y: this.y,
+      x: Number(this.x.toFixed(4)),
+      y: Number(this.y.toFixed(4)),
       idOrigin: this.origin?.id
     }
   }

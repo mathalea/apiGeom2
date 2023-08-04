@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import Figure from 'src/Figure'
+import Figure from '../src/Figure'
 
 /**
  * On charge une figure avec intersection de deux droites "parent" de segment, milieu et cercle

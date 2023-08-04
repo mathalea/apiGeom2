@@ -278,8 +278,8 @@ class Point extends Element2D {
   toJSON (): object {
     return {
       ...this.jsonOptions(),
-      x: this.x,
-      y: this.y,
+      x: Number(this.x.toFixed(4)),
+      y: Number(this.y.toFixed(4)),
       label: this.label,
       shape: this.shape,
       sizeInPixels: this.sizeInPixels
