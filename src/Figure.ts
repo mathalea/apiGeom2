@@ -30,6 +30,7 @@ import VectorPerpendicular from './elements/vector/VectorPerpendicular'
 import Polyline from './elements/lines/Polyline'
 import Polygon from './elements/lines/Polyligon'
 import PointByTranslation from './elements/points/PointByTranslation'
+import PointByTranslationByPoints from './elements/points/PointByTranslationByPoints'
 import PointIntersectionCC from './elements/points/PointIntersectionCC'
 import PointIntersectionLC from './elements/points/PointIntersectionLC'
 import PointsIntersectionCC from './elements/points/PointsIntersectionCC'
@@ -495,6 +496,7 @@ const classes = {
   PointsIntersectionLC,
   Middle,
   PointByTranslation,
+  PointByTranslationByPoints,
   PointByRotation,
   PointByReflectOverLine,
   PointByDilate,

@@ -197,7 +197,7 @@ export interface OptionsVectorPerpendicular extends OptionsElement2D {
 
 export type typeElement2D = '' |
 'Point' | 'PointIntersectionLL' | 'PointIntersectionCC' | 'PointsIntersectionCC' | 'PointIntersectionLC' | 'PointsIntersectionLC' | 'Middle' | 'PointOnLine' | 'PointOnCircle' |
-'PointByTranslation' | 'PointByRotation' | 'PointByReflection' | 'PointByDynamicRotation' | 'PointByDilate' | 'PointByDynamicDilate' | 'PointByProjection' | 'PointByProjectionOnAxisX' | 'PointByProjectionOnAxisY' | 'PointByReflectOverLine' | 'PointBySimilarity' |
+'PointByTranslation' | 'PointByTranslationByPoints' | 'PointByRotation' | 'PointByReflection' | 'PointByDynamicRotation' | 'PointByDilate' | 'PointByDynamicDilate' | 'PointByProjection' | 'PointByProjectionOnAxisX' | 'PointByProjectionOnAxisY' | 'PointByReflectOverLine' | 'PointBySimilarity' |
 'PointOnLineAtDistance' | 'PointOnGraph' |
 'Segment' | 'Line' | 'Ray' | 'LineParallel' | 'LinePerpendicular' | 'LineByPointVector' | 'PerpendicularBisector' | 'PerpendicularBisectorByPoints' | 'BisectorByPoints' |
 'Polyline' | 'Polygon' |

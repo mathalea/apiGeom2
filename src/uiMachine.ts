@@ -41,6 +41,7 @@ export type eventName =
   | 'SAVE'
   | 'SEGMENT'
   | 'SET_OPTIONS'
+  | 'TRANSLATION'
   | 'UNDO'
 
 export type eventOptions =
@@ -59,9 +60,9 @@ interface MyEvent extends AnyEventObject {
 
 interface Context {
   figure: Figure
-  temp?: {
-    values?: number[]
-    element?: Element2D[]
+  temp: {
+    values: number[]
+    elements: Element2D[]
   }
 }
 
@@ -71,7 +72,7 @@ const ui = createMachine<Context>({
   id: 'apiGeomUI',
   initial: 'INIT',
   /* eslint-disable-next-line @typescript-eslint/consistent-type-assertions */
-  context: { figure: {} as Figure, temp: {} },
+  context: { figure: {} as Figure, temp: { values: [], elements: [] } },
   on: {
     BISECTOR_BY_POINTS: 'BISECTOR_BY_POINTS',
     POINT: 'POINT',
@@ -98,7 +99,8 @@ const ui = createMachine<Context>({
     ROTATE: 'ROTATE',
     SET_OPTIONS: 'SET_OPTIONS',
     HIDE: 'HIDE',
-    SAVE: 'SAVE'
+    SAVE: 'SAVE',
+    TRANSLATION: 'TRANSLATION'
   },
   entry: 'highlightButton',
   states: {
@@ -692,7 +694,7 @@ const ui = createMachine<Context>({
               target: 'waitingForPoint',
               actions: (context, event) => {
                 const angle = event.angle
-                context.temp = { values: [angle] }
+                context.temp.values = angle
               }
             }
           }
@@ -1033,6 +1035,65 @@ const ui = createMachine<Context>({
           },
           cond: (_, event) => event.element !== undefined
 
+        }
+      }
+    },
+    TRANSLATION: {
+      initial: 'waitingForFistPoint',
+      exit: (context) => {
+        context.temp.elements.forEach((e) => {
+          e.isSelected = false
+        })
+      },
+      states: {
+        waitingForFistPoint: {
+          entry: (context) => {
+            context.figure.filter = (e) => e instanceof Point
+            userMessage('Cliquer sur le premier point qui définit de la translation.')
+          },
+          on: {
+            clickLocation: {
+              target: 'waitingForSecondPoint',
+              actions: (context, event) => {
+                const point1 = event.element as Point
+                context.temp.elements[0] = point1
+                point1.isSelected = true
+              },
+              cond: (_, event) => event.element !== undefined
+            }
+          }
+        },
+        waitingForSecondPoint: {
+          entry: () => {
+            userMessage('Cliquer sur le deuxième point qui définit de la translation.')
+          },
+          on: {
+            clickLocation: {
+              target: 'waitingForOrigin',
+              actions: (context, event) => {
+                const point2 = event.element as Point
+                context.temp.elements[1] = point2
+                point2.isSelected = true
+              },
+              cond: (_, event) => event.element !== undefined
+            }
+          }
+        },
+        waitingForOrigin: {
+          entry: () => {
+            userMessage('Cliquer sur le point d\'origine de la translation.')
+          },
+          on: {
+            clickLocation: {
+              target: 'waitingForOrigin',
+              actions: (context, event) => {
+                const [point1, point2] = context.temp.elements as [Point, Point]
+                const origin = event.element
+                context.figure.create('PointByTranslationByPoints', { point1, point2, origin })
+                context.figure.saveState()
+              }
+            }
+          }
         }
       }
     },

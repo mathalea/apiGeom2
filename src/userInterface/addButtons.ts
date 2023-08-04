@@ -34,6 +34,7 @@ import rotate from '../assets/svg/rotate.svg'
 import save from '../assets/svg/save.svg'
 import segment from '../assets/svg/segment.svg'
 import setOptions from '../assets/svg/setOptions.svg'
+import translation from '../assets/svg/translation.svg'
 import undo from '../assets/svg/undo.svg'
 
 import type Figure from '../Figure'
@@ -74,6 +75,7 @@ const availableIcons = new Map<string, { url: string, tooltip: string }>([
   ['SAVE', { url: save, tooltip: 'Sauvegarder' }],
   ['SEGMENT', { url: segment, tooltip: 'Segment' }],
   ['SET_OPTIONS', { url: setOptions, tooltip: 'Modifier le style' }],
+  ['TRANSLATION', { url: translation, tooltip: 'Translation' }],
   ['UNDO', { url: undo, tooltip: 'Annuler la dernière action' }]
 ])
 

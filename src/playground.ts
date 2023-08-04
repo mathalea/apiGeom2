@@ -5,7 +5,7 @@ import ui from './uiMachine'
 // On créé le svg dans un div
 const div = document.querySelector('#app') as HTMLDivElement
 const figure = new Figure()
-const machineWithContext = ui.withContext({ figure })
+const machineWithContext = ui.withContext({ figure, temp: { values: [], elements: [] } })
 figure.ui = interpret(machineWithContext).start()
 
 // On ajoute les boutons
@@ -16,7 +16,7 @@ divButtons.appendChild(figure.addButtons('POINT POINT_ON POINT_INTERSECTION MIDD
 divButtons.appendChild(figure.addButtons('SEGMENT LINE RAY POLYGON'))
 divButtons.appendChild(figure.addButtons('LINE_PARALLEL LINE_PERPENDICULAR PERPENDICULAR_BISECTOR BISECTOR_BY_POINTS'))
 divButtons.appendChild(figure.addButtons('CIRCLE_CENTER_POINT CIRCLE_RADIUS'))
-divButtons.appendChild(figure.addButtons('REFLECTION_OVER_LINE REFLECTION ROTATE'))
+divButtons.appendChild(figure.addButtons('REFLECTION_OVER_LINE REFLECTION ROTATE TRANSLATION'))
 divButtons.appendChild(figure.addColorPalette(['black', 'blue', 'red']))
 divButtons.appendChild(figure.addColorPalette(['green', 'orange', 'purple']))
 divButtons.appendChild(figure.addDashedChoice())
