@@ -147,6 +147,8 @@ class Figure {
     tmpIsDashed: boolean
     labelDxInPixels: number
     labelDyInPixels: number
+    latexWidth: number
+    latexHeight: number
   }
 
   /**
@@ -341,13 +343,24 @@ class Figure {
 
   /** Génère le code LaTeX de la figure */
   get latex (): string {
-    let latex = '\\begin{tikzpicture}'
-    latex += `\n\t\\clip(${this.xMin}, ${this.yMin}) rectangle (${this.xMax}, ${this.yMax});`
-    for (const e of this.elements) {
-      console.log(e)
-      // latex += e.latex
+    let latex = '\\documentclass[french,a4paper]{article}'
+    latex += '\n\\usepackage[francais]{babel}'
+    latex += '\n\\usepackage[utf8]{inputenc}'
+    latex += '\n\\usepackage{tikz}'
+    latex += '\n\\begin{document}'
+    latex += '\n\\begin{tikzpicture}'
+    latex += `\n\\clip(${this.xMin}, ${this.yMax - this.options.latexHeight}) rectangle (${this.xMin + this.options.latexWidth}, ${this.yMax});`
+    for (const element of this.elements.values()) {
+      if (element instanceof Element2D &&
+        element.latex !== undefined &&
+        element.latex !== '' &&
+        element.isVisible &&
+        element.color !== '') {
+        latex += '\n' + element.latex
+      }
     }
     latex += '\n\\end{tikzpicture}'
+    latex += '\n\\end{document}'
     // ToFix Il peut y avoir un problème si un nombre est en écriture scientifique
     latex = latex.replace(/\d+\.\d+/g, (number: string) => (Math.round(1000 * parseFloat(number)) / 1000).toString())
     return latex

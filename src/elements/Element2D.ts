@@ -169,7 +169,7 @@ abstract class Element2D {
   }
 
   /** Génère le code LaTeX de l'élément */
-  latex (): string {
+  get latex (): string {
     return ''
   }
 

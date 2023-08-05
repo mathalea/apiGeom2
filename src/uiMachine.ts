@@ -24,6 +24,7 @@ export type eventName =
   | 'DRAG'
   | 'HIDE'
   | 'POINT_INTERSECTION'
+  | 'LATEX'
   | 'LINE'
   | 'LINE_PARALLEL'
   | 'MIDDLE'
@@ -85,6 +86,7 @@ const ui = createMachine<Context>({
     LINE: 'LINE',
     SEGMENT: 'SEGMENT',
     DRAG: 'DRAG',
+    LATEX: 'LATEX',
     LINE_PERPENDICULAR: 'LINE_PERPENDICULAR',
     LINE_PARALLEL: 'LINE_PARALLEL',
     POLYGON: 'POLYGON',
@@ -341,6 +343,23 @@ const ui = createMachine<Context>({
       exit: (context) => {
         context.figure.container.style.cursor = 'default'
         context.figure.pointInDrag = undefined
+      }
+    },
+    LATEX: {
+      entry: (context) => {
+        const latex = context.figure.latex
+        const blob = new Blob([latex], { type: 'text/plain' })
+        const url = window.URL.createObjectURL(blob)
+
+        const a = document.createElement('a')
+        a.style.display = 'none'
+        a.href = url
+        a.download = 'figure.tex'
+        document.body.appendChild(a)
+        a.click()
+        window.URL.revokeObjectURL(url)
+        document.body.removeChild(a)
+        context.figure.buttons.get('DRAG')?.click()
       }
     },
     LINE: {

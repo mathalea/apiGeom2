@@ -235,7 +235,8 @@ class Point extends Element2D {
     this.update()
   }
 
-  get label (): string | undefined {
+  get label (): string {
+    if (this._label === undefined) return this.id
     return this._label
   }
 

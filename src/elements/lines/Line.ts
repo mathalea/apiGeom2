@@ -45,8 +45,16 @@ class Line extends Segment {
     const projectionCoords = orthogonalProjectionCoord(pointerCoords, this)
     return distance(pointerCoords, projectionCoords)
   }
+
+  get latex (): string {
+    const [x1, y1, x2, y2] = getCoordsOut(this.point1, this.point2)
+    let result = `%% Droite (${this.point1.label}${this.point2.label})\n`
+    result += `\\draw (${x1}, ${y1}) -- (${x2}, ${y2});`
+    return result
+  }
 }
 
+/** Renvoie [x1, y1, x2, y2] les coordonnées des extrémités du tracé */
 function getCoordsOut (A: Point, B: Point): [number, number, number, number] {
   if (A.x === undefined || A.y === undefined || B.x === undefined || B.y === undefined ||
     Number.isNaN(A.x) || Number.isNaN(A.y) || Number.isNaN(B.x) || Number.isNaN(B.y)) return [NaN, NaN, NaN, NaN]

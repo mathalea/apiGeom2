@@ -67,6 +67,13 @@ class Ray extends Segment {
       return distance(pointerCoords, closest)
     }
   }
+
+  get latex (): string {
+    const [x1, y1, x2, y2] = getRayCoordsOut(this.point1, this.point2)
+    let result = `%% Droite [${this.point1.label}${this.point2.label})\n`
+    result += `\\draw (${x1}, ${y1}) -- (${x2}, ${y2});`
+    return result
+  }
 }
 function getRayCoordsOut (A: Point, B: Point): [number, number, number, number] {
   if (A.x === undefined || A.y === undefined || B.x === undefined || B.y === undefined ||

@@ -113,6 +113,12 @@ class Circle extends Element2D {
       fillOpacity: this.fillOpacity
     }
   }
+
+  get latex (): string {
+    let result = '% Cercle ' + this.id
+    result += `\n\\draw (${this.center.x}, ${this.center.y}) circle (${this.radius}cm);`
+    return result
+  }
 }
 
 export default Circle

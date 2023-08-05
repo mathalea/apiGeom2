@@ -69,7 +69,9 @@ const defaultOptions = {
   tmpFillOpacity: 0.2,
   tmpIsDashed: true,
   labelDxInPixels: 15,
-  labelDyInPixels: 15
+  labelDyInPixels: 15,
+  latexWidth: 18,
+  latexHeight: 12
 }
 
 export default defaultOptions
