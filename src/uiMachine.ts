@@ -1084,8 +1084,9 @@ const ui = createMachine<Context>({
       on: {
         clickLocation: {
           target: 'HIDE',
-          actions: (_, event) => {
+          actions: (context, event) => {
             event.element.hide()
+            context.figure.saveState()
           },
           cond: (_, event) => event.element !== undefined
         }
