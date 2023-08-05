@@ -472,7 +472,7 @@ class Figure {
         direction.x *= 10
         direction.y *= 10
       }
-      if (this.modal === null && (direction.x !== 0 || direction.y !== 0)) {
+      if (!isModalOpen() && (direction.x !== 0 || direction.y !== 0)) {
         e.preventDefault()
         this.xMin += direction.x
         this.yMax += direction.y
@@ -549,4 +549,14 @@ function filter (key: string, value: Element2D): undefined | Element2D {
     return undefined
   }
   return value
+}
+
+function isModalOpen (): boolean {
+  const dialogs = Array.from(document.querySelectorAll('dialog'))
+  return dialogs.some(modal => {
+    if (modal.open) {
+      return true
+    }
+    return false
+  })
 }
