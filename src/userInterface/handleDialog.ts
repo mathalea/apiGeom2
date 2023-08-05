@@ -70,6 +70,46 @@ export function createDialoxBoxK (figure: Figure): HTMLDialogElement {
   return dialog
 }
 
+export function createDialoxBoxName (figure: Figure): HTMLDialogElement {
+  const dialog = document.createElement('dialog')
+  dialog.style.border = '1px solid black'
+  dialog.style.backgroundColor = 'white'
+  dialog.style.padding = '20px'
+  const label = document.createElement('label')
+  // Si le label est "Nom du point" alors Safari propose de l'autocomplétion même si on a mis autocomplete="off"
+  label.innerHTML = ''
+  const input = document.createElement('input')
+  input.type = 'text'
+  input.style.marginLeft = '10px'
+  input.setAttribute('autocomplete', 'off')
+  input.setAttribute('spellcheck', 'false')
+  input.setAttribute('autocorrect', 'off')
+  input.setAttribute('autocapitalize', 'none')
+
+  const button = document.createElement('button')
+  button.innerHTML = 'Valider'
+  button.style.marginLeft = '10px'
+  dialog.appendChild(label)
+  dialog.appendChild(input)
+  dialog.appendChild(button)
+  document.body.appendChild(dialog)
+  dialog.addEventListener('close', () => {
+    if (figure.ui != null) {
+      figure.ui.send('TEXT_FROM_DIALOG', { text: input.value })
+    }
+  })
+  button.addEventListener('click', () => {
+    dialog.close()
+  })
+  input.addEventListener('keyup', e => {
+    if (e.key === 'Enter' || e.key === 'Escape') {
+      e.preventDefault()
+      dialog.close()
+    }
+  })
+  return dialog
+}
+
 export function createDialoxBoxAngle (figure: Figure): HTMLDialogElement {
   const dialog = document.createElement('dialog')
   dialog.style.border = '1px solid black'

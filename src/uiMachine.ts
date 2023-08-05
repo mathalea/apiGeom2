@@ -5,7 +5,7 @@ import { type AnyEventObject, createMachine } from 'xstate'
 import Element2D from './elements/Element2D'
 import Circle from './elements/lines/Circle'
 import { distance } from './elements/calculus/Coords'
-import { createDialoxBoxAngle, createDialoxBoxK, createDialoxBoxRadius } from './userInterface/handleDialog'
+import { createDialoxBoxAngle, createDialoxBoxK, createDialoxBoxName, createDialoxBoxRadius } from './userInterface/handleDialog'
 import { orangeMathaleaLight } from './elements/defaultValues'
 
 interface MyContext {
@@ -27,6 +27,7 @@ export type eventName =
   | 'LINE'
   | 'LINE_PARALLEL'
   | 'MIDDLE'
+  | 'NAME_POINT'
   | 'OPEN'
   | 'POINT'
   | 'POINT_ON'
@@ -43,6 +44,7 @@ export type eventName =
   | 'SAVE'
   | 'SEGMENT'
   | 'SET_OPTIONS'
+  | 'TEXT_FROM_DIALOG'
   | 'TRANSLATION'
   | 'UNDO'
 
@@ -52,6 +54,7 @@ export type eventOptions =
   | { radius: number }
   | { coefficient: number }
   | { angle: number }
+  | { text: string }
 
 interface MyEvent extends AnyEventObject {
   x?: number
@@ -90,6 +93,7 @@ const ui = createMachine<Context>({
     COLOR: 'COLOR',
     DILATE: 'DILATE',
     MIDDLE: 'MIDDLE',
+    NAME_POINT: 'NAME_POINT',
     OPEN: 'OPEN',
     PERPENDICULAR_BISECTOR: 'PERPENDICULAR_BISECTOR',
     POINT_INTERSECTION: 'POINT_INTERSECTION',
@@ -489,6 +493,41 @@ const ui = createMachine<Context>({
                 context.figure.saveState()
               },
               cond: (_, event) => event.element !== undefined
+            }
+          }
+        }
+      }
+    },
+    NAME_POINT: {
+      initial: 'waitingForPoint',
+      states: {
+        waitingForPoint: {
+          entry: (context) => {
+            context.figure.filter = (e) => e instanceof Point
+            userMessage('Cliquer sur un point à renommer.')
+          },
+          on: {
+            clickLocation: {
+              target: 'waitingForName',
+              actions: (context, event) => {
+                context.temp.elements[0] = event.element
+              },
+              cond: (_, event) => event.element !== undefined
+            }
+          }
+        },
+        waitingForName: {
+          entry: (context) => {
+            const dialog = createDialoxBoxName(context.figure)
+            dialog.showModal()
+          },
+          on: {
+            TEXT_FROM_DIALOG: {
+              target: 'waitingForPoint',
+              actions: (context, event) => {
+                const point = context.temp.elements[0] as Point
+                point.label = event.text
+              }
             }
           }
         }
