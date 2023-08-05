@@ -50,7 +50,7 @@ class PointOnGraph extends Point {
     return {
       ...this.jsonOptions(),
       idGraph: this.graph.id,
-      x: Number(this.x.toFixed(4)),
+      x: this.x.toFixed(4),
       label: this.label,
       shape: this.shape,
       sizeInPixels: this.sizeInPixels

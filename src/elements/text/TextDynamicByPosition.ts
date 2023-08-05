@@ -3,6 +3,7 @@ import type DynamicNumber from '../../dynamicNumbers/DynamicNumber'
 import TextByPosition from './TextByPosition'
 import { type OptionsDynamicText } from '../interfaces'
 import { displayDigits } from '../defaultValues'
+import { round } from '../../lib/format'
 
 /**
  * Créé un div contenant un texte qui est mis au dessus du svg
@@ -34,8 +35,8 @@ class TextDynamicByPosition extends TextByPosition {
   toJSON (): object {
     return {
       ...this.jsonOptions(),
-      x: Number(this.x.toFixed(4)),
-      y: Number(this.y.toFixed(4)),
+      x: round(this.x),
+      y: round(this.y),
       idDynamicNumber: this.dynamicNumber.id,
       textBefore: this.textBefore,
       textAfter: this.textAfter,

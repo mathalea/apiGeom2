@@ -1,4 +1,5 @@
 import type Figure from '../../Figure'
+import { round } from '../../lib/format'
 import Element2D from '../Element2D'
 import type Line from '../lines/Line'
 import type Segment from '../lines/Segment'
@@ -240,7 +241,13 @@ class Point extends Element2D {
 
   set label (label: string | undefined) {
     this._label = label
-    if (label !== undefined) this.elementTextLabel = this.figure.create('TextByPoint', { point: this, text: '$' + label + '$', isChild: true, isSelectable: true, dxInPixels: this.labelDxInPixels, dyInPixels: this.labelDyInPixels, id: this.id + '_label' })
+    if (label !== undefined) {
+      if (this.elementTextLabel === undefined) {
+        this.elementTextLabel = this.figure.create('TextByPoint', { point: this, text: '$' + label + '$', isChild: true, isSelectable: true, dxInPixels: this.labelDxInPixels, dyInPixels: this.labelDyInPixels, id: this.id + '_label' })
+      } else {
+        this.elementTextLabel.text = `$${label}$`
+      }
+    }
   }
 
   /** Déplace le point */
@@ -278,8 +285,8 @@ class Point extends Element2D {
   toJSON (): object {
     return {
       ...this.jsonOptions(),
-      x: Number(this.x.toFixed(4)),
-      y: Number(this.y.toFixed(4)),
+      x: round(this.x),
+      y: round(this.y),
       label: this.label,
       shape: this.shape,
       sizeInPixels: this.sizeInPixels

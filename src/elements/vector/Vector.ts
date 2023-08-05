@@ -2,6 +2,7 @@ import type Figure from '../../Figure'
 import type Point from '../points/Point'
 import Element2D from '../Element2D'
 import type Segment from '../lines/Segment'
+import { round } from '../../lib/format'
 
 class Vector extends Element2D {
   x: number
@@ -72,8 +73,8 @@ class Vector extends Element2D {
   toJSON (): object {
     return {
       ...this.jsonOptions(),
-      x: Number(this.x.toFixed(4)),
-      y: Number(this.y.toFixed(4)),
+      x: round(this.x),
+      y: round(this.y),
       idOrigin: this.origin?.id
     }
   }

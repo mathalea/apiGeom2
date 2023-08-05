@@ -3,6 +3,7 @@ import Element2D from '../Element2D'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 import { type OptionsText } from '../interfaces'
+import { round } from '../../lib/format'
 
 /**
  * Créé un div contenant un texte qui est mis au dessus du svg
@@ -142,8 +143,8 @@ class TextByPosition extends Element2D {
   toJSON (): object {
     return {
       ...this.jsonOptions(),
-      x: Number(this.x.toFixed(4)),
-      y: Number(this.y.toFixed(4)),
+      x: round(this.x),
+      y: round(this.y),
       text: this.text,
       name: this.id,
       color: this.color
