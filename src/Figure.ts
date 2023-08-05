@@ -292,6 +292,8 @@ class Figure {
    *   - Réinitialise les éléments temporaires */
   saveState (): void {
     const save = this.json
+    // Sauvegarde dans le localStorage
+    localStorage.setItem('apiGeom', save)
     if (this.divSave !== null) {
       this.divSave.textContent = save
     }
