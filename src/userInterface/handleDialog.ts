@@ -77,9 +77,11 @@ export function createDialoxBoxName (figure: Figure): HTMLDialogElement {
   dialog.style.padding = '20px'
   const label = document.createElement('label')
   // Si le label est "Nom du point" alors Safari propose de l'autocomplétion même si on a mis autocomplete="off"
-  label.innerHTML = ''
+  // Hack : on met un nom contenant search pour bloquer l'autocompletion
+  label.innerHTML = 'Nom du point'
   const input = document.createElement('input')
   input.type = 'text'
+  input.name = 'search'
   input.style.marginLeft = '10px'
   input.setAttribute('autocomplete', 'off')
   input.setAttribute('spellcheck', 'false')

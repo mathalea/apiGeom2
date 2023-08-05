@@ -95,7 +95,7 @@ class TextByPosition extends Element2D {
       styleTransform += 'translateY(-50%)'
     }
     if (this.dxInPixels !== 0 || this.dyInPixels !== 0) {
-      styleTransform += ` translate(${this.dxInPixels.toString()}px, ${this.dyInPixels.toString()}px)`
+      styleTransform += ` translate(${this.dxInPixels.toString()}px, ${-this.dyInPixels.toString()}px)`
     }
     this.div.style.fontSize = this.fontSize
     this.div.style.transform = styleTransform

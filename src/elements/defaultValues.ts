@@ -68,8 +68,8 @@ const defaultOptions = {
   tmpFillColor: orangeMathaleaLight,
   tmpFillOpacity: 0.2,
   tmpIsDashed: true,
-  labelDxInPixels: 20,
-  labelDyInPixels: -20
+  labelDxInPixels: 15,
+  labelDyInPixels: 15
 }
 
 export default defaultOptions
