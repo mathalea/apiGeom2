@@ -126,9 +126,9 @@ class Polygon extends Element2D {
   translateByPoints ({ point1, point2, ...options }: { point1: Point, point2: Point } & OptionsElement2D): Polygon {
     const newPoints = []
     for (const point of this.points) {
-      newPoints.push(point.translateByPoints({ point1, point2 }))
+      newPoints.push(this.figure.create('PointByTranslationByPoints', { origin: point, point1, point2, isChild: true }))
     }
-    return this.figure.create('Polygon', { points: newPoints, ...options })
+    return this.figure.create('Polygon', { points: newPoints, isChild: true, ...options })
   }
 
   get latex (): string {
@@ -139,6 +139,15 @@ class Polygon extends Element2D {
     }
     result += ' cycle;'
     return result
+  }
+
+  distancePointer (x: number, y: number): number {
+    let minDistance = Infinity
+    for (const segment of this.segments) {
+      const distance = segment.distancePointer(x, y)
+      if (distance < minDistance) minDistance = distance
+    }
+    return minDistance
   }
 }
 

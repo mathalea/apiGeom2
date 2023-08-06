@@ -7,6 +7,7 @@ import Circle from './elements/lines/Circle'
 import { distance } from './elements/calculus/Coords'
 import { createDialoxBoxAngle, createDialoxBoxK, createDialoxBoxName, createDialoxBoxRadius } from './userInterface/handleDialog'
 import { orangeMathaleaLight } from './elements/defaultValues'
+import Polygon from './elements/lines/Polyligon'
 
 interface MyContext {
   figure: Figure
@@ -1236,7 +1237,7 @@ const ui = createMachine<Context>({
         waitingForOrigin: {
           entry: (context) => {
             userMessage('Cliquer sur l\'objet à transformer.')
-            context.figure.filter = (e) => e instanceof Point || e instanceof Segment || e instanceof Circle
+            context.figure.filter = (e) => e instanceof Point || e instanceof Segment || e instanceof Circle || e instanceof Polygon
           },
           on: {
             clickLocation: {
@@ -1246,7 +1247,8 @@ const ui = createMachine<Context>({
                 const origin = event.element
                 context.figure.create('ElementByTranslationByPoints', { point1, point2, origin })
                 context.figure.saveState()
-              }
+              },
+              cond: (_, event) => event.element !== undefined
             }
           }
         }
