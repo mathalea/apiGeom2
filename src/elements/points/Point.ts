@@ -295,6 +295,12 @@ class Point extends Element2D {
       labelDyInPixels: this.labelDyInPixels
     }
   }
+
+  get latex (): string {
+    let result = `% Point ${this.label}`
+    result += `\n\\draw${this.latexOptions} plot[mark=x, mark size=0.15cm] coordinates{(${this.x},${this.y})};`
+    return result
+  }
 }
 
 export default Point

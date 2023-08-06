@@ -33,7 +33,7 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
     const divs = []
     for (const element of possibleElements) {
       const div = document.createElement('div')
-      if (element instanceof Point) div.innerText = element.label ?? `Point ${element.id}`
+      if (element instanceof Point) div.innerText = (element.label !== '') ? element.label : `Point ${element.id}`
       else div.innerText = element.type + ' ' + element.id
       div.addEventListener('click', () => {
         elementText.remove()

@@ -206,7 +206,9 @@ class Segment extends Element2D {
   }
 
   get latex (): string {
-    let result = `%% Segment [${this.point1.label}${this.point2.label}]\n`
+    const point1Name = this.point1.label ?? this.point1.id
+    const point2Name = this.point2.label ?? this.point2.id
+    let result = `%% Segment [${point1Name}${point2Name}]\n`
     result += `\\draw${this.latexOptions} (${this.point1.x}, ${this.point1.y}) -- (${this.point2.x}, ${this.point2.y});`
     return result
   }
