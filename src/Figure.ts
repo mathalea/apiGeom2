@@ -13,6 +13,7 @@ import CircleCenterPoint from './elements/lines/CircleCenterPoint'
 import CircleCenterDynamicRadius from './elements/lines/CircleCenterDyamicRadius'
 import TextByPoint from './elements/text/TextByPoint'
 import TextByPosition from './elements/text/TextByPosition'
+import ElementByTranslationByPoints from './elements/transformations/ElementByTranslationByPoints'
 
 import handlePointerAction from './pointerActions/handlePointerAction'
 import { loadJson } from './actions/loadJson'
@@ -499,6 +500,7 @@ class Figure {
 }
 
 const classes = {
+  ElementByTranslationByPoints,
   Point,
   BisectorByPoints,
   PointOnLine,

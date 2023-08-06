@@ -24,6 +24,15 @@ class PointByTranslationByPoints extends Point {
     this._y = this.point2.y - this.point1.y + this.origin.y
     super.update()
   }
+
+  toJSON (): object {
+    return {
+      ...this.jsonOptions(),
+      idOrigin: this.origin.id,
+      idPoint1: this.point1.id,
+      idPoint2: this.point2.id
+    }
+  }
 }
 
 export default PointByTranslationByPoints

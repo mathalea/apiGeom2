@@ -1,6 +1,7 @@
 import type Figure from '../../Figure'
 import { round } from '../../lib/format'
 import Element2D from '../Element2D'
+import { OptionsElement2D } from '../interfaces'
 import type Line from '../lines/Line'
 import type Segment from '../lines/Segment'
 import type TextByPoint from '../text/TextByPoint'
@@ -294,6 +295,10 @@ class Point extends Element2D {
       labelDxInPixels: this.labelDxInPixels,
       labelDyInPixels: this.labelDyInPixels
     }
+  }
+
+  translateByPoints ({ point1, point2, ...options }: { point1: Point, point2: Point } & OptionsElement2D): Point {
+    return this.figure.create('PointByTranslationByPoints', { point1, point2, origin: this, isChild: true, ...options })
   }
 
   get latex (): string {

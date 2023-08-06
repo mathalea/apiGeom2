@@ -61,6 +61,14 @@ class Segment extends Element2D {
     return result
   }
 
+  translateByPoints ({ point1, point2, ...options }: { point1: Point, point2: Point } & OptionsElement2D): Segment {
+    const newPoint1 = this.figure.create('PointByTranslationByPoints', { point1, point2, origin: this.point1, isChild: true })
+    const newPoint2 = this.figure.create('PointByTranslationByPoints', { point1, point2, origin: this.point2, isChild: true })
+    const type = this.type as 'Line' | 'Segment' | 'Ray'
+    const result = this.figure.create(type, { point1: newPoint1, point2: newPoint2, isChild: true, ...options }) as Segment
+    return result
+  }
+
   update (): void {
     this.notify()
     if (this.point1.x === undefined || this.point1.y === undefined || this.point2.x === undefined || this.point2.y === undefined ||

@@ -48,6 +48,11 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const point1 = figure.elements.get(options.idPoint1) as Point
       const point2 = figure.elements.get(options.idPoint2) as Point
       figure.create('Distance', { point1, point2, ...options })
+    } else if (options.type === 'ElementByTranslationByPoints') {
+      const point1 = figure.elements.get(options.idPoint1) as Point
+      const point2 = figure.elements.get(options.idPoint2) as Point
+      const origin = figure.elements.get(options.idOrigin) as Point | Circle | Segment
+      figure.create('ElementByTranslationByPoints', { point1, point2, origin, ...options })
     } else if (options.type === 'PointOnLine') {
       const line = figure.elements.get(options.idLine) as Line
       figure.create('PointOnLine', { line, ...options })
@@ -86,6 +91,11 @@ export function loadJson (figure: Figure, json: object, eraseHistory = false): v
       const origin = figure.elements.get(options.idOrigin) as Point
       const vector = figure.elements.get(options.idVector) as Vector
       figure.create('PointByTranslation', { origin, vector, ...options })
+    } else if (options.type === 'PointByTranslationByPoints') {
+      const origin = figure.elements.get(options.idOrigin) as Point
+      const point1 = figure.elements.get(options.idPoint1) as Point
+      const point2 = figure.elements.get(options.idPoint2) as Point
+      figure.create('PointByTranslationByPoints', { point1, point2, origin, ...options })
     } else if (options.type === 'PointByDilate') {
       const origin = figure.elements.get(options.idOrigin) as Point
       const center = figure.elements.get(options.idCenter) as Point

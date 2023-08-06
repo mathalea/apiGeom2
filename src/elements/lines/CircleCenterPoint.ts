@@ -18,6 +18,13 @@ class CircleCenterPoint extends CircleCenterDynamicRadius {
     this.point.subscribe(this)
   }
 
+  translateByPoints ({ point1, point2, ...options }: { point1: Point, point2: Point } & OptionsElement2D): CircleCenterPoint {
+    const newCenter = this.figure.create('PointByTranslationByPoints', { point1, point2, origin: this.center, isChild: true })
+    const newPoint = this.figure.create('PointByTranslationByPoints', { point1, point2, origin: this.point, isChild: true })
+    const result = this.figure.create('CircleCenterPoint', { center: newCenter, point: newPoint, isChild: true, ...options })
+    return result
+  }
+
   toJSON (): object {
     return {
       ...this.jsonOptions(),

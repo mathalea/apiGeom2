@@ -98,6 +98,12 @@ class Circle extends Element2D {
     return newCircle
   }
 
+  translateByPoints ({ point1, point2, ...options }: { point1: Point, point2: Point } & OptionsElement2D): Circle {
+    const newCenter = this.figure.create('PointByTranslationByPoints', { point1, point2, origin: this.center, isChild: true })
+    const result = this.figure.create('Circle', { center: newCenter, radius: this.radius, isChild: true, ...options })
+    return result
+  }
+
   distancePointer (x: number, y: number): number {
     const pointerCoords = { x, y }
     const distanceToCenter = distance(pointerCoords, this.center)

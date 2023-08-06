@@ -1234,8 +1234,9 @@ const ui = createMachine<Context>({
           }
         },
         waitingForOrigin: {
-          entry: () => {
-            userMessage('Cliquer sur le point d\'origine de la translation.')
+          entry: (context) => {
+            userMessage('Cliquer sur l\'objet à transformer.')
+            context.figure.filter = (e) => e instanceof Point || e instanceof Segment || e instanceof Circle
           },
           on: {
             clickLocation: {
@@ -1243,7 +1244,7 @@ const ui = createMachine<Context>({
               actions: (context, event) => {
                 const [point1, point2] = context.temp.elements as [Point, Point]
                 const origin = event.element
-                context.figure.create('PointByTranslationByPoints', { point1, point2, origin })
+                context.figure.create('ElementByTranslationByPoints', { point1, point2, origin })
                 context.figure.saveState()
               }
             }

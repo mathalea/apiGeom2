@@ -207,4 +207,5 @@ export type typeElement2D = '' |
 'Arc' | 'ArcBy3PointsAndRadius' |
 'Distance' | 'Angle' | 'DynamicCalcul' | 'DynamicX' | 'DynamicY' |
 'Grid' | 'Graph' | 'Graph2' |
-'pointer'
+'pointer' |
+'ElementByTranslationByPoints'
