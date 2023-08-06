@@ -23,8 +23,19 @@ export class TextByPoint extends TextByPosition {
   }
 
   update (): void {
-    if (this.point?.x !== undefined && this.point?.y !== undefined) this.moveTo(this.point?.x, this.point.y)
+    if (this.point?.x !== undefined && this.point?.y !== undefined) super.moveTo(this.point?.x, this.point.y)
     this.notify()
+  }
+
+  /** Déplace le texte aux coordonnées données */
+  moveTo (x: number, y: number): void {
+    const [oldX, oldY] = [this.x, this.y]
+    this.dxInPixels = Math.round(this.figure.xToSx(x - this.point.x) / this.figure.options.moveTextGrid) * this.figure.options.moveTextGrid
+    this.dyInPixels = Math.round(this.figure.yToSy(this.point.y - y) / this.figure.options.moveTextGrid) * this.figure.options.moveTextGrid
+    this.point.labelDxInPixels = this.dxInPixels
+    this.point.labelDyInPixels = this.dyInPixels
+    this.x = oldX
+    this.y = oldY
   }
 
   toJSON (): object {

@@ -71,7 +71,8 @@ const defaultOptions = {
   labelDxInPixels: 15,
   labelDyInPixels: 15,
   latexWidth: 18,
-  latexHeight: 12
+  latexHeight: 12,
+  moveTextGrid: 15
 }
 
 export default defaultOptions

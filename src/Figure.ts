@@ -90,7 +90,7 @@ class Figure {
   /** Figure dynamique ou statique */
   isDynamic: boolean
   /** Point actuellement en train d'être déplacé par la souris */
-  pointInDrag: Point | undefined
+  inDrag: Point | TextByPosition | undefined
   /** Abscisse du coin en bas à gauche */
   xMin: number
   /** Abscisse du coin en bas à droite */
@@ -149,6 +149,7 @@ class Figure {
     labelDyInPixels: number
     latexWidth: number
     latexHeight: number
+    moveTextGrid: number
   }
 
   /**
@@ -271,8 +272,8 @@ class Figure {
     })
 
     const stopDrag = (): void => {
-      if (this.pointInDrag !== undefined) {
-        this.pointInDrag = undefined
+      if (this.inDrag !== undefined) {
+        this.inDrag = undefined
         if (this.container !== null) this.container.style.cursor = 'auto'
         this.saveState()
       }
@@ -284,8 +285,8 @@ class Figure {
       const [pointerX, pointerY] = this.getPointerCoord(event)
       this.pointer.moveTo(pointerX, pointerY)
       handleHover(this, pointerX, pointerY)
-      if (this.pointInDrag === undefined) return
-      this.pointInDrag.moveTo(pointerX, pointerY)
+      if (this.inDrag === undefined) return
+      this.inDrag.moveTo(pointerX, pointerY)
     })
   }
 

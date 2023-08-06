@@ -290,7 +290,9 @@ class Point extends Element2D {
       y: round(this.y),
       label: this.label,
       shape: this.shape,
-      sizeInPixels: this.sizeInPixels
+      sizeInPixels: this.sizeInPixels,
+      labelDxInPixels: this.labelDxInPixels,
+      labelDyInPixels: this.labelDyInPixels
     }
   }
 }

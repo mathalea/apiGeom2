@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48.542221mm"
+   height="48.542221mm"
+   viewBox="0 0 172 172"
+   id="svg7795"
+   version="1.1"
+   inkscape:version="1.2-alpha1 (b6a15bb, 2022-02-23)"
+   sodipodi:docname="moveLabel.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs7797" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.5166306"
+     inkscape:cx="39.526472"
+     inkscape:cy="96.399093"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1440"
+     inkscape:window-height="900"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid6868" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7800">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-222.57143,-232.07648)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none"
+       x="259.35751"
+       y="313.8508"
+       id="text3673"
+       inkscape:export-filename="C:\Users\Seb\Downloads\maths\Mathgraph32\Icones\png\48\Nommer.png"
+       inkscape:export-xdpi="25.11628"
+       inkscape:export-ydpi="25.11628"><tspan
+         sodipodi:role="line"
+         id="tspan3675"
+         x="259.35751"
+         y="313.8508"
+         style="font-weight:bold;font-size:97.892px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'Sans Bold';fill:#4d4d4d;fill-opacity:1">A</tspan></text>
+    <path
+       id="rect1225"
+       style="fill:#4d4d4d;fill-opacity:1;stroke:#800000;stroke-width:0.9375;stroke-linecap:round;stroke-linejoin:round"
+       d="m 371.94472,332.1611 -12.08391,12.08391 -12.08392,-12.08391 -5.12721,5.12721 12.08391,12.08391 -12.08391,12.08392 5.12721,5.12721 12.08392,-12.08391 12.08521,12.08521 5.12721,-5.12722 -12.08521,-12.0852 12.08392,-12.08392 z" />
+    <path
+       id="rect1575"
+       style="fill:#0000ff;stroke:#000080;stroke-width:2.8125;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 293.91696,303.07173 -19.96665,22.76627 15.01387,-0.10537 v 19.32699 h -19.76077 l 0.10773,-14.6843 -23.27726,19.52834 22.98522,20.47654 0.10289,-14.18562 h 19.84217 v 19.327 l -15.01389,-0.10537 19.96665,22.76629 20.93614,-22.48065 -14.504,-0.10067 v -19.40659 h 19.84216 l 0.10289,14.18562 22.98523,-20.47655 -23.27728,-19.52833 0.10773,14.6843 h -19.7608 v -19.40656 l 14.50399,-0.10067 z" />
+  </g>
+</svg>

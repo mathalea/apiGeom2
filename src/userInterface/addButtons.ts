@@ -17,6 +17,7 @@ import markAngle from '../assets/svg/markAngle.svg'
 import matkSegment from '../assets/svg/markSegment.svg'
 import mesureAngle from '../assets/svg/mesureAngle.svg'
 import mesureSegment from '../assets/svg/mesureSegment.svg'
+import moveLabel from '../assets/svg/moveLabel.svg'
 import middle from '../assets/svg/middle.svg'
 import namePoint from '../assets/svg/namePoint.svg'
 import open from '../assets/svg/open.svg'
@@ -59,6 +60,7 @@ const availableIcons = new Map<string, { url: string, tooltip: string }>([
   ['MESURE_ANGLE', { url: mesureAngle, tooltip: 'Mesurer un angle' }],
   ['MESURE_SEGMENT', { url: mesureSegment, tooltip: 'Mesurer une distance' }],
   ['MIDDLE', { url: middle, tooltip: 'Milieu' }],
+  ['MOVE_LABEL', { url: moveLabel, tooltip: 'Déplacer le nom d\'un point' }],
   ['NAME_POINT', { url: namePoint, tooltip: 'Renommer un point' }],
   ['OPEN', { url: open, tooltip: 'Charger un fichier' }],
   ['PERPENDICULAR_BISECTOR', { url: perpendicularBisector, tooltip: 'Médiatrice' }],

@@ -154,12 +154,13 @@ class TextByPosition extends Element2D {
   get latexOptions (): string {
     const superOptions = super.latexOptions
     const options = (superOptions === '') ? [] : superOptions.substring(1, superOptions.length - 1).split(',')
-    let alignment = ''
-    if (this.dyInPixels > 0) alignment = 'above'
-    else if (this.dyInPixels < 0) alignment = 'below'
-    if (this.dxInPixels > 0) alignment += ' right'
-    else if (this.dxInPixels < 0) alignment += ' left'
-    if (alignment !== '') options.push(alignment)
+    const alignment = []
+    if (this.dyInPixels > 0) alignment.push('above')
+    else if (this.dyInPixels < 0) alignment.push('below')
+    if (this.dxInPixels > 0) alignment.push('right')
+    else if (this.dxInPixels < 0) alignment.push('left')
+    const alignmentString = alignment.join(' ')
+    if (alignment.length > 0) options.push(alignmentString)
     return options.join(',')
   }
 

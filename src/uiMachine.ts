@@ -28,6 +28,7 @@ export type eventName =
   | 'LINE'
   | 'LINE_PARALLEL'
   | 'MIDDLE'
+  | 'MOVE_LABEL'
   | 'NAME_POINT'
   | 'OPEN'
   | 'POINT'
@@ -95,6 +96,7 @@ const ui = createMachine<Context>({
     COLOR: 'COLOR',
     DILATE: 'DILATE',
     MIDDLE: 'MIDDLE',
+    MOVE_LABEL: 'MOVE_LABEL',
     NAME_POINT: 'NAME_POINT',
     OPEN: 'OPEN',
     PERPENDICULAR_BISECTOR: 'PERPENDICULAR_BISECTOR',
@@ -334,7 +336,7 @@ const ui = createMachine<Context>({
         clickLocation: {
           target: 'DRAG',
           actions: (context, event) => {
-            context.figure.pointInDrag = event.element
+            context.figure.inDrag = event.element
             context.figure.container.style.cursor = 'move'
           },
           cond: (_, event) => event.element !== undefined
@@ -342,7 +344,7 @@ const ui = createMachine<Context>({
       },
       exit: (context) => {
         context.figure.container.style.cursor = 'default'
-        context.figure.pointInDrag = undefined
+        context.figure.inDrag = undefined
       }
     },
     LATEX: {
@@ -529,9 +531,12 @@ const ui = createMachine<Context>({
             clickLocation: {
               target: 'waitingForName',
               actions: (context, event) => {
-                context.temp.elements[0] = event.element
+                const newPoint = getExistingPointOrCreatedPoint(context, event)
+                if (newPoint !== undefined) {
+                  context.temp.elements[0] = newPoint
+                }
               },
-              cond: (_, event) => event.element !== undefined
+              cond: (_, event) => getExistingPointOrCreatetPoindWasASuccess(event)
             }
           }
         },
@@ -1129,6 +1134,26 @@ const ui = createMachine<Context>({
                 context.figure.saveState()
               },
               cond: (_, event) => event.element !== undefined
+            }
+          }
+        }
+      }
+    },
+    MOVE_LABEL: {
+      entry: (context) => {
+        userMessage('Cliquer sur le point.')
+        context.figure.filter = (e) => e instanceof Point
+      },
+      initial: 'waitingForPoint',
+      states: {
+        waitingForPoint: {
+          on: {
+            clickLocation: {
+              target: 'waitingForPoint',
+              actions: (context, event) => {
+                const point = event.element
+                context.figure.inDrag = point.elementTextLabel
+              }
             }
           }
         }
