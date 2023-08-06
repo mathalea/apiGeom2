@@ -150,6 +150,22 @@ class TextByPosition extends Element2D {
       color: this.color
     }
   }
+
+  get latexOptions (): string {
+    const superOptions = super.latexOptions
+    const options = (superOptions === '') ? [] : superOptions.substring(1, superOptions.length - 1).split(',')
+    let alignment = ''
+    if (this.dyInPixels > 0) alignment = 'above'
+    else if (this.dyInPixels < 0) alignment = 'below'
+    if (this.dxInPixels > 0) alignment += ' right'
+    else if (this.dxInPixels < 0) alignment += ' left'
+    if (alignment !== '') options.push(alignment)
+    return options.join(',')
+  }
+
+  get latex (): string {
+    return `\\node[${this.latexOptions}] at (${this.x},${this.y}) {${this.text}};`
+  }
 }
 
 export default TextByPosition

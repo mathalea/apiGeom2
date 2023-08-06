@@ -13,7 +13,7 @@ export class TextByPoint extends TextByPosition {
   dxInPixels: number
   /** Décalage vertical par rapport au point */
   dyInPixels: number
-  constructor (figure: Figure, { point, text, dxInPixels = 0, dyInPixels = 0, color = 'back', isChild, id }: OptionsRestrictedText) {
+  constructor (figure: Figure, { point, text, dxInPixels = 0, dyInPixels = 0, color = 'black', isChild, id }: OptionsRestrictedText) {
     super(figure, { x: point.x, y: point.y, text, color, isChild, id, dxInPixels, dyInPixels })
     this.type = 'TextByPoint'
     this.dxInPixels = dxInPixels

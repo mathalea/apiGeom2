@@ -58,7 +58,7 @@ export const orangeMathaleaLight = 'rgba(241, 89, 41, 0.5)'
 const defaultOptions = {
   fontSize: '1em',
   pointSize: 5,
-  thickness: 2,
+  thickness: 1,
   color: 'black',
   fillColor: 'blue',
   fillOpacity: 0.2,

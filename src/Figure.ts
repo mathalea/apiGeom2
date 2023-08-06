@@ -447,7 +447,7 @@ class Figure {
       this.svg.setAttribute('height', (this.height).toString())
       this.svg.setAttribute('viewBox', `${this.xToSx(this.xMin)} ${this.yToSy(this.yMax)} ${this.width} ${this.height}`)
     }
-    for (const e of this.elements) {
+    for (const e of this.elements.values()) {
       if (e instanceof Element2D) e.update()
     }
   }

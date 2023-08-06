@@ -236,7 +236,7 @@ class Point extends Element2D {
   }
 
   get label (): string {
-    if (this._label === undefined) return this.id
+    if (this._label === undefined) return ''
     return this._label
   }
 

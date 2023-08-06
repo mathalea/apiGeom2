@@ -116,7 +116,7 @@ class Circle extends Element2D {
 
   get latex (): string {
     let result = '% Cercle ' + this.id
-    result += `\n\\draw (${this.center.x}, ${this.center.y}) circle (${this.radius}cm);`
+    result += `\n\\draw${this.latexOptions} (${this.center.x}, ${this.center.y}) circle (${this.radius});`
     return result
   }
 }

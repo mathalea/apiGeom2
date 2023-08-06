@@ -269,6 +269,23 @@ abstract class Element2D {
       element.groupSvg.setAttribute('stroke', color)
     }
   }
+
+  get latexOptions (): string {
+    const options = []
+    if (this.color !== 'black' && this.color !== '') {
+      options.push(`color=${this.color}`)
+    }
+    if (this.thickness !== 1) {
+      options.push(`line width=${this.thickness}`)
+    }
+    if (this.isDashed) {
+      options.push('dashed')
+    }
+    if (options.length > 0) {
+      return `[${options.join(',')}]`
+    }
+    return ''
+  }
 }
 
 function changeThickness (element: Element2D, thickness: number): void {

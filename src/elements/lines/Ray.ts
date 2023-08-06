@@ -71,7 +71,7 @@ class Ray extends Segment {
   get latex (): string {
     const [x1, y1, x2, y2] = getRayCoordsOut(this.point1, this.point2)
     let result = `%% Droite [${this.point1.label}${this.point2.label})\n`
-    result += `\\draw (${x1}, ${y1}) -- (${x2}, ${y2});`
+    result += `\\draw${this.latexOptions} (${x1}, ${y1}) -- (${x2}, ${y2});`
     return result
   }
 }
