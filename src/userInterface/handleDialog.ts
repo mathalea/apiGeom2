@@ -45,6 +45,7 @@ export function createDialoxBoxK (figure: Figure): HTMLDialogElement {
   input.type = 'number'
   input.min = '-10'
   input.max = '10'
+  input.value = '2'
   input.style.marginLeft = '10px'
   const button = document.createElement('button')
   button.innerHTML = 'Valider'
