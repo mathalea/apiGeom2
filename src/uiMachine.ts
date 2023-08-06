@@ -551,6 +551,7 @@ const ui = createMachine<Context>({
               actions: (context, event) => {
                 const point = context.temp.elements[0] as Point
                 point.label = event.text
+                context.figure.saveState()
               }
             }
           }
