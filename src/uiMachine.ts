@@ -1,4 +1,4 @@
-import Figure from './Figure'
+import type Figure from './Figure'
 import Segment from './elements/lines/Segment'
 import Point from './elements/points/Point'
 import { type AnyEventObject, createMachine } from 'xstate'
@@ -8,6 +8,7 @@ import { distance } from './elements/calculus/Coords'
 import { createDialoxBoxAngle, createDialoxBoxK, createDialoxBoxName, createDialoxBoxRadius } from './userInterface/handleDialog'
 import { orangeMathaleaLight } from './elements/defaultValues'
 import Polygon from './elements/lines/Polyligon'
+import selectionRectangle from './userInterface/selectionRectangle'
 
 interface MyContext {
   figure: Figure
@@ -20,6 +21,7 @@ export type eventName =
   | 'CIRCLE_CENTER_POINT'
   | 'CIRCLE_RADIUS'
   | 'COLOR'
+  | 'DOWNLOAD_LATEX_SVG'
   | 'DILATE'
   | 'DILATE_COEF'
   | 'DRAG'
@@ -45,6 +47,8 @@ export type eventName =
   | 'REMOVE'
   | 'ROTATE'
   | 'SAVE'
+  | 'SELECTION_AREA_TO_SVG'
+  | 'SELECTION_AREA_TO_LATEX'
   | 'SEGMENT'
   | 'SET_OPTIONS'
   | 'TEXT_FROM_DIALOG'
@@ -58,6 +62,7 @@ export type eventOptions =
   | { coefficient: number }
   | { angle: number }
   | { text: string }
+  | { xMin: number, yMax: number, width: number, height: number }
 
 interface MyEvent extends AnyEventObject {
   x?: number
@@ -72,6 +77,7 @@ interface Context {
   temp: {
     values: number[]
     elements: Element2D[]
+    htmlElement: HTMLElement[]
   }
 }
 
@@ -81,13 +87,14 @@ const ui = createMachine<Context>({
   id: 'apiGeomUI',
   initial: 'INIT',
   /* eslint-disable-next-line @typescript-eslint/consistent-type-assertions */
-  context: { figure: {} as Figure, temp: { values: [], elements: [] } },
+  context: { figure: {} as Figure, temp: { values: [], elements: [], htmlElement: [] } },
   on: {
     BISECTOR_BY_POINTS: 'BISECTOR_BY_POINTS',
     POINT: 'POINT',
     LINE: 'LINE',
     SEGMENT: 'SEGMENT',
     DRAG: 'DRAG',
+    DOWNLOAD_LATEX_SVG: 'DOWNLOAD_LATEX_SVG',
     LATEX: 'LATEX',
     LINE_PERPENDICULAR: 'LINE_PERPENDICULAR',
     LINE_PARALLEL: 'LINE_PARALLEL',
@@ -351,9 +358,8 @@ const ui = createMachine<Context>({
     LATEX: {
       entry: (context) => {
         const latex = context.figure.latex
-        const blob = new Blob([latex], { type: 'text/plain' })
+        const blob = new Blob([latex()], { type: 'text/plain' })
         const url = window.URL.createObjectURL(blob)
-
         const a = document.createElement('a')
         a.style.display = 'none'
         a.href = url
@@ -363,6 +369,60 @@ const ui = createMachine<Context>({
         window.URL.revokeObjectURL(url)
         document.body.removeChild(a)
         context.figure.buttons.get('DRAG')?.click()
+      }
+    },
+    DOWNLOAD_LATEX_SVG: {
+      entry: (context) => {
+        context.temp.htmlElement[0] = selectionRectangle(context.figure)
+        // const svg = context.figure.svg.outerHTML
+      },
+      on: {
+        SELECTION_AREA_TO_SVG: {
+          target: 'DRAG',
+          actions: (context, event) => {
+            console.log(event)
+            const xMin = context.figure.xToSx(context.figure.xMin + context.figure.sxTox(event.xMin))
+            const yMax = context.figure.yToSy(context.figure.yMax + context.figure.syToy(event.yMax))
+            context.temp.htmlElement[0].remove()
+            const svg = context.figure.svg.cloneNode(true) as SVGElement
+            svg.setAttribute('width', (event.width).toString())
+            svg.setAttribute('height', (event.height).toString())
+            svg.setAttribute('viewBox', `${xMin} ${yMax} ${event.width as number} ${event.height as number}`)
+            const blob = new Blob([svg.outerHTML], { type: 'image/svg+xml' })
+            const url = window.URL.createObjectURL(blob)
+            const a = document.createElement('a')
+            a.style.display = 'none'
+            a.href = url
+            a.download = 'figure.svg'
+            document.body.appendChild(a)
+            a.click()
+            window.URL.revokeObjectURL(url)
+            document.body.removeChild(a)
+            context.figure.buttons.get('DRAG')?.click()
+          }
+        },
+        SELECTION_AREA_TO_LATEX: {
+          target: 'DRAG',
+          actions: (context, event) => {
+            const xMin = context.figure.xMin + context.figure.sxTox(event.xMin)
+            const xMax = xMin + context.figure.sxTox(event.width)
+            const yMax = context.figure.yMax + context.figure.syToy(event.yMax)
+            const yMin = yMax + context.figure.syToy(event.height)
+            context.temp.htmlElement[0].remove()
+            const latex = context.figure.latex({ xMin, yMin, xMax, yMax })
+            const blob = new Blob([latex], { type: 'text/plain' })
+            const url = window.URL.createObjectURL(blob)
+            const a = document.createElement('a')
+            a.style.display = 'none'
+            a.href = url
+            a.download = 'figure.tex'
+            document.body.appendChild(a)
+            a.click()
+            window.URL.revokeObjectURL(url)
+            document.body.removeChild(a)
+            context.figure.buttons.get('DRAG')?.click()
+          }
+        }
       }
     },
     LINE: {

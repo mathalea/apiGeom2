@@ -5,7 +5,7 @@ import ui from './uiMachine'
 // On créé le svg dans un div
 const div = document.querySelector('#app') as HTMLDivElement
 const figure = new Figure()
-const machineWithContext = ui.withContext({ figure, temp: { values: [], elements: [] } })
+const machineWithContext = ui.withContext({ figure, temp: { values: [], elements: [], htmlElement: [] } })
 figure.ui = interpret(machineWithContext).start()
 
 // On ajoute les boutons
@@ -17,7 +17,7 @@ divButtons.appendChild(figure.addButtons('SEGMENT LINE RAY POLYGON'))
 divButtons.appendChild(figure.addButtons('LINE_PARALLEL LINE_PERPENDICULAR PERPENDICULAR_BISECTOR BISECTOR_BY_POINTS'))
 divButtons.appendChild(figure.addButtons('CIRCLE_CENTER_POINT CIRCLE_RADIUS'))
 divButtons.appendChild(figure.addButtons('REFLECTION_OVER_LINE REFLECTION ROTATE TRANSLATION'))
-divButtons.appendChild(figure.addButtons('DILATE NAME_POINT MOVE_LABEL LATEX'))
+divButtons.appendChild(figure.addButtons('DILATE NAME_POINT MOVE_LABEL DOWNLOAD_LATEX_SVG'))
 divButtons.appendChild(figure.addColorPalette(['black', 'blue', 'red']))
 divButtons.appendChild(figure.addColorPalette(['green', 'orange', 'purple']))
 divButtons.appendChild(figure.addDashedChoice())
@@ -26,3 +26,7 @@ divButtons.appendChild(figure.addThicknessChoice())
 // Création de la figure
 figure.setContainer(div)
 figure.autoAdjustSize()
+
+// Figure dans localStorage ?
+// const loadAuto = div.appendChild(createDialogBoxLoadAuto(figure))
+// loadAuto.showModal()

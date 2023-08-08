@@ -1,4 +1,4 @@
-import Figure from '../Figure'
+import type Figure from '../Figure'
 
 export function createDialoxBoxRadius (figure: Figure): HTMLDialogElement {
   const dialog = document.createElement('dialog')
@@ -145,6 +145,42 @@ export function createDialoxBoxAngle (figure: Figure): HTMLDialogElement {
     dialog.close()
   })
   input.addEventListener('keyup', e => {
+    if (e.key === 'Enter' || e.key === 'Escape') {
+      e.preventDefault()
+      dialog.close()
+    }
+  })
+  return dialog
+}
+
+export function createDialogBoxLoadAuto (figure: Figure): HTMLDialogElement {
+  const dialog = document.createElement('dialog')
+  dialog.style.border = '1px solid black'
+  dialog.style.backgroundColor = 'white'
+  dialog.style.padding = '20px'
+  const label = document.createElement('label')
+  label.innerHTML = 'Souhaitez-vous charger la dernière construction ?'
+  const buttonCancel = document.createElement('button')
+  buttonCancel.innerHTML = 'Non'
+  const button = document.createElement('button')
+  button.innerHTML = 'Oui'
+  button.style.marginLeft = '10px'
+  button.style.marginRight = '10px'
+  dialog.appendChild(label)
+  dialog.appendChild(button)
+  dialog.appendChild(buttonCancel)
+  document.body.appendChild(dialog)
+  button.addEventListener('click', () => {
+    const figureInLocalStorage = localStorage.getItem('apiGeom')
+    if (figureInLocalStorage !== null) {
+      figure.loadJson(JSON.parse(figureInLocalStorage))
+    }
+    dialog.close()
+  })
+  buttonCancel.addEventListener('click', () => {
+    dialog.close()
+  })
+  dialog.addEventListener('keyup', e => {
     if (e.key === 'Enter' || e.key === 'Escape') {
       e.preventDefault()
       dialog.close()

@@ -344,14 +344,14 @@ class Figure {
   }
 
   /** Génère le code LaTeX de la figure */
-  get latex (): string {
+  latex ({ xMin = this.xMin, xMax = this.xMin + this.options.latexWidth, yMin = this.yMax - this.options.latexHeight, yMax = this.yMax }: { xMin?: number, xMax?: number, yMin?: number, yMax?: number } = {}): string {
     let latex = '\\documentclass[french,a4paper]{article}'
     latex += '\n\\usepackage[francais]{babel}'
     latex += '\n\\usepackage[utf8]{inputenc}'
     latex += '\n\\usepackage{tikz}'
     latex += '\n\\begin{document}'
     latex += '\n\\begin{tikzpicture}'
-    latex += `\n\\clip(${this.xMin}, ${this.yMax - this.options.latexHeight}) rectangle (${this.xMin + this.options.latexWidth}, ${this.yMax});`
+    latex += `\n\\clip(${xMin}, ${yMin}) rectangle (${xMax}, ${yMax});`
     for (const element of this.elements.values()) {
       if (element instanceof Element2D &&
         element.latex !== undefined &&

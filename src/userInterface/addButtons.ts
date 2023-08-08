@@ -35,6 +35,7 @@ import rotate from '../assets/svg/rotate.svg'
 import save from '../assets/svg/save.svg'
 import segment from '../assets/svg/segment.svg'
 import setOptions from '../assets/svg/setOptions.svg'
+import latexSvg from '../assets/svg/latexSvg.svg'
 import translation from '../assets/svg/translation.svg'
 import undo from '../assets/svg/undo.svg'
 
@@ -49,6 +50,7 @@ const availableIcons = new Map<string, { url: string, tooltip: string }>([
   ['DILATE', { url: dilate, tooltip: 'Homothétie' }],
   ['DRAG', { url: drag, tooltip: 'Déplacer les points' }],
   ['DRAG_ALL', { url: dragAll, tooltip: 'Déplacer la figure' }],
+  ['DOWNLOAD_LATEX_SVG', { url: latexSvg, tooltip: 'Exporter la figure au format LaTeX ou SVG' }],
   ['GRID', { url: grid, tooltip: 'Afficher le repère' }],
   ['HIDE', { url: hide, tooltip: 'Masquer un élément' }],
   ['LATEX', { url: latex, tooltip: 'Export LaTeX' }],
