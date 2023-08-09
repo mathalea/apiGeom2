@@ -34,6 +34,12 @@ class PointByProjection extends Point {
       sizeInPixels: this.sizeInPixels
     }
   }
+
+  get description (): string {
+    const lineName = this.line.notation
+    const originName = this.origin.label !== '' ? this.origin.label : this.origin.id
+    return `Projection orthogonale de $${originName}$ sur $${lineName}$`
+  }
 }
 
 export default PointByProjection

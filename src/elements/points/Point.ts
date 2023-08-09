@@ -1,7 +1,7 @@
 import type Figure from '../../Figure'
 import { round } from '../../lib/format'
 import Element2D from '../Element2D'
-import { OptionsElement2D } from '../interfaces'
+import type { OptionsElement2D } from '../interfaces'
 import type Line from '../lines/Line'
 import type Segment from '../lines/Segment'
 import type TextByPoint from '../text/TextByPoint'
@@ -305,6 +305,10 @@ class Point extends Element2D {
     let result = `% Point ${this.label}`
     result += `\n\\draw${this.latexOptions} plot[mark=x, mark size=0.15cm] coordinates{(${this.x},${this.y})};`
     return result
+  }
+
+  get description (): string {
+    return `Point $${this.label}$ libre de coordonnées $(${round(this.x, 2)}, ${round(this.y, 2)})$`
   }
 }
 

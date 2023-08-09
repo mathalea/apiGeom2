@@ -50,6 +50,12 @@ class Middle extends Point {
       idPoint2: this.point2.id
     }
   }
+
+  get description (): string {
+    const point1Name = this.point1.label !== '' ? this.point1.label : this.point1.id
+    const point2Name = this.point2.label !== '' ? this.point2.label : this.point2.id
+    return `Milieu de $[${point1Name}${point2Name}]$`
+  }
 }
 
 function coordsMiddle (point1: Point, point2: Point): [number, number] {

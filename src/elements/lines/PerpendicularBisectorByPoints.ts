@@ -17,6 +17,12 @@ class PerpendicularBisectorByPoints extends PerpendicularBisector {
       idPoint2: this.line.point2.id
     }
   }
+
+  get description (): string {
+    const point1Name = this.line.point1.label !== '' ? this.line.point1.label : this.line.point1.id
+    const point2Name = this.line.point2.label !== '' ? this.line.point2.label : this.line.point2.id
+    return `Médiatrice du segment $[${point1Name}${point2Name}]$`
+  }
 }
 
 export default PerpendicularBisectorByPoints

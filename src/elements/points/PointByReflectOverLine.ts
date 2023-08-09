@@ -34,6 +34,12 @@ class PointByReflectOverLine extends Point {
       sizeInPixels: this.sizeInPixels
     }
   }
+
+  get description (): string {
+    const lineName = this.line.notation
+    const originName = this.origin.label !== '' ? this.origin.label : this.origin.id
+    return `Image de $${originName}$ par la symétrie d'axe $${lineName}$`
+  }
 }
 
 export default PointByReflectOverLine

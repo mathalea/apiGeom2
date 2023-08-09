@@ -380,7 +380,6 @@ const ui = createMachine<Context>({
         SELECTION_AREA_TO_SVG: {
           target: 'DRAG',
           actions: (context, event) => {
-            console.log(event)
             const xMin = context.figure.xToSx(context.figure.xMin + context.figure.sxTox(event.xMin))
             const yMax = context.figure.yToSy(context.figure.yMax + context.figure.syToy(event.yMax))
             context.temp.htmlElement[0].remove()

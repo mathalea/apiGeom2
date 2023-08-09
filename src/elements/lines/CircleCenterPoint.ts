@@ -34,6 +34,12 @@ class CircleCenterPoint extends CircleCenterDynamicRadius {
       fillOpacity: this.fillOpacity
     }
   }
+
+  get description (): string {
+    const centerName = this.center.label !== '' ? this.center.label : this.center.id
+    const pointName = this.point.label !== '' ? this.point.label : this.point.id
+    return `Cercle de centre ${centerName} et passant par le point ${pointName}`
+  }
 }
 
 export default CircleCenterPoint

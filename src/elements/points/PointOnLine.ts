@@ -102,6 +102,10 @@ class PointOnLine extends PointByDilate {
       k: this.k
     }
   }
+
+  get description (): string {
+    return `Point sur ${this.line.notation}`
+  }
 }
 
 export default PointOnLine

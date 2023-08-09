@@ -125,6 +125,11 @@ class Circle extends Element2D {
     result += `\n\\draw${this.latexOptions} (${this.center.x}, ${this.center.y}) circle (${this.radius});`
     return result
   }
+
+  get description (): string {
+    const centerName = this.center.label !== '' ? this.center.label : this.center.id
+    return `Cercle de centre ${centerName} et de rayon ${this.radius} cm`
+  }
 }
 
 export default Circle

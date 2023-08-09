@@ -70,9 +70,19 @@ class Ray extends Segment {
 
   get latex (): string {
     const [x1, y1, x2, y2] = getRayCoordsOut(this.point1, this.point2)
-    let result = `%% Droite [${this.point1.label}${this.point2.label})\n`
-    result += `\\draw${this.latexOptions} (${x1}, ${y1}) -- (${x2}, ${y2});`
+    let result = '%' + this.description
+    result += `\n\\draw${this.latexOptions} (${x1}, ${y1}) -- (${x2}, ${y2});`
     return result
+  }
+
+  get description (): string {
+    return `Demi-droite ${this.notation}`
+  }
+
+  get notation (): string {
+    const point1Name = this.point1.label !== '' ? this.point1.label : this.point1.id
+    const point2Name = this.point2.label !== '' ? this.point2.label : this.point2.id
+    return `[${point1Name}${point2Name})`
   }
 }
 function getRayCoordsOut (A: Point, B: Point): [number, number, number, number] {

@@ -43,6 +43,13 @@ class BisectorByPoints extends Ray {
       idOrigin: this.point1.id
     }
   }
+
+  get description (): string {
+    const originName = this.point1.label !== '' ? this.point1.label : this.point1.id
+    const pointOnSide1Name = this.pointOnSide1.label !== '' ? this.pointOnSide1.label : this.pointOnSide1.id
+    const pointOnSide2Name = this.pointOnSide2.label !== '' ? this.pointOnSide2.label : this.pointOnSide2.id
+    return `Bissectrice de l'angle $\\widehat{${pointOnSide1Name}${originName}${pointOnSide2Name}}$`
+  }
 }
 
 export default BisectorByPoints

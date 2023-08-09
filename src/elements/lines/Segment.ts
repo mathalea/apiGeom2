@@ -214,11 +214,19 @@ class Segment extends Element2D {
   }
 
   get latex (): string {
-    const point1Name = this.point1.label ?? this.point1.id
-    const point2Name = this.point2.label ?? this.point2.id
-    let result = `%% Segment [${point1Name}${point2Name}]\n`
-    result += `\\draw${this.latexOptions} (${this.point1.x}, ${this.point1.y}) -- (${this.point2.x}, ${this.point2.y});`
+    let result = '%' + this.description
+    result += `\n\\draw${this.latexOptions} (${this.point1.x}, ${this.point1.y}) -- (${this.point2.x}, ${this.point2.y});`
     return result
+  }
+
+  get description (): string {
+    return `Segment ${this.notation}`
+  }
+
+  get notation (): string {
+    const point1Name = this.point1.label !== '' ? this.point1.label : this.point1.id
+    const point2Name = this.point2.label !== '' ? this.point2.label : this.point2.id
+    return `[${point1Name}${point2Name}]`
   }
 }
 

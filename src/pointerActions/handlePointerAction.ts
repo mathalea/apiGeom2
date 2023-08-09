@@ -1,8 +1,8 @@
 import type Figure from '../Figure'
 import Element2D from '../elements/Element2D'
 import { colors, defaultDeltaXModal, defaultDistanceClick } from '../elements/defaultValues'
-import Point from '../elements/points/Point'
 import TextByPosition from '../elements/text/TextByPosition'
+import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 
 export default function handlePointerAction (figure: Figure, event: PointerEvent): void {
   const [pointerX, pointerY] = figure.getPointerCoord(event)
@@ -33,8 +33,7 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
     const divs = []
     for (const element of possibleElements) {
       const div = document.createElement('div')
-      if (element instanceof Point) div.innerText = (element.label !== '') ? element.label : `Point ${element.id}`
-      else div.innerText = element.type + ' ' + element.id
+      div.innerText = (element.description !== '') ? element.description : element.type + ' ' + element.id
       div.addEventListener('click', () => {
         elementText.remove()
         sendToMachine(figure, { element, x, y })
@@ -50,6 +49,17 @@ export default function handlePointerAction (figure: Figure, event: PointerEvent
       div.style.userSelect = 'none'
       div.style.cursor = 'default'
       divs.push(div)
+      renderMathInElement(div, {
+        delimiters: [
+          { left: '\\[', right: '\\]', display: true },
+          { left: '$', right: '$', display: false }
+        ],
+        preProcess: (chaine: string) => chaine.replaceAll(String.fromCharCode(160), '\\,'),
+        throwOnError: true,
+        errorColor: '#CC0000',
+        strict: 'warn',
+        trust: false
+      })
     }
     for (const div of divs) {
       figure.modal.appendChild(div)

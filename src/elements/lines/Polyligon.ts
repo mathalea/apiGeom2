@@ -149,6 +149,13 @@ class Polygon extends Element2D {
     }
     return minDistance
   }
+
+  get description (): string {
+    return 'Polygone ' + this.points.reduce((acc, point) => {
+      const pointName = point.label === '' ? point.id : point.label
+      return acc + pointName
+    }, '')
+  }
 }
 
 export default Polygon

@@ -1,5 +1,5 @@
-import Figure from '../../Figure'
-import { OptionsElement2D } from '../interfaces'
+import type Figure from '../../Figure'
+import type { OptionsElement2D } from '../interfaces'
 import Point from './Point'
 
 class PointByReflection extends Point {
@@ -33,6 +33,12 @@ class PointByReflection extends Point {
       shape: this.shape,
       sizeInPixels: this.sizeInPixels
     }
+  }
+
+  get description (): string {
+    const centerName = this.center.label !== '' ? this.center.label : this.center.id
+    const originName = this.origin.label !== '' ? this.origin.label : this.origin.id
+    return `Image de $${originName}$ dans la symétrie de centre $${centerName}$`
   }
 }
 

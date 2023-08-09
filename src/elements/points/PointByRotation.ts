@@ -35,6 +35,12 @@ class PointByRotation extends Point {
       sizeInPixels: this.sizeInPixels
     }
   }
+
+  get description (): string {
+    const centerName = this.center.label !== '' ? this.center.label : this.center.id
+    const originName = this.origin.label !== '' ? this.origin.label : this.origin.id
+    return `Image de $${originName}$ dans la rotation de centre $${centerName}$ et d'angle $${this.angle}$°`
+  }
 }
 
 export default PointByRotation

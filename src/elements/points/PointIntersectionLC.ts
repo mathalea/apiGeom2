@@ -53,6 +53,12 @@ export class PointIntersectionLC extends Point {
       label: this.label
     }
   }
+
+  get description (): string {
+    const lineName = this.line.notation
+    const circleName = this.circle.id
+    return `Intersection de la droite $${lineName}$ et du cercle $${circleName}$`
+  }
 }
 
 export default PointIntersectionLC

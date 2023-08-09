@@ -2,7 +2,6 @@ import type Figure from '../Figure'
 import type DynamicNumber from '../dynamicNumbers/DynamicNumber'
 import { orangeMathalea } from './defaultValues'
 import { type OptionsElement2D, type typeElement2D } from './interfaces'
-import type Segment from './lines/Segment'
 
 abstract class Element2D {
   /** Espace de travail dans lequel l'élément sera représenté */
@@ -173,6 +172,10 @@ abstract class Element2D {
     return `% ${this.type} ${this.id}} n'a pas de sortie LaTeX`
   }
 
+  get description (): string {
+    return this.id
+  }
+
   /** Couleur au format HTML */
   get color (): string {
     return this._color
@@ -180,13 +183,6 @@ abstract class Element2D {
 
   /** Change la couleur des tracés de l'élément */
   set color (color: string) {
-    const temp = this as unknown
-    const segment = temp as Segment
-    if (segment?.createdBy !== undefined) {
-      const polygon = segment.createdBy
-      polygon.color = color
-      return
-    }
     this._color = color
     this.changeColor(this, color)
   }
@@ -198,13 +194,6 @@ abstract class Element2D {
 
   /** Change l'épaisseur des tracés */
   set thickness (thickness: number) {
-    const temp = this as unknown
-    const segment = temp as Segment
-    if (segment?.createdBy !== undefined) {
-      const polygon = segment.createdBy
-      polygon.thickness = thickness
-      return
-    }
     this._thickness = thickness
     changeThickness(this, thickness)
   }
@@ -215,17 +204,6 @@ abstract class Element2D {
   }
 
   set isDashed (isDashed) {
-    const temp = this as unknown
-    const segment = temp as Segment
-    if (segment?.createdBy !== undefined) {
-      const polygon = segment.createdBy
-      if (isDashed) {
-        polygon.groupSvg.setAttribute('stroke-dasharray', '4 3')
-      } else {
-        polygon.groupSvg.removeAttribute('stroke-dasharray')
-      }
-      return
-    }
     if (isDashed) {
       this.groupSvg.setAttribute('stroke-dasharray', '4 3')
     } else {

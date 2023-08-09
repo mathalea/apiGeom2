@@ -16,6 +16,10 @@ class PerpendicularBisector extends LinePerpendicular {
       idSegment: this.line.id
     }
   }
+
+  get description (): string {
+    return `Médiatrice du segment $${this.line.notation}$`
+  }
 }
 
 export default PerpendicularBisector

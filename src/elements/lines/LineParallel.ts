@@ -26,6 +26,11 @@ class LineParallel extends LineByPointVector {
       idPoint: this.point.id
     }
   }
+
+  get description (): string {
+    const pointName = this.point.label !== '' ? this.point.label : this.point.id
+    return `Droite parallèle à $${this.line.notation}$ et passant par le point $${pointName}$`
+  }
 }
 
 export default LineParallel

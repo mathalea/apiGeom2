@@ -48,6 +48,12 @@ export class PointIntersectionCC extends Point {
       label: this.label
     }
   }
+
+  get description (): string {
+    const circle1Name = this.circle1.id
+    const circle2Name = this.circle2.id
+    return `Intersection du cercle $${circle1Name}$ et du cercle $${circle2Name}$`
+  }
 }
 
 export default PointIntersectionCC

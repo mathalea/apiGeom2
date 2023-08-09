@@ -46,6 +46,12 @@ export class PointIntersectionLL extends Point {
       label: this.label
     }
   }
+
+  get description (): string {
+    const line1Name = this.line1.notation
+    const line2Name = this.line2.notation
+    return `Intersection de la droite $${line1Name}$ et de la droite $${line2Name}$`
+  }
 }
 
 export default PointIntersectionLL

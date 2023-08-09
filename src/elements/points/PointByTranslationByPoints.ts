@@ -1,5 +1,5 @@
-import Figure from '../../Figure'
-import { OptionsElement2D } from '../interfaces'
+import type Figure from '../../Figure'
+import type { OptionsElement2D } from '../interfaces'
 import Point from './Point'
 
 class PointByTranslationByPoints extends Point {
@@ -32,6 +32,13 @@ class PointByTranslationByPoints extends Point {
       idPoint1: this.point1.id,
       idPoint2: this.point2.id
     }
+  }
+
+  get description (): string {
+    const originName = this.origin.label !== '' ? this.origin.label : this.origin.id
+    const point1Name = this.point1.label !== '' ? this.point1.label : this.point1.id
+    const point2Name = this.point2.label !== '' ? this.point2.label : this.point2.id
+    return `Image de $${originName}$ par la translation qui transforme $${point1Name}$ en $${point2Name}$`
   }
 }
 

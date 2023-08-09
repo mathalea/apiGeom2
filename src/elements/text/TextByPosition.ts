@@ -16,7 +16,6 @@ class TextByPosition extends Element2D {
   dyInPixels: number
   fontSize: string
   _color: string
-  /** Détermine s'il faut utiliser KaTeX pour le rendu du texte */
   private _text!: string
   /** Le texte est mis dans un div qui s'affichera par dessus le SVG */
   div!: HTMLDivElement

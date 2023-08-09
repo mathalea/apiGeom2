@@ -29,6 +29,10 @@ class PointOnCircle extends Point {
     this._y = this.circle.center.y + this.circle.radius * Math.sin(this.angleWithHorizontal)
     super.update()
   }
+
+  get description (): string {
+    return `Point sur le cercle $${this.circle.id}$`
+  }
 }
 
 export default PointOnCircle
