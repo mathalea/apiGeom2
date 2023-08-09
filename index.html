@@ -8,34 +8,35 @@
   <body>
     <section>
       <div id="buttons"></div>
-      <div id="app">
-      </div>
+      <div id="app"></div>
     </section>
     <pre id="save"></pre>
     <script type="module" src="./src/playground.ts"></script>
   </body>
   <style>
+    .katex {
+      font-size: 1em;
+    }
     section {
-    display: flex;
-    gap: 10px;
-  }
-  
-  #buttons {
-    width: 280px;
-  }
-  
-  #app {
-    width: 100%;
-  }
+      display: flex;
+      gap: 10px;
+    }
 
-  #userMessage {
-    height: 50px;
-    font-size: large;
-  }
+    #buttons {
+      width: 280px;
+    }
 
-  #save {
-    margin-top: 50px;
-  }
+    #app {
+      width: 100%;
+    }
+
+    #userMessage {
+      height: 50px;
+      font-size: large;
+    }
+
+    #save {
+      margin-top: 50px;
+    }
   </style>
 </html>
-
