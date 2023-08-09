@@ -170,7 +170,7 @@ abstract class Element2D {
 
   /** Génère le code LaTeX de l'élément */
   get latex (): string {
-    return ''
+    return `% ${this.type} ${this.id}} n'a pas de sortie LaTeX`
   }
 
   /** Couleur au format HTML */

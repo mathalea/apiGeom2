@@ -49,6 +49,7 @@
   "dependencies": {
     "katex": "^0.16.8",
     "mathjs": "^11.9.1",
+    "mobx": "^6.10.0",
     "xstate": "^4.38.2"
   }
 }
